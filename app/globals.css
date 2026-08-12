@@ -1,0 +1,218 @@
+/* ============================================================
+   LoungeLink · site paleti
+   🔴 DEĞERLER APP'TEN BİREBİR KOPYALANDI (rnapp/src/theme.js).
+   İki üründe iki farklı sarı, marka olmadığının işaretidir.
+   Bu dosyada yeni renk ÜRETİLMEZ; app'te olmayan bir renge
+   ihtiyaç duyuluyorsa önce app'e eklenir.
+   ============================================================ */
+:root {
+  --gold: #B8943A;
+  --ink: #1A1F2E;
+  --body: #374151;
+  --muted: #6B7280;
+  --dim: #9CA3AF;
+  --bg: #F8F6F1;
+  --bgAlt: #F0EDE6;
+  --card: #FFFFFF;
+  --teal: #0D9488;
+  --green: #059669;
+  --amber: #D97706;
+  --line: rgba(0, 0, 0, 0.08);
+  --warmLine: rgba(184, 148, 58, 0.22);
+  --goldSoft: rgba(184, 148, 58, 0.10);
+
+  --serif: ui-serif, Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+/* --- Tipografi: app'teki ölçekle aynı mantık, web için büyütülmüş --- */
+h1, h2, h3 { font-family: var(--serif); color: var(--ink); font-weight: 700; line-height: 1.15; }
+h1 { font-size: clamp(34px, 6vw, 60px); letter-spacing: -0.02em; }
+h2 { font-size: clamp(26px, 4vw, 40px); letter-spacing: -0.01em; white-space: pre-line; }
+h3 { font-size: 19px; }
+
+.eyebrow {
+  font-size: 11px; letter-spacing: 2px; font-weight: 700;
+  color: var(--gold); text-transform: uppercase; margin-bottom: 12px;
+}
+
+.lead { font-size: clamp(16px, 2vw, 19px); color: var(--body); line-height: 1.65; }
+
+.note {
+  font-size: 13px; color: var(--muted); line-height: 1.6;
+  border-left: 2px solid var(--warmLine); padding-left: 14px; margin-top: 18px;
+}
+
+/* --- Butonlar --- */
+.btn {
+  display: inline-block; background: var(--gold); color: #fff;
+  padding: 15px 30px; border-radius: 13px; font-weight: 700; font-size: 15px;
+  border: none; cursor: pointer; transition: transform .15s ease, opacity .15s ease;
+}
+.btn:hover { transform: translateY(-1px); opacity: .93; }
+.btn-ghost {
+  background: transparent; color: var(--ink);
+  border: 1px solid var(--line); font-weight: 600;
+}
+
+/* --- Bölüm düzeni: metin + telefon, dönüşümlü --- */
+.section { padding: 84px 0; border-top: 1px solid var(--line); }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.split.rev .col-text { order: 2; }
+
+/* 🔴 TELEFON ÇERÇEVESİ CSS İLE — görsel dosyası değil.
+   Ekran görüntüleri henüz gelmedi; çerçeve hazır olunca içine
+   sadece resmi koymak yetecek. Böylece site şimdi kurulabiliyor. */
+.phone {
+  width: 100%; max-width: 300px; margin: 0 auto;
+  aspect-ratio: 9 / 19.5; background: var(--card);
+  border: 10px solid var(--ink); border-radius: 38px;
+  overflow: hidden; position: relative;
+  box-shadow: 0 24px 60px rgba(26, 31, 46, 0.16);
+}
+.phone img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.phone .placeholder {
+  width: 100%; height: 100%; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 10px;
+  background: var(--bgAlt); color: var(--dim); font-size: 13px; text-align: center; padding: 24px;
+}
+
+.stats { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
+.stat {
+  background: var(--card); border: 1px solid var(--warmLine);
+  border-radius: 14px; padding: 16px 22px; min-width: 128px;
+}
+.stat b { display: block; font-family: var(--serif); font-size: 28px; color: var(--gold); }
+.stat span { font-size: 12.5px; color: var(--muted); }
+
+.faq-item { border-bottom: 1px solid var(--line); padding: 22px 0; }
+.faq-item h3 { margin-bottom: 8px; }
+.faq-item p { font-size: 15px; color: var(--body); }
+
+@media (max-width: 860px) {
+  .split { grid-template-columns: 1fr; gap: 36px; }
+  .split.rev .col-text { order: 0; }
+  .section { padding: 56px 0; }
+}
+
+/* ============================================================
+   TİPOGRAFİ ROLLERİ
+   🔴 Kalıp: her başlık serif. Bunun yerine ROL ayrımı yapıyoruz —
+   tipografi dekorasyon değil, ANLAM taşısın:
+     sans  → BİZİM sesimiz (başlık, açıklama)
+     serif → KURALIN sesi (yalnız hüküm cümleleri)
+     mono  → kodlar (IST, TK1979, ELPL) — biniş kartı vernakülü
+   ============================================================ */
+:root { --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+
+h1, h2 {
+  font-family: var(--sans);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.serif { font-family: var(--serif); font-weight: 700; letter-spacing: -0.01em; }
+.mono  { font-family: var(--mono); letter-spacing: 0.14em; font-size: 0.86em; }
+
+/* --- Biniş kartı koçan hattı: bölüm ayıracı --- */
+.tear {
+  border: 0; height: 1px; margin: 0;
+  background: repeating-linear-gradient(90deg,
+    var(--line) 0 7px, transparent 7px 15px);
+}
+
+/* ============================================================
+   3 BOYUTLU TELEFON
+   ============================================================ */
+.phone-stage { display: flex; justify-content: center; perspective: 1400px; }
+.phone {
+  position: relative; width: 100%; max-width: 286px;
+  aspect-ratio: 9 / 19.2; background: var(--ink);
+  border-radius: 40px; padding: 9px;
+  transform-style: preserve-3d;
+  transition: transform .5s cubic-bezier(.2,.7,.3,1);
+}
+.phone-screen {
+  width: 100%; height: 100%; border-radius: 32px;
+  overflow: hidden; background: var(--bg);
+}
+/* Tek ve zayıf yansıma. İkinci bir parlama plastik görünüm yaratır. */
+.phone-glare {
+  position: absolute; inset: 9px; border-radius: 32px; pointer-events: none;
+  background: linear-gradient(122deg, rgba(255,255,255,.30) 0%,
+              rgba(255,255,255,0) 34%, rgba(255,255,255,0) 100%);
+}
+.phone-stage.floating .phone { animation: float 7s ease-in-out infinite; }
+@keyframes float { 0%,100% { translate: 0 0; } 50% { translate: 0 -13px; } }
+
+/* Fareyle üzerine gelince cihaz DÜZLEŞİR — "yakından bak" hissi.
+   Dönmek yerine düzleşmek, içeriği okunur hale getirir. */
+.phone-stage:hover .phone { transform: perspective(1400px) rotateY(0) rotateX(0) rotateZ(0) scale(1.02) !important; }
+
+/* ============================================================
+   İMZA: CANLI KURAL MATRİSİ
+   ============================================================ */
+.demo {
+  background: var(--card); border: 1px solid var(--warmLine);
+  border-radius: 20px; padding: 24px;
+  box-shadow: 0 20px 56px rgba(26,31,46,.10);
+}
+.demo-head {
+  display: flex; align-items: center; gap: 9px;
+  font-size: 12.5px; color: var(--muted); font-weight: 600; margin-bottom: 20px;
+}
+.demo-tag {
+  background: var(--gold); color: #fff; font-size: 9.5px; letter-spacing: 1.4px;
+  font-weight: 800; border-radius: 6px; padding: 3px 8px;
+}
+.demo-label {
+  font-size: 10.5px; letter-spacing: 1.6px; font-weight: 800;
+  color: var(--dim); text-transform: uppercase; margin: 16px 0 9px;
+}
+.demo-row { display: flex; flex-wrap: wrap; gap: 7px; }
+.pill {
+  font: inherit; font-size: 13px; cursor: pointer;
+  background: var(--bg); color: var(--body);
+  border: 1px solid var(--line); border-radius: 20px; padding: 8px 15px;
+  transition: background .16s ease, color .16s ease, border-color .16s ease;
+}
+.pill:hover { border-color: var(--gold); }
+.pill.on { background: var(--gold); border-color: var(--gold); color: #fff; font-weight: 700; }
+.pill:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+.demo-out {
+  border: 1px solid; border-radius: 15px; padding: 20px; margin-top: 22px;
+  transition: background .22s ease, border-color .22s ease;
+}
+.demo-out-code { font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+/* 🔴 Hüküm cümlesi SERIF — burada konuşan biz değil, havayolunun kuralı. */
+.demo-out-verdict { font-family: var(--serif); font-size: clamp(20px,3vw,27px); font-weight: 700; line-height: 1.2; }
+.demo-out-detail { font-size: 14px; color: var(--body); margin-top: 9px; line-height: 1.55; }
+.demo-foot { font-size: 11.5px; color: var(--dim); margin-top: 16px; line-height: 1.5; }
+
+/* --- Kaydırmayla beliriş --- */
+@keyframes rise { from { opacity: 0; translate: 0 22px; } to { opacity: 1; translate: 0 0; } }
+.rise { animation: rise .6s cubic-bezier(.2,.7,.3,1) both; }
+
+/* 🔴 Hareket tercihi MUTLAK. Vestibüler rahatsızlığı olan biri için
+   süzülen bir telefon rahatsız edicidir; bu bir tercih değil erişimdir. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .phone-stage.floating .phone { animation: none !important; }
+}
