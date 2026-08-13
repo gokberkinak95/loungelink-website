@@ -1,4 +1,4 @@
-import { SITE, SECTIONS, FAQ, STATS } from "../lib/content";
+import { SITE, SECTIONS, FAQ, STATS, FLOW, SHOTS_MAIN, SHOTS_TRUST, PROGRAMS, TRUST } from "../lib/content";
 import Phone from "../components/Phone";
 import RuleDemo from "../components/RuleDemo";
 
@@ -39,8 +39,8 @@ export default function Home() {
         <div className="wrap split rise">
           <div className="col-text">
             <div className="eyebrow">Havalimanı yol arkadaşı</div>
-            <h1>{SITE.tagline}</h1>
-            <p className="lead" style={{ marginTop: 20, maxWidth: 500 }}>{SITE.intro}</p>
+            <h1>{SITE.hero}</h1>
+            <p className="lead" style={{ marginTop: 20, maxWidth: 500 }}>{SITE.heroSub}</p>
             <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
               <a href="#beta" className="btn">{SITE.betaCta}</a>
               <a href="/rehber" className="btn btn-ghost">Salon Rehberi</a>
@@ -55,6 +55,114 @@ export default function Home() {
             </div>
           </div>
           <div><RuleDemo /></div>
+        </div>
+      </section>
+
+      <hr className="tear" />
+
+      {/* --- GERÇEK EKRANLAR ---
+          🔴 Rakip cilalı mockup gösteriyor; biz 12 Ağustos beta
+          build'inin CİHAZ görüntülerini gösteriyoruz ve bunu
+          söylüyoruz. "Gerçek" iddiası, cilalı görselden daha çok
+          güven üretir — üründe saklayacak şeyimiz yok. */}
+      <section className="section" style={{ paddingTop: 54, paddingBottom: 54 }}>
+        <div className="wrap" style={{ textAlign: "center" }}>
+          <div className="eyebrow">Beta'dan gerçek ekranlar</div>
+          <div className="shots">
+            {SHOTS_MAIN.map((p) => (
+              <img key={p.src} src={p.src} alt={p.alt} className="shot" loading="lazy" />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <hr className="tear" />
+
+      {/* --- AKIŞ: 3 ADIM — numara gerçek sıra taşıyor --- */}
+      <section className="section" id="akis" style={{ background: "var(--bgAlt)" }}>
+        <div className="wrap">
+          <div className="eyebrow">Nasıl çalışır</div>
+          <h2>Uçuşunu yaz, eşleşmeni bul.</h2>
+          <div className="flow">
+            {FLOW.map((f) => (
+              <div className="flow-step" key={f.n}>
+                <div className="flow-n">{f.n}</div>
+                <h3>{f.t}</h3>
+                <p>{f.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <hr className="tear" />
+
+      {/* --- NEDEN --- */}
+      <section className="section" id="neden">
+        <div className="wrap split">
+          <div className="col-text">
+            <div className="eyebrow">Neden LoungeLink</div>
+            <h2>Her uçuşta biri yalnız uçuyor — ve yanında bir kişilik yer var.</h2>
+            <p className="lead" style={{ marginTop: 18 }}>
+              Kartındaki misafir hakkı yıl sonunda sessizce siliniyor. Aynı anda,
+              aynı terminalde biri üç saatlik aktarmayı telefonuna bakarak geçiriyor.
+              İki tarafı da tanıyoruz; ikisini buluşturuyoruz.
+            </p>
+            <p className="note">
+              Aynı uçuşta, aynı salonda — kalkıştan önce yanındaki koltuktaki kişiyle tanış.
+            </p>
+          </div>
+          <div className="shots shots-sm">
+            {SHOTS_TRUST.map((p) => (
+              <img key={p.src} src={p.src} alt={p.alt} className="shot" loading="lazy" />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <hr className="tear" />
+
+      {/* --- KURAL MOTORU ---
+          🔴 Rakipte 4 GENEL ittifak kartı var; bizde her kart gerçek
+          kural verisinden konuşuyor. Bu bölüm bizim hendek. */}
+      <section className="section" id="kural" style={{ background: "var(--bgAlt)" }}>
+        <div className="wrap">
+          <div className="eyebrow">Kural motoru</div>
+          <h2>"Bu kartla misafir götürebilir miyim?"</h2>
+          <p style={{ marginTop: 10, fontFamily: "var(--serif)", fontSize: 19, color: "var(--gold)", fontStyle: "italic" }}>
+            {SITE.ruleSlogan}
+          </p>
+          <p className="lead" style={{ marginTop: 12, maxWidth: 640 }}>
+            Türkiye'de bu sorunun cevabını üç saniyede veren tek yer. Her program
+            resmî kaynağından, tarih damgasıyla modellenir — kapıda sürpriz yok.
+          </p>
+          <div className="prog-grid">
+            {PROGRAMS.map((p) => (
+              <div className="prog-card" key={p.t}>
+                <div className="prog-tag">{p.tag}</div>
+                <h3>{p.t}</h3>
+                <p>{p.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <hr className="tear" />
+
+      {/* --- GÜVEN — hepsi app'te gerçekten var olan mekanizmalar --- */}
+      <section className="section" id="guven">
+        <div className="wrap">
+          <div className="eyebrow">Güven & güvenlik</div>
+          <h2>Güven, süs değil iskelet.</h2>
+          <div className="prog-grid trust-grid">
+            {TRUST.map((c) => (
+              <div className="prog-card" key={c.t}>
+                <h3>{c.t}</h3>
+                <p>{c.d}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -76,6 +184,22 @@ export default function Home() {
       ))}
       <hr className="tear" />
 
+      {/* --- SSS ---
+          🔴 v0.3.1 SEO: FAQPage JSON-LD. Rakip FAQ-ağır SEO oynuyor;
+          bizim SSS içeriğimiz zaten var, şema onu Google'ın zengin
+          sonuçlarına aday yapar. Veri FAQ dizisinden üretilir — metin
+          değişince şema kendiliğinden günceldir, elle senkron yok. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: FAQ.map((f) => ({
+            "@type": "Question", name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }) }}
+      />
       {/* --- SSS --- */}
       <section className="section" id="sss" style={{ background: "var(--bgAlt)" }}>
         <div className="wrap" style={{ maxWidth: 760 }}>
@@ -94,7 +218,8 @@ export default function Home() {
       <section className="section" id="beta" style={{ textAlign: "center" }}>
         <div className="wrap" style={{ maxWidth: 620 }}>
           <div className="eyebrow">Kapalı beta</div>
-          <h2>İlk 100 host'tan biri olun.</h2>
+          <h2>{SITE.closing} <em style={{ color: "var(--gold)", fontStyle: "italic" }}>{SITE.closingEm}</em></h2>
+          <p className="lead" style={{ marginTop: 10 }}>{"İlk 100 host'tan biri olun — Kurucu Host rozeti kalıcıdır."}</p>
           <p className="lead" style={{ marginTop: 16 }}>
             Kurucu Host rozeti kalıcıdır ve sonradan alınamaz. Beta'ya katılmak için
             e-posta gönderin; sizi listeye ekleyelim.
@@ -119,7 +244,7 @@ export default function Home() {
           <div style={{ flex: 1, minWidth: 200 }}>
             <b style={{ fontFamily: "var(--serif)", color: "var(--ink)", fontSize: 16 }}>◈ LoungeLink</b>
             <p style={{ marginTop: 6, fontSize: 12.5 }}>
-              Lounge erişimi satmaz. Doğrulanmış yolcuları buluşturur.
+              {SITE.footerSlogan} Lounge erişimi satmaz; doğrulanmış yolcuları buluşturur.
             </p>
           </div>
           <div style={{ display: "flex", gap: 22, flexWrap: "wrap" }}>

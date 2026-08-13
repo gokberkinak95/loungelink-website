@@ -216,3 +216,39 @@ h1, h2 {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .phone-stage.floating .phone { animation: none !important; }
 }
+
+/* ---- v0.3: ekran şeritleri + akış + program kartları ---- */
+.shots { display: flex; gap: 22px; justify-content: center; margin-top: 30px; flex-wrap: wrap; }
+.shot {
+  width: 232px; max-width: 28vw; border-radius: 26px;
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 44px rgba(31, 41, 55, .14);
+  background: var(--card);
+}
+.shots .shot:nth-child(2) { transform: translateY(-14px); }
+.shots-sm { justify-content: flex-end; }
+.shots-sm .shot { width: 150px; max-width: 22vw; }
+@media (max-width: 760px) {
+  .shot { max-width: 42vw; }
+  .shots-sm { justify-content: center; margin-top: 26px; }
+}
+
+.flow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 34px; }
+.flow-step { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+.flow-n { font-family: var(--serif); font-size: 15px; color: var(--gold); letter-spacing: 2px; margin-bottom: 10px; }
+.flow-step h3 { font-size: 17px; margin-bottom: 8px; color: var(--ink); }
+.flow-step p { font-size: 14px; line-height: 1.55; color: var(--muted); }
+@media (max-width: 760px) { .flow { grid-template-columns: 1fr; } }
+
+.prog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 30px; }
+.trust-grid { grid-template-columns: repeat(3, 1fr); }
+.prog-card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
+.prog-tag {
+  display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--gold);
+  background: var(--goldSoft, rgba(180, 140, 50, .1));
+  border-radius: 999px; padding: 3px 10px; margin-bottom: 10px;
+}
+.prog-card h3 { font-size: 16.5px; color: var(--ink); margin-bottom: 7px; }
+.prog-card p { font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+@media (max-width: 860px) { .prog-grid, .trust-grid { grid-template-columns: 1fr; } }

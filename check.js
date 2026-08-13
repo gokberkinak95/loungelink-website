@@ -91,9 +91,35 @@ if (fs.existsSync(OUT)) {
     // geçiyor, yani profil ekranı BOŞ dönse bile denetim geçiyordu.
     // Mutasyon testi bunu gösterdi: yakalamayan bir denetim,
     // olmayan bir denetimden kötüdür — çünkü güven verir.
-    ["Kurucu Host #12", "profil ekranı içeriği"],
-    ["01:12", "oturum ekranı içeriği"],
+    // 🔴 v0.3: çizim ekranlar (Kurucu Host #12 / 01:12 sayacı) kaldırıldı,
+    // yerine GERÇEK cihaz görüntüleri geldi. Denetim de gerçeğe bakar:
+    // görsel şeritleri ve yeni bölümler HTML'e gerçekten basılmış mı?
+    ["/screens/ss-home.jpg", "gerçek ekran şeridi (ana)"],
+    ["/screens/ss-splash.jpg", "gerçek ekran şeridi (güven)"],
+    ["flow-n", "3 adımlı akış bölümü"],
+    ["prog-card", "kural motoru program kartları"],
   ];
+  // 🔴 v0.3'te YAKALANAN hata kalıcı denetime çevrildi: eski SECTIONS
+  // ile yeni bölümler aynı id'yi taşıyınca HTML'de id="kural" iki kez
+  // basıldı (geçersiz HTML + çapa yanlış yere gider). Artık her sayfada
+  // mükerrer id aranır.
+  // 🔴 HTML'de src basılması dosyanın VAR olduğunu kanıtlamaz (statik
+  // dize her koşulda basılır, dosya yoksa canlıda 404 görünür). İlk
+  // mutasyon denemem bunu gösterdi: görseli sildim, denetim yine yeşildi.
+  // Artık HTML'deki her /screens/ referansının public'te karşılığı aranır.
+  const shotRefs = [...new Set([...html.matchAll(/\/screens\/[\w.-]+/g)].map((m) => m[0]))];
+  for (const ref of shotRefs) {
+    if (!fs.existsSync(path.join(__dirname, "public", ref))) {
+      console.log(`  ✗ HTML ${ref} gösteriyor ama dosya public'te YOK (canlıda 404)`);
+      bad++;
+    }
+  }
+  const ids = [...html.matchAll(/ id="([^"]+)"/g)].map((m) => m[1]);
+  const dup = ids.filter((x, i) => ids.indexOf(x) !== i);
+  if (dup.length) {
+    console.log(`  ✗ mükerrer id: ${[...new Set(dup)].join(", ")}`);
+    bad++;
+  }
   for (const [needle, label] of must) {
     if (!html.includes(needle)) {
       console.log(`  ✗ üretilen HTML'de ${label} yok — bileşen boş dönüyor olabilir`);
