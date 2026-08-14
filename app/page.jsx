@@ -16,6 +16,10 @@ import RuleDemo from "../components/RuleDemo";
 export default function Home() {
   return (
     <>
+      {/* Sayfa boyunca süren atmosfer — sabit katman, scroll eden
+          kapsayıcıya konsa her karede yeniden boyanırdı. */}
+      <div className="aurora" aria-hidden="true" />
+      <div className="grain-fixed" aria-hidden="true" />
       <header style={{ borderBottom: "1px solid var(--line)", background: "var(--card)" }}>
         <div className="wrap" style={{ display: "flex", alignItems: "center", height: 66, gap: 20 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 9, flex: 1 }}>
@@ -72,9 +76,9 @@ export default function Home() {
         </div>
       </section>
 
-      <hr className="tear" />
+      <hr className="wing-rule" />
 
-      <hr className="tear" />
+      <hr className="wing-rule" />
 
       {/* --- AKIŞ: 3 ADIM — numara gerçek sıra taşıyor --- */}
       <section className="section dark-band alt" id="akis">
@@ -96,7 +100,7 @@ export default function Home() {
         </div>
       </section>
 
-      <hr className="tear" />
+      <hr className="wing-rule" />
 
       {/* --- NEDEN --- */}
       <section className="section dark-band" id="neden">
@@ -123,7 +127,7 @@ export default function Home() {
         </div>
       </section>
 
-      <hr className="tear" />
+      <hr className="wing-rule" />
 
       {/* --- KURAL MOTORU ---
           🔴 Rakipte 4 GENEL ittifak kartı var; bizde her kart gerçek
@@ -153,7 +157,7 @@ export default function Home() {
         </div>
       </section>
 
-      <hr className="tear" />
+      <hr className="wing-rule" />
 
       {/* --- GÜVEN — hepsi app'te gerçekten var olan mekanizmalar --- */}
       <section className="section dark-band" id="guven">
@@ -181,7 +185,7 @@ export default function Home() {
         </div>
       </section>
 
-      <hr className="tear" />
+      <hr className="wing-rule" />
 
       {/* --- BÖLÜMLER --- */}
       {SECTIONS.map((s, i) => (
@@ -207,7 +211,7 @@ export default function Home() {
           </div>
         </section>
       ))}
-      <hr className="tear" />
+      <hr className="wing-rule" />
 
       {/* --- SSS ---
           🔴 v0.3.1 SEO: FAQPage JSON-LD. Rakip FAQ-ağır SEO oynuyor;

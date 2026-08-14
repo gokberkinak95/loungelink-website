@@ -470,3 +470,59 @@ footer a { color: var(--gold); }
   .rise > *, .prog-grid > *, .flow > *, .trust-grid > * { animation: none; }
   .beat span { transition: none; }
 }
+
+/* ============================================================
+   🔴 GÖRÜNMEYEN BUTON — gerçek hata
+   `.dark-band a { color: var(--gold) }` kuralı, altın zeminli
+   butonun beyaz metnini de eziyordu: altın üstüne altın = görünmez.
+   Bağlantı rengi kuralı BUTON OLMAYAN bağlantılara uygulanır.
+   Ders: geniş bir seçici (a) dar bir bileşeni (.btn) ezer; koyu
+   tema eklerken bileşen istisnaları da yazılmalı.
+   ============================================================ */
+.dark-band a.btn,
+.dark-band a.btn-gold { color: #14100A !important; }
+.dark-band a.btn { background: var(--gold); }
+.dark-band a.btn:hover { opacity: .92; }
+
+/* ============================================================
+   AURORA — Lounge Surf'ün sayfa boyunca süren atmosferi
+   Onlarda arka plan tek renk değil: yukarıdan aşağı hafifçe ısınan,
+   sürekli devam eden bir sahne var. Bizde hero'da vardı ama alt
+   bölümlerde kesiliyordu. Bu katman TÜM sayfada, sabit konumda ve
+   pointer-event almadan durur (design-taste §5: grain/efekt
+   katmanları scroll eden kapsayıcıya değil sabit katmana konur —
+   yoksa sürekli GPU repaint).
+   ============================================================ */
+.aurora {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(60% 40% at 85% 12%, rgba(184,148,58,.13), transparent 60%),
+    radial-gradient(50% 35% at 10% 45%, rgba(13,148,136,.07), transparent 60%),
+    radial-gradient(70% 50% at 60% 95%, rgba(184,148,58,.10), transparent 65%);
+}
+.grain-fixed {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: .045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>");
+}
+.section, footer { position: relative; z-index: 2; }
+
+/* Bölüm numarası — LS'in sessiz düzen işareti. İçeriği bölmeden
+   ritmi görünür kılar; göz nerede olduğunu bilir. */
+.sec-no {
+  position: absolute; top: 34px; right: 40px; font-family: var(--serif);
+  font-size: 13px; letter-spacing: .28em; color: rgba(184,148,58,.42);
+}
+@media (max-width: 760px) { .sec-no { display: none; } }
+
+/* Kanat çizgisi: bölümler arası ince altın yay — bizim imzamız */
+.wing-rule { position: relative; height: 1px; margin: 0; border: 0; overflow: visible; }
+.wing-rule::after {
+  content: ""; position: absolute; left: 12%; right: 12%; top: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(184,148,58,.55), transparent);
+}
+.wing-rule::before {
+  content: ""; position: absolute; left: 50%; top: -3px; width: 7px; height: 7px;
+  margin-left: -3.5px; border-radius: 50%; background: var(--gold); opacity: .75;
+  box-shadow: 0 0 18px rgba(184,148,58,.55);
+}
