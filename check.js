@@ -156,6 +156,27 @@ if (fs.existsSync(OUT)) {
       }
     }
   }
+  // 🔴 v0.9 — §3 RİTİM DENETİMİ (MARKA_RUHU): her bölüm SAHNE→KANIT→DAVET
+  // üçlüsünün üçüncü vuruşuyla kapanmalı. Bilgiyle bırakılan okuyucu
+  // akıştan düşer. Bu denetim yazılmadan önce beş bölümde davet yoktu
+  // ve kimse fark etmemişti — ritim "hissedilen" bir şey olduğu için
+  // gözden kaçıyor; sayıya bağlanınca kaçmıyor.
+  {
+    const idx = fs.readFileSync("./.next/server/app/index.html", "utf8");
+    const sectionCount = (idx.match(/section dark-band/g) || []).length;
+    const beatCount = (idx.match(/class="beat"/g) || []).length;
+    // Hero ve SSS/beta bölümleri kendi çağrılarını taşır; kalan içerik
+    // bölümlerinin her biri bir davet vuruşu ister.
+    // 🔴 İlk yazımda eşik 5'ti, oysa 6 vuruş vardı: bir vuruş silinse
+    // denetim yine yeşil kalıyordu. Mutasyon testi bunu gösterdi —
+    // eşik GERÇEK sayıya kilitlenir, yoksa denetim uyur.
+    const beklenen = 6;
+    if (beatCount < beklenen) {
+      console.log(`  ✗ §3 ritim: ${sectionCount} bölümde yalnız ${beatCount} davet vuruşu var (en az ${beklenen} olmalı)`);
+      bad++;
+    }
+  }
+
   for (const [needle, label] of must) {
     if (!html.includes(needle)) {
       console.log(`  ✗ üretilen HTML'de ${label} yok — bileşen boş dönüyor olabilir`);

@@ -22,7 +22,7 @@ export default function Home() {
             {/* v0.6 — marka işareti: app ikonuyla AYNI konik kanat darbesi.
                 Metin sembolü (◈) yerine gerçek işaret; SVG olduğu için
                 her ekranda keskin ve 0 KB'a yakın. */}
-            <img src="/mark.svg" alt="" width={26} height={26} style={{ display: "block" }} />
+            <img src="/mark.svg" alt="LoungeLink" width={44} height={44} style={{ display: "block" }} />
             <b style={{ fontFamily: "var(--serif)", fontSize: 18, color: "var(--ink)" }}>
               LoungeLink
             </b>
@@ -77,7 +77,7 @@ export default function Home() {
       <hr className="tear" />
 
       {/* --- AKIŞ: 3 ADIM — numara gerçek sıra taşıyor --- */}
-      <section className="section" id="akis" style={{ background: "var(--bgAlt)" }}>
+      <section className="section dark-band alt" id="akis">
         <div className="wrap">
           <div className="eyebrow">Nasıl çalışır</div>
           <h2>Uçuşunu yaz, eşleşmeni bul.</h2>
@@ -90,13 +90,16 @@ export default function Home() {
               </div>
             ))}
           </div>
+        
+          {/* v0.9 — §3 ritim: bölüm DAVET vuruşuyla kapanır. Okuyucu bilgiyle bırakılırsa akış durur; her bölüm bir sonraki adımı işaret etmeli. */}
+          <a className="beat" href="/rehber">Kartını sor, cevabı 3 saniyede gör <span>→</span></a>
         </div>
       </section>
 
       <hr className="tear" />
 
       {/* --- NEDEN --- */}
-      <section className="section" id="neden">
+      <section className="section dark-band" id="neden">
         <div className="wrap split">
           <div className="col-text">
             <div className="eyebrow">Neden LoungeLink</div>
@@ -115,6 +118,8 @@ export default function Home() {
               <img key={p.src} src={p.src} alt={p.alt} className="shot" loading="lazy" />
             ))}
           </div>
+        {/* v0.9 — §3 ritim: bölüm DAVET vuruşuyla kapanır. Okuyucu bilgiyle bırakılırsa akış durur; her bölüm bir sonraki adımı işaret etmeli. */}
+          <a className="beat" href="#beta">Sıradaki uçuşunda yalnız uçma <span>→</span></a>
         </div>
       </section>
 
@@ -123,7 +128,7 @@ export default function Home() {
       {/* --- KURAL MOTORU ---
           🔴 Rakipte 4 GENEL ittifak kartı var; bizde her kart gerçek
           kural verisinden konuşuyor. Bu bölüm bizim hendek. */}
-      <section className="section" id="kural" style={{ background: "var(--bgAlt)" }}>
+      <section className="section dark-band alt" id="kural">
         <div className="wrap">
           <div className="eyebrow">Kural motoru</div>
           <h2>"Bu kartla misafir götürebilir miyim?"</h2>
@@ -143,24 +148,36 @@ export default function Home() {
               </div>
             ))}
           </div>
+        {/* v0.9 — §3 ritim: bölüm DAVET vuruşuyla kapanır. Okuyucu bilgiyle bırakılırsa akış durur; her bölüm bir sonraki adımı işaret etmeli. */}
+          <a className="beat" href="/rehber">Kendi kartının cevabını gör <span>→</span></a>
         </div>
       </section>
 
       <hr className="tear" />
 
       {/* --- GÜVEN — hepsi app'te gerçekten var olan mekanizmalar --- */}
-      <section className="section" id="guven">
+      <section className="section dark-band" id="guven">
         <div className="wrap">
           <div className="eyebrow">Güven & güvenlik</div>
+          {/* v0.8 — İFADE SATIRI: LS kart ızgaralarının arasına tek
+              cümlelik büyük ifadeler koyuyor; okuyucu nefes alıyor ve
+              argüman ilerliyor. Bizim karşılığımız kural motoruna bağlı. */}
+          <p className="statement">Çoğu lounge üyeliği yanına bir kişi alır.<br />Sorun hakkın olması değil — kimin yanında olacağı.</p>
           <h2>Güven, süs değil iskelet.</h2>
           <div className="prog-grid trust-grid">
-            {TRUST.map((c) => (
-              <div className="prog-card" key={c.t}>
+            {/* v0.8 — LS kart grameri: sessiz ikon çipi + soru başlığı +
+                somut ayrıntılı gövde. Çip tek renk ve düşük kontrast;
+                dikkat başlığa gitsin, ikona değil. */}
+            {TRUST.map((c, i) => (
+              <div className="prog-card" key={c.t} style={{ "--i": i }}>
+                <span className="chip-ico" aria-hidden="true">{c.i}</span>
                 <h3>{c.t}</h3>
                 <p>{c.d}</p>
               </div>
             ))}
           </div>
+        {/* v0.9 — §3 ritim: bölüm DAVET vuruşuyla kapanır. Okuyucu bilgiyle bırakılırsa akış durur; her bölüm bir sonraki adımı işaret etmeli. */}
+          <a className="beat" href="#beta">Güvenli tarafta başla <span>→</span></a>
         </div>
       </section>
 
@@ -168,13 +185,15 @@ export default function Home() {
 
       {/* --- BÖLÜMLER --- */}
       {SECTIONS.map((s, i) => (
-        <section className="section" id={s.id} key={s.id}>
+        <section className={"section dark-band" + (i % 2 ? " alt" : "")} id={s.id} key={s.id}>
           <div className={"wrap split" + (i % 2 ? " rev" : "")}>
             <div className="col-text">
               <div className="eyebrow">{s.eyebrow}</div>
               <h2>{s.title}</h2>
               <p className="lead" style={{ marginTop: 18 }}>{s.body}</p>
               {s.note && <p className="note">{s.note}</p>}
+              {/* v0.9 — §3: bölüm metni DAVET vuruşuyla biter */}
+              <a className="beat" href={s.cta?.href || "#beta"}>{s.cta?.label || "Beta listesine yazıl →"}</a>
             </div>
             {/* 🔴 v0.4 (Gokberk: "gerçekçi olmayan görseller iğrenç
                 duruyor") — HAKLI. Bu bölümlerde ÇİZİM telefon vardı:
@@ -207,7 +226,7 @@ export default function Home() {
         }) }}
       />
       {/* --- SSS --- */}
-      <section className="section" id="sss" style={{ background: "var(--bgAlt)" }}>
+      <section className="section dark-band alt" id="sss">
         <div className="wrap" style={{ maxWidth: 760 }}>
           <div className="eyebrow">Sık sorulanlar</div>
           <h2 style={{ marginBottom: 14 }}>Aklınızdaki soru muhtemelen burada.</h2>
@@ -221,7 +240,7 @@ export default function Home() {
       </section>
 
       {/* --- BETA --- */}
-      <section className="section" id="beta" style={{ textAlign: "center" }}>
+      <section className="section dark-band" id="beta" style={{ textAlign: "center" }}>
         <div className="wrap" style={{ maxWidth: 620 }}>
           <div className="eyebrow">Kapalı beta</div>
           <h2>{SITE.closing} <em style={{ color: "var(--gold)", fontStyle: "italic" }}>{SITE.closingEm}</em></h2>
