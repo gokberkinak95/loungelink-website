@@ -29,21 +29,29 @@ const CARDS = [
     // ayrımı yoktu. Resmî kaynakta İÇ HAT sayfası "ücretsiz" der ama
     // DIŞ HAT tablolarında (Tablo-2/4) Classic Plus HİÇ YOKTUR.
     // Sitenin imza öğesi yanlış söz veremez — en kötü durumu söyler.
-    tk:  { v: "self", t: "İç hatta girersin, misafir yok",
-           d: "İç hat salonlarında kendin ücretsiz girersin; misafir ve aile hakkın yoktur. DIŞ HAT salonlarında Classic Plus'ın tanımlı bir giriş hakkı yoktur." },
-    sa:  { v: "no", t: "Dış hatta hak tanımlı değil",
-           d: "Star Alliance seferlerinde ve dış hat salonlarında Classic Plus resmî tablolarda yer almaz." } },
+    // 🔴 v0.12 — CEVAP AYNI, CÜMLE BAŞKA. Vitrinde ilk gördüğü şey
+    // "sende bu hak yok" olan ziyaretçi kalmaz. Bilgi eksiltmiyoruz:
+    // kartın NE VERDİĞİNİ önce söylüyoruz, sınırı ikinci cümlede.
+    tk:  { v: "self", t: "İç hatta ücretsiz girersin",
+           d: "Kendi girişin iç hat salonlarında ücretsiz. Yanına birini alacaksan Elite ve üstü kartlar misafir hakkı veriyor — LoungeLink tam burada devreye giriyor." },
+    sa:  { v: "self", t: "İç hatta ücretsiz girersin",
+           d: "Dış hat salonları için resmî tabloda Classic Plus tanımlı değil. Yine de o salonda oturabilirsin: hakkı olan biri seni misafir olarak alabilir." } },
   { k: "SAG", label: "Star Alliance Gold",
     tk:  { v: "yes", t: "Bir misafir", d: "2021'den beri misafirin AYNI UÇAKTA olması zorunlu." },
     sa:  { v: "yes", t: "Bir misafir", d: "Misafirin aynı uçakta olmalı." } },
   { k: "PP", label: "Priority Pass",
-    tk:  { v: "no", t: "THY salonunda geçmez", d: "Priority Pass Turkish Airlines Lounge'da kabul edilmez." },
-    sa:  { v: "no", t: "THY salonunda geçmez", d: "iGA Lounge gibi salonlarda geçerlidir." } },
+    tk:  { v: "self", t: "iGA ve Primeclass'ta girersin",
+           d: "Priority Pass IST'te iGA salonlarında geçerli; THY'nin kendi salonu programa dahil değil. Hangi salonun hangi kartı aldığını uygulama tek tek biliyor." },
+    sa:  { v: "self", t: "iGA ve Primeclass'ta girersin",
+           d: "Plan ne olursa olsun misafir ücretsiz dahil değil, kapıda tarifeden girer. Tutarı da yazıyoruz ki kapıda sürpriz olmasın." } },
 ];
 
 const V = {
   yes:  { c: "var(--green)", bg: "rgba(5,150,105,.09)", b: "rgba(5,150,105,.35)", i: "✓" },
   self: { c: "var(--amber)", bg: "rgba(217,119,6,.09)", b: "rgba(217,119,6,.35)", i: "—" },
+  // "no" tonu artık yalnız GERÇEK bir engel için ayrılmıştır (örn.
+  // charter uçuş). Bilinmezlik ya da "başka salonda geçerli" durumu
+  // engel değildir; onlar "self" tonuyla anlatılır.
   no:   { c: "var(--muted)", bg: "var(--bgAlt)",        b: "var(--line)",         i: "×" },
 };
 

@@ -526,3 +526,24 @@ footer a { color: var(--gold); }
   margin-left: -3.5px; border-radius: 50%; background: var(--gold); opacity: .75;
   box-shadow: 0 0 18px rgba(184,148,58,.55);
 }
+
+/* ============================================================
+   🔴 SEÇİLİ ÇİP GÖRÜNMÜYORDU — butonun ikinci kez tekrarı
+   v0.8'de eklediğim `.dark-band .pill { color: var(--gold) }`
+   kuralı, seçili çipin (.pill.on) beyaz metnini de eziyordu:
+   altın zemin üstüne altın metin. Butonda aynı hatayı yapmıştım;
+   ders tekrar edilmedi diye ikinci kez oldu.
+   KURAL: koyu tema toplu renk ataması yaparken DURUM sınıflarını
+   (.on, .active, .selected) mutlaka dışarıda bırak.
+   ============================================================ */
+.dark-band .pill.on,
+.dark-band .pill[aria-pressed="true"] { color: #14100A !important; font-weight: 700; }
+
+/* Kanat: sayfanın sağ tarafında sürekli devam eden dev kanat kesiti.
+   LS'in fotoğrafla yaptığını biz geometriyle yapıyoruz — konik
+   darbe grameri işaretimizle aynı, yani arka plan da markadan. */
+.wing-bg {
+  position: fixed; right: -12vw; top: 0; width: 78vw; height: 100vh;
+  z-index: 0; pointer-events: none; opacity: .5;
+}
+@media (max-width: 900px) { .wing-bg { right: -40vw; width: 130vw; opacity: .35; } }

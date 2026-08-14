@@ -19,6 +19,22 @@ export default function Home() {
       {/* Sayfa boyunca süren atmosfer — sabit katman, scroll eden
           kapsayıcıya konsa her karede yeniden boyanırdı. */}
       <div className="aurora" aria-hidden="true" />
+      {/* Dev kanat kesiti — sayfa boyunca sabit. Lounge Surf arka planda
+          fotoğrafla bir form taşıyor; bizde o form MARKANIN İŞARETİ:
+          aynı konik darbe, dev ölçekte, neredeyse görünmez opaklıkta.
+          SVG olduğu için 0 KB'a yakın ve her ekranda keskin. */}
+      <svg className="wing-bg" viewBox="0 0 800 1000" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="wg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#B8943A" stopOpacity="0.16" />
+            <stop offset="55%" stopColor="#B8943A" stopOpacity="0.06" />
+            <stop offset="100%" stopColor="#0D9488" stopOpacity="0.05" />
+          </linearGradient>
+        </defs>
+        <path d="M820 -60 C560 180, 300 430, 40 900 C300 520, 520 260, 860 60 Z" fill="url(#wg)" />
+        <path d="M880 120 C660 320, 460 540, 250 980 C470 620, 660 400, 900 240 Z" fill="url(#wg)" opacity="0.7" />
+        <path d="M840 -40 C580 200, 320 450, 60 920" fill="none" stroke="#B8943A" strokeOpacity="0.22" strokeWidth="1.5" />
+      </svg>
       <div className="grain-fixed" aria-hidden="true" />
       <header style={{ borderBottom: "1px solid var(--line)", background: "var(--card)" }}>
         <div className="wrap" style={{ display: "flex", alignItems: "center", height: 66, gap: 20 }}>
