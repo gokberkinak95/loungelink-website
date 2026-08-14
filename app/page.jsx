@@ -2,6 +2,7 @@ import { SITE, SECTIONS, FAQ, STATS, FLOW, SHOTS_MAIN, SHOTS_TRUST, PROGRAMS, TR
 import Phone from "../components/Phone";
 import NightScene from "../components/NightScene";
 import PhoneShelf from "../components/PhoneShelf";
+import SectionScene from "../components/SectionScene";
 import RuleDemo from "../components/RuleDemo";
 
 // ============================================================
@@ -99,6 +100,8 @@ export default function Home() {
 
       {/* --- AKIŞ: 3 ADIM — numara gerçek sıra taşıyor --- */}
       <section className="section dark-band alt" id="akis">
+        <SectionScene kind="contrail" />
+        <div className="ghost" aria-hidden="true">AKIŞ</div>
         <div className="wrap">
           <div className="eyebrow">Nasıl çalışır</div>
           <h2>Uçuşunu yaz, eşleşmeni bul.</h2>
@@ -121,6 +124,8 @@ export default function Home() {
 
       {/* --- NEDEN --- */}
       <section className="section dark-band" id="neden">
+        <SectionScene kind="wing" flip />
+        <div className="ghost" aria-hidden="true">NEDEN</div>
         <div className="wrap split">
           <div className="col-text">
             <div className="eyebrow">Neden LoungeLink</div>
@@ -150,6 +155,8 @@ export default function Home() {
           🔴 Rakipte 4 GENEL ittifak kartı var; bizde her kart gerçek
           kural verisinden konuşuyor. Bu bölüm bizim hendek. */}
       <section className="section dark-band alt" id="kural">
+        <SectionScene kind="runway" />
+        <div className="ghost" aria-hidden="true">KURAL</div>
         <div className="wrap">
           <div className="eyebrow">Kural motoru</div>
           <h2>"Bu kartla misafir götürebilir miyim?"</h2>
@@ -178,6 +185,8 @@ export default function Home() {
 
       {/* --- GÜVEN — hepsi app'te gerçekten var olan mekanizmalar --- */}
       <section className="section dark-band" id="guven">
+        <SectionScene kind="radar" />
+        <div className="ghost" aria-hidden="true">GÜVEN</div>
         <div className="wrap">
           <div className="eyebrow">Güven & güvenlik</div>
           {/* v0.8 — İFADE SATIRI: LS kart ızgaralarının arasına tek
@@ -252,6 +261,8 @@ export default function Home() {
           kullanmaya devam eder. İkna edilmesi gereken taraf host, ve
           site bugüne kadar misafire konuşuyordu. */}
       <section className="section dark-band host-band" id="kart-sahibi">
+        <SectionScene kind="wing" />
+        <div className="ghost" aria-hidden="true">KART</div>
         <div className="wrap">
           <div className="sec-no">04</div>
           <div className="eyebrow">KART SAHİBİNE</div>
@@ -290,6 +301,8 @@ export default function Home() {
 
       {/* --- SSS --- */}
       <section className="section dark-band alt" id="sss">
+        <SectionScene kind="contrail" flip />
+        <div className="ghost" aria-hidden="true">SSS</div>
         <div className="wrap" style={{ maxWidth: 760 }}>
           <div className="eyebrow">Sık sorulanlar</div>
           <h2 style={{ marginBottom: 14 }}>Aklınızdaki soru muhtemelen burada.</h2>
@@ -304,6 +317,8 @@ export default function Home() {
 
       {/* --- BETA --- */}
       <section className="section dark-band" id="beta" style={{ textAlign: "center" }}>
+        <SectionScene kind="horizon" />
+        <div className="ghost" aria-hidden="true">BETA</div>
         <div className="wrap" style={{ maxWidth: 620 }}>
           <div className="eyebrow">Kapalı beta</div>
           <h2>{SITE.closing} <em style={{ color: "var(--gold)", fontStyle: "italic" }}>{SITE.closingEm}</em></h2>
