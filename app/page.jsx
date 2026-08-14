@@ -1,4 +1,4 @@
-import { SITE, SECTIONS, FAQ, STATS, FLOW, SHOTS_MAIN, SHOTS_TRUST, PROGRAMS, TRUST, SHELF } from "../lib/content";
+import { SITE, SECTIONS, FAQ, STATS, FLOW, SHOTS_MAIN, SHOTS_TRUST, PROGRAMS, TRUST, SHELF, HOST_WHY, HOST_RISK } from "../lib/content";
 import Phone from "../components/Phone";
 import NightScene from "../components/NightScene";
 import PhoneShelf from "../components/PhoneShelf";
@@ -47,6 +47,7 @@ export default function Home() {
               LoungeLink
             </b>
           </div>
+          <a href="#kart-sahibi" style={{ fontSize: 14, color: "var(--muted)" }}>Kart sahibiysen</a>
           <a href="#rehber" style={{ fontSize: 14, color: "var(--muted)" }}>Salon Rehberi</a>
           <a href="#sss" style={{ fontSize: 14, color: "var(--muted)" }}>SSS</a>
           <a href="#beta" className="btn" style={{ padding: "9px 18px", fontSize: 13.5 }}>
@@ -245,6 +246,48 @@ export default function Home() {
           })),
         }) }}
       />
+      {/* --- HOST BÖLÜMÜ ---
+          🔴 İki taraflı pazarda ARZ önce gelir. Misafir, host olmadan
+          hiçbir şey göremez; host ise misafir olmadan da kartını
+          kullanmaya devam eder. İkna edilmesi gereken taraf host, ve
+          site bugüne kadar misafire konuşuyordu. */}
+      <section className="section dark-band host-band" id="kart-sahibi">
+        <div className="wrap">
+          <div className="sec-no">04</div>
+          <div className="eyebrow">KART SAHİBİNE</div>
+          <p className="statement">
+            Bu yıl kartındaki misafir haklarından kaçını kullandın?<br />
+            <span style={{ color: "var(--gold)" }}>Kullanmadıkların 31 Aralık&apos;ta siliniyor.</span>
+          </p>
+
+          <div className="host-grid">
+            {HOST_WHY.map((c, i) => (
+              <div className="host-card" key={c.t} style={{ "--i": i }}>
+                <span className="chip-ico" aria-hidden="true">{c.i}</span>
+                <h3>{c.t}</h3>
+                <p>{c.d}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* İtirazlar: host'un aklından geçen soruyu ONUN cümlesiyle
+              sorup cevaplıyoruz. Sormadan cevaplamak güven verir. */}
+          <h3 className="host-qa-title">Aklından geçenler</h3>
+          <div className="host-qa">
+            {HOST_RISK.map((x) => (
+              <div className="qa" key={x.q}>
+                <b>{x.q}</b>
+                <span>{x.a}</span>
+              </div>
+            ))}
+          </div>
+
+          <a className="beat" href="#beta">Kurucu çembere katıl <span>→</span></a>
+        </div>
+      </section>
+
+      <hr className="wing-rule" />
+
       {/* --- SSS --- */}
       <section className="section dark-band alt" id="sss">
         <div className="wrap" style={{ maxWidth: 760 }}>

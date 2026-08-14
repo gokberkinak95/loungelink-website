@@ -16,7 +16,12 @@ export const metadata = {
     locale: "tr_TR",
     type: "website",
   },
-  icons: { icon: "/favicon.png" },
+  // 🔴 FAVICON ESKİ LOGOYU GÖSTERİYORDU. Dosya doğruydu (/favicon.png
+  // yeni işaret) ama tarayıcı favicon'u agresif önbelleğe alır ve sabit
+  // bir URL'de değişikliği fark etmez. Next App Router'ın `app/icon.png`
+  // kuralı dosyayı HASH'Lİ bir URL ile yayınlar (/icon.<hash>.png) —
+  // içerik değişince URL değişir, önbellek kendiliğinden kırılır.
+  // Bu satır artık gereksiz ama zararsız: app/icon.png önceliklidir.
 };
 
 export default function RootLayout({ children }) {
