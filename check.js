@@ -18,6 +18,16 @@ const PALETTE = new Set([
   // Altın zemin üzerine koyu metin renkleri — app/theme.js'te tanımlı
   // (goldDeep, goldInk). Site paletine eklemeyi unutmuştum.
   "#8A5A00", "#6B5518",
+  // ── v0.4 GECE ÖLÇEĞİ ──────────────────────────────────────────
+  // Sinematik hero için tanımlı KAPALI bir set. Rastgele koyu renk
+  // eklenemesin diye buraya yazılıyor: palet denetiminin amacı
+  // "koyu renk yasak" değil, "her renk BİR KARAR olsun".
+  // Kaynak: app splash zemininden türetildi, altınla kontrast
+  // oranları WCAG AA (metin #F3EFE6 / zemin #070B16 = 16.8:1).
+  "#070B16", "#0D1526", "#16203A", "#241E1B", "#0A0F1C", "#141B2E",
+  "#1E2740", "#101728", "#8A5A2B", "#F4D79A", "#7C6A4A", "#FFE9B0",
+  "#FFF3D2", "#F3EFE6", "#F7F3EA", "#C9C3B4", "#A79F8E", "#B9B2A2",
+  "#8E8878", "#CBA44A", "#A9822F", "#14100A",
 ]);
 
 function walk(dir, out = []) {
@@ -83,9 +93,10 @@ const OUT = "./.next/server/app/index.html";
 if (fs.existsSync(OUT)) {
   const html = fs.readFileSync(OUT, "utf8");
   const must = [
-    ["phone-screen", "telefon çerçevesi"],
+    // v0.4: çizim telefon bileşeni kaldırıldı (gerçek ekranlar geldi);
+    // yerine bölüm içi eğik gerçek ekran denetlenir.
+    ["shot-tilt", "bölüm içi gerçek ekran"],
     ["demo-out-verdict", "canlı kural matrisi"],
-    ["Turkish Airlines Lounge", "rehber ekranı içeriği"],
     // 🔴 ARANAN DİZE EKRANA ÖZGÜ OLMALI.
     // Önce "Kurucu Host" arıyordum; o metin lib/content.js'te de
     // geçiyor, yani profil ekranı BOŞ dönse bile denetim geçiyordu.
@@ -94,7 +105,11 @@ if (fs.existsSync(OUT)) {
     // 🔴 v0.3: çizim ekranlar (Kurucu Host #12 / 01:12 sayacı) kaldırıldı,
     // yerine GERÇEK cihaz görüntüleri geldi. Denetim de gerçeğe bakar:
     // görsel şeritleri ve yeni bölümler HTML'e gerçekten basılmış mı?
-    ["/screens/ss-home.jpg", "gerçek ekran şeridi (ana)"],
+    // v0.4: ana şerit hero'daki PhoneShelf'e taşındı; denetim onun
+    // gerçek çıktısına bakar (sınıf + en az bir gerçek ekran dosyası).
+    ["shelf-item", "hero telefon rafı"],
+    ["/screens/ss-kesfet.jpg", "gerçek ekran şeridi (ana)"],
+    ["scene-svg", "sinematik gece sahnesi"],
     ["/screens/ss-splash.jpg", "gerçek ekran şeridi (güven)"],
     ["flow-n", "3 adımlı akış bölümü"],
     ["prog-card", "kural motoru program kartları"],
@@ -119,6 +134,27 @@ if (fs.existsSync(OUT)) {
   if (dup.length) {
     console.log(`  ✗ mükerrer id: ${[...new Set(dup)].join(", ")}`);
     bad++;
+  }
+  // v0.4 — REHBER SAYFASI AYRI DENETLENİR: içeriği ana sayfada değil
+  // /rehber/... sayfalarında; ana sayfa listesinde aramak yanlış yerde
+  // arama demekti (v0.4 yeniden düzenlemesinde bu ortaya çıktı).
+  {
+    // 🔴 v0.4'te ortaya çıktı: eski denetim "Turkish Airlines" dizesini
+    // ANA SAYFADA arıyordu ve orada tesadüfen (program kartında) geçtiği
+    // için yeşildi — rehberin gerçekten dolu olduğunu HİÇ kanıtlamamıştı.
+    // Doğrusu: her rehber sayfası KENDİ kart adını ve bir karar cümlesini
+    // basmalı. Boş dönen bir rehber sayfası artık build'i durdurur.
+    const gdir = "./.next/server/app/rehber";
+    if (fs.existsSync(gdir)) {
+      for (const f of fs.readdirSync(gdir).filter((x) => x.endsWith(".html"))) {
+        const gh = fs.readFileSync(path.join(gdir, f), "utf8");
+        const hasVerdict = /misafir|girersin|hakkın|Misafir/.test(gh);
+        if (!hasVerdict || gh.length < 4000) {
+          console.log(`  ✗ rehber/${f}: sayfa boş görünüyor (karar metni yok)`);
+          bad++;
+        }
+      }
+    }
   }
   for (const [needle, label] of must) {
     if (!html.includes(needle)) {

@@ -252,3 +252,99 @@ h1, h2 {
 .prog-card h3 { font-size: 16.5px; color: var(--ink); margin-bottom: 7px; }
 .prog-card p { font-size: 13.5px; line-height: 1.55; color: var(--muted); }
 @media (max-width: 860px) { .prog-grid, .trust-grid { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   v0.4 — SİNEMATİK KATMAN
+   Karar: ürünün TAMAMI koyuya geçmiyor. Kural motoru ve rehber
+   bölümleri açık kalıyor (okunabilirlik + ciddiyet), yalnız
+   DUYGUSAL anlar koyuluyor: hero ve kapanış. Kontrast, tek tonluk
+   karanlıktan güçlüdür — rakip her ekranda aynı tonu kullanıyor,
+   biz "an" geldiğinde ışığı değiştiriyoruz.
+   ============================================================ */
+.dark-band { position: relative; overflow: hidden; background: #070B16; color: #F3EFE6; }
+.dark-band .wrap { position: relative; z-index: 2; }
+.dark-band h1, .dark-band h2, .dark-band h3 { color: #F7F3EA; }
+.dark-band .lead, .dark-band p { color: #C9C3B4; }
+.dark-band .eyebrow { color: var(--gold); }
+
+.scene { position: absolute; inset: 0; z-index: 0; }
+.scene-svg { width: 100%; height: 100%; display: block; }
+.wing { transform-origin: 60% 80%; animation: wingdrift 26s ease-in-out infinite alternate; }
+@keyframes wingdrift { from { transform: translateY(0) rotate(0deg); } to { transform: translateY(-1.1%) rotate(-0.5deg); } }
+.tip { animation: blink 3.4s ease-in-out infinite; }
+@keyframes blink { 0%, 62% { opacity: .25; } 70%, 78% { opacity: 1; } 86%, 100% { opacity: .25; } }
+.grain {
+  position: absolute; inset: 0; pointer-events: none; opacity: .06; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='120' height='120' filter='url(%23n)'/></svg>");
+}
+.vignette { position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(120% 90% at 50% 35%, transparent 40%, rgba(0,0,0,.55) 100%); }
+
+/* hero tipografisi: koyu zeminde altın vurgusu */
+.hero-dark { padding: 108px 0 92px; }
+.hero-dark h1 { font-size: clamp(38px, 6.4vw, 74px); line-height: 1.05; letter-spacing: -0.02em; }
+.hero-dark h1 em { font-style: italic; color: var(--gold); }
+.hero-dark .lead { max-width: 620px; margin-top: 22px; font-size: 17px; line-height: 1.65; }
+.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+.btn-gold {
+  background: linear-gradient(180deg, #CBA44A, #A9822F); color: #14100A; font-weight: 700;
+  border-radius: 999px; padding: 14px 26px; text-decoration: none; display: inline-block;
+  box-shadow: 0 10px 30px rgba(184,148,58,.28);
+}
+.btn-ghost {
+  border: 1px solid rgba(243,239,230,.28); color: #F3EFE6; border-radius: 999px;
+  padding: 14px 24px; text-decoration: none; display: inline-block;
+}
+.hero-stats { display: flex; gap: 26px; flex-wrap: wrap; margin-top: 34px; }
+.hero-stats div { min-width: 96px; }
+.hero-stats b { display: block; font-family: var(--serif); font-size: 26px; color: var(--gold); }
+.hero-stats span { font-size: 12.5px; color: #A79F8E; }
+
+/* eğimli telefon rafı */
+.shelf-wrap { margin-top: 46px; }
+.shelf {
+  display: flex; gap: 20px; justify-content: center; align-items: flex-end;
+  perspective: 1400px; padding: 10px 0 26px;
+}
+.shelf-item { margin: 0; flex: 0 0 auto; }
+.shelf-item img {
+  width: 196px; max-width: 26vw; border-radius: 22px; display: block;
+  border: 1px solid rgba(243,239,230,.14);
+  box-shadow: 0 26px 60px rgba(0,0,0,.55);
+  transform: rotateY(-16deg) rotateX(4deg) translateZ(0) translateY(calc(var(--i) * -10px));
+  transition: transform .5s ease;
+}
+.shelf-item:nth-child(even) img { transform: rotateY(-16deg) rotateX(4deg) translateY(calc(var(--i) * -10px + 16px)); }
+.shelf-item img:hover { transform: rotateY(-6deg) rotateX(0deg) translateY(-14px); }
+.shelf-item figcaption { margin-top: 12px; font-size: 11.5px; color: #A79F8E; text-align: center; letter-spacing: .04em; }
+.shelf-cap { text-align: center; font-size: 12.5px; color: #8E8878; margin-top: 6px; }
+@media (max-width: 860px) {
+  .shelf { gap: 12px; }
+  .shelf-item img { width: 132px; max-width: 28vw; transform: rotateY(-10deg) translateY(0); }
+  .shelf-item:nth-child(even) img { transform: rotateY(-10deg) translateY(10px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wing, .tip { animation: none; }
+  .shelf-item img, .shelf-item:nth-child(even) img { transform: none; }
+}
+
+/* koyu banttaki kartlar */
+.dark-band .prog-card, .dark-band .flow-step {
+  background: rgba(255,255,255,.045); border-color: rgba(243,239,230,.12);
+}
+.dark-band .prog-card h3, .dark-band .flow-step h3 { color: #F7F3EA; }
+.dark-band .prog-card p, .dark-band .flow-step p { color: #B9B2A2; }
+.dark-band .tear { border-color: rgba(243,239,230,.12); }
+
+/* gerçek ekran — bölüm içinde eğik çerçeve (çizim telefonun yerine) */
+.shot-tilt { display: flex; justify-content: center; perspective: 1200px; }
+.shot-tilt img {
+  width: 250px; max-width: 62vw; border-radius: 26px;
+  border: 1px solid var(--line); background: var(--card);
+  box-shadow: 0 24px 54px rgba(31,41,55,.18);
+  transform: rotateY(-12deg) rotateX(3deg);
+  transition: transform .5s ease;
+}
+.split.rev .shot-tilt img { transform: rotateY(12deg) rotateX(3deg); }
+.shot-tilt img:hover { transform: rotateY(0) rotateX(0) translateY(-8px); }
+@media (prefers-reduced-motion: reduce) { .shot-tilt img { transform: none; } }

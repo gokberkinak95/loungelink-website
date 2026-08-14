@@ -1,5 +1,7 @@
-import { SITE, SECTIONS, FAQ, STATS, FLOW, SHOTS_MAIN, SHOTS_TRUST, PROGRAMS, TRUST } from "../lib/content";
+import { SITE, SECTIONS, FAQ, STATS, FLOW, SHOTS_MAIN, SHOTS_TRUST, PROGRAMS, TRUST, SHELF } from "../lib/content";
 import Phone from "../components/Phone";
+import NightScene from "../components/NightScene";
+import PhoneShelf from "../components/PhoneShelf";
 import RuleDemo from "../components/RuleDemo";
 
 // ============================================================
@@ -17,7 +19,10 @@ export default function Home() {
       <header style={{ borderBottom: "1px solid var(--line)", background: "var(--card)" }}>
         <div className="wrap" style={{ display: "flex", alignItems: "center", height: 66, gap: 20 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 9, flex: 1 }}>
-            <span style={{ fontSize: 20 }}>◈</span>
+            {/* v0.6 — marka işareti: app ikonuyla AYNI konik kanat darbesi.
+                Metin sembolü (◈) yerine gerçek işaret; SVG olduğu için
+                her ekranda keskin ve 0 KB'a yakın. */}
+            <img src="/mark.svg" alt="" width={26} height={26} style={{ display: "block" }} />
             <b style={{ fontFamily: "var(--serif)", fontSize: 18, color: "var(--ink)" }}>
               LoungeLink
             </b>
@@ -35,46 +40,39 @@ export default function Home() {
           Tek gerçek farkımız kural motoru ve o motor başka kullanıcı
           gerektirmiyor — sitede de aynı avantajı kullanıyoruz.
           Ziyaretçi kaydolmadan, üç saniyede değeri görüyor. */}
-      <section style={{ padding: "76px 0 64px", background: "var(--bgAlt)" }}>
+      {/* --- KAHRAMAN: GECE UÇUŞU ---
+          🔴 v0.4 — ESKİ HERO "BASİC"Tİ ve haklı bir eleştiriydi: açık
+          zemin + iki sütun, her SaaS şablonunda var. Rakibin gücü koyu
+          tema değil SAHNE kurması — duyguyu görsel taşıyor, ürün sonra
+          geliyor. Biz de sahne kuruyoruz ama kendi malzememizle:
+          kanat/şehir ışıkları KODLA çizildi (lisans yok, 0 KB, her
+          ekranda keskin), kural matrisi sahnenin İÇİNDE duruyor —
+          yani gösteri ile kanıt aynı karede. */}
+      <section className="dark-band hero-dark">
+        <NightScene />
         <div className="wrap split rise">
           <div className="col-text">
             <div className="eyebrow">Havalimanı yol arkadaşı</div>
-            <h1>{SITE.hero}</h1>
-            <p className="lead" style={{ marginTop: 20, maxWidth: 500 }}>{SITE.heroSub}</p>
-            <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
-              <a href="#beta" className="btn">{SITE.betaCta}</a>
-              <a href="/rehber" className="btn btn-ghost">Salon Rehberi</a>
+            <h1>Senin uçağında,<br /><em>lounge'da yeri olan biri var.</em></h1>
+            <p className="lead">{SITE.heroSub}</p>
+            <div className="hero-cta">
+              <a href="#beta" className="btn-gold">{SITE.betaCta}</a>
+              <a href="/rehber" className="btn-ghost">Kartını sor · 3 saniye</a>
             </div>
-            <div className="stats">
-              {STATS.map((s) => (
-                <div className="stat" key={s.l}>
-                  <b>{s.n}</b>
-                  <span>{s.l}</span>
-                </div>
+            <div className="hero-stats">
+              {STATS.map((x) => (
+                <div key={x.l}><b>{x.n}</b><span>{x.l}</span></div>
               ))}
             </div>
           </div>
           <div><RuleDemo /></div>
         </div>
+        <div className="wrap">
+          <PhoneShelf shots={SHELF} caption="13 Ağustos 2026 beta yapısından gerçek ekranlar — mockup değil." />
+        </div>
       </section>
 
       <hr className="tear" />
-
-      {/* --- GERÇEK EKRANLAR ---
-          🔴 Rakip cilalı mockup gösteriyor; biz 12 Ağustos beta
-          build'inin CİHAZ görüntülerini gösteriyoruz ve bunu
-          söylüyoruz. "Gerçek" iddiası, cilalı görselden daha çok
-          güven üretir — üründe saklayacak şeyimiz yok. */}
-      <section className="section" style={{ paddingTop: 54, paddingBottom: 54 }}>
-        <div className="wrap" style={{ textAlign: "center" }}>
-          <div className="eyebrow">Beta'dan gerçek ekranlar</div>
-          <div className="shots">
-            {SHOTS_MAIN.map((p) => (
-              <img key={p.src} src={p.src} alt={p.alt} className="shot" loading="lazy" />
-            ))}
-          </div>
-        </div>
-      </section>
 
       <hr className="tear" />
 
@@ -178,7 +176,15 @@ export default function Home() {
               <p className="lead" style={{ marginTop: 18 }}>{s.body}</p>
               {s.note && <p className="note">{s.note}</p>}
             </div>
-            <div><Phone id={s.screen} tilt={i % 2 ? "left" : "right"} /></div>
+            {/* 🔴 v0.4 (Gokberk: "gerçekçi olmayan görseller iğrenç
+                duruyor") — HAKLI. Bu bölümlerde ÇİZİM telefon vardı:
+                elle kodlanmış sahte bir arayüz. Sahte arayüz iki kez
+                zarar verir: (1) ürünün gerçeğine benzemez, (2) ürün
+                değişince bayatlar ve kimse güncellemez. Artık gerçek
+                cihaz ekranı — eğik çerçevede, tıklanabilir hissiyle. */}
+            <div className="shot-tilt">
+              <img src={s.shot} alt={s.shotAlt} loading="lazy" />
+            </div>
           </div>
         </section>
       ))}
@@ -242,7 +248,9 @@ export default function Home() {
       <footer style={{ borderTop: "1px solid var(--line)", padding: "40px 0", background: "var(--card)" }}>
         <div className="wrap" style={{ display: "flex", gap: 30, flexWrap: "wrap", fontSize: 13.5, color: "var(--muted)" }}>
           <div style={{ flex: 1, minWidth: 200 }}>
-            <b style={{ fontFamily: "var(--serif)", color: "var(--ink)", fontSize: 16 }}>◈ LoungeLink</b>
+            <b style={{ fontFamily: "var(--serif)", color: "var(--ink)", fontSize: 16, display: "inline-flex", alignItems: "center", gap: 8 }}>
+              <img src="/mark.svg" alt="" width={20} height={20} /> LoungeLink
+            </b>
             <p style={{ marginTop: 6, fontSize: 12.5 }}>
               {SITE.footerSlogan} Lounge erişimi satmaz; doğrulanmış yolcuları buluşturur.
             </p>
