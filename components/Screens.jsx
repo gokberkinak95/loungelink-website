@@ -256,7 +256,9 @@ export function ScreenProfile() {
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 9, background: "rgba(184,148,58,.12)",
                     border: `1px solid ${T.gold}`, borderRadius: 11, padding: 11, marginTop: 9 }}>
-        <span style={{ fontSize: 14, color: T.gold }}>◈</span>
+        {/* v0.17 — eski metin sembolü yerine gerçek marka işareti.
+            Aynı sitede iki işaret olmaz; check.js §5 bekçili. */}
+        <img src="/mark.svg" alt="" width={14} height={14} style={{ display: "block" }} />
         <div>
           <div style={{ fontSize: 11.5, fontWeight: 700, color: T.gold }}>Kurucu Host #12</div>
           <div style={{ fontSize: 9.5, color: T.mut }}>Bu rozet kalıcı; sonradan alınamaz.</div>

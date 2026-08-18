@@ -1,0 +1,29 @@
+# LoungeLink · SQL kataloğundaki TÜRKİYE havalimanı kodları
+#
+# 🔴 NEDEN VAR (v0.17)
+# lib/guide.js'te KYA (Konya) ve VAN (Van Ferit Melen) yazılıydı.
+# İkisi de SQL kataloğunda YOK — yani 12 rehber sayfası hayalî bir
+# salona "MİSAFİR GÖTÜREBİLİRSİN" diyordu. Uydurulmuş bir havalimanı
+# derlemede hata vermez; ancak canlıda yanlış söz verir.
+#
+# Bu dosya kaynak DEĞİL, KOPYADIR. Kaynak:
+#   sql/001_initial_schema.sql + sql/002_seed_reference.sql
+#   + sql/107_missing_airports.sql  (country = 'TR' / 'Türkiye')
+# Üretim komutu (check.js bu listeyi SQL varsa yeniden doğrular):
+#   grep -hE "^\s*\('[A-Z]{3}'," sql/001*.sql sql/002*.sql sql/107*.sql \
+#     | grep -E "'TR'|Türkiye" | grep -oE "[A-Z]{3}" | sort -u
+ADA
+ADB
+ASR
+AYT
+BJV
+COV
+DIY
+DLM
+ESB
+GZT
+HTY
+IST
+RZV
+SAW
+TZX

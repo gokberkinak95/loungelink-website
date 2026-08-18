@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { COUNTS } from "../lib/content";
 
 // ============================================================
 // 🔴 İMZA ÖĞE — CANLI KURAL MATRİSİ
@@ -19,10 +20,10 @@ import { useState } from "react";
 // ============================================================
 const CARDS = [
   { k: "ELPL", label: "Elite Plus",
-    tk:  { v: "yes", t: "Ailen veya bir misafir", d: "THY seferinde tam hak." },
+    tk:  { v: "yes", t: "Ailen veya bir misafir", d: "THY seferinde tam hak. Misafirin de aynı taşıyıcıyla uçuyor olmalı — kural motoru bunu eşleşmeden önce kontrol ediyor." },
     sa:  { v: "yes", t: "Yalnız bir misafir", d: "Star Alliance üyesi başka havayolunda AİLE HAKKI YOK." } },
   { k: "ELITE", label: "Elite",
-    tk:  { v: "yes", t: "Ailen veya bir misafir", d: "Elite ve Elite Plus aynı haktadır." },
+    tk:  { v: "yes", t: "Ailen veya bir misafir", d: "Elite ve Elite Plus aynı haktadır. Misafirin de aynı taşıyıcıyla uçuyor olmalı — kural motoru bunu eşleşmeden önce kontrol ediyor." },
     sa:  { v: "yes", t: "Yalnız bir misafir", d: "Aile hakkı düşer." } },
   { k: "CLPL", label: "Classic Plus",
     // 🔴 v0.2.1 — 156 HİZALAMASI: eski metin "girersin" diyordu, iç/dış
@@ -33,11 +34,11 @@ const CARDS = [
     // "sende bu hak yok" olan ziyaretçi kalmaz. Bilgi eksiltmiyoruz:
     // kartın NE VERDİĞİNİ önce söylüyoruz, sınırı ikinci cümlede.
     tk:  { v: "self", t: "İç hatta ücretsiz girersin",
-           d: "Kendi girişin iç hat salonlarında ücretsiz. Yanına birini alacaksan Elite ve üstü kartlar misafir hakkı veriyor — LoungeLink tam burada devreye giriyor." },
+           d: "Kendi girişin iç hat salonlarında ücretsiz. Yanına birini alacaksan Elite ve üstü kartlar misafir hakkı veriyor — LoungeLink tam burada devreye giriyor. Misafirin de aynı taşıyıcıyla uçuyor olmalı — kural motoru bunu eşleşmeden önce kontrol ediyor." },
     sa:  { v: "self", t: "İç hatta ücretsiz girersin",
            d: "Dış hat salonları için resmî tabloda Classic Plus tanımlı değil. Yine de o salonda oturabilirsin: hakkı olan biri seni misafir olarak alabilir." } },
   { k: "SAG", label: "Star Alliance Gold",
-    tk:  { v: "yes", t: "Bir misafir", d: "2021'den beri misafirin AYNI UÇAKTA olması zorunlu." },
+    tk:  { v: "yes", t: "Bir misafir", d: "2021'den beri misafirin AYNI UÇAKTA olması zorunlu. Misafirin de aynı taşıyıcıyla uçuyor olmalı — kural motoru bunu eşleşmeden önce kontrol ediyor." },
     sa:  { v: "yes", t: "Bir misafir", d: "Misafirin aynı uçakta olmalı." } },
   { k: "PP", label: "Priority Pass",
     tk:  { v: "self", t: "iGA ve Primeclass'ta girersin",
@@ -47,8 +48,8 @@ const CARDS = [
 ];
 
 const V = {
-  yes:  { c: "var(--green)", bg: "rgba(5,150,105,.09)", b: "rgba(5,150,105,.35)", i: "✓" },
-  self: { c: "var(--amber)", bg: "rgba(217,119,6,.09)", b: "rgba(217,119,6,.35)", i: "—" },
+  yes:  { c: "var(--green)", bg: "rgba(4,107,76,.09)", b: "rgba(4,107,76,.35)", i: "✓" },
+  self: { c: "var(--amber)", bg: "rgba(138,90,0,.09)", b: "rgba(138,90,0,.35)", i: "—" },
   // "no" tonu artık yalnız GERÇEK bir engel için ayrılmıştır (örn.
   // charter uçuş). Bilinmezlik ya da "başka salonda geçerli" durumu
   // engel değildir; onlar "self" tonuyla anlatılır.
@@ -93,8 +94,16 @@ export default function RuleDemo() {
         <div className="demo-out-detail">{r.d}</div>
       </div>
 
+      {/* 🔴 v0.17 — "22 havalimanı, 35+ kart" uydurmaydı: rehber 12
+          gösteriyordu, hiçbir kaynak 22'yi doğrulamıyordu. Sayılar
+          artık lib/guide.js verisinden okunuyor; veri değişince
+          rakam da değişir. Somut ve doğrulanabilir. */}
+      {/* v0.18 — sayılar salon kataloğundan; "havalimanı" artık rehber
+          sayfası sayısını değil GERÇEK kapsamı söylüyor. */}
       <div className="demo-foot">
-        Kaynak: Türk Hava Yolları resmî lounge kuralları · 22 havalimanı, 35+ kart
+        Kaynak: Türk Hava Yolları resmî lounge kuralları · {COUNTS.lounges} salon
+        · {COUNTS.airports} havalimanı · {COUNTS.cards} kart programı
+        · {COUNTS.pages} kural sayfası
       </div>
     </div>
   );

@@ -1,8 +1,10 @@
 import { SITE } from "../../lib/content";
+import SiteHeader from "../../components/SiteHeader";
 
 export const metadata = {
   title: "Hesap Silme Talebi — LoungeLink",
-  description: "LoungeLink hesabınızı ve verilerinizi silme talebi nasıl oluşturulur.",
+  description: "LoungeLink hesabını ve verilerini silme talebini nasıl oluşturursun? Uygulamadan tek dokunuş, giremiyorsan e-postayla.",
+  alternates: { canonical: "/hesap-sil" },
 };
 
 // ============================================================
@@ -18,13 +20,7 @@ export const metadata = {
 export default function DeleteAccount() {
   return (
     <>
-      <header style={{ borderBottom: "1px solid var(--line)", background: "var(--card)" }}>
-        <div className="wrap" style={{ display: "flex", alignItems: "center", height: 66 }}>
-          <a href="/" style={{ fontFamily: "var(--serif)", fontSize: 18, color: "var(--ink)", fontWeight: 700 }}>
-            ◈ LoungeLink
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
       <div className="wrap" style={{ maxWidth: 680, padding: "44px 24px 80px" }}>
         <h1 style={{ fontSize: "clamp(26px,4vw,36px)" }}>Hesabınızı silmek</h1>
 

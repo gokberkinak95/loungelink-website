@@ -8,13 +8,33 @@ export const metadata = {
     "Hangi kartla hangi salona girebileceğinizi ve misafir götürüp götüremeyeceğinizi söyler.",
   // 🔴 OG etiketleri BAŞTAN kurulur, sonradan değil. Site paylaşıldığında
   // önizleme boş çıkarsa ilk izlenim kaybedilir ve ikinci şans olmaz.
+  //
+  // 🔴 v0.17 — ÜÇ EKSİK: canonical yoktu, og:image yoktu, twitter kartı
+  // yoktu. og:image'siz bir bağlantı WhatsApp'ta ve X'te ÇIPLAK bir URL
+  // olarak görünür; tıklanma oranı yarıya iner. Görsel artık var
+  // (public/og.jpg — 01_kesif kampanya karesinden 1200×630 kırpıldı,
+  // metin kesilmediği piksel taramasıyla doğrulandı).
+  // canonical olmadan da "/" ile "/?utm_source=..." Google için iki
+  // ayrı sayfadır; ikisi birbirinin sıralamasını yer.
+  alternates: { canonical: "/" },
   openGraph: {
     title: "LoungeLink — Aktarmada üç saat, yalnız geçmek zorunda değil",
     description:
       "Kartınla hangi salona girebilirsin, misafir götürebilir misin? " +
       "Türkiye'nin ilk lounge kural motoru.",
+    url: "/",
+    siteName: "LoungeLink",
     locale: "tr_TR",
     type: "website",
+    images: [{
+      url: "/og.jpg", width: 1200, height: 630,
+      alt: "LoungeLink — aynı terminalde, kartının ne verdiğini gösteren kural motoru",
+    }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "LoungeLink — Aktarmada üç saat, yalnız geçmek zorunda değil",
+    images: ["/og.jpg"],
   },
   // 🔴 FAVICON ESKİ LOGOYU GÖSTERİYORDU. Dosya doğruydu (/favicon.png
   // yeni işaret) ama tarayıcı favicon'u agresif önbelleğe alır ve sabit

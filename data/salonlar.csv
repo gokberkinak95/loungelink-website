@@ -1,0 +1,285 @@
+kaynak,havalimani_kodu,havalimani_adi,sehir,ulke,salon_adi,terminal,bolum,kapsam,isletmeci,notlar
+yurtici,ADA,Adana Şakirpaşa Havalimanı,Adana,Türkiye,Turkish Airlines CIP Lounge,İç Hat,,domestic,THY,THY ve AJet seferlerinde M&S kart sahiplerine acik ic hat CIP salonu.
+yurtici,ADB,İzmir Adnan Menderes Havalimanı,İzmir,Türkiye,Primeclass Lounge — Dış Hat,Dış Hat,,international,TAV,
+yurtici,ADB,İzmir Adnan Menderes Havalimanı,İzmir,Türkiye,Primeclass Lounge — İç Hat,İç Hat,,domestic,TAV,
+yurtici,ADB,İzmir Adnan Menderes Havalimanı,İzmir,Türkiye,Turkish Airlines Lounge,İç Hat,,domestic,THY,AJet uculariyla M&S Elite/Elite Plus erisimi bu havalimaninda GECERLI (not 23).
+yurtici,ASR,Kayseri Havalimanı,Kayseri,Türkiye,Turkish Airlines CIP Lounge,İç Hat,,domestic,THY,THY ve AJet seferlerinde M&S kart sahiplerine acik ic hat CIP salonu.
+yurtici,AYT,Antalya Havalimanı,Antalya,Türkiye,Antalya Airport CIP Lounge,T1 International,,both,,lounges tablosundan otomatik aktarildi (086)
+yurtici,AYT,Antalya Havalimanı,Antalya,Türkiye,Antalya Havalimanı dış hatlar özel yolcu salonu (FTA CIP Salonları),Uçuş operasyonunun yapıldığı terminaldeki FTA CIP Salonları,,international,Fraport TAV Antalya (FTA) CIP,"24 saat. Kullanım süresi 4 saat. Ayrı check-in, ayrı bilet satışı, ayrı boarding"
+yurtici,AYT,Antalya Havalimanı,Antalya,Türkiye,CIP Lounge — Dış Hat (T2),Dış Hat (T2),,international,TAV,Yalniz LoungeKey dizininde.
+yurtici,AYT,Antalya Havalimanı,Antalya,Türkiye,CIP Lounge — İç Hat (T3),İç Hat (T3),,domestic,TAV,
+yurtici,AYT,Antalya Havalimanı,Antalya,Türkiye,Comfort Lounge — Dış Hat (T2),Dış Hat (T2),,international,FTA,"PP ""Comfort Lounge"", DragonPass ""FTA Comfort Lounge"". LoungeKey dizininde YOK."
+yurtici,AYT,Antalya Havalimanı,Antalya,Türkiye,Elite Lounge — Dış Hat (T1),Dış Hat (T1),,international,-,Yalniz LoungeKey dizininde.
+yurtici,AYT,Antalya Havalimanı,Antalya,Türkiye,Primeclass Lounge,Dış Hat,,both,TAV,
+yurtici,AYT,Antalya Havalimanı,Antalya,Türkiye,Turkish Airlines Lounge,İç Hat,,domestic,THY,AJet uculariyla M&S Elite/Elite Plus erisimi bu havalimaninda GECERLI (not 23).
+yurtici,BJV,Milas-Bodrum Havalimanı,Bodrum / Muğla,Türkiye,Milas-Bodrum Havalimanı iç hatlar özel yolcu salonu,İç Hatlar – Gidiş,,domestic,Turkish Airlines,"Kış sezonu 07.00-23.00; Yaz sezonu 24 saat. Kullanım 3 saat, uçuştan 2 saat önce başlar"
+yurtici,BJV,Milas-Bodrum Havalimanı,Bodrum / Muğla,Türkiye,Primeclass Lounge — Dış Hat,Dış Hat,,international,TAV,107: havalimani eksik oldugu icin 099'da olusturulamamisti.
+yurtici,BJV,Milas-Bodrum Havalimanı,Bodrum / Muğla,Türkiye,Primeclass Lounge — İç Hat,İç Hat,,domestic,TAV,107: havalimani eksik oldugu icin 099'da olusturulamamisti.
+yurtici,COV,Çukurova Uluslararası Havalimanı,Adana / Mersin,Türkiye,Turkish Airlines CIP Lounge,İç Hat,,domestic,THY,THY ve AJet seferlerinde M&S kart sahiplerine acik ic hat CIP salonu.
+yurtici,COV,Çukurova Uluslararası Havalimanı,Adana / Mersin,Türkiye,Çelebi Platinum Lounge — Dış Hat,Dış Hat,,international,Çelebi,107: havalimani eksik oldugu icin 099'da olusturulamamisti.
+yurtici,COV,Çukurova Uluslararası Havalimanı,Adana / Mersin,Türkiye,Çelebi Platinum Lounge — İç Hat,İç Hat,,domestic,Çelebi,107: havalimani eksik oldugu icin 099'da olusturulamamisti.
+yurtici,DIY,Diyarbakır Havalimanı,Diyarbakır,Türkiye,CIP Lounge — Terminal,Terminal,,both,TAV,107: havalimani eksik oldugu icin 099'da olusturulamamisti.
+yurtici,DIY,Diyarbakır Havalimanı,Diyarbakır,Türkiye,Turkish Airlines CIP Lounge,İç Hat,,domestic,THY,THY ve AJet seferlerinde M&S kart sahiplerine acik ic hat CIP salonu.
+yurtici,DLM,Dalaman Havalimanı,Dalaman,Türkiye,CIP Lounge — Dış Hat (T2),Dış Hat (T2),,international,TAV,107: havalimani eksik oldugu icin 099'da olusturulamamisti.
+yurtici,DLM,Dalaman Havalimanı,Dalaman,Türkiye,CIP Lounge — İç Hat (T2),İç Hat (T2),,domestic,TAV,107: havalimani eksik oldugu icin 099'da olusturulamamisti.
+yurtici,DLM,Dalaman Havalimanı,Dalaman,Türkiye,DLM Lounge — Terminal 2,Terminal 2,,both,—,107: havalimani eksik oldugu icin 099'da olusturulamamisti.
+yurtici,DLM,Dalaman Havalimanı,Dalaman,Türkiye,Turkish Airlines CIP Lounge,İç Hat,,domestic,THY,THY ve AJet seferlerinde M&S kart sahiplerine acik ic hat CIP salonu.
+yurtici,ESB,Ankara Esenboğa Havalimanı,Ankara,Türkiye,Anatolia Lounge,Dom. Terminal,,both,,lounges tablosundan otomatik aktarildi (086)
+yurtici,ESB,Ankara Esenboğa Havalimanı,Ankara,Türkiye,Primeclass CIP Lounge,Int. Terminal,,both,,lounges tablosundan otomatik aktarildi (086)
+yurtici,ESB,Ankara Esenboğa Havalimanı,Ankara,Türkiye,Primeclass Lounge — Dış Hat,Dış Hat,,international,TAV,
+yurtici,ESB,Ankara Esenboğa Havalimanı,Ankara,Türkiye,Primeclass Lounge — İç Hat,İç Hat,,domestic,TAV,
+yurtici,ESB,Ankara Esenboğa Havalimanı,Ankara,Türkiye,Turkish Airlines Lounge,İç Hat,,domestic,THY,AJet uculariyla M&S Elite/Elite Plus erisimi bu havalimaninda GECERLI (not 23).
+yurtici,GZT,Gaziantep Havalimanı,Gaziantep,Türkiye,Turkish Airlines CIP Lounge,İç Hat,,domestic,THY,THY ve AJet seferlerinde M&S kart sahiplerine acik ic hat CIP salonu.
+yurtici,HTY,Hatay Havalimanı,Hatay,Türkiye,Turkish Airlines CIP Lounge,İç Hat,,domestic,THY,THY ve AJet seferlerinde M&S kart sahiplerine acik ic hat CIP salonu.
+yurtici,IST,İstanbul Havalimanı,İstanbul,Türkiye,Primeclass Lounge,Main T - Gate A,,both,,lounges tablosundan otomatik aktarildi (086)
+yurtici,IST,İstanbul Havalimanı,İstanbul,Türkiye,Turkish Airlines Lounge — İç Hat,İç Hat,miles_smiles,domestic,THY,"[190] Bölüm M&S olarak işaretlendi: kaynak ""misafirle girmek isteyen Business yolcu M&S bölümüne gitmeli"" diyor, yani misafir hakkını taşıyan bölüm burasıdır. Dış hat tarafı zaten böyle modelli. İKİ BÖLÜMLÜ SALON: Business kabin yolcuları ve Elite Plus kartlılar BUSINESS bölümüne; ekonomi kabinde seyahat eden Elite, Classic Plus, Star Alliance Gold, Platinum, Corporate kartlılar ve ücret/mil karşılığı girenler MILES&SMILES bölümüne girer. Ücret ödeyerek giren yolcu yalnızca Miles&Smiles bölümünü kullanabilir."
+yurtici,IST,İstanbul Havalimanı,İstanbul,Türkiye,Turkish Airlines Lounge — İç Hat (Business),İç Hatlar,business,domestic,Turkish Airlines,"24 saat açık. Kullanım süresi 4 saat, uçuştan 4 saat önce başlar; gecikmede devam eder İKİ BÖLÜMLÜ SALON: Business kabin yolcuları ve Elite Plus kartlılar BUSINESS bölümüne; ekonomi kabinde seyahat eden Elite, Classic Plus, Star Alliance Gold, Platinum, Corporate kartlılar ve ücret/mil karşılığı girenler MILES&SMILES bölümüne girer. Ücret ödeyerek giren yolcu yalnızca Miles&Smiles bölümünü kullanabilir."
+yurtici,IST,İstanbul Havalimanı,İstanbul,Türkiye,iGA Lounge — Dış Hat,Dış Hat,,international,IGA,
+yurtici,IST,İstanbul Havalimanı,İstanbul,Türkiye,iGA Lounge — İç Hat,İç Hat,,domestic,IGA,DragonPass dizini terminal ayrimi yapmiyor; ic hat DOGRULANMADI.
+yurtici,IST,İstanbul Havalimanı,İstanbul,Türkiye,Turkish Airlines Lounge — Dış Hat (Business),Dış Hat,business,international,Turkish Airlines,"[v0.21] SQL katalogundan (lounge_venues · airport_code=IST · active) olculerek EKLENDI. Onceden bu iki kayit CSV'de YOKTU: lib/guide.js dis hattaki Business / Miles&Smiles bolum ayrimini anlatiyordu ama salon listesinde IST'te tek bir dis hat THY salonu bile yoktu. IKI BOLUMLU SALON: Business bolumunde kimsenin misafir hakki yoktur; misafirle girecek yolcu Miles&Smiles bolumune gider. Priority Pass bu salonda GECMEZ."
+yurtici,IST,İstanbul Havalimanı,İstanbul,Türkiye,Turkish Airlines Lounge — Dış Hat (Miles&Smiles),Dış Hat,miles_smiles,international,Turkish Airlines,"[v0.21] SQL katalogundan (lounge_venues · airport_code=IST · active) olculerek EKLENDI. Misafir hakkini tasiyan bolum burasidir. Priority Pass bu salonda GECMEZ."
+yurtici,IST,İstanbul Havalimanı,İstanbul,Türkiye,iGA Pop-up Lounge — Dış Hat,Dış Hat,,international,IGA,"[v0.21] SQL katalogundan olculerek EKLENDI. Kart agi kabulu: Priority Pass, LoungeKey, DragonPass (kaynak: saglayicilarin kendi Turkiye sayfalari, 7 Agu 2026 ekran goruntuleri)."
+yurtici,RZV,Rize-Artvin Havalimanı,Rize / Artvin,Türkiye,Turkish Airlines CIP Lounge,İç Hat,,domestic,THY,THY ve AJet seferlerinde M&S kart sahiplerine acik ic hat CIP salonu.
+yurtici,SAW,İstanbul Sabiha Gökçen Uluslararası Havalimanı,İstanbul,Türkiye,Aeroport Lounge,Dom. Terminal,,both,,lounges tablosundan otomatik aktarildi (086)
+yurtici,SAW,İstanbul Sabiha Gökçen Uluslararası Havalimanı,İstanbul,Türkiye,Kepler Club — Dış Hat,Dış Hat,,international,Kepler,"Saatlik oda satılır: tek kişilik 18 €, iki kişilik 25 €, deluxe 40 €, VIP 50 €, duş 17 € (servis ve vergi dâhil). Üyelik hakkıyla ücretsiz giriş yoktur."
+yurtici,SAW,İstanbul Sabiha Gökçen Uluslararası Havalimanı,İstanbul,Türkiye,Plaza Premium Bosphorus Lounge — Dış Hat,Dış Hat,,international,Plaza Premium,DragonPass dizininde bu isim GORULMEDI.
+yurtici,SAW,İstanbul Sabiha Gökçen Uluslararası Havalimanı,İstanbul,Türkiye,Plaza Premium Lounge — İç Hat,İç Hat,,domestic,Plaza Premium,
+yurtici,SAW,İstanbul Sabiha Gökçen Uluslararası Havalimanı,İstanbul,Türkiye,Primeclass Lounge,Int. Terminal,,both,,lounges tablosundan otomatik aktarildi (086)
+yurtici,SAW,İstanbul Sabiha Gökçen Uluslararası Havalimanı,İstanbul,Türkiye,Turkish Airlines CIP Lounge — İç Hat,İç Hat,,domestic,THY,"AJet ic hat CIP salonu. Giris penceresi SAW'a OZEL: baslangic noktasi SAW ise en erken 3 saat, baglantili ucus ise en erken 4 saat once. Not: AJet sayfasinda gecmiste bir yenileme donemi duyurulmustu; GECICI operasyonel durumlar KURALA GOMULMEZ, gerekirse BO'dan salon pasife alinir. · AJet/THY kaynağı: Sabiha Gökçen CIP Lounge 3 Nisan itibarıyla geçici olarak hizmet dışı olabilir — gitmeden önce doğrula."
+yurtici,TZX,Trabzon Uluslararası Havalimanı,Trabzon,Türkiye,Turkish Airlines CIP Lounge,İç Hat,,domestic,THY,THY ve AJet seferlerinde M&S kart sahiplerine acik ic hat CIP salonu.
+yurtdisi,ABJ,Felix Houphouet Boigny Uluslararası Havalimanı,Abidjan,Fildişi Sahili,Aeria VIP,Ana Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,ABV,Nnamdi Azikiwe Havalimanı,Abuja,Nijerya,Lounge Sds,International Terminal,,both,,Hizmet saatleri: 04:00-24:00
+yurtdisi,ACC,Kotoka Uluslararası Havalimanı,Akra,Gana,Sanbra Priority,3. Terminal,,both,,Hizmet saatleri: 5:00 - 01:00
+yurtdisi,ADD,Bole Uluslararası Havalimanı,Addis Ababa,Etiyopya,Cloud Nine,2. Terminal,,both,Ethiopian Airlines,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,AGP,Malaga-Costa Del Sol Havalimanı,Malaga,İspanya,Sala VIP T3,3. Terminal,,both,,Hizmet saatleri: 5:30 - 22:30
+yurtdisi,ALA,Almatı Uluslararası Havalimanı,Almatı,Kazakistan,Extime Lounge,International Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,ALG,Houari Boumediene Havalimanı,Dar El Beida,Cezayir,Air Algerie Catering,Terminal 4,,both,Air Algerie,Hizmet saatleri: Uçuş Saatleri
+yurtdisi,ALG,Houari Boumediene Havalimanı,Dar El Beida,Cezayir,Salon Sgsia,2. Salon,,both,,Hizmet saatleri: Uçuş Saatleri
+yurtdisi,AMM,Kraliçe Aliye Uluslararası Havalimanı,Amman,Ürdün,Crown,1. Terminal,,both,Royal Jordanian,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,AMS,Amsterdam Schiphol Havalimanı,Amsterdam,Hollanda,Aspire Lounge,Ana Bina Terminali,,both,Aspire,Hizmet saatleri: 06:00 - 22:00
+yurtdisi,AMS,Amsterdam Schiphol Havalimanı,Amsterdam,Hollanda,Aspire Lounge 26,Lounge 26 (Non-Schengen),,both,,lounges tablosundan otomatik aktarildi (086)
+yurtdisi,AQJ,Kral Hüseyin Uluslararası Havalimanı,Akabe,Ürdün,Aqaba Lounge,1. Terminal,,both,,Hizmet saatleri: Pazartesi 22:05-01:05; Çarşamba 23:55-02:55; Cuma 22:05-01:05. Sadece 3 gün açık — çok dar pencere
+yurtdisi,ATH,Atina Uluslararası Havalimanı,Atina,Yunanistan,Goldair Handling,A Terminali,,both,Goldair Handling,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,ATL,Hartsfield-Jackson Havalimanı,Atlanta,ABD,The Club,Concourse F Terminali,,both,,Hizmet saatleri: 6:00 - 22:00
+yurtdisi,AUH,Abu Dabi Uluslararası Havalimanı,Abu Dabi,Birleşik Arap Emirlikleri,Pearl Lounge,1. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,BAH,Bahreyn Uluslararası Havalimanı,Muharrak,Bahreyn,Pearl Lounge,Ana Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,BCN,Barselona El Prat Havalimanı,Barselona,İspanya,VIP Joan Miró,T1 Terminali,,both,,Hizmet saatleri: 5:00 - 23:00
+yurtdisi,BEG,Nikola Tesla Havalimanı,Belgrad,Sırbistan,Air Serbia Premium Lounge,1. Terminal,,both,Air Serbia,Hizmet saatleri: 5:00 - 18:00
+yurtdisi,BER,Brandenburg Havalimanı,Berlin,Almanya,Lufthansa Star Alliance Lounge,1. Terminal,,both,Lufthansa,Hizmet saatleri: 5:00 - 20:30
+yurtdisi,BER,Brandenburg Havalimanı,Berlin,Almanya,Tempelhof,1. Terminal,,both,,Hizmet saatleri: 5:00 - 21:00
+yurtdisi,BEY,Refik Hariri Uluslararası Havalimanı,Beyrut,Lübnan,Ahlein,1. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,BGW,Bağdat International Airport,Bağdat,Irak,Bağdat Lounge,1. Terminali,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,BHX,Birmingham Havalimanı,Birmingham,Birleşik Krallık (İngiltere),Lounges 1,Hava Sahası,,both,,Hizmet saatleri: 5:00 - 21:00
+yurtdisi,BIO,Bilbao Havalimanı,Bilbao,İspanya,Sala VIP,1. Terminal,,both,,Hizmet saatleri: 5:30 - 22:15
+yurtdisi,BJL,Banjul Uluslararası Havalimanı,Banjul,Gambiya,Roumieh,Uluslararası Gidiş Terminali,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,BKK,Bangkok Suvarnabhumi Uluslararası Havalimanı,Bangkok,Tayland,Turkish Airlines Lounge,"Concourse D, D8 kapısını geçince sağda / Uluslararası Terminal",,both,Turkish Airlines,"24 saat. 15 dk ücretsiz masaj, uyku alanı, VIP oda"
+yurtdisi,BKO,Modibo Keita Uluslararası Havalimanı,Bamako,Mali,Bravia Platinum,1. Terminali,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,BLL,Billund Havalimanı,Billund,Danimarka,King Amlet,Ana Terminal,,both,,Hizmet saatleri: Ulusal tatillere veya mevsimlere göre değişir
+yurtdisi,BLQ,Guglielmo Marconi Havalimanı,Bolonya,İtalya,Marconi,Ana Terminal,,both,,Hizmet saatleri: 5:00 - 21:00. TADİLAT DOLAYISIYLA GEÇİCİ OLARAK KAPALI
+yurtdisi,BOD,Bordeaux-Mérignac Havalimanı,Bordo,Fransa,Myairport Lounge Hall,A Terminali,,both,,Hizmet saatleri: 11:30-14:00
+yurtdisi,BOG,El Dorado Uluslararası Havalimanı,Bogota,Kolombiya,Avianca VIP,Uluslararası Terminal,,both,Avianca,Hizmet saatleri: 4:00 - 23:00
+yurtdisi,BOG,El Dorado Uluslararası Havalimanı,Bogota,Kolombiya,Copa Club,1. Terminal,,both,Copa Airlines,Hizmet saatleri: 3:00 - 21:00
+yurtdisi,BOM,Chhatrapati Shivaji Uluslararası Havalimanı,Mumbai,Hindistan,Adani,2. Terminal,,both,Adani,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,BOS,Logan Uluslararası Havalimanı,Boston,ABD,Lufthansa,E Terminali,,both,Lufthansa,Hizmet saatleri: 12:15-21:30
+yurtdisi,BRE,Bremen Havalimanı,Bremen,Almanya,LUFTHANSA,1. Terminal,,both,Lufthansa,Hizmet saatleri: 5:00 - 21:00
+yurtdisi,BRE,Bremen Havalimanı,Bremen,Almanya,The Lounge,Terminal 1,,both,,Hizmet saatleri: 5:00 - 21:00
+yurtdisi,BRI,Bari Havalimanı,Bari,İtalya,Executive,Hava Sahası / Biniş Alanı,,both,,Hizmet saatleri: 5:00 - 22:00
+yurtdisi,BRU,Brüksel Havalimanı,Brüksel,Belçika,Diamond,Non schengen Terminali,,both,,Hizmet saatleri: 5:00 - 22:00
+yurtdisi,BSL,Mulhouse Freiburg Havalimanı,Basel,İsviçre,Skyview,Y Terminali,,both,,Hizmet saatleri: 5:30 - 20:30. Havalimanı BSL/MLH/EAP kodlarıyla da anılır
+yurtdisi,BSR,Basra Uluslararası Havalimanı,Basra,Irak,Royal,1. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,BUD,Ferenc Liszt Uluslararası Havalimanı,Budapeşte,Macaristan,Platinum Lounge,1. Terminali,,both,,Hizmet saatleri: 05:00 - 20:00
+yurtdisi,BUS,Batum Uluslararası Havalimanı,Batum,Gürcistan,Primeclass,Ana Terminal,,both,Primeclass,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,CAI,Kahire Uluslararası Havalimanı,Kahire,Mısır,Egyptair,3. Terminal,,both,EgyptAir,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,CAN,Baiyun Uluslararası Havalimanı,Guanco (Guangzhou),Çin,Star Alliance Lounge,1. Terminaller,,both,Star Alliance,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,CCS,Simon Bolivar Uluslararası Havalimanı,Karakas,Venezuela,Aero VIP,Uluslararası Gidiş Terminali,,both,,Hizmet saatleri: Uçuş zamanları
+yurtdisi,CDG,Charles de Gaulle Havalimanı,Paris,Fransa,Extime Lounge,T2E,,both,,lounges tablosundan otomatik aktarildi (086)
+yurtdisi,CDG,Charles de Gaulle Havalimanı,Paris,Fransa,Star Alliance Lounge,1. Terminal,,both,Star Alliance,Hizmet saatleri: 05:30 - 22:00
+yurtdisi,CEB,Mactan-Cebu Uluslararası Havalimanı,Cebu,Filipinler,Plaza Premium,2. Terminal,,both,Plaza Premium,"Hizmet saatleri: 1:00-14:00 (Pzt, Çar, Cum); 8:00-14:00 (Sal, Per, Cmt, Paz)"
+yurtdisi,CGK,Soekarno-Hatta Uluslararası Havalimanı,Cakarta,Endonezya,PLAZA PREMIUM LOUNGE,3. Terminal,,both,Plaza Premium,Hizmet saatleri: Pzt 03:00-11:00/15:00-24:00; Sal 03:00-24:00; Çar 04:00-11:00/13:00-24:00; Per 04:00-14:00/16:00-24:00; Cum 03:00-11:00/15:00-24:00; Cmt 00:00-14:00/16:00-24:00; Paz 04:00-14:00/16:00-24:00
+yurtdisi,CGN,Bonn Havalimanı,Köln,Almanya,The Lounge,1. Terminal,,both,,Hizmet saatleri: 5:00 - 22:00
+yurtdisi,CKY,Ahmed Sékou Touré Uluslararası Havalimanı,Konakri,Gine,Salon Nimba,1. Terminal,,both,,Hizmet saatleri: Paz 6:00-12:00; Pzt 12:00-00:00; Sal 14:00-2:00; Çar 18:00-12:00; Per 7:00-16:00; Cum 6:00-12:00; Cmt 3:00-21:00
+yurtdisi,CLJ,Cluj Uluslararası Havaalanı,Cluj,Romanya,Protocol Business Lounge,Uluslararası Terminali,,both,,Hizmet saatleri: 05:00 - 19:00
+yurtdisi,CMB,Bandaranaike Uluslararası Havalimanı,Katunayake (Kolombo),Sri Lanka,Araliya,Ana Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,CMN,Muhammed V Uluslararası Havalimanı,Kazablanka,Fas,Le Zénith I,Terminal 1,,both,,Hizmet saatleri: 7/24 hours
+yurtdisi,COO,Cotonou Havalimanı,Cotonou,Benin,Lounge Ahs,Ana Terminal,,both,,Hizmet saatleri: Uçuş zamanları
+yurtdisi,CPH,Kopenhag Kastrup Havalimanı,Kopenhag,Danimarka,Pearl Lounge,3. Terminal,,both,,Hizmet saatleri: 05.30 - 20.00
+yurtdisi,CPT,Cape Town Uluslararası Havalimanı,Cape Town,Güney Afrika,Bidvest Premier,Dış Hatlar Terminali,,both,Bidvest,Hizmet saatleri: 04:00 - 00:30
+yurtdisi,CTA,Katanya Fontanarossa Havalimanı,Katanya,İtalya,Lounge Sac,A Terminali,,both,,Hizmet saatleri: 6:30 - 21:00
+yurtdisi,CUN,Cancun Havalimanı,Cancun,Meksika,VIP Lounge by Mera,Terminal 4 - 67A Kapısı yanı,,both,,Hizmet saatleri: 6:30 – 21:30
+yurtdisi,DAC,Hazret Shahjalal Uluslararası Havalimanı,Dakka,Bangladeş,EBL Sky Lounge,1. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,DAR,Dar Es Salaam Uluslararası Havalimanı,Dar Es Selam,Tanzanya,Twiga Lounge,3. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,DBV,Dubrovnik Havalimanı,Dubrovnik,Hırvatistan,Business,C Terminali,,both,,Hizmet saatleri: 5:00 - 22:00
+yurtdisi,DEL,Indira Gandhi Uluslararası Havalimanı,New Delhi,Hindistan,Encalm Lounge,3. Terminal,,both,Encalm,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,DEN,Denver Uluslararası Havalimanı,Denver,ABD,United Airlines Lounge,5. Terminali,,both,United Airlines,Hizmet saatleri: 6:30 - 20:00
+yurtdisi,DFW,Dallas/Fort Worth Uluslararası Havalimanı,Dallas,ABD,Capital One,D Terminali (D22 Kapısı Yanı),,both,,Hizmet saatleri: 6:00 - 21:00
+yurtdisi,DLA,Douala Uluslararası Havalimanı,Douala,Kamerun,Mtn Lounge Doualair,1. Terminal,,both,,Hizmet saatleri: Uçuş Saatleri
+yurtdisi,DMM,Kral Fahd Uluslararası Havalimanı,Dammam,Suudi Arabistan,Plaza Premium,Single Terminal,,both,Plaza Premium,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,DOH,Hamad Uluslararası Havalimanı,Doha,Katar,Oryx,Ana Terminal,,both,Qatar Airways,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,DOH,Hamad Uluslararası Havalimanı,Doha,Katar,Oryx Lounge,North Node,,both,,lounges tablosundan otomatik aktarildi (086)
+yurtdisi,DPS,Ngurah Rai Uluslararası Havalimanı,Denpasar,Endonezya,Tujuwan Lounge,Dış Hatlar Gidiş Terminali,,both,,Hizmet saatleri: 04.00 – 02.00 yerel saat
+yurtdisi,DSS,Blaise Diagne Uluslararası Havalimanı,Dakar,Senegal,Odyssee - Infinite - Topkapi,1. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,DTW,Detroit Metropolitan Havalimanı,Detroit,ABD,Lufthansa Lounge,Evans Terminali,,both,Lufthansa,Hizmet saatleri: Uçuş Saatlerinde
+yurtdisi,DUR,Kral Shaka Uluslararası Havalimanı,Durban,Güney Afrika,Umphafa,International Terminal,,both,,Hizmet saatleri: 07:00 - 21:00
+yurtdisi,DUS,Rhein Ruhr Uluslararası Havalimanı,Düsseldorf,Almanya,Open Sky,A-B-C Terminalleri,,both,,Hizmet saatleri: 4:00 - 19:40
+yurtdisi,DXB,Dubai Uluslararası Havalimanı,Dubai,Birleşik Arap Emirlikleri,Ahlan Lounge,T1 - C,,both,,lounges tablosundan otomatik aktarildi (086)
+yurtdisi,DXB,Dubai Uluslararası Havalimanı,Dubai,Birleşik Arap Emirlikleri,Marhaba Lounge,1. Terminal,,both,Marhaba,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,EBB,Entebbe Uluslararası Havalimanı,Entebbe,Uganda,Karibu,1. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,EBL,Erbil Havalimanı,Erbil,Irak,Newroz Business Class,Ana Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,ECN,Ercan Havalimanı,Lefkoşa,Kuzey Kıbrıs Türk Cumhuriyeti,PARAMARIBO,"1. Terminal, 2. kat",,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,EDI,Edinburgh Uluslararası Havalimanı,Edinburgh,Birleşik Krallık (İskoçya),Turkish Airlines Lounge,"Havalimanı Kat 2, 16 Nolu kapı yanı / Ana Terminal",,both,Turkish Airlines,04:00-22:00. Anlaşmalı listede İskoçya başlığı altında da var · Hizmet saatleri: 04:00 - 22:00. THY'nin kendi salonu; yurtdışı listesinde de var
+yurtdisi,EWR,Newark Liberty Uluslararası Havalimanı,Newark,ABD,Air France,B Terminali,,both,Air France,Hizmet saatleri: 21:00 – 24:00
+yurtdisi,EZE,Ezeiza Uluslararası Havalimanı (EZE),Buenos Aires,Arjantin,Star Alliance Lounge,T1,,both,Star Alliance,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,FCO,Fiumicino - Leonardo Da Vinci Havalimanı,Roma,İtalya,Plaza Premium,3. Terminal - Gidiş Kısmı,,both,Plaza Premium,Hizmet saatleri: 5:30 - 22:30
+yurtdisi,FIH,N'Djili Uluslararası Havalimanı,Kinşasa,Demokratik Kongo,Salon VIP,Uluslararası Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,FNA,Lungi Uluslararası Havalimanı,Freetown,Sierra Leone,Mcleod Airport Lounge,Ana Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,FRA,Frankfurt Havalimanı,Frankfurt,Almanya,Ac Maple Leaf,1. Terminal,,both,Air Canada,Hizmet saatleri: 6:00 - 16:30
+yurtdisi,FRA,Frankfurt Havalimanı,Frankfurt,Almanya,Lufthansa Business B-Ost,1. Terminal,,both,Lufthansa,Hizmet saatleri: 6:00 - 14:00
+yurtdisi,FRA,Frankfurt Havalimanı,Frankfurt,Almanya,LuxxLounge,T1 - A,,both,,lounges tablosundan otomatik aktarildi (086)
+yurtdisi,FRA,Frankfurt Havalimanı,Frankfurt,Almanya,Sky Lounge,T2 - D/E,,both,,lounges tablosundan otomatik aktarildi (086)
+yurtdisi,FRU,Manas Uluslararası Havalimanı,Bişkek,Kırgızistan,Business Lounge,(SS'te '-' yazıyor),,both,,Hizmet saatleri: 7 gün 24 saat. Bölge/terminal bilgisi SS'te boş
+yurtdisi,GOT,Landvetter Havalimanı,Göteborg,İsveç,Menzies,Uluslararası Terminal,,both,Menzies,Hizmet saatleri: Uçuş zamanları
+yurtdisi,GRU,Guarulhos Havalimanı,Sao Paulo,Brezilya,Espaco Banco Safra Lounge,3. Terminal,,both,,Hizmet saatleri: 23:00 - 02:00
+yurtdisi,GVA,Cenevre Havalimanı,Cenevre,İsviçre,Aspire Lounge,Ana Terminal Binası,,both,Aspire,Hizmet saatleri: 06:30 - 01:30
+yurtdisi,GVA,Cenevre Havalimanı,Cenevre,İsviçre,Swiss Star,1. Terminal,,both,Swiss,Hizmet saatleri: 6:00 - 20:30
+yurtdisi,GYD,Haydar Aliyev Uluslararası Havalimanı,Bakü,Azerbaycan,Business Class,1. Terminal,,both,,Hizmet saatleri: Uçuş zamanları
+yurtdisi,HAJ,Hannover Havalimanı,Hannover,Almanya,Melli Beese,C Terminali,,both,,Hizmet saatleri: 5:30 - 21:00
+yurtdisi,HAM,Fhulsbuttel Havalimanı,Hamburg,Almanya,Business Lounge,Terminal 1,,both,,Hizmet saatleri: 7 gün 24 saat. SS'te Hamburg iki farklı havalimanı adıyla listelenmiş (Fhulsbuttel / Hamburg Uluslararası) — aynı havalimanı
+yurtdisi,HAM,Fhulsbuttel Havalimanı,Hamburg,Almanya,Hamburg Airport Lounge,Terminal 1 ve Terminal 2 arası,,both,,Hizmet saatleri: Cumartesi 05:30-16:00; Diğer günler 05:30-21:00
+yurtdisi,HAN,Noi Bai Uluslararası Havalimanı,Hanoi,Vietnam,Nia Lounge,2. Terminal,,both,,Hizmet saatleri: 06:00 - 24:00
+yurtdisi,HAV,Jose Marti Uluslararası Havalimanı,Havana,Küba,Salon CIP,3. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,HBE,Borg El Arab Havalimanı,İskenderiye,Mısır,NATIONAL LOGISTICS SAE.,1. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,HEL,Helsinki-Vantaa Havalimanı,Helsinki,Finlandiya,Plaza Premium Lounge,2. Terminal,,both,Plaza Premium,Hizmet saatleri: Pazartesi 10:00-19:30; Diğer günler 06:00-19:30
+yurtdisi,HKG,Hong Kong Uluslararası Havalimanı,Hong Kong,Hong Kong,Plaza Premium,1. Terminal,,both,Plaza Premium,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,HKT,Puket Uluslararası Havalimanı,Puket,Tayland,The Coral Executive Loounge,Ana Terminal Binası 4. kat,,both,,Hizmet saatleri: 06:00 - 00:00
+yurtdisi,HND,Haneda Uluslararası Havalimanı,Tokyo,Japonya,Lounge ANA,3. Terminal,,both,ANA,Hizmet saatleri: Uçuş zamanları
+yurtdisi,HRG,Hurgada Havalimanı,Hurgada,Mısır,NATIONAL LOGISTICS SAE.,1. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,IAD,Washington Dulles Uluslararası Havalimanı,Washington,ABD,Turkish Airlines Lounge,B Terminali (B43 numaralı kapının yanı),,both,Turkish Airlines,07.15-21.30. Anlaşmalı listede 7:00-23:00 yazıyor — saat çelişkisi var · Hizmet saatleri: 7:00 - 23:00. THY'nin kendi salonu; yurtdışı listesinde 07.15-21.30 — saat çelişkisi
+yurtdisi,IAH,George Bush Kıtalararası Havalimanı,Houston,ABD,United,E Terminali,,both,United Airlines,Hizmet saatleri: 6:00 - 22:00
+yurtdisi,ICN,Incheon Uluslararası Havalimanı,Incheon (Seul),Güney Kore,Asiana,1. Terminal,,both,Asiana Airlines,Hizmet saatleri: 06.00-00.30
+yurtdisi,ISB,İslamabad Uluslararası Havalimanı,İslamabad,Pakistan,Airlines,Uluslararası Gidiş Terminali,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,JFK,John F. Kennedy Uluslararası Havalimanı,New York,ABD,Primeclass Lounge,T1,,both,,lounges tablosundan otomatik aktarildi (086)
+yurtdisi,JFK,John F. Kennedy Uluslararası Havalimanı,New York,ABD,Turkish Airlines Lounge,Terminal 1 (2 ve 3 nolu kapıların arasında),,both,Turkish Airlines,"09:45-23:45. Duş, mescit, toplantı masası, IFE hizmeti. Anlaşmalı listede de var (saatler farklı yazılmış: 03:00-07:00 ve 09:00-00:00) · Hizmet saatleri: 03:00-07:00 açık ; 09:00-00:00 açık. THY'nin kendi salonu; yurtdışı listesinde 09:45-23:45 yazıyor — saat çelişkisi"
+yurtdisi,JIB,Ambouli Uluslararası Havalimanı,Ambouli (Cibuti),Cibuti,Salon CIP,Ana Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,JNB,Johannesburg Havalimanı,Johannesburg,Güney Afrika,Saa Preminium,A Terminali,,both,South African Airways,Hizmet saatleri: 7:00 - 23:30
+yurtdisi,JRO,Kilimanjaro Uluslararası Havalimanı,Kilimanjaro,Tanzanya,Twiga by Aspire,Ana Terminal,,both,Aspire,"Hizmet saatleri: 24 saat (Pzt, Çar, Cum, Paz); 5:00-22:00 (Sal, Per, Cmt)"
+yurtdisi,KBL,Kabil Uluslararası Havalimanı,Kabil,Afganistan,Business,Uluslararası Terminal,,both,,Hizmet saatleri: 6:30 - 17:00
+yurtdisi,KGL,Kigali Havalimanı,Kigali,Ruanda,Pearl,Ana Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,KHI,Jinnah Uluslararası Havalimanı,Karaçi,Pakistan,Caa CIP,Uluslararası Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,KIX,Kansai Uluslararası Havalimanı,Osaka,Japonya,KANSAI Airport Lounge,1. Terminal,,both,,Hizmet saatleri: Uçuş zamanları
+yurtdisi,KRK,John Paul II Uluslararası Havaalanı,Krakow,Polonya,Balice International Airport,Terminal 1,,both,,Hizmet saatleri: Uçuş Saatleri
+yurtdisi,KRT,Hartum Havalimanı,Hartum,Sudan,Sas CIP,1. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,KTM,Tribhuvan Uluslararası Havalimanı,Katmandu,Nepal,Horizon Service,1. Terminal,,both,,Hizmet saatleri: 05.00-03.00
+yurtdisi,KTM,Tribhuvan Uluslararası Havalimanı,Katmandu,Nepal,Radisson Service,1. Terminal,,both,,Hizmet saatleri: 05.00-03.00
+yurtdisi,KUL,Kuala Lumpur Uluslararası Havalimanı,Kuala Lumpur,Malezya,Global Lounge,KLIA 1. Terminali Satellite,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,KWI,Kuveyt Uluslararası Havalimanı,Kuveyt,Kuveyt,Dasman Lounge,1. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,KZN,Kazan Uluslararası Havalimanı,Kazan,Rusya,SKY Lounge,1A Terminali,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,LAD,Quatro de Fevereiro Havalimanı,Luanda,Angola,MENZIES AIRPORT,1. Terminal,,both,Menzies,Hizmet saatleri: 5:00 - 20:00
+yurtdisi,LAX,Los Angeles Uluslararası Havalimanı,Los Angeles,ABD,Star Alliance,Tom Bradley / B Terminali,,both,Star Alliance,Hizmet saatleri: Uçuş zamanları
+yurtdisi,LBV,Léon M'ba Uluslararası Havalimanı,Libreville,Gabon,Salon Samba,1. Terminal,,both,,Hizmet saatleri: Günün son uçuşuna kadar
+yurtdisi,LED,Pulkovo Havalimanı,St. Petersburg,Rusya,Business Lounge (International),1. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,LGW,Gatwick Havalimanı,Londra,Birleşik Krallık (İngiltere),Lounge 1,Güney Terminali,,both,,Hizmet saatleri: 4:00 - 21:00. Giriş penceresi: uçuştan en fazla 180 dk ve en az 30 dk önce
+yurtdisi,LHE,Allame İkbal Uluslararası Havalimanı,Lahor,Pakistan,Salon CIP,1. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,LHR,Heathrow Havalimanı,Londra,Birleşik Krallık (İngiltere),Air Canada,2B Terminali,,both,Air Canada,Hizmet saatleri: 7:00 - 20:00
+yurtdisi,LHR,Heathrow Havalimanı,Londra,Birleşik Krallık (İngiltere),Lufthansa,2A Terminali,,both,Lufthansa,Hizmet saatleri: 5:00 - 22:00
+yurtdisi,LHR,Heathrow Havalimanı,Londra,Birleşik Krallık (İngiltere),No1 Lounge,T3,,both,,lounges tablosundan otomatik aktarildi (086)
+yurtdisi,LHR,Heathrow Havalimanı,Londra,Birleşik Krallık (İngiltere),Plaza Premium Lounge,T2,,both,,lounges tablosundan otomatik aktarildi (086)
+yurtdisi,LHR,Heathrow Havalimanı,Londra,Birleşik Krallık (İngiltere),Singapore Airlines,2B Terminali,,both,Singapore Airlines,Hizmet saatleri: 5:30 - 22:00
+yurtdisi,LHR,Heathrow Havalimanı,Londra,Birleşik Krallık (İngiltere),Turkish Airlines Lounge,T2,,both,,lounges tablosundan otomatik aktarildi (086)
+yurtdisi,LHR,Heathrow Havalimanı,Londra,Birleşik Krallık (İngiltere),United Airlines,2B Terminali,,both,United Airlines,Hizmet saatleri: 5:00 - 18:00
+yurtdisi,LIS,Lizbon Poertela Havalimanı,Lizbon,Portekiz,ANA Aeroportos Lounge,1. Terminali,,both,ANA Aeroportos,Hizmet saatleri: Uçuş zamanlarında
+yurtdisi,LJU,Joze Pucnik Havalimanı,Lübliyana,Slovenya,Business,Uluslararası Gidiş Terminali,,both,,Hizmet saatleri: 5:00 - 23:00
+yurtdisi,LOS,Murtala Muhammed Uluslararası Havalimanı,Lagos,Nijerya,Sappire Lounge,2. Terminal,,both,,Hizmet saatleri: Uçuş saatleri
+yurtdisi,LUN,Kenneth Kaunda Uluslararası Havalimanı,Lusaka,Zambiya,Pearl Lounge,3. Terminali,,both,,Hizmet saatleri: Uçuş zamanlarında
+yurtdisi,LUX,Luxembourg Findel International Airport,Luxembourg,Lüksemburg,Luxair Lounge,A Terminali,,both,Luxair,Hizmet saatleri: Cumartesi 04.00-18.00; Diğer günler 04.00-21.00
+yurtdisi,LYS,Saint Exupery Havalimanı,Lyon,Fransa,Mont Blanc,1. Terminal,,both,,Hizmet saatleri: 7:30 - 21:30
+yurtdisi,MAD,Barajas Uluslararası Havalimanı,Madrid,İspanya,Cibeles VIP,1. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,MAN,Manchester Havalimanı,Manchester,Birleşik Krallık (İngiltere),Aspire Lounge,2. Terminal,,both,Aspire,Hizmet saatleri: 04:00 - 22:00
+yurtdisi,MCT,Maskat Uluslararası Havalimanı,Maskat,Umman,Primeclass,Ana Terminal,,both,Primeclass,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,MED,Prens Muhammed Bin Abdülaziz Havalimanı,Medine,Suudi Arabistan,PrimeClass Lounge,Dış Hatlar Terminali,,both,Primeclass,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,MEL,Tullamarine Havalimanı,Melbourne,Avustralya,Air New Zealand,2. Terminal,,both,Air New Zealand,Hizmet saatleri: 05:00 - 00:00
+yurtdisi,MEX,Benito Juarez Uluslararası Havalimanı,Mexico City,Meksika,United Airlines United club,Uluslararası Gidiş Terminali,,both,United Airlines,Hizmet saatleri: Uçuş zamanları
+yurtdisi,MIA,Miami Uluslararası Havalimanı,Miami,ABD,Turkish Airlines Lounge,Concourse E,,both,Turkish Airlines,Hizmet saatleri: 06:00 – 00:00. THY'nin kendi salonu; yurtdışı listesinde de var · Hizmet saatleri: 05:00 – 02:00. THY'nin kendi salonu; yurtdışı listesinde de var
+yurtdisi,MIA,Miami Uluslararası Havalimanı,Miami,ABD,Turkish Airlines Lounge (Concourse H),Central Terminal – Concourse H (güvenlik kontrolünden sonra),,both,Turkish Airlines,"05.00-02.00. Duş, çocuk odası, mescit"
+yurtdisi,MLA,Luqa Havalimanı,Malta,Malta,Salon CIP,Ana Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,MLE,Valena (Velana) Uluslararası Havalimanı,Male,Maldivler,Leeli,Uluslararası Terminal,,both,,Hizmet saatleri: 6:00 - 23:30
+yurtdisi,MNL,Ninoy Aquino Uluslararası Havalimanı,Manila,Filipinler,Paggs,3. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,MPM,Maputo Uluslararası Havalimanı,Maputo,Mozambik,Fnb by Pearl Assist,A Terminali,,both,,Hizmet saatleri: 4:30'dan son uçuşa kadar
+yurtdisi,MRA,Misrata Uluslararası Havalimanı (MRA),Misrata,Libya,Altaie Company Lounge,Ana Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,MRS,Marsilya Provence Havalimanı,Marsilya,Fransa,Cézanne Lounge,Terminal 1B,,both,,Hizmet saatleri: 05.00-22.10
+yurtdisi,MRU,Sir Seewoosagur Ramgoolam Uluslararası Havalimanı,Port Louis,Mauritius,Les Salons Amedee Maingard,Terminal 1 (28 numaralı gate karşısı),,both,,Hizmet saatleri: 06:00-23:00
+yurtdisi,MUC,Münih Uluslararası Havalimanı,Münih,Almanya,Havalimanı Lounge World,1/B Terminali,,both,,Hizmet saatleri: 5:15 - 20:30
+yurtdisi,MXP,Malpensa Havalimanı,Milano,İtalya,Montale Lounge,1. Terminal,,both,,Hizmet saatleri: 5:00 - 22:00
+yurtdisi,NAP,Napoli Uluslararası Havalimanı,Napoli,İtalya,Pearl,1. Terminal (C17-C19 Kapıları Yanı),,both,,Hizmet saatleri: 5:00 - 21:00
+yurtdisi,NBO,Nairobi Jomo Kenyatta Uluslararası Havalimanı,Nairobi,Kenya,Turkish Airlines Lounge (Star Alliance),Terminal 1E (3 numaralı kapının yanı),,both,Turkish Airlines,"24 saat. Duş, çocuk odası, mescit"
+yurtdisi,NCE,Cote d'Azur Uluslararası Havalimanı,Nice,Fransa,The Canopy Lounge,1. Terminal,,both,,Hizmet saatleri: 6:00 - 21:00
+yurtdisi,NDJ,Encemine Havalimanı,Encemine (N'Djamena),Çad,Tchad Handling Services LTD.,Ana Terminal,,both,,Hizmet saatleri: Uçuş zamanları
+yurtdisi,NIM,Diori Hamani Uluslararası Havalimanı,Niamey,Nijer,Salon CIP,Ana Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,NKC,Nuakşot Havalimanı,Nuakşot,Moritanya,Ya Marhaba,Ana Terminal,,both,,Hizmet saatleri: Kalkıştan 4 saat öncesi. Giriş penceresi: kalkıştan 4 saat önce
+yurtdisi,NRT,Narita Uluslararası Havalimanı,Tokyo (Narita),Japonya,Turkish Airlines Lounge,"Güney Kanadı, Ek Terminal 4, Kapı 47 (anlaşmalı listede: Terminal 1, Uydu 4, Kapı 47)",,both,Turkish Airlines,7.30-21.45. Duş odası saatleri 7:30-20:30 · Hizmet saatleri: 07:30 - 21:45 (Lokal Saat). THY'nin kendi salonu; yurtdışı listesinde de var
+yurtdisi,NSI,Yaunde Uluslararası Havalimanı,Yaunde,Kamerun,Salon Privatif,1. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,NUE,Nürnberg Havalimanı,Nürnberg,Almanya,Dürer,Güvenlik Sonrası (Pasaport Kontrolü Öncesi),,both,,Hizmet saatleri: 4:00 - 19:00
+yurtdisi,OHD,Ohrid St. Paul the Apostle Airport,Ohri,Kuzey Makedonya,Primeclass CIP Lounge,International Terminal,,both,Primeclass,Hizmet saatleri: 09:00 – 18:00
+yurtdisi,OPO,Francisco Sa Carneiro Havalimanı,Porto,Portekiz,Lounge Ana,1. Terminali,,both,ANA Aeroportos,Hizmet saatleri: 04:00 - 23:00
+yurtdisi,ORD,O'Hare Uluslararası Havalimanı,Şikago,ABD,LOT Business Lounge,5. Terminal,,both,LOT,Hizmet saatleri: 8:00-00:00
+yurtdisi,ORD,O'Hare Uluslararası Havalimanı,Şikago,ABD,Swissport,5. Terminal,,both,Swissport,Hizmet saatleri: 7:00 - 21:30
+yurtdisi,ORN,Oran Ahmed Ben Bella Havalimanı,Oran,Cezayir,Air Algerie,1. Terminali,,both,Air Algerie,Hizmet saatleri: Uçuş Saatleri
+yurtdisi,OSL,Gardermoen Havalimanı,Oslo,Norveç,OSL Lounge,Dış Hatlar Gidiş Terminali 2. Kat,,both,,Hizmet saatleri: 05:15 - 20:30
+yurtdisi,OTP,Henri Coanda Uluslararası Havalimanı,Bükreş,Romanya,Satellite Business,Uluslararası Gidiş Terminali (9. Kapı Üstü),,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,OTP,Henri Coanda Uluslararası Havalimanı,Bükreş,Romanya,Tarom Business,Uluslararası Gidiş Terminali (3. Kapı Üstü),,both,Tarom,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,OUA,Vagadugu Havalimanı,Vagadugu,Burkina Faso,Salon CIP,1. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,OUA,Vagadugu Havalimanı,Vagadugu,Burkina Faso,Servair Lounge,Ana Terminal,,both,Servair,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,OUA,Vagadugu Havalimanı,Vagadugu,Burkina Faso,Yennenga Lounge,Ana Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,PEK,Pekin Başkent Uluslararası Havalimanı,Pekin,Çin,Air China Lounge,3E Terminali,,both,Air China,Hizmet saatleri: 06:00 - 22:00
+yurtdisi,PMO,Falcone Borsellino Havalimanı,Palermo,İtalya,Prima Vista Lounge,1. Terminal,,both,,Hizmet saatleri: Uçuş Saatleri
+yurtdisi,PNH,Phnom Penh Uluslararası Havalimanı,Phnom Penh,Kamboçya,Plaza Premium lounge,Uluslararası Terminal,,both,Plaza Premium,Hizmet saatleri: Uçuş zamanları. Plaza Premium — SS'te şehir hücresinde 'Kamboçya' yazıyor
+yurtdisi,PNR,Pointe-Noire Havalimanı,Pointe-Noire,Kongo,Salon Ebene,Ana Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,PRG,Vaclac Havel Havalimanı,Prag,Çekya,Master Card,1. Terminal,,both,,Hizmet saatleri: 5:30 - 23:00
+yurtdisi,PRN,Priştine Uluslararası Havalimanı,Priştine,Kosova,Lounge 1702,1. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,PTY,Tocumen Uluslararası Havalimanı,Panama,Panama,Copa,Terminal 1 / 2,,both,Copa Airlines,Hizmet saatleri: 05:30 – 21:30 (T1); 05:30 – 21:00 (T2)
+yurtdisi,PVG,Pudong Uluslararası Havalimanı,Şanghay,Çin,Air China Business 71,2. Terminal,,both,Air China,Hizmet saatleri: 06.00-02.00
+yurtdisi,RAK,Marrakech Menara Havalimanı,Marakeş,Fas,Oasis (RAM) Lounge,Terminal 1,,both,Royal Air Maroc,Hizmet saatleri: 7/24 hours
+yurtdisi,RIX,Riga Uluslararası Havalimanı,Riga,Letonya,Primeclass Riga Business,E Terminali,,both,Primeclass,Hizmet saatleri: 6:00 - 23:00
+yurtdisi,RUH,King Khalid Uluslararası Havalimanı,Riyad,Suudi Arabistan,Cozaya Lounge,Terminal 5,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,SCL,Arturo Merino Benitez Havalimanı,Santiago,Şili,Primeclass Santiago SPA,1. Terminal,,both,Primeclass,Hizmet saatleri: Uçuş zamanlarında
+yurtdisi,SEA,Seattle-Tacoma Uluslararası Havalimanı,Seattle,ABD,Club At Seattle,Güney Satellite Concourse Terminali,,both,,Hizmet saatleri: 6:00 - 19:00
+yurtdisi,SEZ,Seyşeller Uluslararası Havalimanı,Seyşeller,Seyşeller,Air Seychelles (Salon Vallee De Mai),Ana terminal,,both,Air Seychelles,Hizmet saatleri: Uçuş saatleri
+yurtdisi,SFO,San Francisco Uluslararası Havalimanı,San Francisco,ABD,The Club Lounge,Terminal 1,,both,,Hizmet saatleri: 4.30 - 23.30
+yurtdisi,SFO,San Francisco Uluslararası Havalimanı,San Francisco,ABD,United Club,Uluslararası G Terminali,,both,United Airlines,Hizmet saatleri: 7:00 - 22:30
+yurtdisi,SGN,Tan Son Nhat Uluslararası Havalimanı,Ho Chi Minh,Vietnam,Le Saigonnais Business,2. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,SHJ,Şarika Havalimanı,Şarika,Birleşik Arap Emirlikleri,The Lounge,1. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,SIN,Singapur Changi Havalimanı,Singapur,Singapur,Sats Premium Lounge,1. Terminal,,both,SATS,Hizmet saatleri: 06:00 - 01:00
+yurtdisi,SJJ,Saraybosna Uluslararası Havalimanı,Saraybosna,Bosna Hersek,Business Lounge,B Terminali,,both,,Hizmet saatleri: 05:00-22:00
+yurtdisi,SKG,Selanik Makedonya Havalimanı,Selanik,Yunanistan,Aegean,2. Terminal,,both,Aegean Airlines,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,SKP,Üsküp Uluslararası Havalimanı,Üsküp,Kuzey Makedonya,TAV Primeclass Lounge,Tek Terminal,,both,TAV Primeclass,Hizmet saatleri: 7 Gün / 24 Saat
+yurtdisi,SOF,Sofya Uluslararası Havalimanı,Sofya,Bulgaristan,PrimeClass Lounge,2. Terminal,,both,Primeclass,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,SSH,Şarm El-Şeyh Uluslararası Havalimanı,Şarm El-Şeyh,Mısır,Pearl Assist,1. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,STR,Stuttgart Havalimanı,Stuttgart,Almanya,Airport Lounge,3. Terminal,,both,,Hizmet saatleri: 05:00 - 21:30
+yurtdisi,SZG,Wolfgang Amadeus Mozart Havalimanı,Salzburg,Avusturya,Business,1. Terminal,,both,,Hizmet saatleri: 06.00-21.00
+yurtdisi,TAS,İslam Kerimov Taşkent Uluslararası Havalimanı,Taşkent,Özbekistan,Anjir Business Lounge,Terminal 2,,both,,Hizmet saatleri: Uçuş saatleri
+yurtdisi,TBS,Tiflis Havalimanı,Tiflis,Gürcistan,Primeclass,Gidiş Terminali,,both,Primeclass,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,TBZ,Tebriz Havalimanı,Tebriz,İran,International CIP,Yakın Uluslararası Gidiş Terminali,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,TIA,Tiran Uluslararası Havalimanı,Tiran,Arnavutluk,Business Lounge,Terminal 1,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,TIF,Taif Bölgesel Havaalanı,Taif,Suudi Arabistan,Hayyak Lounge,Dış Hatlar Terminali,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,TLL,Lennart Meri Tallinn Havalimanı,Tallinn,Estonya,Airport LHV Lounge,Yolcu terminalinin 2. katı (Shengen Bölgesi),,both,,Hizmet saatleri: Pzt-Pzr 4:30 - 22:00
+yurtdisi,TLS,Toulouse-Blagnac Havalimanı,Toulouse,Fransa,La Croix Du Sud Lounge,Salon C,,both,,Hizmet saatleri: Pzt-Cuma 5:15-21:00; Cmt 05:15-20:00; Pazar 05:45-21:00
+yurtdisi,TNR,Ivato Uluslararası Havalimanı,Antananarivo,Madagaskar,Prime Class,C Terminali,,both,Primeclass,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,TPE,Taoyuan Uluslararası Havalimanı,Taoyuan (Taipei),Tayvan,Plaza Premium,2. Terminal,,both,Plaza Premium,Hizmet saatleri: 5:00 - 23:00
+yurtdisi,TRN,Torino Havalimanı,Torino,İtalya,SAGAT S.p.A Havalimanı,1. Terminal,,both,SAGAT,Hizmet saatleri: 05.00 – 21.00 (yerel saat)
+yurtdisi,TSR,Timisoara Traian Vuia Uluslararası Havalimanı,Temeşvar,Romanya,S.N. Aeroportul International Timisoara,Ana Terminal,,both,,Hizmet saatleri: Uçuş saatleri
+yurtdisi,TUN,Kartaca Havalimanı,Tunus,Tunus,Salon Privilige,1. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,UBN,Cengiz Han Uluslararası Havalimanı,Ulanbator,Moğolistan,Blue Sky Lounge,Dış Hatlar Terminali,,both,,Hizmet saatleri: 7 gün 24 saat. Yeni Chinggis Khaan havalimanı; eski havalimanı kodu ULN idi
+yurtdisi,VAR,Varna Havalimanı,Varna,Bulgaristan,Business,2. Terminal,,both,,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,VCE,Marco Polo Havalimanı,Venedik,İtalya,Marco Polo,Ana Terminal,,both,,Hizmet saatleri: 5:00 - 22:00
+yurtdisi,VIE,Viyana Uluslararası Havalimanı,Viyana,Avusturya,Viyana Lounge,Terminal 1,,both,,Hizmet saatleri: 04.30-22.00
+yurtdisi,VKO,Moskova Vnukovo Uluslararası Havalimanı,Moskova,Rusya,Istanbul-Moscow,Terminal A,,both,Turkish Airlines,Hizmet saatleri: 7 gün 24 saat. THY'nin kendi salonu; yurtdışı listesinde de var
+yurtdisi,VLC,Valensiya Havalimanı,Valensiya,İspanya,Joan Olivert,1. Terminal,,both,,Hizmet saatleri: 5:00 - 23:00
+yurtdisi,VNO,Vilnius Uluslararası Havalimanı,Vilnius,Litvanya,Narbutas Business,1. Terminal,,both,,Hizmet saatleri: 4:00 - 22:00
+yurtdisi,WAW,Chopin Uluslararası Havalimanı,Varşova,Polonya,Bolero,Schengen Olmayan Bölge,,both,,Hizmet saatleri: 6:30-22:00
+yurtdisi,WAW,Chopin Uluslararası Havalimanı,Varşova,Polonya,Mazurek (Star Alliance Lounge),Schengen Olmayan Bölge,,both,Star Alliance,Hizmet saatleri: 06:00-22:00
+yurtdisi,WAW,Chopin Uluslararası Havalimanı,Varşova,Polonya,PPL,Schengen Olmayan Bölge,,both,,Hizmet saatleri: Uçuş saatleri
+yurtdisi,YUL,Montreal-Pierre Elliot Trudeau Uluslararası Havalimanı,Montreal,Kanada,Maple Leaf Lounge,Uluslararası Terminal,,both,Air Canada,Hizmet saatleri: 04:30 – 23:15
+yurtdisi,YVR,Vancouver Uluslararası Havalimanı,Vancouver,Kanada,Skyteam,Uluslararası Gidiş Terminali,,both,SkyTeam,Hizmet saatleri: Uçuş zamanları
+yurtdisi,YYZ,Lester B. Pearson Uluslararası Havalimanı,Toronto,Kanada,Ac Maple Leaf,1. Terminal,,both,Air Canada,Hizmet saatleri: 6:00 - 00:45
+yurtdisi,ZAG,Zagreb Havalimanı,Zagreb,Hırvatistan,Prime Class,Uluslararası Gidiş Terminali,,both,Primeclass,Hizmet saatleri: Uçuş zamanları
+yurtdisi,ZNZ,Abeid Amani Karume Uluslararası Havalimanı,Zanzibar,Tanzanya,Marhaba Lounge,3. Terminal,,both,Marhaba,Hizmet saatleri: 7 gün 24 saat
+yurtdisi,ZRH,Zürih Kloten Havalimanı,Zürih,İsviçre,Aspire Lounge,E Terminali,,both,Aspire,Hizmet saatleri: 6:00 - 22:00

@@ -1,4 +1,5 @@
 import { LEGAL_DOCS, LEGAL_VERSION } from "../lib/legal-source";
+import SiteHeader from "./SiteHeader";
 
 export default function LegalPage({ docKey }) {
   // 🔴 App'teki yapı {key: {title, short, body}} — dil kırılımı YOK,
@@ -11,13 +12,7 @@ export default function LegalPage({ docKey }) {
 
   return (
     <>
-      <header style={{ borderBottom: "1px solid var(--line)", background: "var(--card)" }}>
-        <div className="wrap" style={{ display: "flex", alignItems: "center", height: 66 }}>
-          <a href="/" style={{ fontFamily: "var(--serif)", fontSize: 18, color: "var(--ink)", fontWeight: 700 }}>
-            ◈ LoungeLink
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
       <div className="wrap" style={{ maxWidth: 720, padding: "44px 24px 80px" }}>
         <h1 style={{ fontSize: "clamp(26px,4vw,36px)" }}>{d.title}</h1>
         <div style={{ fontSize: 12.5, color: "var(--muted)", marginTop: 8 }}>

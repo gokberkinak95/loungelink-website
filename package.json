@@ -1,13 +1,14 @@
 {
   "name": "loungelink-website",
-  "version": "0.14.0",
+  "version": "0.23.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "check": "node check.js"
+    "check": "node check.js",
+    "gen:lounges": "node scripts/gen-lounges.mjs"
   },
   "keywords": [],
   "author": "",
