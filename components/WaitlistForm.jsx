@@ -16,9 +16,25 @@ import { SITE } from "../lib/content";
 // olmazsa (tablo yok, RLS reddi, ağ) kullanıcının elinde yine bir
 // yol kalmalı. Yedek yolu olmayan tek yol, yol değildir.
 // ============================================================
+// 🔴 v0.25 — "YOL ARKADAŞI ARIYORUM" NE İSTEDİĞİNİ SÖYLEMİYORDU.
+// Gökberk: "yol arkadaşı arıyorum ifadesi tam olarak anlaşılmıyor;
+// guest olarak kayıt olacağı daha açık olmalı."
+//
+// Haklı ve sebebi şu: iki seçenek AYNI SORUYU cevaplamıyordu.
+// Birincisi ELİNDE NE OLDUĞUNU söylüyor (kart hakkı), ikincisi
+// NE HİSSETTİĞİNİ. Kullanıcı ikisini kıyaslayamıyor.
+//
+// Yeni hâlde ikisi de aynı soruyu cevaplıyor: "kart hakkın var mı,
+// yok mu" — ve her birinin altında o seçimin NE ANLAMA GELDİĞİ
+// yazıyor. "Misafir olmak istiyorum" gibi ürün jargonu kullanmıyoruz;
+// kullanıcının kendi diliyle: salona giriyorsun ama kart senin değil.
 const ROLLER = [
-  { v: "host", t: "Kartımda misafir hakkı var" },
-  { v: "misafir", t: "Yol arkadaşı arıyorum" },
+  { v: "host",
+    t: "Kartımda misafir hakkı var",
+    alt: "Salona kendi kartımla giriyorum, yanımda bir kişilik yer olabiliyor." },
+  { v: "misafir",
+    t: "Kartım yok — birinin yanında girmek istiyorum",
+    alt: "Lounge hakkım yok ya da bitti; kart sahibi biriyle eşleşmek istiyorum." },
 ];
 
 export default function WaitlistForm() {
@@ -78,7 +94,13 @@ export default function WaitlistForm() {
             <label key={r.v} className="wl-role">
               <input type="radio" name="wl-role" value={r.v}
                      checked={role === r.v} onChange={() => setRole(r.v)} />
-              <span>{r.t}</span>
+              <span>
+                {r.t}
+                {/* Alt satır seçimin karşılığını yazar: kullanıcı
+                    "hangisi benim" sorusunu tahminle değil okuyarak
+                    cevaplasın. */}
+                {!!r.alt && <em className="wl-role-alt">{r.alt}</em>}
+              </span>
             </label>
           ))}
         </div>

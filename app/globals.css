@@ -5,45 +5,85 @@
    Bu dosyada yeni renk ÜRETİLMEZ; app'te olmayan bir renge
    ihtiyaç duyuluyorsa önce app'e eklenir.
    ============================================================ */
+/* ════════════════════════════════════════════════════════════════
+   🔴 v0.26 — ÜÇÜNCÜ KEZ AYNI HATA. BU SEFER KÖKÜNDEN.
+   ----------------------------------------------------------------
+   Kusurun tarihi:
+     v0.7  → `body { background:#070B16 }` yazıldı. Sayfa geceye
+             döndü ama TOKEN'LAR açık tema kaldı (--ink koyu lacivert,
+             --card beyaz). Metin koyu zeminde koyu kaldı.
+     v0.18 → düzeltme `.section:not(.dark-band)` içine kapsamlandı.
+             Ama /rehber'in başlığı hiçbir .section içinde değil.
+     v0.25 → düzeltme `body`'ye taşındı ama açık yüzeyler ELLE
+             sayıldı (.acc-item, .card-light, .paper...). Sayılmayan
+             her yüzey — .wcalc, footer, header, /kartlar rozetleri —
+             bu sefer TERS yönde bozuldu: açık metin beyaz zeminde.
+
+   19 Ağustos ölçümü (10 sayfa × 7 cihaz, gerçek Chromium):
+     70/70 kombinasyonda ihlal · toplam 1665 metin ögesi
+     en büyüğü: /kartlar rozetleri — #E8E3D8 beyaz üstünde, 1.28:1
+     yani o 144 rozet ekranda GÖRÜNMÜYORDU.
+
+   Ders: "hangi yüzeyler açık" diye bir LİSTE tutmak, listeye
+   girmeyen her yeni bileşende kusurun geri gelmesi demektir. Liste
+   üç kez tutuldu, üç kez eksik kaldı.
+
+   ÇÖZÜM: liste yok. Sayfanın zemini gece olduğuna göre TOKEN'LARIN
+   KENDİSİ gece olur. Böylece `var(--ink)` yazan 32 yer, `var(--card)`
+   yazan 18 yer ve bundan sonra yazılacak her yer otomatik doğru olur.
+   Tek istisna app maketi (Screens.jsx / .phone): o AÇIK temalı, çünkü
+   uygulamanın kendisi açık temalı. Onun için ayrı --app* token'ları
+   var; site paletiyle karışamaz.
+
+   Nöbetçi: `node kontrast_check.js` — 10 sayfa × 7 cihaz gerçek
+   tarayıcıda ölçüyor, ihlal varsa çıkış 1. Artık bu kusur sessizce
+   geri gelemez.
+   ════════════════════════════════════════════════════════════════ */
 :root {
-  --gold: #B8943A;
-  --ink: #1A1F2E;
-  --body: #374151;
-  /* 🔴 v0.17 WCAG AA — ÖLÇÜLDÜ:
-       --dim #9CA3AF / beyaz zemin = 2.54:1  (AA metin eşiği 4.5:1)
-       --gold #B8943A + beyaz metin = 2.86:1 (buton yazısı okunmuyor)
-       --amber #D97706 / beyaz zemin = 3.19:1
-       --green #059669 / beyaz zemin = 3.77:1
-     Bunların hiçbiri "biraz düşük" değil, hepsi eşiğin ALTINDA. Açık
-     havada telefonla bakan bir yolcu için bu, metnin olmaması demek.
-     --dim artık METİN için kullanılmıyor (yerine --muted 4.83:1);
-     token duruyor çünkü ayırıcı/çerçeve tonu olarak hâlâ anlamlı. */
-  --dim: #9CA3AF;
-  /* 🔴 v0.18 WCAG AA — v0.17'DEKİ ÖLÇÜM EKSİK ZEMİNE YAPILMIŞTI.
-     Yukarıda "--muted 4.83:1" yazıyor; o oran BEYAZ (#FFFFFF) zemine
-     göre. Oysa sayfa gövdesinin zemini --bg (#F8F6F1), kutuların
-     zemini --bgAlt (#F0EDE6). Gerçek ölçüm:
-       #6B7280 / #F8F6F1 = 4.48:1   (eşik 4.5 — ALTINDA)
-       #6B7280 / #F0EDE6 = 4.13:1   (ALTINDA)
-     Yani breadcrumb, dipnot, "yalnız kendin" rozeti ve form açıklaması
-     AA'yı geçmiyordu. Doğru zemine ölçmemek, hiç ölçmemekle aynı sonucu
-     veriyor — v0.17 "ölçtüm" diyerek hatayı kapatmış.
-     Yeni ton aynı gri ölçeğinin bir alt basamağı (yeni renk üretmedik):
-       #4B5563 / #F8F6F1 = 7.00:1 · #F0EDE6 = 6.46:1 · #FFFFFF = 7.56:1 */
-  --muted: #4B5563;
-  --goldDeep: #8A5A00;   /* + #FFF = 5.93:1 — altın zeminli buton metni */
-  --bg: #F8F6F1;
-  --bgAlt: #F0EDE6;
-  --card: #FFFFFF;
-  --teal: #0D9488;
-  --green: #046B4C;      /* beyaz zeminde 6.54:1 (eski #059669 3.77:1) */
-  --amber: #8A5A00;      /* beyaz zeminde 5.93:1 (eski #D97706 3.19:1) */
-  --line: rgba(0, 0, 0, 0.08);
-  --warmLine: rgba(184, 148, 58, 0.22);
-  --goldSoft: rgba(184, 148, 58, 0.10);
+  /* ——— SİTE PALETİ · GECE ——— */
+  /* Oranlar sayfa zemini #070B16'ya göre ölçüldü (WCAG AA eşiği 4.5). */
+  --gold: #B8943A;       /* 6.86:1 — açık zeminde 2.86'ydı, gecede geçiyor */
+  --goldText: #D9B45F;   /* 9.96:1 — küçük punto altın metin (eyebrow, kod) */
+  --goldDeep: #8A5A00;   /* 🔴 YALNIZ ZEMİN olarak kullanılır (+#FFF = 5.93:1).
+                            Metin olarak gecede 3.32:1 — eşiğin altında. */
+  --ink: #F7F3EA;        /* 17.75:1 — başlık ve vurgu */
+  --body: #C3BCAC;       /* 10.40:1 — gövde metni */
+  --muted: #9A9384;      /*  6.44:1 — dipnot, kırıntı, ikincil */
+  --dim: #6B7280;        /* METİN DEĞİL — yalnız ayırıcı/çerçeve tonu */
+  --bg: #070B16;
+  --bgAlt: #0F1626;
+  --card: rgba(255, 255, 255, 0.05);   /* cam yüzey · üstünde --ink 16.16:1 */
+  --teal: #2DD4BF;       /* 10.56:1 (eski #0D9488 gecede 5.25, sınırda) */
+  --green: #34D399;      /* 10.22:1 (eski #046B4C gecede 3.01 — ALTINDA) */
+  --amber: #FBBF24;      /* 11.77:1 (eski #8A5A00 gecede 3.32 — ALTINDA) */
+  --line: rgba(243, 239, 230, 0.12);
+  --warmLine: rgba(184, 148, 58, 0.28);
+  --goldSoft: rgba(184, 148, 58, 0.14);
+
+  /* ——— APP MAKETİ PALETİ ———
+     Screens.jsx ve .phone uygulamanın AÇIK temasını temsil ediyor.
+     Site paletinden ayrı tutuluyor: site gece, app gündüz. Aynı
+     token'ı paylaşsalardı biri değişince diğeri sessizce bozulurdu —
+     v0.7'den beri tam olarak bu oluyordu.
+     Oranlar #F8F6F1 zemine göre: appInk 14.5 · appBody 8.9 · appMuted 7.0 */
+  --appBg: #F8F6F1;
+  --appAlt: #F0EDE6;
+  --appCard: #FFFFFF;
+  --appInk: #1A1F2E;
+  --appBody: #374151;
+  --appMuted: #4B5563;
+  --appLine: rgba(0, 0, 0, 0.08);
+  --appGreen: #046B4C;   /* beyazda 6.54:1 */
+  --appAmber: #8A5A00;   /* beyazda 5.93:1 */
+  --appTeal: #0D9488;
 
   --serif: ui-serif, Georgia, "Times New Roman", serif;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* 🔴 v0.26 — `var(--mono)` Screens.jsx'te üç yerde çağrılıyordu ama
+     hiçbir yerde TANIMLI DEĞİLDİ: tarayıcı sessizce devralınan yazı
+     tipini kullanıyordu. Tanımsız değişken hata vermez, sadece yanlış
+     görünür — bu yüzden bir yıl fark edilmez. */
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -81,7 +121,7 @@ h3 { font-size: 19px; }
   font-size: 11px; letter-spacing: 2px; font-weight: 700;
   /* Açık zeminde altın metin 2.65:1 — koyu altın 5.49:1.
      Koyu bantlarda --gold kalır (orada zemin koyu, kontrast yüksek). */
-  color: var(--goldDeep); text-transform: uppercase; margin-bottom: 12px;
+  color: var(--goldText); text-transform: uppercase; margin-bottom: 12px;
 }
 
 .lead { font-size: clamp(16px, 2vw, 19px); color: var(--body); line-height: 1.65; }
@@ -112,18 +152,22 @@ h3 { font-size: 19px; }
 /* 🔴 TELEFON ÇERÇEVESİ CSS İLE — görsel dosyası değil.
    Ekran görüntüleri henüz gelmedi; çerçeve hazır olunca içine
    sadece resmi koymak yetecek. Böylece site şimdi kurulabiliyor. */
+/* 🔴 v0.26 — TELEFON MAKETİ APP PALETİNİ KULLANIR, SİTE PALETİNİ DEĞİL.
+   Eskiden `var(--card)` / `var(--ink)` yazıyordu; site paleti geceye
+   dönünce telefonun içi de kararacaktı — oysa uygulama açık temalı.
+   Maket, app'in gerçekte nasıl göründüğünü göstermezse yalan söyler. */
 .phone {
   width: 100%; max-width: 300px; margin: 0 auto;
-  aspect-ratio: 9 / 19.5; background: var(--card);
-  border: 10px solid var(--ink); border-radius: 38px;
+  aspect-ratio: 9 / 19.5; background: var(--appCard);
+  border: 10px solid var(--appInk); border-radius: 38px;
   overflow: hidden; position: relative;
-  box-shadow: 0 24px 60px rgba(26, 31, 46, 0.16);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
 }
 .phone img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .phone .placeholder {
   width: 100%; height: 100%; display: flex; flex-direction: column;
   align-items: center; justify-content: center; gap: 10px;
-  background: var(--bgAlt); color: var(--body); font-size: 13px; text-align: center; padding: 24px;
+  background: var(--appAlt); color: var(--appBody); font-size: 13px; text-align: center; padding: 24px;
 }
 
 .stats { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
@@ -220,8 +264,11 @@ h1, h2 {
 .demo-row { display: flex; flex-wrap: wrap; gap: 7px; }
 .pill {
   font: inherit; font-size: 13px; cursor: pointer;
+  /* v0.26 — 39px idi; min-height ile 44'e çıkarıldı (dolgu değil,
+     çünkü dolguyla denendiğinde 21px'e düşmüştü). */
+  display: inline-flex; align-items: center; min-height: 44px;
   background: var(--bg); color: var(--body);
-  border: 1px solid var(--line); border-radius: 20px; padding: 8px 15px;
+  border: 1px solid var(--line); border-radius: 22px; padding: 0 15px;
   transition: background .16s ease, color .16s ease, border-color .16s ease;
 }
 .pill:hover { border-color: var(--gold); }
@@ -249,13 +296,47 @@ h1, h2 {
   .phone-stage.floating .phone { animation: none !important; }
 }
 
+/* ============================================================
+   🔴 v0.25 — TELEFON EKRAN GÖRÜNTÜLERİ UPUZUN ÇIZILIYORDU
+   ------------------------------------------------------------
+   Gökberk: "websitede görseller bozuk (upuzun)". Ölçtüm — gerçek
+   Chromium'da, canlı sayfada:
+
+     dosya                  ÇİZİLEN      oran   DOSYANIN GERÇEĞİ  oran
+     ss-kesfet.jpg          208x1024     4.92   480x1027          2.14
+     ss-n.jpg               207x940      4.55   460x942           2.05
+     ss-baglanti.jpg        150x1027     6.85   480x1027          2.14
+     → 12 görselin 7'si bozuk
+
+   SEBEP: `<img>` etiketlerine CLS (sayfa zıplaması) önlensin diye
+   `width` ve `height` ÖZNİTELİKLERİ verilmiş — bu doğru bir karardı.
+   Ama CSS yalnız `width` veriyordu. Bir görsele CSS'ten sadece
+   genişlik verilirse tarayıcı yüksekliği ÖZNİTELİKTEN alır ve onu
+   PİKSEL olarak uygular: 196px genişlik × 942px yükseklik = 1:4.8.
+   Yani görseller yükleniyor, doğru dosya geliyor, hiçbir hata
+   çıkmıyor — sadece esniyor. Hata vermeyen bozukluk en geç
+   fark edilendir.
+
+   ÇÖZÜM: genişlik veren her görsel kuralına `height: auto`.
+   `auto`, öznitelikteki yüksekliği yok saymaz — CLS koruması
+   sürer (tarayıcı oranı öznitelikten hesaplar), yalnız piksel
+   dayatması kalkar. Yani iki iyilik birden korunuyor.
+
+   Tek yerde, kapsayıcı bir kural: aşağıdaki hiçbir bileşende
+   `height` bilerek verilmiyor, o yüzden hepsini birden bağlamak
+   güvenli — ve yeni bir görsel eklendiğinde de korunur.
+   ============================================================ */
+.shots img, .shot, .shot-tilt img, .shelf-item img, .trio img, figure img {
+  height: auto;
+}
+
 /* ---- v0.3: ekran şeritleri + akış + program kartları ---- */
 .shots { display: flex; gap: 22px; justify-content: center; margin-top: 30px; flex-wrap: wrap; }
 .shot {
   width: 232px; max-width: 28vw; border-radius: 26px;
   border: 1px solid var(--line);
-  box-shadow: 0 18px 44px rgba(31, 41, 55, .14);
-  background: var(--card);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, .45);
+  background: var(--appCard);   /* ekran görüntüsünün altı — app teması */
 }
 .shots .shot:nth-child(2) { transform: translateY(-14px); }
 .shots-sm { justify-content: flex-end; }
@@ -378,8 +459,8 @@ h1, h2 {
 .shot-tilt { display: flex; justify-content: center; perspective: 1200px; }
 .shot-tilt img {
   width: 250px; max-width: 62vw; border-radius: 26px;
-  border: 1px solid var(--line); background: var(--card);
-  box-shadow: 0 24px 54px rgba(31,41,55,.18);
+  border: 1px solid var(--line); background: var(--appCard);
+  box-shadow: 0 24px 54px rgba(0,0,0,.45);
   transform: rotateY(-12deg) rotateX(3deg);
   transition: transform .5s ease;
 }
@@ -444,7 +525,8 @@ body { background: #070B16; }
 
 /* footer da geceye */
 footer { background: #070B16; color: #A79F8E; border-top: 1px solid rgba(243,239,230,.08); }
-footer a { color: var(--gold); }
+/* v0.26 — alt bilgi bağlantıları 22px idi; 44px dokunma hedefi. */
+footer a { display: inline-flex; align-items: center; min-height: 44px; color: var(--gold); }
 
 /* v0.8 — LS KART GRAMERİ + İFADE SATIRI */
 .chip-ico {
@@ -470,7 +552,10 @@ footer a { color: var(--gold); }
 .beat {
   display: inline-flex; align-items: center; gap: 8px; margin-top: 26px;
   color: var(--gold); font-size: 15px; font-weight: 600; text-decoration: none;
-  border-bottom: 1px solid rgba(184,148,58,.35); padding-bottom: 4px;
+  /* v0.26 — 29px idi. Alt çizgi tasarımı korunuyor; yükseklik
+     ÜSTTEN dolguyla veriliyor ki çizgi metinden uzaklaşmasın. */
+  min-height: 44px; align-items: flex-end;
+  border-bottom: 1px solid rgba(184,148,58,.35); padding-bottom: 6px;
   transition: border-color .25s ease;
 }
 /* Ok işareti gap ile değil TRANSFORM ile kayar: layout hesabı yok,
@@ -673,25 +758,72 @@ footer a { color: var(--gold); }
    sayfayı etkiler; "ana sayfa güzel oldu" demek yetmez.
    Çözüm: alt sayfalar da gece paletini DOĞRU renklerle kullanır.
    ============================================================ */
-.section:not(.dark-band) {
-  background: transparent;
-  color: #E8E3D8;
+/* ============================================================
+   🔴 v0.25 — AYNI KUSUR SÜRÜYORDU, ÇÜNKÜ DÜZELTME YANLIŞ YERE
+   BAĞLANMIŞTI.
+   ------------------------------------------------------------
+   Yukarıdaki blok kusuru doğru teşhis etmiş ama `.section` içine
+   kapsamlamış. Ölçtüm — /rehber sayfasının başlığı hiçbir
+   `.section` içinde değil:
+
+     H1  →  DIV.wrap  →  BODY
+
+   Sonuç, gerçek Chromium'da ölçülen kontrast:
+     h1 rengi   rgb(26,31,46)   (açık tema mürekkebi)
+     zemin      rgb(7,11,22)    (gece)
+     oran       1.20 : 1        (WCAG AA eşiği 3.0)
+   /rehber'de 26, /kartlar'da 21 metin okunamıyordu.
+
+   Ders: bir düzeltmeyi "çoğu yerde çalışan" bir seçiciye bağlamak,
+   düzeltmeyi yapmamakla aynı sınıfa girer — hata görünmez olur ama
+   yaşamaya devam eder. Artık kapsam SAYFANIN TAMAMI: zemin gece
+   olduğu için varsayılan metin de gece paleti. Açık yüzeyler
+   (beyaz kartlar) kendi rengini aşağıda geri alıyor.
+   ============================================================ */
+/* 🔴 v0.26 — BU BLOK KALDIRILDI, TOKEN'A TAŞINDI.
+   Burada 30 satır boyunca gece renkleri ELLE yazılıyordu
+   (`body { color:#E8E3D8 }`, `h1..h4 { color:#F7F3EA }`) ve altında
+   "açık yüzeyler kendi rengini geri alır" diye ELLE tutulan bir
+   istisna listesi vardı. Liste eksikti: .wcalc, footer, header ve
+   /kartlar rozetleri listede yoktu, dolayısıyla o yüzeylerde açık
+   metin beyaz zemine düştü — 70/70 kombinasyonda ihlal.
+
+   Artık --ink/--body/--muted/--card token'larının KENDİSİ gece.
+   Elle liste yok, dolayısıyla listeden düşecek yüzey de yok.
+   Yalnız bir davranış korunuyor: bağlantı rengi ve kırıntı tonu. */
+a { color: inherit; }
+.crumb, .breadcrumb { color: var(--muted); font-size: 13px; margin-bottom: 18px; }
+
+/* ══════════════════════════════════════════════════════════════
+   🔴 v0.26 · DOKUNMA HEDEFİ — 44px (Apple HIG / WCAG 2.5.5)
+   ÖLÇÜLDÜ (7 sayfa × 3 mobil cihaz, gerçek Chromium):
+     kart rozetleri     42px  (× 462 öge — sayfanın ana gezinme yolu)
+     kırıntı bağlantısı 22px
+     başlıktaki çağrı   37-40px
+     .beat bağlantısı   29px
+     .pill              39px
+   Telefonla, ayakta, uçuş kapısında kullanılan bir üründe 22px'lik
+   bir bağlantı "ıskalanır" demektir — kullanıcı yanlış yere basar
+   ve geri döner.
+
+   ⚠️ ÖNCEKİ DENEMEM GERİ ALINMIŞTI: `padding` büyütünce yatay taşma
+   0→3 çıkmış, `.pill` 39→21px'e DÜŞMÜŞTÜ (kısayol padding, dikey
+   değeri ezmişti). Bu yüzden burada `min-height` + `inline-flex`
+   kullanılıyor: yükseklik doğrudan söyleniyor, dolgudan türetilmiyor.
+   ══════════════════════════════════════════════════════════════ */
+.card-chip {
+  display: inline-flex; align-items: center; min-height: 44px;
+  border: 1px solid var(--line); background: var(--card);
+  border-radius: 22px; padding: 0 16px; font-size: 13.5px;
+  color: var(--body); transition: border-color .16s ease, color .16s ease;
 }
-.section:not(.dark-band) h1,
-.section:not(.dark-band) h2,
-.section:not(.dark-band) h3,
-.section:not(.dark-band) h4 { color: #F7F3EA; }
-.section:not(.dark-band) p,
-.section:not(.dark-band) li,
-.section:not(.dark-band) .lead,
-.section:not(.dark-band) .sub,
-.section:not(.dark-band) .note,
-.section:not(.dark-band) td,
-.section:not(.dark-band) th { color: #C3BCAC; }
-.section:not(.dark-band) a { color: var(--gold); }
-.section:not(.dark-band) .eyebrow { color: var(--goldDeep); }
-.section:not(.dark-band) .crumb,
-.section:not(.dark-band) .breadcrumb { color: #8F8878; }
+.card-chip:hover { border-color: var(--gold); color: var(--ink); }
+
+.crumb a, .breadcrumb a {
+  display: inline-flex; align-items: center; min-height: 44px;
+  color: var(--muted);
+}
+.crumb a:hover, .breadcrumb a:hover { color: var(--goldText); }
 
 /* Alt sayfalardaki kartlar da gece yüzeyine geçer */
 .section:not(.dark-band) .box,
@@ -762,13 +894,13 @@ footer a { color: var(--gold); }
 }
 .cover-item[open] > summary::after { content: "–"; }
 .cover-item > summary:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
-.cover-code { color: var(--goldDeep); font-weight: 700; }
+.cover-code { color: var(--goldText); font-weight: 700; }
 .cover-name { color: var(--ink); font-weight: 600; }
 .cover-n { font-size: 12.5px; color: var(--muted); white-space: nowrap; }
 .cover-body { padding: 4px 16px 16px; display: grid; gap: 14px; }
 .cover-group-t {
   font-size: 11px; letter-spacing: 1.6px; font-weight: 700;
-  text-transform: uppercase; color: var(--goldDeep); margin-bottom: 6px;
+  text-transform: uppercase; color: var(--goldText); margin-bottom: 6px;
 }
 .cover-group ul { list-style: none; display: grid; gap: 7px; }
 .cover-group li { font-size: 14.5px; line-height: 1.5; color: var(--body); }
@@ -776,7 +908,7 @@ footer a { color: var(--gold); }
 .cover-tag, .cover-term { display: inline-block; font-size: 12px; color: var(--muted); }
 .cover-tag {
   margin-left: 8px; padding: 1px 8px; border-radius: 20px;
-  border: 1px solid var(--warmLine); color: var(--goldDeep);
+  border: 1px solid var(--warmLine); color: var(--goldText);
 }
 .cover-term { margin-left: 8px; }
 .cover-more { margin-top: 18px; font-size: 15.5px; line-height: 1.6; }
@@ -798,15 +930,18 @@ footer a { color: var(--gold); }
    Mobil: gizli hamburger yok. Üç bağlantı bir satıra sığar; çağrı
    alta iner. Açılmayan bir menü, olmayan menüden kötüdür. */
 .site-nav { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-.site-nav a { font-size: 14px; color: var(--muted); }
+/* v0.26 — menü bağlantıları 22px idi; 44px dokunma hedefi. */
+.site-nav a { display: inline-flex; align-items: center; min-height: 44px;
+              font-size: 14px; color: var(--muted); }
 .site-nav a:hover { color: var(--ink); }
-.site-nav .btn { padding: 9px 18px; font-size: 13.5px; color: #FFFFFF; }
+.site-nav .btn { display: inline-flex; align-items: center; min-height: 44px;
+                 padding: 0 18px; font-size: 13.5px; color: #FFFFFF; }  /* v0.26: 40px → 44px */
 .site-head-row { display: flex; align-items: center; gap: 20px; min-height: 66px; padding: 10px 0; }
 @media (max-width: 620px) {
   .site-head-row { flex-wrap: wrap; gap: 10px; }
   .site-nav { width: 100%; gap: 14px; justify-content: space-between; }
   .site-nav a { font-size: 13.5px; }
-  .site-nav .btn { padding: 8px 14px; font-size: 13px; }
+  .site-nav .btn { padding: 0 14px; font-size: 13px; min-height: 44px; }  /* v0.26: 37px → 44px */
 }
 
 /* ── v0.18 · BEKLEME LİSTESİ FORMU ────────────────────────────
@@ -825,8 +960,28 @@ footer a { color: var(--gold); }
   border: 1px solid var(--line); border-radius: 13px; padding: 12px 14px;
   background: var(--card);
 }
-.wl-kvkk { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 13.5px; }
+/* v0.25 — seçenek altındaki açıklama satırı. `em` ama eğik DEĞİL:
+   eğik yazı küçük puntoda okunurluğu düşürür; burada amaç
+   vurgulamak değil AÇIKLAMAK. */
+.wl-role-alt {
+  display: block; margin-top: 4px; font-style: normal;
+  font-size: 12.5px; line-height: 1.5; color: var(--muted);
+}
+.dark-band .wl-role-alt { color: #A9A395; }
+/* Seçili seçenek görsel olarak da ayrışsın — iki kutu aynı görünürken
+   hangisinin seçili olduğunu yalnız küçük radyo düğmesi söylüyordu. */
+.wl-role:has(input:checked) { border-color: var(--gold); background: var(--goldSoft); }
+.dark-band .wl-role:has(input:checked) {
+  border-color: rgba(244,215,154,.55); background: rgba(244,215,154,.10);
+}
+
+/* v0.26 — onay kutusunun kendisi 13px; dokunma alanı onu saran
+   etiket. Etiket 43.5px ölçüldü — yani eşiğin YARIM PİKSEL
+   altında. "Neredeyse geçiyor" diye geçmiş sayılmaz. */
+.wl-kvkk { display: flex; align-items: flex-start; gap: 10px; cursor: pointer;
+           font-size: 13.5px; min-height: 46px; padding: 2px 0; }
 .wl-kvkk a { text-decoration: underline; }
+.wl-kvkk input { margin-top: 3px; flex: 0 0 auto; }
 .wl .btn { width: 100%; }
 .wl-fine { font-size: 12.5px; color: var(--muted); line-height: 1.55; }
 .wl-err {
@@ -888,7 +1043,7 @@ footer a { color: var(--gold); }
   transition: background .18s ease, color .18s ease, border-color .18s ease;
 }
 .wchip:hover { border-color: var(--gold); color: var(--ink); }
-.wchip.on { background: var(--goldSoft); border-color: var(--gold); color: var(--goldDeep); font-weight: 600; }
+.wchip.on { background: var(--goldSoft); border-color: var(--gold); color: var(--goldText); font-weight: 600; }
 
 .wcalc-slider { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
 .wcalc-slider span { font-size: 13px; color: var(--muted); }
@@ -906,9 +1061,12 @@ footer a { color: var(--gold); }
 /* 🔴 Vurgu RENKLE değil, ölçüyle+renkle birlikte. Amber = ZAMAN
    uyarısı (marka renk-anlam tablosu); altın = hak/değer. Süs değil,
    bilgi. */
-.wcalc-big em { font-style: normal; color: #8A5A00; }
+/* 🔴 v0.26 — buradaki #8A5A00 literali BEYAZ zemin varsayımıyla
+   yazılmıştı (o zemin 5.93:1). .wcalc artık cam yüzey; aynı ton
+   gecede 3.32:1, yani eşiğin altında. Token kullanılıyor. */
+.wcalc-big em { font-style: normal; color: var(--amber); }
 .wcalc-val {
-  margin-top: 8px; font-size: 20px; color: var(--goldDeep);
+  margin-top: 8px; font-size: 20px; color: var(--goldText);
   font-variant-numeric: tabular-nums; font-weight: 600;
 }
 .wcalc-note { margin-top: 8px; font-size: 14px; color: var(--muted); line-height: 1.6; }

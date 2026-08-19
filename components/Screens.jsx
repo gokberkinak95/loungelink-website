@@ -16,10 +16,16 @@
 // mağaza listelemesi için yine GERÇEK ekran görüntüsü gerekecek.
 // ============================================================
 
+// 🔴 v0.26 — MAKET APP PALETİNİ KULLANIR.
+// Eskiden site token'larını (--ink, --card...) paylaşıyordu. Site
+// paleti geceye dönünce bu maket de kararırdı; oysa uygulamanın
+// kendisi AÇIK temalı. Maket app'i temsil ediyorsa app'in renkleriyle
+// çizilmeli — paylaşılan token, iki taraftan biri değişince diğerini
+// sessizce bozar.
 const T = {
-  ink: "var(--ink)", gold: "var(--gold)", body: "var(--body)",
-  mut: "var(--muted)", line: "var(--line)", card: "var(--card)",
-  green: "var(--green)", teal: "var(--teal)", amber: "var(--amber)",
+  ink: "var(--appInk)", gold: "var(--gold)", body: "var(--appBody)",
+  mut: "var(--appMuted)", line: "var(--appLine)", card: "var(--appCard)",
+  green: "var(--appGreen)", teal: "var(--appTeal)", amber: "var(--appAmber)",
 };
 
 const Bar = () => (
@@ -31,7 +37,7 @@ const Bar = () => (
 );
 
 const Wrap = ({ children, pad = 14 }) => (
-  <div style={{ background: "var(--bg)", height: "100%", overflow: "hidden" }}>
+  <div style={{ background: "var(--appBg)", height: "100%", overflow: "hidden" }}>
     <Bar />
     <div style={{ padding: pad }}>{children}</div>
   </div>
@@ -62,7 +68,7 @@ export function ScreenHome() {
           </div>
           <span style={{ color: T.gold, fontWeight: 700 }}>›</span>
         </div>
-        <div style={{ background: T.card, border: "1px solid var(--line)", borderRadius: 10,
+        <div style={{ background: T.card, border: "1px solid var(--appLine)", borderRadius: 10,
                       padding: 11, marginTop: 9 }}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <b style={{ fontSize: 12, color: T.ink }}>IST → LHR</b>
@@ -107,7 +113,7 @@ export function ScreenGuide() {
         { n: "iGA Lounge — Dış Hat", v: "Bu kartla girilmiyor", c: T.mut, ok: 0 },
       ].map((r) => (
         <div key={r.n} style={{ background: T.card, borderRadius: 10, padding: 10, marginTop: 8,
-                                border: `1px solid ${r.ok ? "rgba(5,150,105,.35)" : "var(--line)"}` }}>
+                                border: `1px solid ${r.ok ? "rgba(5,150,105,.35)" : "var(--appLine)"}` }}>
           <div style={{ fontSize: 11, fontWeight: 700, color: T.ink, lineHeight: 1.3 }}>{r.n}</div>
           <div style={{ fontFamily: "var(--serif)", fontSize: 11, color: r.c, marginTop: 3, fontWeight: 700 }}>
             {r.ok ? "✓ " : ""}{r.v}
@@ -134,7 +140,7 @@ export function ScreenDiscover() {
         { n: "iGA Lounge — Dış Hat", h: "Selin K.", b: "Misafir ücretli", c: T.amber, s: 78, f: 0 },
         { n: "Primeclass Lounge", h: "Burak T.", b: "Misafir alınmıyor", c: T.mut, s: 61, f: 0 },
       ].map((r) => (
-        <div key={r.n} style={{ background: T.card, border: "1px solid var(--line)",
+        <div key={r.n} style={{ background: T.card, border: "1px solid var(--appLine)",
                                 borderRadius: 11, padding: 11, marginTop: 9 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <div style={{ flex: 1, fontSize: 11.5, fontWeight: 700, color: T.ink }}>{r.n}</div>
@@ -162,7 +168,7 @@ export function ScreenRequest() {
   return (
     <Wrap>
       <div style={{ fontSize: 8.5, letterSpacing: 2, color: T.gold }}>BAŞVURU</div>
-      <div style={{ background: T.card, border: "1px solid var(--line)", borderRadius: 11,
+      <div style={{ background: T.card, border: "1px solid var(--appLine)", borderRadius: 11,
                     padding: 11, marginTop: 9 }}>
         <div style={{ fontSize: 11.5, fontWeight: 700, color: T.ink }}>Mehmet A.</div>
         <div style={{ fontSize: 9.5, color: T.teal, marginTop: 2 }}>● Doğrulanmış Host · 78</div>
@@ -183,13 +189,13 @@ export function ScreenRequest() {
           Detayları göster ›
         </div>
       </div>
-      <div style={{ background: T.card, border: "1px solid var(--line)", borderRadius: 10,
+      <div style={{ background: T.card, border: "1px solid var(--appLine)", borderRadius: 10,
                     padding: 10, marginTop: 9 }}>
         <div style={{ fontSize: 10, color: T.teal, fontWeight: 700 }}>
           Bu salonda 2 alternatif host var ›
         </div>
       </div>
-      <div style={{ background: "var(--bgAlt)", borderRadius: 9, padding: "10px 0",
+      <div style={{ background: "var(--appAlt)", borderRadius: 9, padding: "10px 0",
                     textAlign: "center", fontSize: 11, fontWeight: 700, color: T.mut, marginTop: 10 }}>
         Başvuru kapalı
       </div>
@@ -210,7 +216,7 @@ export function ScreenSession() {
       </div>
       <div style={{ fontFamily: "var(--serif)", fontSize: 13, color: T.ink, fontWeight: 700,
                     textAlign: "center", marginTop: 10 }}>Oturum sürüyor</div>
-      <div style={{ background: "var(--bgAlt)", borderRadius: 10, padding: 11, marginTop: 12 }}>
+      <div style={{ background: "var(--appAlt)", borderRadius: 10, padding: 11, marginTop: 12 }}>
         <div style={{ fontSize: 8, letterSpacing: 1.2, color: T.mut, fontWeight: 700, marginBottom: 7 }}>
           ÇİFT TARAFLI ONAY
         </div>

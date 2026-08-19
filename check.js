@@ -32,6 +32,14 @@ const PALETTE = new Set([
   "#1E2740", "#101728", "#8A5A2B", "#F4D79A", "#7C6A4A", "#FFE9B0",
   "#FFF3D2", "#F3EFE6", "#F7F3EA", "#C9C3B4", "#A79F8E", "#B9B2A2",
   "#8E8878", "#CBA44A", "#A9822F", "#14100A",
+  // ── v0.26 GECE TOKEN'LARI ─────────────────────────────────────
+  // Site paleti geceye taşındı (globals.css başındaki blok). Bu dört
+  // ton ÖLÇÜLEREK seçildi, sayfa zemini #070B16'ya göre:
+  //   #D9B45F  9.96:1  (altın metin — eski #8A5A00 gecede 3.32, ALTINDA)
+  //   #2DD4BF 10.56:1  (teal — eski #0D9488 gecede 5.25, sınırda)
+  //   #34D399 10.22:1  (yeşil — eski #046B4C gecede 3.01, ALTINDA)
+  //   #FBBF24 11.77:1  (kehribar — eski #8A5A00 gecede 3.32, ALTINDA)
+  "#D9B45F", "#2DD4BF", "#34D399", "#FBBF24",
 ]);
 
 function walk(dir, out = []) {
@@ -99,6 +107,58 @@ for (const f of files) {
   for (const m of src.matchAll(/#[0-9A-Fa-f]{3,6}\b/g)) {
     if (!PALETTE.has(m[0]) && !PALETTE.has(m[0].toUpperCase())) {
       console.log(`  ✗ ${f}: palet dışı renk ${m[0]}`);
+      bad++;
+    }
+  }
+}
+
+// --- 1a) v0.26 · HUKUKİ METİN YER TUTUCUSU ---
+// 🔴 ÖLÇÜLDÜ, 19 Ağustos: /gizlilik sayfasının CANLI hâlinde
+// "Veri sorumlusu {{SIRKET_UNVAN}}, adres: {{ADRES}}" yazıyor.
+// App tarafında bu kapı vardı (rnapp/check.js legalPlaceholderCheck)
+// ama SİTE tarafında yoktu — oysa siteyi arama motoru da okuyor,
+// KVKK açısından da bu bir eksiklik. Kapı tek yerde durursa, kapısı
+// olmayan taraftan çıkar.
+{
+  const yol = path.join(__dirname, "lib", "legal-source.js");
+  if (fs.existsSync(yol)) {
+    // 🔴 ÖNCE YORUMLAR SİLİNİR. İlk yazdığımda silmiyordum ve denetim
+    // 6 bulgu verdi: dördü dosyanın KENDİ AÇIKLAMASINDA geçen
+    // "{{MERSIS}} {{KEP}}" sözcükleriydi. Gerçek yer tutucu iki tane.
+    // Yanlış alarm veren bir denetim, olmayan denetimden kötüdür:
+    // insan kırmızıyı görmezden gelmeyi öğrenir. (Aynı hatayı bu
+    // projede contract_check.py'de de yapmıştım — orada da düzeltildi.)
+    const src = fs.readFileSync(yol, "utf8")
+      .replace(/\/\*[\s\S]*?\*\//g, "")
+      .replace(/(^|[^:])\/\/.*$/gm, "$1");
+    for (const m of src.matchAll(/\{\{([A-Z_]+)\}\}/g)) {
+      console.log(`  ✗ lib/legal-source.js: doldurulmamış yer tutucu {{${m[1]}}} — ` +
+                  `yayındaki gizlilik politikasında görünüyor. rnapp/src/legal.js'i doldur, buraya kopyala.`);
+      bad++;
+    }
+  }
+}
+
+// --- 1b) v0.26 · AÇIK YÜZEY SIZINTISI ---
+// 🔴 BU DENETİMİN VARLIK SEBEBİ, ÜÇ KEZ TEKRARLANAN AYNI KUSUR:
+// sayfa zemini gece, ama bir bileşen kendine BEYAZ zemin veriyor ve
+// üstündeki metin site paletinden (açık) geliyor. Sonuç 1.28:1 —
+// yani metin ekranda yok. 19 Ağustos ölçümünde /kartlar'daki 144
+// rozet tam olarak böyle görünmezdi.
+//
+// Kural: app maketi (Screens.jsx) DIŞINDA hiçbir dosya açık yüzey
+// token'ı (--app*) ya da beyaza yakın bir zemin literali kullanamaz.
+// Maket app'i temsil ettiği için istisna — ve tek istisna.
+{
+  const MAKET = ["components/Screens.jsx", "components\\Screens.jsx"];
+  const acikZemin = /background\s*:\s*["']?\s*(#(?:FFF|FFFFFF|F8F6F1|F0EDE6|fff|ffffff)\b|var\(--app)/g;
+  for (const f of files) {
+    if (f.endsWith("globals.css")) continue;           // token tanımının kendisi
+    if (MAKET.some((m) => f.endsWith(m))) continue;    // app maketi — bilinçli istisna
+    const src = fs.readFileSync(f, "utf8");
+    for (const m of src.matchAll(acikZemin)) {
+      console.log(`  ✗ ${f}: gece sayfasında AÇIK zemin (${m[1]}) — üstündeki metin site` +
+                  ` paletinden gelir ve okunmaz. Cam yüzey için var(--card) kullan.`);
       bad++;
     }
   }

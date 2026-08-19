@@ -68,8 +68,7 @@ export default function CardsIndex() {
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 9, marginTop: 10 }}>
                   {list.map((p) => (
                     <a key={p.slug} href={`/kart/${p.slug}`}
-                       style={{ border: "1px solid var(--line)", background: "var(--card)",
-                                borderRadius: 20, padding: "9px 16px", fontSize: 13.5 }}>
+                       className="card-chip">
                       {CARDS[p.card].short}
                     </a>
                   ))}

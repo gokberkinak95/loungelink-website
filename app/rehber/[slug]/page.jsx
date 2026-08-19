@@ -99,7 +99,7 @@ export default async function GuidePage({ params }) {
       />
 
       <div className="wrap" style={{ maxWidth: 780, padding: "48px 24px 80px" }}>
-        <div style={{ fontSize: 13, color: "var(--muted)", marginBottom: 18 }}>
+        <div className="crumb">
           <a href="/">Ana sayfa</a> › <a href="/rehber">Salon Rehberi</a> › {a.city}
         </div>
 
@@ -167,7 +167,7 @@ export default async function GuidePage({ params }) {
             <div style={{ display: "flex", flexWrap: "wrap", gap: 9, marginTop: 10 }}>
               {others.map((o) => (
                 <a key={slugOf(o)} href={`/rehber/${slugOf(o)}`}
-                   style={{ border: "1px solid var(--line)", background: "var(--card)", borderRadius: 20, padding: "9px 16px", fontSize: 13.5 }}>
+                   className="card-chip">
                   {CARDS[o.card].short}
                 </a>
               ))}
