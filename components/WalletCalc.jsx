@@ -38,9 +38,16 @@ const KARTLAR = [
     ad: "Miles&Smiles Elite / Elite Plus",
     kisa: "Türk Hava Yolları",
     donem: "yil",
-    hak: null,               // THY misafir hakkını SAYIYLA yayınlamıyor
+    hak: null,               // yıllık TOPLAM sayı yayınlanmıyor
     ucret: null,
-    not: "THY, Elite ve Elite Plus için “aile bireyi veya bir misafir” diyor ama YILLIK BİR SAYI yayınlamıyor. Bu yüzden burada sayı uydurmuyoruz — uygulamada kendi hakkını girip takip edebilirsin.",
+    // 🔴 20 AĞUSTOS — ESKİ METİN YANLIŞ BİR ÖZETTİ.
+    // "Bu kartta sayı yayınlanmıyor" diyordu; oysa kural motorumuz bu
+    // kartın her uçuşta ne verdiğini BİLİYOR (aile veya bir misafir).
+    // Bilinmeyen tek şey YILLIK TOPLAM sınır. İkisini aynı cümlede
+    // eritmek, bildiğimizi de bilmiyormuş gibi göstermek demekti —
+    // "bilmediğimizi söylerken bildiğimizi de çöpe atmayalım".
+    baslik: "Her uçuşta ailen veya bir misafir.",
+    not: "THY, Elite ve Elite Plus için her seferde “aile bireyi veya bir misafir” hakkı tanıyor — kural motoru bunu salon salon modelliyor. Yayınlanmayan tek şey yıllık toplam sınır; o yüzden burada bir üst sayı uydurmuyoruz. Uygulamada kendi kullanımını girip takip edebilirsin.",
   },
   {
     k: "pp_standard",
@@ -68,6 +75,21 @@ const KARTLAR = [
     hak: null,
     ucret: 30,
     not: "Kendi girişin sınırsız. Misafir başına 30 € — bu ücreti misafirin karşılaması, ikinizin de kazandığı yerdir.",
+  },
+  {
+    // 🔴 20 AĞUSTOS — LİSTEDE YOKTU. Türkiye'de lounge hakkının en yaygın
+    // kaynağı banka/kredi kartı; onu listeye almamak, gelen kullanıcının
+    // çoğunu "benim kartım burada yok" diye geri göndermek demekti.
+    // Sayı vermiyoruz çünkü koşulu BANKA belirliyor (SQL 201'deki üç
+    // katmanlı çerçevenin sitedeki karşılığı).
+    k: "banka",
+    ad: "Kredi / banka kartı",
+    kisa: "Koşulu bankan belirler",
+    donem: "yil",
+    hak: null,
+    ucret: null,
+    baslik: "Hakkın var — sınırını bankan koyuyor.",
+    not: "Banka ve Amex kartlarının lounge hakkı, kartı veren kuruma göre değişir: hangi program verildiği, kaç ücretsiz giriş tanındığı ve misafir ücretini bankanın üstlenip üstlenmediği karttan karta farklıdır. Uygulama kartını tanır, bildiğimizi net söyler, bilmediğimiz yerde tahmin yürütmez — kapıda sürpriz olmaması için.",
   },
   {
     k: "dp_pref",
@@ -101,7 +123,11 @@ export default function WalletCalc() {
   return (
     <div className="wcalc">
       <div className="wcalc-head">
-        <span className="eyebrow">CÜZDAN</span>
+        {/* 🔴 20 AĞUSTOS — ÜST ETİKET İLE BAŞLIK AYNI ŞEYİ SÖYLÜYORDU.
+            "HAKKINI HESAPLA" + "Hakkın ne ediyor?" arka arkaya iki kez
+            aynı vaat. Üst etiketin işi bölümü SINIFLANDIRMAK, başlığın
+            işi SORUYU sormak — ikisi farklı iş yapmalı. */}
+        <span className="eyebrow">HAK HESAPLAYICI</span>
         <h3>Hakkın ne ediyor?</h3>
         <p className="wcalc-sub">
           Kartını seç. Elinde ne olduğunu, ne zaman yanacağını ve ne ettiğini
@@ -162,7 +188,11 @@ export default function WalletCalc() {
           </div>
         ) : (
           <div className="wcalc-out">
-            <div className="wcalc-big">Bu kartta sayı yayınlanmıyor.</div>
+            {/* Başlık artık KARTA ait. Tek bir genel cümle ("sayı
+                yayınlanmıyor") her kart için doğru değildi. */}
+            <div className="wcalc-big">
+              {kart.baslik || "Bu kartta yıllık toplam sayı yayınlanmıyor."}
+            </div>
             <div className="wcalc-note">{kart.not}</div>
           </div>
         )}

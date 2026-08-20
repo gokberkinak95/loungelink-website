@@ -90,7 +90,7 @@ export default function Home() {
           <div><RuleDemo /></div>
         </div>
         <div className="wrap">
-          <PhoneShelf shots={SHELF} caption="13 Ağustos 2026 beta yapısından gerçek ekranlar — mockup değil." />
+          <PhoneShelf shots={SHELF} />
         </div>
       </section>
 

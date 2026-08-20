@@ -1,6 +1,6 @@
 {
   "name": "loungelink-website",
-  "version": "0.26.1",
+  "version": "0.27.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,9 @@
     "build": "next build",
     "start": "next start",
     "check": "node check.js",
-    "gen:lounges": "node scripts/gen-lounges.mjs"
+    "gen:lounges": "node scripts/gen-lounges.mjs",
+    "prebuild": "node scripts/konum.js",
+    "neredeyim": "node scripts/konum.js"
   },
   "keywords": [],
   "author": "",

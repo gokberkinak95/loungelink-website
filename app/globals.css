@@ -437,10 +437,55 @@ h1, h2 {
 .shelf-item img:hover { transform: rotateY(-6deg) rotateX(0deg) translateY(-14px); }
 .shelf-item figcaption { margin-top: 12px; font-size: 11.5px; color: #A79F8E; text-align: center; letter-spacing: .04em; }
 .shelf-cap { text-align: center; font-size: 12.5px; color: #8E8878; margin-top: 6px; }
+/* ══════════════════════════════════════════════════════════════
+   🔴 20 AĞUSTOS · MOBİLDE RAF KAYDIRILAMIYORDU
+   Gökberk: "5 görselin yan yana olduğu alanda swipe olmuyor, en
+   sağda ve en solda uçtan görünenlere gidilemiyor."
+
+   Sebep: `.shelf` bir flex satırı ve `justify-content:center`.
+   Beş öge 390px'e sığmıyor, kenardakiler görünüm alanının DIŞINDA
+   kalıyor — ama taşan eksende kaydırma AÇIK OLMADIĞI için onlara
+   ulaşmanın hiçbir yolu yok. Yani içerik var, kapısı yok.
+
+   Çözüm: mobilde raf yatay kaydırılabilir bir şerit olur.
+   · overflow-x:auto  → parmakla kaydırma
+   · scroll-snap      → her kart yerine oturur, yarım kalmaz
+   · justify-content:flex-start → ortalamak taşmayı gizliyordu
+   · scroll-padding + kenar dolgusu → ilk ve son kart kenara yapışmaz
+   · kaydırma çubuğu ince ve altın; "kaydırılabilir" görünmeli
+   Masaüstünde hiçbir şey değişmiyor (beşi zaten sığıyor).
+   ══════════════════════════════════════════════════════════════ */
 @media (max-width: 860px) {
-  .shelf { gap: 12px; }
-  .shelf-item img { width: 132px; max-width: 28vw; transform: rotateY(-10deg) translateY(0); }
+  .shelf {
+    gap: 12px;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(184,148,58,.55) transparent;
+  }
+  .shelf-item { scroll-snap-align: center; }
+  .shelf-item img { width: 132px; max-width: 40vw; transform: rotateY(-10deg) translateY(0); }
   .shelf-item:nth-child(even) img { transform: rotateY(-10deg) translateY(10px); }
+  .shelf::-webkit-scrollbar { height: 4px; }
+  .shelf::-webkit-scrollbar-thumb {
+    background: rgba(184,148,58,.55); border-radius: 4px;
+  }
+  .shelf::-webkit-scrollbar-track { background: transparent; }
+  /* "daha var" ipucu: kaydırma varsa kullanıcı bunu BİLMELİ */
+  .shelf-wrap::after {
+    content: "← kaydır →";
+    display: block; text-align: center; margin-top: 10px;
+    font-size: 11.5px; letter-spacing: .12em; color: var(--muted);
+  }
+}
+@media (min-width: 861px) {
+  .shelf-wrap::after { content: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .wing, .tip { animation: none; }

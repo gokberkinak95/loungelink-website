@@ -41,9 +41,19 @@ export default function Coverage({ limit = 12 }) {
 
   return (
     <div className="cover">
+      {/* 🔴 20 AĞUSTOS — KESİN SAYI YERİNE ALT SINIR.
+          Gökberk: "eksik kaldığımız yerler olabilir ya da yanlış; sayı
+          vermek yerine bu tarz bir ifade daha doğru olur."
+          Haklı ve bu bir pazarlama tercihinden fazlası: "48 salon" demek
+          49. salonu bulan kullanıcıya "eksikmiş" dedirtir; "40+" demek
+          katalog büyüdükçe DOĞRU KALMAYA devam eder. Sayılar yine
+          veritabanından geliyor, yalnız aşağı yuvarlanıyor — uydurma
+          değil, ihtiyatlı. */}
       <p className="cover-lead">
-        Türkiye&apos;de <b>{c.trAirports} havalimanı</b>, <b>{c.trLounges} salon</b>.
-        Havalimanını aç, hangi salonun iç hatta hangisinin dış hatta olduğunu gör.
+        Türkiye&apos;de <b>{Math.floor(c.trAirports / 5) * 5}+ havalimanı</b>,{" "}
+        <b>{Math.floor(c.trLounges / 10) * 10}+ salon</b> kataloğumuzda.
+        Havalimanını aç, hangi salonun iç hatta hangisinin dış hatta
+        olduğunu gör — kartının orada ne verdiğini kural motoru söyler.
       </p>
 
       <div className="cover-list">
@@ -68,9 +78,10 @@ export default function Coverage({ limit = 12 }) {
       {/* Yurt dışı ÖZETLENİR, sayılmaz: ana pazar Türkiye ve uzun bir
           liste ana pazarı gömer. Ama sayı somut ve doğrulanabilir. */}
       <p className="cover-more">
-        ve <b>{c.abroadCountries} ülkede {c.abroadLounges} salon daha</b> —{" "}
-        {ABROAD_AIRPORTS.length} havalimanı katalogda. Uçuşunu yazdığın anda
-        o havalimanının salonları da önüne gelir.
+        Yurt dışında da <b>{Math.floor(c.abroadCountries / 10) * 10}+ ülkede
+        {" "}{Math.floor(c.abroadLounges / 10) * 10}+ salon</b> kataloğumuzda ve
+        liste büyümeye devam ediyor. Uçuşunu yazdığın anda o havalimanının
+        salonları da önüne gelir.
       </p>
     </div>
   );
