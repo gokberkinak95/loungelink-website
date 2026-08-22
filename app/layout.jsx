@@ -44,9 +44,28 @@ export const metadata = {
   // Bu satır artık gereksiz ama zararsız: app/icon.png önceliklidir.
 };
 
+// 🔴 21 AĞUSTOS — SÜRÜM DAMGASI. Neden var:
+// Ölçüm aracını çalıştırdım, 3 taşma + 1407 dokunma ihlali gördüm ve
+// bir an "yeni blok her şeyi kırdı" sandım. Sebep başkaydı: 3401
+// portunda ESKİ bir `next-server` süreci ayaktaydı (process adı
+// "next-server" olduğu için `pkill -f "next start"` onu öldürmemişti)
+// ve ölçüm ARADAN AYLAR ÖNCEKİ bir derlemeyi ölçüyordu.
+//
+// 🆕 SINIF: **"BİR ÖLÇÜM, NEYİ ÖLÇTÜĞÜNÜ İSPAT EDEMİYORSA ÖLÇÜM
+// DEĞİLDİR."** (Kardeşi: zip `C:\website`'e açılıp build
+// `C:\website-git`'te alınıyordu — scripts/konum.js aynı sınıf.)
+//
+// Bu damga sayesinde olcum/tam_olcum.py artık sayfayı açar açmaz
+// sunulan sürümü package.json ile karşılaştırıyor; tutmuyorsa hiç
+// ölçmeden duruyor.
+const SURUM = require("../package.json").version;
+
 export default function RootLayout({ children }) {
   return (
     <html lang="tr">
+      <head>
+        <meta name="ll-surum" content={SURUM} />
+      </head>
       <body>{children}</body>
     </html>
   );

@@ -121,7 +121,7 @@ export default async function GuidePage({ params }) {
 
         {/* 🔴 UYARI KUTUSU EN DEĞERLİ PARÇA.
             Kullanıcıyı kapıda geri çevirten şey ana kural değil,
-            İSTİSNA'dır: taşıyıcı farkı, bölüm farkı, tarih değişikliği.
+            İSTİSNA'dır: havayolu farkı, bölüm farkı, tarih değişikliği.
             Bunları bilen başka Türkçe kaynak yok. */}
         {e.warning && (
           <div style={{ background: "rgba(138,90,0,.07)", border: "1px solid rgba(138,90,0,.28)", borderRadius: 14, padding: 18, marginTop: 16 }}>
@@ -133,7 +133,7 @@ export default async function GuidePage({ params }) {
         )}
 
         {/* 🔴 v0.17 — ÜRÜNÜN EN TEMEL KURALI SİTEDE HİÇ GEÇMİYORDU.
-            sql/177 md.41-47: misafirin de aynı taşıyıcıda olması ŞART
+            sql/177 md.41-47: misafirin de aynı havayolu firmasında olması ŞART
             (guest_must_match_carrier = true, tüm TK/VF/AJ satırlarında
             bekçili). Motorun eşleşmeden önce baktığı ilk şey bu; site
             bundan hiç söz etmiyordu. Misafir hakkı olan biri, misafiri

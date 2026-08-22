@@ -1162,3 +1162,186 @@ a { color: inherit; }
 .plan-card ul { list-style: none; padding: 0; margin: 16px 0 0; }
 .plan-card li { font-size: 14px; line-height: 1.6; color: #C9C3B4; padding-left: 18px; position: relative; }
 .plan-card li::before { content: "✓"; position: absolute; left: 0; color: var(--gold); }
+
+/* ============================================================
+   HOST KARŞILIK BLOĞU — .hearn  (v0.28)
+
+   🔴 NEDEN VAR: site host'a üç şey söylüyordu (hakkın var, seçersin,
+   riskin yok) ve üçü de SAVUNMAYDI. "Bana ne kazandırır?" sorusu
+   cevapsızdı. Gökberk: "ben bir host olsam tek işlevim içeri birini
+   almak mı olacak diye düşünürüm."
+
+   Ritim .wcalc'ten ödünç alınıyor — bilerek. İki hesaplayıcı iki
+   farklı dille konuşursa, ikisi de tesadüf gibi görünür.
+   Yeni renk yok, yeni boşluk ölçüsü yok; hepsi mevcut token.
+   ============================================================ */
+.hearn {
+  border: 1px solid var(--warmLine);
+  background: var(--card, #FFFFFF);
+  border-radius: 20px;
+  padding: 28px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.hearn-head h3 {
+  font-family: var(--serif);
+  font-size: 32px; line-height: 1.15; color: var(--ink); margin: 0;
+}
+.hearn-sub { font-size: 15px; color: var(--body); margin-top: 8px; line-height: 1.6; max-width: 620px; }
+.hearn-sub b { color: var(--ink); font-weight: 600; }
+
+.hearn-cur { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0 20px; }
+.hearn-cur-card {
+  border: 1px solid var(--line); border-radius: 16px; padding: 20px;
+  background: rgba(255,255,255,.03);
+}
+.hearn-ico { display: block; font-size: 18px; color: var(--goldText); margin-bottom: 8px; }
+.hearn-cur-card b { display: block; font-size: 17px; color: var(--ink); letter-spacing: -.01em; }
+.hearn-cur-card em {
+  display: block; font-style: normal; margin-top: 4px;
+  font-size: 14px; color: var(--goldText); font-variant-numeric: tabular-nums;
+}
+.hearn-cur-card p { margin-top: 10px; font-size: 14px; line-height: 1.62; color: var(--body); }
+.hearn-cur-card p i { font-style: italic; color: var(--ink); }
+.hearn-cur-card p b { display: inline; font-size: inherit; }
+@media (max-width: 720px) { .hearn-cur { grid-template-columns: 1fr; } }
+
+.hearn-slider { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 4px 0 18px; }
+.hearn-slider span { font-size: 13px; color: var(--body); }
+.hearn-slider input { flex: 1; min-width: 160px; accent-color: var(--gold); height: 44px; }
+.hearn-slider b { font-variant-numeric: tabular-nums; color: var(--ink); font-size: 16px; min-width: 22px; text-align: right; }
+
+.hearn-out {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  border-top: 1px solid var(--warmLine); padding-top: 20px;
+}
+.hearn-num b {
+  display: block; font-family: var(--serif); font-size: 34px; line-height: 1;
+  color: var(--goldText); font-variant-numeric: tabular-nums;
+}
+.hearn-num span { display: block; margin-top: 6px; font-size: 13.5px; color: var(--body); line-height: 1.5; }
+
+.hearn-rewards {
+  margin-top: 20px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
+}
+@media (max-width: 720px) { .hearn-rewards { grid-template-columns: 1fr; } .hearn-out { grid-template-columns: 1fr; } }
+.hearn-rw {
+  display: grid; grid-template-columns: 1fr auto; align-items: center;
+  gap: 2px 12px; padding: 10px 14px; border-radius: 12px;
+  border: 1px solid var(--line); min-height: 44px;
+  /* 🔴 Kilitli ödül SOLUK değil, SAKİN. Opacity düşürmek WCAG kontrast
+     hesabını da düşürür; burada renk tonu değişiyor, saydamlık değil. */
+}
+.hearn-rw.on { border-color: var(--warmLine); background: var(--goldSoft, rgba(184,148,58,.08)); }
+.hearn-rw-t { font-size: 14px; color: var(--body); }
+.hearn-rw.on .hearn-rw-t { color: var(--ink); font-weight: 600; }
+.hearn-rw-s { grid-column: 1; font-size: 12px; color: var(--body); }
+.hearn-rw-p {
+  grid-row: 1 / span 2; grid-column: 2;
+  font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.hearn-rw.on .hearn-rw-p { color: var(--goldText); font-weight: 600; }
+/* 🔴 ÖLÇÜLDÜ VE KIRILDI — düzeltildi.
+   olcum/tam_olcum.py bu bloğu ÖLÇEMİYOR: .host-band gradient zemin,
+   araç gradient üstündeki metni "ÖLÇÜLEMEDİ" diye işaretliyor. Yani
+   "70/70 temiz" raporu bu bölüm hakkında hiçbir şey söylemiyordu.
+   Kontrastı elle hesapladım (gradient'in üç durağı × üst üste binen
+   saydam katmanlar) ve iki ihlal çıktı:
+       .hearn-rw.on  .hearn-rw-s   → --muted  4.02–4.42  ✗ (eşik 4.5)
+       .hearn-tier.on .hearn-tier-s → --muted 4.02–4.42  ✗
+   Sebep: goldSoft katmanı zemini AÇIYOR, --muted ise zaten en sönük
+   ton — açılan zeminde eşiğin altına düşüyor.
+   🆕 SINIF: "BİR ARACIN ÖLÇEMEDİĞİ YER, SORUNUN OLMADIĞI YER DEĞİL —
+   SORUNUN SAKLANDIĞI YERDİR." Açık durumda alt metin --body'ye
+   çıkıyor (6.48–7.13 ✓). */
+/* 🔴 İKİNCİ DALGA — YENİLENEN ARAÇ BENİ DE YAKALADI.
+   Elle hesaplarken yalnız AÇIK (.on) hâli kontrol etmiştim; kilitli
+   hâlde --muted, .section.dark-band + .hearn cam katmanı üst üste
+   binince 4.48 çıkıyor — eşiğin 0.02 altında. Araç 5 ihlali birden
+   gösterdi. Elle hesap katman sayısını eksik saymıştı; ARAÇ DOĞRU
+   SAYDI. Bu yüzden alt satırlar HER durumda --body.
+   🆕 SINIF: "ELLE HESAP BİR ARACIN YERİNİ TUTMAZ; ARACI DÜZELTMEK
+   HER ZAMAN DAHA UCUZDUR." */
+
+.hearn-next { margin-top: 14px; font-size: 14px; color: var(--body); }
+.hearn-next b { color: var(--ink); }
+
+.hearn-fine {
+  margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 10px;
+}
+.hearn-fine p { font-size: 13px; line-height: 1.62; color: var(--muted); }
+.hearn-fine b { color: var(--body); }
+
+@media (max-width: 640px) {
+  .hearn { padding: 20px; border-radius: 16px; }
+  .hearn-head h3 { font-size: 25px; }
+  .hearn-num b { font-size: 28px; }
+}
+
+/* Basamak şeridi — ağırlama sayısına göre açılan gerçek ayrıcalıklar
+   (SQL 206 `host_tiers`). Kilitli basamak soluk DEĞİL, sakin: opacity
+   düşürmek kontrast oranını da düşürür ve AA eşiğini kırar. */
+.hearn-tiers {
+  margin-top: 22px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+}
+@media (max-width: 860px) { .hearn-tiers { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .hearn-tiers { grid-template-columns: 1fr; } }
+.hearn-tier {
+  border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; min-height: 44px;
+}
+.hearn-tier.on { border-color: var(--warmLine); background: var(--goldSoft); }
+.hearn-tier b { display: block; font-size: 14px; color: var(--body); letter-spacing: -.01em; }
+.hearn-tier.on b { color: var(--ink); }
+.hearn-tier-n { display: block; margin-top: 2px; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.hearn-tier.on .hearn-tier-n { color: var(--goldText); }
+.hearn-tier-s { display: block; margin-top: 6px; font-size: 12.5px; line-height: 1.5; color: var(--body); }
+
+/* ============================================================
+   KURUCU ÇEMBER SAYACI — .kcember  (v0.29)
+   Sayı gerçekten geldiyse çizilir; gelmezse bu blok hiç doğmaz.
+   Renk/ölçü yeni değil, hepsi mevcut token.
+   ============================================================ */
+.kcember {
+  margin: 18px auto 0; max-width: 420px;
+  border: 1px solid var(--warmLine); border-radius: 14px;
+  padding: 16px 18px; background: var(--card);
+  text-align: left;
+}
+.kcember-ust { display: flex; align-items: baseline; gap: 8px; }
+.kcember-ust b {
+  font-family: var(--serif); font-size: 30px; line-height: 1;
+  color: var(--goldText); font-variant-numeric: tabular-nums;
+}
+.kcember-ust span { font-size: 14px; color: var(--body); }
+.kcember-bar {
+  margin-top: 10px; height: 6px; border-radius: 3px;
+  background: rgba(243,239,230,.12); overflow: hidden;
+}
+.kcember-bar span { display: block; height: 100%; background: var(--gold); }
+.kcember-alt { margin-top: 10px; font-size: 13px; line-height: 1.55; color: var(--body); }
+
+/* ============================================================
+   HOST HİKÂYELERİ — .hstory  (v0.29)
+   🔴 Bugün hiç veri yok ve bileşen null dönüyor; bu stiller ilk
+   gerçek cümle geldiği gün devreye girecek. Yer tutucu stili
+   BİLEREK yazılmadı — boş bir kutu, boş bir söz demektir.
+   ============================================================ */
+.hstory { margin-top: 34px; }
+.hstory-baslik {
+  font-family: var(--serif); font-size: 22px; color: var(--ink);
+  margin-bottom: 14px; letter-spacing: -.01em;
+}
+.hstory-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+@media (max-width: 860px) { .hstory-grid { grid-template-columns: 1fr; } }
+.hstory-k {
+  border: 1px solid var(--line); border-radius: 14px; padding: 18px;
+  background: rgba(255,255,255,.03);
+}
+.hstory-k blockquote {
+  font-size: 15px; line-height: 1.62; color: var(--ink);
+  font-family: var(--serif);
+}
+.hstory-k figcaption { margin-top: 12px; display: flex; flex-direction: column; gap: 2px; }
+.hstory-k figcaption b { font-size: 13.5px; color: var(--body); font-weight: 600; }
+.hstory-k figcaption span { font-size: 12.5px; color: var(--body); }

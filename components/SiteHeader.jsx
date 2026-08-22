@@ -28,9 +28,22 @@
 // Bağlantılar "/#..." biçiminde: alt sayfalardan da ana sayfanın
 // doğru bölümüne gider. "#akis" yazsaydım rehberde hiçbir yere
 // gitmezdi (aynı sayfada o çapa yok).
+// 🔴 v0.28 — YUKARIDAKİ KARARIMI KISMEN GERİ ALIYORUM, sebebiyle.
+// v0.18'de "Kart sahibiysen" bağlantısını menüden çıkardım ve gerekçem
+// şuydu: "iki çağrı yarışır, ikisi de kaybeder." Gerekçe DOĞRUYDU ama
+// yanlış şeye uygulandı — o kural İKİ BUTON için geçerlidir, iki menü
+// maddesi için değil. Sonuç: sitenin ikna etmesi gereken taraf (host)
+// menüde hiç adlandırılmadı; host bölümüne giden tek yol sayfanın
+// ortasındaki bir vuruştu ve oraya inen ziyaretçi zaten ikna olmuş
+// olandı.
+// 🆕 SINIF: **"DOĞRU BİR KURALI YANLIŞ YERE UYGULAMAK, YANLIŞ BİR
+// KURAL KADAR PAHALIYA MAL OLUR."**
+// Buton hâlâ TEK (Beta listesi). Bu bir menü maddesi ve karşılığı
+// olan bir söz veriyor: "ne kazanırım" sorusunun cevabı orada.
 const NAV = [
   { href: "/rehber", label: "Rehber" },
   { href: "/#akis", label: "Nasıl çalışır" },
+  { href: "/#kart-sahibi", label: "Kartın ne kazandırır" },
   { href: "/#sss", label: "SSS" },
 ];
 

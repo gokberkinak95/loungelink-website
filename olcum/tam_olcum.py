@@ -12,8 +12,51 @@ v1'e göre düzeltilen üç yanlış alarm (bkz. /tmp/kontrast_dogru.py):
 """
 from playwright.sync_api import sync_playwright
 from collections import Counter
+import json, os, sys, urllib.request
 CH="/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
 BASE="http://localhost:3401"
+
+# ============================================================
+# 🔴 SÜRÜM KAPISI — ölçmeden önce "neyi ölçüyorum?"
+#
+# 21 Ağustos: bu araç 3 taşma + 1407 dokunma ihlali raporladı ve bir
+# an yeni bloğun her şeyi kırdığını sandım. Gerçek sebep: 3401
+# portunda AYLAR ÖNCEKİ bir derlemeyi sunan eski bir `next-server`
+# süreci ayaktaydı. Süreç adı "next-server" olduğu için
+# `pkill -f "next start"` onu öldürmemişti; benim başlattığım yeni
+# sunucu portu alamadı, eski olan cevap verdi ve ölçüm sessizce
+# YANLIŞ SİTEYİ ölçtü.
+#
+# 🆕 SINIF: **"BİR ÖLÇÜM, NEYİ ÖLÇTÜĞÜNÜ İSPAT EDEMİYORSA ÖLÇÜM
+# DEĞİLDİR."**  (scripts/konum.js ile aynı sınıf: doğru işi yanlış
+# klasörde yapmak.)
+#
+# app/layout.jsx artık <meta name="ll-surum"> basıyor. Burada
+# package.json ile karşılaştırılıyor; tutmuyorsa TEK ÖLÇÜM
+# YAPILMADAN duruyoruz.
+# ============================================================
+_KOK = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_BEKLENEN_SURUM = json.load(open(os.path.join(_KOK, "package.json"), encoding="utf-8"))["version"]
+try:
+    _html = urllib.request.urlopen(BASE + "/", timeout=10).read().decode("utf-8", "replace")
+except Exception as e:
+    print("="*76); print(f"🔴 SUNUCU YOK — {BASE} açılmıyor ({e})")
+    print("   npm run build   sonra   npx next start -p 3401"); print("="*76)
+    sys.exit(2)
+import re as _re
+_m = _re.search(r'name="ll-surum"\s+content="([^"]+)"', _html)
+_sunulan = _m.group(1) if _m else None
+if _sunulan != _BEKLENEN_SURUM:
+    print("="*76)
+    print("🔴 YANLIŞ SÜRÜM SUNULUYOR — HİÇ ÖLÇÜM YAPILMADI.")
+    print(f"   package.json : {_BEKLENEN_SURUM}")
+    print(f"   {BASE} : {_sunulan or '(damga yok — çok eski derleme)'}")
+    print("   Muhtemel sebep: portu tutan ESKİ bir next-server süreci var.")
+    print("   Çözüm:  pkill -f next-server   &&   npm run build   &&   npx next start -p 3401")
+    print("="*76)
+    sys.exit(2)
+print(f"✓ sürüm kapısı: {BASE} → v{_sunulan} (package.json ile aynı)")
+
 SAYFALAR=["/","/kartlar","/rehber","/gizlilik","/kosullar","/cerez","/aydinlatma",
           "/hesap-sil","/kart/elite-plus-ist-ic-hat","/rehber/elite-plus-ist"]
 CIHAZLAR=[("iPhone SE",320,568),("iPhone 12",390,844),("Android",412,915),
@@ -26,11 +69,43 @@ JS=r"""() => {
     return .2126*f(c[0])+.7152*f(c[1])+.0722*f(c[2]);};
   const sel=el=>el.tagName.toLowerCase()+(typeof el.className==='string'&&el.className.trim()
       ? '.'+el.className.trim().split(/\s+/).slice(0,2).join('.') : '');
-  const bgOf=el=>{let n=el;while(n&&n!==document.documentElement){
+  // 🔴 21 AĞUSTOS — bgOf ESKİDEN GRADIENT GÖRÜNCE PES EDİYORDU.
+  // "belirsiz:true" dönüyor, o metin ÖLÇÜLEMEDİ sayılıp geçiliyordu.
+  // Sonuç: .host-band (gradient) içindeki HER metin ölçüm dışıydı ve
+  // rapor yine de "kontrast 0" diyordu. Bugün oraya yeni bir blok
+  // yazdım, elle hesapladım ve İKİ AA İHLALİ buldum — araç sussaydı
+  // canlıya çıkacaklardı.
+  // 🆕 SINIF: **"BİR ARACIN ÖLÇEMEDİĞİ YER, SORUNUN OLMADIĞI YER
+  // DEĞİL — SORUNUN SAKLANDIĞI YERDİR."**
+  //
+  // Yeni davranış, elle yaptığım hesabın aynısı:
+  //   1) Saydam katmanlar (alpha<1) yukarı doğru TOPLANIR, atılmaz.
+  //   2) Gradient bulunursa duraklarının HEPSİ aday zemin olur.
+  //   3) Katmanlar her adayın üstüne bindirilir; EN KÖTÜ oran raporlanır.
+  // Aday çıkarılamazsa (örn. url() zemin) yine ÖLÇÜLEMEDİ denir —
+  // uydurmuyoruz.
+  const kar=(ust,alt)=>[0,1,2].map(i=>alt[i]*(1-ust.a)+ust.rgb[i]*ust.a);
+  const duraklar=s=>{const out=[];
+    const re=/rgba?\(([^)]+)\)|#([0-9a-fA-F]{6})\b/g; let m;
+    while((m=re.exec(s))){ if(m[1]){const p=m[1].split(',').map(parseFloat);
+        if(p.length<4||p[3]>0.5) out.push(p.slice(0,3)); }
+      else {const h=m[2]; out.push([0,2,4].map(i=>parseInt(h.substr(i,2),16)));}}
+    return out;};
+  const bgOf=el=>{let n=el; const katman=[];
+    while(n&&n!==document.documentElement){
       const cs=getComputedStyle(n);
-      if(cs.backgroundImage&&cs.backgroundImage.includes('gradient')) return {belirsiz:true,kim:sel(n)};
-      const b=parse(cs.backgroundColor); if(b&&b.a>0.5) return {rgb:b.rgb,kim:sel(n)};
-      n=n.parentElement;} return {rgb:[255,255,255],kim:'(varsayilan)'};};
+      const bi=cs.backgroundImage||'';
+      if(bi.includes('gradient')){
+        const ad=duraklar(bi);
+        if(ad.length) return {adaylar:ad,katman:katman.slice(),kim:sel(n)+'(gradient)'};
+        return {belirsiz:true,kim:sel(n)};
+      }
+      if(bi&&bi!=='none') return {belirsiz:true,kim:sel(n)+'(görsel zemin)'};
+      const b=parse(cs.backgroundColor);
+      if(b&&b.a>0.99) return {adaylar:[b.rgb],katman:katman.slice(),kim:sel(n)};
+      if(b&&b.a>0.001) katman.unshift(b);       // saydam katman: sakla
+      n=n.parentElement;}
+    return {adaylar:[[255,255,255]],katman:katman.slice(),kim:'(varsayilan)'};};
 
   // 1) yatay tasma
   const de=document.documentElement;
@@ -59,7 +134,13 @@ JS=r"""() => {
     const fg=parse(cs.color); if(!fg||fg.a<0.3) return;
     const bg=bgOf(el); if(bg.belirsiz){olculemedi++;return;}
     metin++;
-    const o=(Math.max(lum(fg.rgb),lum(bg.rgb))+.05)/(Math.min(lum(fg.rgb),lum(bg.rgb))+.05);
+    // EN KÖTÜ aday raporlanır: gradient'in bir durağında geçip
+    // diğerinde kalan metin, GEÇMİŞ sayılmaz.
+    let o=Infinity;
+    for(const aday of bg.adaylar){
+      let z=aday; for(const k of bg.katman) z=kar(k,z);
+      const t=(Math.max(lum(fg.rgb),lum(z))+.05)/(Math.min(lum(fg.rgb),lum(z))+.05);
+      if(t<o) o=t;}
     const bo=parseFloat(cs.fontSize), kalin=parseInt(cs.fontWeight)>=700;
     const esik=(bo>=24||(bo>=18.66&&kalin))?3:4.5;
     if(o<esik) dusuk.push(sel(el)+' "'+dog.slice(0,22)+'" '+o.toFixed(2)+'<'+esik+' zemin='+(bg.kim));});
@@ -117,6 +198,28 @@ with sync_playwright() as p:
             pg.close()
     b.close()
 
+# ============================================================
+# 🔴 21 AĞUSTOS — BU ARAÇ SESSİZCE "TEMİZ" DİYORDU.
+# Sunucuyu başlatmadan çalıştırdım. 70 sayfanın 70'i
+# ERR_CONNECTION_REFUSED verdi ve özet şunu yazdı:
+#     yatay taşma 0 · görsel 0 · kontrast 0 · 44px 0
+# Yani HİÇBİR ŞEY ölçülmemişken rapor mükemmel görünüyordu.
+# Ayrıntı satırları hatayı yazıyordu ama özet üstteydi ve yeşildi.
+#
+# 🆕 SINIF: **"HİÇ ÖLÇMEMEK, SIFIR SORUN BULMAKLA AYNI ŞEY DEĞİLDİR —
+# ARAÇ İKİSİNİ AYNI EKRANDA GÖSTERİYORSA YALAN SÖYLÜYOR DEMEKTİR."**
+# (Kardeş sınıf: "gürültülü bir arıza, sessiz bir gerilemeden iyidir".)
+#
+# Artık ölçüm sayısı beklenenden azsa özet KIRMIZI başlıyor ve süreç
+# çıkış kodu 2 ile ölüyor.
+BEKLENEN = len(SAYFALAR) * len(CIHAZLAR)
+if T["olcum"] < BEKLENEN:
+    print("="*76)
+    print(f"🔴 ÖLÇÜM YAPILAMADI — {BEKLENEN} kombinasyondan yalnız {T['olcum']} tanesi ölçüldü.")
+    print("   AŞAĞIDAKİ SIFIRLAR 'SORUN YOK' DEMEK DEĞİL, 'BAKILMADI' DEMEK.")
+    print("   Muhtemel sebep: sunucu ayakta değil.  →  npm run build && npx next start -p 3401")
+    print("="*76)
+
 print("="*76)
 print(f"KAPSAM: {len(SAYFALAR)} sayfa × {len(CIHAZLAR)} cihaz = {len(SAYFALAR)*len(CIHAZLAR)} kombinasyon")
 print(f"        gerçekten ölçülen: {T['olcum']} · geçersiz: {T['bos']}")
@@ -135,3 +238,13 @@ if kontrastGrup:
     for k,v in kontrastGrup.most_common(15): print(f"  {v:4}×  {k}")
 print("\n--- 44px ALTI DOKUNMA HEDEFLERİ (grup) ---")
 for k,v in dokunmaGrup.most_common(15): print(f"  {v:4}×  {k}")
+
+# Çıkış kodu: ölçüm eksikse 2, bulgu varsa 1, temizse 0.
+# 🔴 Önceden HER durumda 0 dönüyordu; bir CI adımı bu aracı
+# çağırsaydı hiçbir zaman kırmızıya düşmezdi.
+import sys as _sys
+if T["olcum"] < BEKLENEN:
+    _sys.exit(2)
+if T["tasma"] or T["gorsel"] or T["kontrast"] or T["dokunma"]:
+    _sys.exit(1)
+_sys.exit(0)

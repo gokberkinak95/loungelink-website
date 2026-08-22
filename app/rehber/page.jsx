@@ -25,8 +25,16 @@ export default function GuideIndex() {
   ENTRIES.forEach((e) => { (byAirport[e.airport] ||= []).push(e); });
   // 🔴 v0.17 §4 — "geçmez" bir kapıyı kapatıyordu. Aynı bilgi, yönü
   // gösteren hâliyle: kart bu salonda değil, BAŞKA salonda geçerli.
-  const V = { yes: ["var(--green)", "misafir olur"], self_only: ["var(--muted)", "yalnız kendin"],
-              paid: ["var(--amber)", "ücretli"], no: ["var(--ink)", "başka salonda"] };
+  // 🔴 20 AĞUSTOS — ETİKETLER KİMDEN BAHSETTİĞİNİ SÖYLEMİYORDU.
+  // "misafir olur / ücretli / yalnız kendin" üçü de EKSİK ÖZNELİ:
+  // ücretli olan kim, hakkı olmayan kim? Sayfanın sorusu "misafir
+  // götürebilir misin"; cevap da misafir üzerinden kurulmalı.
+  const V = {
+    yes:       ["var(--green)",  "misafir hakkın var"],
+    self_only: ["var(--muted)",  "misafir hakkın yok"],
+    paid:      ["var(--amber)",  "misafir ücretle girer"],
+    no:        ["var(--ink)",    "bu salonda hakkın yok"],
+  };
 
   return (
     <>

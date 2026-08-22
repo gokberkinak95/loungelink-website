@@ -95,6 +95,21 @@ function htmlNorm(x) {
 // çağrılınca (npm --prefix, CI adımı, editör görevi) hiçbir dosya
 // bulamayıp "0 dosya, temiz" diyordu. Bir denetimin sessizce boş
 // koşması, hiç koşmamasından tehlikelidir — yeşil rapor verir.
+// ============================================================
+// ORTAK YARDIMCI — yorumsuz()
+// Kaynak metinden // ve /* */ yorumlarını ve JSX yorumlarını atar.
+// 🔴 Üç ayrı nöbetçi bu yüzden yanlış ateşledi (bkz. §5). Nöbetçiler
+// KODU denetlemeli, kodun HAKKINDAKİ cümleleri değil.
+// String literal içindeki "//" (örn. https://) korunuyor.
+// ============================================================
+function yorumsuz(src) {
+  return src
+    .replace(/\/\*[\s\S]*?\*\//g, " ")          // blok yorum (JSX yorumu dahil)
+    .split("\n")
+    .map((l) => l.replace(/(^|[^:])\/\/.*$/, "$1")) // satır yorumu ("://" hariç)
+    .join("\n");
+}
+
 const ROOT = __dirname;
 const files = walk(ROOT);
 let bad = 0;
@@ -438,8 +453,19 @@ if (fs.existsSync(OUT)) {
 // ============================================================
 {
   const ESKI = "\u25C8";
+  // 🔴 21 AĞUSTOS — YORUM SATIRLARI TARANIYORDU.
+  // Bu nöbetçi bugün beni yakaladı (doğru: metne o sembolü koymuştum).
+  // Sonra düzeltmemi YORUMDA anlattım ve nöbetçi bir kez daha bağırdı.
+  // Yani bir kusuru BELGELEMEK, nöbetçinin gözünde kusuru İŞLEMEKLE
+  // aynı şeydi.
+  //
+  // 🆕 SINIF: **"BİR NÖBETÇİ, KUSURU ANLATAN CÜMLEYİ KUSURUN KENDİSİ
+  // SANIYORSA, BELGELEMEYİ CEZALANDIRIYOR DEMEKTİR."**
+  // Aynı tuzağa üçüncü kez düşüyorum (check.js'in kendi arama dizgesi,
+  // legal yer-tutucu nöbetçisi, şimdi bu). Bu yüzden yorum ayıklama
+  // artık ORTAK bir yardımcı: `yorumsuz()`.
   for (const f of files) {
-    const src = fs.readFileSync(f, "utf8");
+    const src = yorumsuz(fs.readFileSync(f, "utf8"));
     if (src.includes(ESKI)) {
       console.log(`  ✗ ${path.relative(ROOT, f)}: eski metin marka sembolü (U+25C8) — /mark.svg kullan`);
       bad++;
@@ -626,6 +652,73 @@ if (fs.existsSync(OUT)) {
         console.log("  ✗ ana sayfada kapsam listesi (cover-item) yok — havalimanları basılmamış");
         bad++;
       }
+    }
+  }
+}
+
+// ============================================================
+// 8) UYDURMA SOSYAL KANIT NÖBETÇİSİ  (v0.29)
+//
+// 🔴 NEDEN VAR: bu turda siteye iki "sosyal kanıt" alanı eklendi —
+// kurucu çember sayacı ve gerçek host cümleleri. İkisinin de doğru
+// hâli AYNI: veri yoksa HİÇBİR ŞEY çizme. Ama ikisinin de yanlış
+// hâli çok cazip ve çok kolay: sayaca "37" yazmak, hikâyelere üç
+// tane uydurma referans koymak. İkisi de beş dakika sürer ve site
+// bir anda "canlı" görünür.
+//
+// Bir yorum satırı bunu engellemez (228'de öğrenildi: yorum 100 gün
+// kimseyi durdurmadı). Nöbetçi denetliyor:
+//   · KurucuSayac.jsx içinde sayı sabiti olamaz
+//   · HostStories.jsx içinde tırnak içi uzun Türkçe cümle olamaz
+//   · ikisi de veri yokken `null` dönmek ZORUNDA
+//
+// 🆕 SINIF: "BİR KURALI METİNDE YAZMAK, ONU SİSTEMDE UYGULAMAK
+// DEĞİLDİR." (228'in sınıfı — bu kez siteye uygulanıyor.)
+// ============================================================
+{
+  const kontrol = [
+    { dosya: "components/KurucuSayac.jsx", ad: "sayaç" },
+    { dosya: "components/HostStories.jsx", ad: "host hikâyeleri" },
+  ];
+  for (const k of kontrol) {
+    const tam = path.join(ROOT, k.dosya);
+    if (!fs.existsSync(tam)) {
+      console.log(`  ✗ ${k.dosya} yok — ${k.ad} bölümü kaldırıldıysa bu nöbetçi de güncellenmeli`);
+      bad++;
+      continue;
+    }
+    const kod = yorumsuz(fs.readFileSync(tam, "utf8"));
+
+    // (a) veri yoksa çizme kuralı
+    if (!/return\s+null\s*;/.test(kod)) {
+      console.log(`  ✗ ${k.dosya}: veri yokken \`return null\` yok — boş durumda yer tutucu çiziyor olabilir`);
+      bad++;
+    }
+
+    // (b) uydurma metin: 25+ karakterlik, boşluk içeren dize sabiti.
+    //     JSX metni tırnak içinde DEĞİL, o yüzden gerçek arayüz metni
+    //     bu denetime takılmaz; takılan şey koda GÖMÜLMÜŞ cümledir.
+    const dizeler = kod.match(/"[^"\n]{25,}"|'[^'\n]{25,}'/g) || [];
+    for (const d of dizeler) {
+      if (/[ ]/.test(d) && !/^["'][./@a-zA-Z0-9_-]+["']$/.test(d)) {
+        console.log(`  ✗ ${k.dosya}: koda gömülü uzun metin — ${d.slice(0, 46)}…`);
+        console.log(`     Sosyal kanıt veriden gelir. Uydurma referans, uydurulmuş bir ölçümdür.`);
+        bad++;
+      }
+    }
+  }
+
+  // (c) sayaçta sabit sayı olamaz — "37 / 100" koda yazılamaz.
+  const sy = path.join(ROOT, "components/KurucuSayac.jsx");
+  if (fs.existsSync(sy)) {
+    const kod = yorumsuz(fs.readFileSync(sy, "utf8"));
+    // 0/1/100 hariç: 100 yüzde hesabı, 0/1 mantık sabiti.
+    const sayilar = (kod.match(/(?<![\w.$])\d{1,6}(?![\w.])/g) || [])
+      .filter((n) => !["0", "1", "100"].includes(n));
+    if (sayilar.length) {
+      console.log(`  ✗ components/KurucuSayac.jsx: sabit sayı bulundu (${sayilar.join(", ")}) — ` +
+                  `kontenjan ve dolan sayısı YALNIZ kurucu_cember() RPC'sinden gelir`);
+      bad++;
     }
   }
 }

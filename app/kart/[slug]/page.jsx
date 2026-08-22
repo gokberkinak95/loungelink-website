@@ -230,10 +230,10 @@ export default async function CardPage({ params }) {
           <p style={{ fontSize: 14.5, marginTop: 8 }}>
             {p.canHost
               ? `Misafir hakkın uçuşla birlikte biter; bir sonraki uçuşa devretmez. ` +
-                `LoungeLink ${p.airport.city}'da aynı saatlerde, aynı taşıyıcıda uçan doğrulanmış ` +
+                `LoungeLink ${p.airport.city}'da aynı saatlerde, aynı havayolu firmasında uçan doğrulanmış ` +
                 `yolcuları gösterir. Boş duran hakkı bir yolculuğa çeviriyorsun.`
               : `${p.airport.city} ${sc.word} bu salonlara girme hakkı olan yolcular var ve çoğu ` +
-                `hakkını kullanmadan uçuyor. Uçuşunu gir, aynı taşıyıcıda uçan uygun host'ları gör.`}
+                `hakkını kullanmadan uçuyor. Uçuşunu gir, aynı havayolu firmasında uçan uygun host'ları gör.`}
           </p>
           <a href="/#beta" className="btn" style={{ marginTop: 16 }}>{SITE.betaCta}</a>
         </div>

@@ -20,10 +20,10 @@ import { COUNTS } from "../lib/content";
 // ============================================================
 const CARDS = [
   { k: "ELPL", label: "Elite Plus",
-    tk:  { v: "yes", t: "Ailen veya bir misafir", d: "THY seferinde tam hak. Misafirin de aynı taşıyıcıyla uçuyor olmalı — kural motoru bunu eşleşmeden önce kontrol ediyor." },
+    tk:  { v: "yes", t: "Ailen veya bir misafir", d: "THY seferinde tam hak. Misafirin de aynı havayolu firmasıyla uçuyor olmalı — kural motoru bunu eşleşmeden önce kontrol ediyor." },
     sa:  { v: "yes", t: "Yalnız bir misafir", d: "Star Alliance üyesi başka havayolunda AİLE HAKKI YOK." } },
   { k: "ELITE", label: "Elite",
-    tk:  { v: "yes", t: "Ailen veya bir misafir", d: "Elite ve Elite Plus aynı haktadır. Misafirin de aynı taşıyıcıyla uçuyor olmalı — kural motoru bunu eşleşmeden önce kontrol ediyor." },
+    tk:  { v: "yes", t: "Ailen veya bir misafir", d: "Elite ve Elite Plus aynı haktadır. Misafirin de aynı havayolu firmasıyla uçuyor olmalı — kural motoru bunu eşleşmeden önce kontrol ediyor." },
     sa:  { v: "yes", t: "Yalnız bir misafir", d: "Aile hakkı düşer." } },
   { k: "CLPL", label: "Classic Plus",
     // 🔴 v0.2.1 — 156 HİZALAMASI: eski metin "girersin" diyordu, iç/dış
@@ -34,11 +34,11 @@ const CARDS = [
     // "sende bu hak yok" olan ziyaretçi kalmaz. Bilgi eksiltmiyoruz:
     // kartın NE VERDİĞİNİ önce söylüyoruz, sınırı ikinci cümlede.
     tk:  { v: "self", t: "İç hatta ücretsiz girersin",
-           d: "Kendi girişin iç hat salonlarında ücretsiz. Yanına birini alacaksan Elite ve üstü kartlar misafir hakkı veriyor — LoungeLink tam burada devreye giriyor. Misafirin de aynı taşıyıcıyla uçuyor olmalı — kural motoru bunu eşleşmeden önce kontrol ediyor." },
+           d: "Kendi girişin iç hat salonlarında ücretsiz. Yanına birini alacaksan Elite ve üstü kartlar misafir hakkı veriyor — LoungeLink tam burada devreye giriyor. Misafirin de aynı havayolu firmasıyla uçuyor olmalı — kural motoru bunu eşleşmeden önce kontrol ediyor." },
     sa:  { v: "self", t: "İç hatta ücretsiz girersin",
            d: "Dış hat salonları için resmî tabloda Classic Plus tanımlı değil. Yine de o salonda oturabilirsin: hakkı olan biri seni misafir olarak alabilir." } },
   { k: "SAG", label: "Star Alliance Gold",
-    tk:  { v: "yes", t: "Bir misafir", d: "2021'den beri misafirin AYNI UÇAKTA olması zorunlu. Misafirin de aynı taşıyıcıyla uçuyor olmalı — kural motoru bunu eşleşmeden önce kontrol ediyor." },
+    tk:  { v: "yes", t: "Bir misafir", d: "2021'den beri misafirin AYNI UÇAKTA olması zorunlu. Misafirin de aynı havayolu firmasıyla uçuyor olmalı — kural motoru bunu eşleşmeden önce kontrol ediyor." },
     sa:  { v: "yes", t: "Bir misafir", d: "Misafirin aynı uçakta olmalı." } },
   { k: "PP", label: "Priority Pass",
     tk:  { v: "self", t: "iGA ve Primeclass'ta girersin",

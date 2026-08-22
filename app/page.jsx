@@ -7,6 +7,9 @@ import RuleDemo from "../components/RuleDemo";
 import Coverage from "../components/Coverage";
 import WaitlistForm from "../components/WaitlistForm";
 import WalletCalc from "../components/WalletCalc";
+import HostEarn from "../components/HostEarn";
+import HostStories from "../components/HostStories";
+import KurucuSayac from "../components/KurucuSayac";
 
 // ============================================================
 // Ana sayfa
@@ -332,10 +335,16 @@ export default function Home() {
             <span style={{ color: "var(--gold)" }}>Kullanmadıkların 31 Aralık&apos;ta siliniyor.</span>
           </p>
           {/* 🔴 v0.18 — host'un ilk itirazı "hakkımı mı veriyorum?".
-              Cevap tek cümlede: hak devredilmiyor, koltuk paylaşılıyor. */}
+              Cevap tek cümlede: hak devredilmiyor, koltuk paylaşılıyor.
+              🔴 v0.28 — İKİNCİ cümle eklendi. Gökberk: "ben bir host
+              olsam tek işlevim içeri birini almak mı olacak diye
+              düşünürüm." Bölüm o soruyu 400 kelime sonra cevaplıyordu;
+              artık ilk paragrafta cevaplıyor. */}
           <p className="lead" style={{ maxWidth: 660 }}>
             Hakkın sende kalır. Sen zaten içeri giriyorsun — yanındaki koltuk
-            boş gitmesin.
+            boş gitmesin. <b>Ve bu tek yönlü bir iyilik değil:</b> ağırladığın
+            her kişi, hakkın <i>olmayan</i> bir salonda sana üç kez misafir
+            olma hakkı bırakıyor.
           </p>
 
           <div className="host-grid">
@@ -347,6 +356,20 @@ export default function Home() {
               </div>
             ))}
           </div>
+
+          {/* 🔴 v0.28 — KARŞILIK BLOĞU.
+              Dört kart "neden paylaşayım / kimi alırım / riskim ne"yi
+              cevaplıyordu; "bana ne kazandırır" cevapsızdı. Sayılar
+              zaten koddaydı (SQL 206, 007, i18n 677) — site onları hiç
+              söylememişti. Bkz. components/HostEarn.jsx başlığı. */}
+          <HostEarn />
+
+          {/* 🔴 v0.29 — GERÇEK HOST CÜMLELERİ.
+              Bugün 0 kayıt var, bileşen null dönüyor, bu satır sayfada
+              HİÇ görünmüyor. Uydurma referans yazmak yerine toplayan
+              makineyi kurduk (SQL 230); ilk gerçek cümle geldiği gün
+              burası kendiliğinden açılacak. Bkz. components/HostStories.jsx */}
+          <HostStories />
 
           {/* İtirazlar: host'un aklından geçen soruyu ONUN cümlesiyle
               sorup cevaplıyoruz. Sormadan cevaplamak güven verir. */}
@@ -464,6 +487,15 @@ export default function Home() {
             <li>Yeni özellikleri ilk sen denersin, yönünü sen söylersin</li>
             <li>Beta boyunca kredi sınırı yok</li>
           </ul>
+
+          {/* 🔴 v0.29 — CANLI SAYAÇ.
+              "İlk 100 host" cümlesini v0.17'den beri yazıyoruz ama
+              kaçının dolduğunu hiç söylemedik; söylenmeyen bir kontenjan
+              aciliyet üretmez. Sayı `kurucu_cember()`ten geliyor —
+              eşik altındaysa RPC ham sayıyı DÖNDÜRMÜYOR ve bu blok
+              sayfada hiç görünmüyor. Bkz. components/KurucuSayac.jsx */}
+          <KurucuSayac />
+
           {/* 🔴 v0.18 — MAILTO GİTTİ, FORM GELDİ.
               Eski yorum "mailto BUGÜN çalışıyor" diyordu; ölçtüğümüzde
               çalışmadığı yer tam da en kalabalık yerdi: posta uygulaması
