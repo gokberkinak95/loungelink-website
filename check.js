@@ -723,6 +723,70 @@ if (fs.existsSync(OUT)) {
   }
 }
 
+// ============================================================
+// §9 — İMZALANMAMIŞ MARKA ADI VİTRİNE ÇIKAMAZ  (23 Ağustos)
+//
+// 🔴 NEDEN: HostEarn.jsx'te "Emirates Skywards", "Marriott Bonvoy",
+// "Booking.com", "SafetyWing" yazıyordu. Hiçbiriyle imzalanmış ortaklık
+// YOK. Bir markanın adını ödül vitrinine koymak, o markayla anlaşmış
+// olduğunu söylemektir — kullanıcı öyle okur.
+//
+// 🆕 SINIF: "HENÜZ ANLAŞMADIĞIN BİR MARKANIN ADINI VİTRİNE KOYMAK,
+// ÜRÜNÜ DEĞİL SÖZÜ SATMAKTIR."
+//
+// Bir ortaklık imzalandığında markayı AŞAĞIDAKİ listeden çıkarırsın;
+// nöbetçi o markaya izin verir. Yani listeyi kısaltmak, imza atmak
+// kadar bilinçli bir hareket olur.
+{
+  const IMZASIZ = ["Emirates", "Skywards", "Marriott", "Bonvoy", "Booking.com",
+                   "SafetyWing", "Airalo", "Priority Pass", "DragonPass",
+                   "Miles&Smiles", "Türk Hava Yolları", "THY"];
+  // 🔴 ILK YAZDIGIMDA BU KONTROL BUTUN SITEYI TARIYORDU ve 29 ihlal
+  // buldu — hemen hepsi DOGRU kullanimlardi. `lib/lounges-data.js`,
+  // /rehber ve /kart sayfalari Priority Pass'i, Miles&Smiles'i adiyla
+  // ANMAK ZORUNDA: kural motorunun konusu tam olarak "hangi kartla
+  // hangi salona girersin". Bir programin adini ANMAK, o programla
+  // ORTAK OLDUGUNU soylemek degildir.
+  //
+  // 🆕 SINIF: "BIR YASAK, BAGLAMI OLMADAN YAZILIRSA DOGRU KULLANIMI DA
+  // CEZALANDIRIR."
+  //
+  // Kapsam bu yuzden dar: YALNIZ ODUL VITRINI. Yeni bir vitrin dosyasi
+  // eklersen adini buraya yaz.
+  // 🔴 23 AGUSTOS · IKINCI TUR: Gokberk marka ornekleri ISTEDI ("Amazon
+  // hediye karti", "THY 1000 mil"...). Bu onun karari ve mesru: ornek
+  // olmadan kimse magazayi anlamiyor.
+  //
+  // Ama "ornek" ile "soz" arasindaki farki KULLANICI goremez — bu yuzden
+  // yasagi kaldirmiyorum, KOSULA baglıyorum: marka adi gecebilir, ama
+  // ancak ekranda "ornektir, ortaklik henuz yok" notu BASILIYORSA.
+  // Ikisi birlikte durur ya da ikisi de durmaz.
+  //
+  // 🆕 SINIF: "BIR YASAGI KALDIRMAK YERINE KOSULA BAGLAMAK, HEM KARARI
+  // HEM DURUSTLUGU AYNI ANDA KORUR."
+  const VITRIN = ["components/HostEarn.jsx"];
+  const NOT_KALIBI = /ortakl[ıi]k/i;      // "Magaza ornektir; ortakliklar ..."
+  for (const yol of files) {
+    const gr = path.relative(ROOT, yol).split(path.sep).join("/");
+    if (!VITRIN.includes(gr)) continue;
+    const hamKod = fs.readFileSync(yol, "utf8");
+    const notVar = /ORNEK_NOTU\s*=/.test(hamKod)
+                && NOT_KALIBI.test(hamKod)
+                && /\{ORNEK_NOTU\}/.test(hamKod);   // tanimli DEGIL, BASILIYOR mu
+    if (notVar) continue;                               // kosul saglandi, marka serbest
+    const kod = yorumsuz(fs.readFileSync(yol, "utf8"));
+    const gosterim = path.relative(ROOT, yol);
+    for (const marka of IMZASIZ) {
+      if (kod.includes(marka)) {
+        console.log(`  ✗ ${gosterim}: imzalanmamis marka adi — "${marka}"`);
+        console.log(`     Ortaklik imzalanmadan marka adi vitrine yazilamaz.`);
+        console.log(`     Imzalandiysa check.js §9'daki IMZASIZ listesinden cikar.`);
+        bad++;
+      }
+    }
+  }
+}
+
 console.log("=".repeat(60));
 if (bad === 0) console.log(`✓ Site denetimi temiz — ${files.length} dosya, ${routes.size} sayfa`);
 else console.log(`✗ ${bad} sorun bulundu.`);

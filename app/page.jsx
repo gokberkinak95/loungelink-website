@@ -343,7 +343,7 @@ export default function Home() {
           <p className="lead" style={{ maxWidth: 660 }}>
             Hakkın sende kalır. Sen zaten içeri giriyorsun — yanındaki koltuk
             boş gitmesin. <b>Ve bu tek yönlü bir iyilik değil:</b> ağırladığın
-            her kişi, hakkın <i>olmayan</i> bir salonda sana üç kez misafir
+            her kişi, hakkın <i>olmayan</i> bir salonda sana bir kez misafir
             olma hakkı bırakıyor.
           </p>
 
