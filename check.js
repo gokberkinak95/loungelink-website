@@ -12,39 +12,48 @@ const fs = require("fs");
 const path = require("path");
 
 const PALETTE = new Set([
-  "#B8943A", "#1A1F2E", "#374151", "#6B7280", "#9CA3AF",
-  // v0.18 — --muted yenilendi: #6B7280 warm zeminlerde 4.13–4.48:1 idi.
-  "#4B5563",
+  "#B8943A", "#6B7280", "#9CA3AF",
   "#F8F6F1", "#F0EDE6", "#FFFFFF", "#fff", "#0D9488", "#059669",
   "#E11D48", "#7C3AED", "#D97706",
-  // v0.17 WCAG AA tonları: --green ve --amber yenilendi (bkz. globals.css)
-  "#046B4C",
+  // ── v0.37 · MAKET PALETİ ARTIK TÜRETİLİYOR ────────────────────
+  // 🔴 Bu listede `#1A1F2E` · `#374151` · `#4B5563` · `#046B4C` vardı:
+  // uygulamanın v3.1'de TERK ETTİĞİ lacivert nötr ailesi. Site o
+  // renklerle bir telefon maketi çiziyordu, yani ARTIK OLMAYAN bir
+  // ürünün ekran görüntüsünü gösteriyordu. Palet denetimi de temiz
+  // diyordu — çünkü denetim "renk listede mi" sorar, "liste hâlâ
+  // doğru mu" sormaz.
+  //
+  // 🆕 SINIF: "BİR İZİN LİSTESİ, İÇİNDEKİ HER SATIRIN NEREDEN GELDİĞİNİ
+  // BİLMİYORSA, ESKİYEN KARARLARI KORUYAN BİR ZIRHA DÖNÜŞÜR."
+  //
+  // Artık `app_paleti.py --denetle` bu değerleri rnapp/src/theme.js ile
+  // karşılaştırıyor; buradaki satırlar da oradan geliyor.
+  "#251E17", "#4D3E2F", "#745E47", "#F4F1E9", "#FFFDF9",
+  "#047E58", "#9A5303", "#0B786F", "#7F6523",
   // Altın zemin üzerine koyu metin renkleri — app/theme.js'te tanımlı
-  // (goldDeep, goldInk). Site paletine eklemeyi unutmuştum.
   "#8A5A00", "#6B5518",
-  // ── v0.4 GECE ÖLÇEĞİ ──────────────────────────────────────────
-  // Sinematik hero için tanımlı KAPALI bir set. Rastgele koyu renk
-  // eklenemesin diye buraya yazılıyor: palet denetiminin amacı
-  // "koyu renk yasak" değil, "her renk BİR KARAR olsun".
-  // Kaynak: app splash zemininden türetildi, altınla kontrast
-  // oranları WCAG AA (metin #F3EFE6 / zemin #070B16 = 16.8:1).
-  "#070B16", "#0D1526", "#16203A", "#241E1B", "#0A0F1C", "#141B2E",
-  "#1E2740", "#101728", "#8A5A2B", "#F4D79A", "#7C6A4A", "#FFE9B0",
-  "#FFF3D2", "#F3EFE6", "#F7F3EA", "#C9C3B4", "#A79F8E", "#B9B2A2",
-  "#8E8878", "#CBA44A", "#A9822F", "#14100A",
-  // ── v0.26 GECE TOKEN'LARI ─────────────────────────────────────
-  // Site paleti geceye taşındı (globals.css başındaki blok). Bu dört
-  // ton ÖLÇÜLEREK seçildi, sayfa zemini #070B16'ya göre:
-  //   #D9B45F  9.96:1  (altın metin — eski #8A5A00 gecede 3.32, ALTINDA)
-  //   #2DD4BF 10.56:1  (teal — eski #0D9488 gecede 5.25, sınırda)
-  //   #34D399 10.22:1  (yeşil — eski #046B4C gecede 3.01, ALTINDA)
-  //   #FBBF24 11.77:1  (kehribar — eski #8A5A00 gecede 3.32, ALTINDA)
-  "#D9B45F", "#2DD4BF", "#34D399", "#FBBF24",
+  // ── v0.37 · GECE ÖLÇEĞİ ARTIK TÜRETİLİYOR ─────────────────────
+  // 🔴 Bu listede 22 tane elle seçilmiş LACİVERT gece tonu vardı
+  // (#070B16 · #0D1526 · #16203A …). Sitenin zeminleri onlardan
+  // geliyordu ve app v3.1'de sıcak tarafa taşındığında hiçbiri
+  // güncellenmedi: sıcak yazı, soğuk kâğıt.
+  //
+  // Artık sitenin gece paleti `site_paleti.py` tarafından app'in
+  // KOYU temasından TÜRETİLİYOR ve `--denetle` sapmayı ölçüyor.
+  // Buradaki değerler o türetimin çıktısı.
+  "#161310", "#312B24", "#F4EFE8", "#DDD6CD", "#C7C0BA", "#AAA39C",
+  "#D4B975", "#E3BE79", "#8D712D", "#12D2C1", "#07D595", "#FAAA4F",
+  // sahne ve marka varlıklarında kalan sabitler
+  "#F4D79A", "#7C6A4A", "#FFF3D2", "#F3EFE6", "#F7F3EA", "#C9C3B4",
+  "#A79F8E", "#B9B2A2", "#8E8878", "#CBA44A", "#A9822F", "#14100A",
 ]);
 
 function walk(dir, out = []) {
   for (const f of fs.readdirSync(dir)) {
-    if (f === "node_modules" || f === ".next" || f.startsWith(".")) continue;
+    // `_arsiv`: kullanımdan kalkmış ama SİLİNMEYEN dosyalar. Silmek yerine
+    // arşivlemek bu projenin kuralı; denetimin onları ölçmesi ise yanlış
+    // alarm üretir — çizilmeyen bir dosyanın rengi kimseyi rahatsız etmez.
+    if (f === "node_modules" || f === ".next" || f === "_arsiv" || f.startsWith(".")) continue;
     const p = path.join(dir, f);
     // 🔴 Denetim KENDİNİ taramaz: yorumdaki örnek href'i "ölü bağlantı"
     // sandı. Bir denetimin kendi metnini bulgu sayması, gerçek bulguları
@@ -227,9 +236,21 @@ if (fs.existsSync(OUT)) {
     // görsel şeritleri ve yeni bölümler HTML'e gerçekten basılmış mı?
     // v0.4: ana şerit hero'daki PhoneShelf'e taşındı; denetim onun
     // gerçek çıktısına bakar (sınıf + en az bir gerçek ekran dosyası).
-    ["shelf-item", "hero telefon rafı"],
+    // 🔴 v0.41 — `shelf-item` YERİNE `karusel-kart`. Eski raf sabitti;
+    // yeni galeri sürüklenebilir/3B. Sınıf adı değişti, denetim de
+    // değişti — ama SİLİNMEDİ, çünkü kapsam düşerdi.
+    ["karusel-kart", "hero ekran karuseli"],
+    ["karusel-soz", "karusel altındaki 'ne işe yarar' cümlesi"],
     ["/screens/ss-kesfet.jpg", "gerçek ekran şeridi (ana)"],
-    ["scene-svg", "sinematik gece sahnesi"],
+    // 🔴 BURADA "scene-svg" ARANIYORDU — v0.4'te eklenen çizim gece
+    // sahnesi. O sahne bu sürümde BİLEREK kaldırıldı: yerine app ile
+    // aynı fotoğraf zemini geldi (`body::before` + `--perde`).
+    // Kaldırılan bir bileşeni aramaya devam eden denetim, doğru işi
+    // hata gibi gösterir; ve daha kötüsü, YENİ gelen şeyi hiç ölçmez.
+    //
+    // 🆕 SINIF: "BİR BİLEŞENİ KALDIRDIĞINDA ONU ARAYAN DENETİMİ SİLME —
+    // YERİNE GELENİ ARAYACAK ŞEKİLDE DEĞİŞTİR; SİLERSEN KAPSAM DÜŞER."
+    ["shot-tilt", "fotoğraf zemin üstünde eğik gerçek ekran"],
     ["/screens/ss-splash.jpg", "gerçek ekran şeridi (güven)"],
     ["flow-n", "3 adımlı akış bölümü"],
     ["prog-card", "kural motoru program kartları"],
@@ -242,6 +263,47 @@ if (fs.existsSync(OUT)) {
   // dize her koşulda basılır, dosya yoksa canlıda 404 görünür). İlk
   // mutasyon denemem bunu gösterdi: görseli sildim, denetim yine yeşildi.
   // Artık HTML'deki her /screens/ referansının public'te karşılığı aranır.
+  // 🔴 FOTOĞRAF ZEMİNİ HTML'DE DEĞİL CSS'TE YAŞIYOR (`body::before`).
+  // HTML'de bir sınıf arayarak ölçülemez; kaynağın kendisine bakılır.
+  {
+    const css = fs.readFileSync(path.join(__dirname, "app", "globals.css"), "utf8");
+    const zemin = /body::before[\s\S]{0,400}?url\("\/bant\.jpg"\)/.test(css);
+    const perde = /body::after[\s\S]{0,400}?var\(--perde/.test(css);
+    if (!zemin) { console.log("  ✗ globals.css: body::before fotoğraf zemini yok"); bad++; }
+    if (!perde) { console.log("  ✗ globals.css: body::after perdesi --perde token'ından gelmiyor"); bad++; }
+    if (zemin && perde) console.log("  ✓ fotoğraf zemini + perde CSS'te canlı (app ile aynı bant.jpg)");
+  }
+  // 🔴 SINIF ADI ARAMAK, GALERİNİN DOLU OLDUĞUNU KANITLAMAZ.
+  // `EkranKarusel` bir istemci bileşeni; JS'i çalışmasa bile SUNUCUDA
+  // çizilmeli ve İLK HTML'de bütün kartlar bulunmalı. Aksi hâlde
+  // arama motoru ve JS'siz ziyaretçi boş bir kutu görür — ve tek bir
+  // sınıf adı basıldığı için denetim yeşil yanardı.
+  //
+  // 🆕 SINIF: "BİR BİLEŞENİN VARLIĞINI SINIF ADIYLA ÖLÇMEK, İÇİNİ
+  // ÖLÇMEZ — SAYIYI SAY."
+  {
+    // content.js bir ESM modülü, check.js CommonJS — import edemiyorum.
+    // O yüzden SHELF bloğu METİNDEN sayılıyor (bir bağımlılık eklemek
+    // için fazla küçük bir iş).
+    const cjs = fs.readFileSync(path.join(__dirname, "lib", "content.js"), "utf8");
+    const blok = cjs.slice(cjs.indexOf("export const SHELF = ["));
+    const shelf = blok.slice(0, blok.indexOf("\n];"));
+    const kart = (html.match(/karusel-kart/g) || []).length;
+    const bekle = (shelf.match(/src:/g) || []).length;
+    const sozSay = (shelf.match(/soz:/g) || []).length;
+    if (kart < bekle) {
+      console.log(`  ✗ karusel ilk HTML'de ${kart} kart basıyor, beklenen ${bekle} (SSR düşmüş olabilir)`);
+      bad++;
+    } else {
+      console.log(`  ✓ karusel ilk HTML'de ${kart}/${bekle} kartı basıyor (JS'siz de dolu)`);
+    }
+    // Her kartın bir CÜMLESİ olmalı: etiket ne olduğunu, cümle ne işe
+    // yaradığını söyler. Cümlesiz bir kart, dekor bir karttır.
+    if (sozSay < bekle) {
+      console.log(`  ✗ ${bekle - sozSay} karusel kartının 'soz' cümlesi yok — etiket ne olduğunu söyler, cümle ne işe yaradığını`);
+      bad++;
+    }
+  }
   const shotRefs = [...new Set([...html.matchAll(/\/screens\/[\w.-]+/g)].map((m) => m[0]))];
   for (const ref of shotRefs) {
     if (!fs.existsSync(path.join(__dirname, "public", ref))) {
@@ -785,6 +847,86 @@ if (fs.existsSync(OUT)) {
       }
     }
   }
+}
+
+// ============================================================
+// §10 — VERİ SORUMLUSU KİMLİĞİ (26 Ağustos)
+//
+// 🔴 NEDEN: `lib/legal-source.js` yer tutucularla (`{{SIRKET_UNVAN}}`,
+// `{{ADRES}}`, `{{MERSIS}}`, `{{KEP}}`) yazılmış ve `LegalPage.jsx` içinde
+// "`{{` görürsen uyar" diye bir kontrol var. Ama yer tutucular YANLIŞ
+// DEĞERLE dolduruldu:
+//     COMPANY = "LoungeLink"                  ← ticaret unvanı DEĞİL
+//     ADDRESS = "İstanbul, Türkiye — APA GIZ PLAZA"  ← kat/no/ilçe yok
+//     MERSİS ve KEP → metinlere HİÇ girmemiş
+// Yani kontrol sustu, sorun çözülmedi.
+//
+// 🆕 SINIF: "BİR YER TUTUCUYU YANLIŞ DEĞERLE DOLDURMAK, ONU BOŞ BIRAKMAKTAN
+// TEHLİKELİDİR — ÇÜNKÜ BOŞLUĞU ARAYAN NÖBETÇİYİ SUSTURUR."
+//
+// UYARI, HATA DEĞİL: bu bilgileri yalnız Gökberk doldurabilir (şirket kararı).
+// Ama her derlemede GÖRÜNSÜN ki unutulmasın.
+// ============================================================
+{
+  const src = fs.readFileSync(path.join(ROOT, "lib", "legal-source.js"), "utf8");
+  // 🔴 İLK YAZIMDA YORUM SATIRLARINI DA OKUDUM ve dosyanın 48. satırındaki
+  // ÖRNEĞİ (`//     const COMPANY = "Gökberk İnak";`) gerçek değer sandım.
+  // Nöbetçi, "COMPANY yanlış" demesi gereken yerde yeşil yandı.
+  // 🆕 SINIF: "BİR KAYNAK DOSYASINI DÜZ METİN OLARAK ARAYAN NÖBETÇİ, O
+  // DOSYADAKİ ÖRNEĞİ GERÇEK SANAR — VE ÖRNEKLER HEP DOĞRU YAZILIR."
+  const srcAktif = src.split("\n").filter(l => !/^\s*\/\//.test(l)).join("\n");
+  const oku = (ad) => (srcAktif.match(new RegExp(`^const ${ad} = "([^"]*)"`, "m")) || [])[1] || "";
+  const company = oku("COMPANY"), address = oku("ADDRESS"), contact = oku("CONTACT");
+  const eksik = [];
+  if (/^loungelink$/i.test(company.trim()))
+    eksik.push(`COMPANY = "${company}" — bu bir marka adi, TICARET UNVANI ya da GERCEK KISI adi degil (KVKK m.10 kimlik ister)`);
+  if (!/\d/.test(address))
+    eksik.push(`ADDRESS = "${address}" — kat/no/ilce/posta kodu yok, teblig edilebilir bir adres degil`);
+  if (!/MERSIS|MERSİS/i.test(srcAktif)) eksik.push("MERSIS numarasi metinlerde HIC gecmiyor");
+  if (!/KEP/i.test(srcAktif)) eksik.push("KEP adresi metinlerde HIC gecmiyor");
+  const siteMail = (fs.readFileSync(path.join(ROOT, "lib", "content.js"), "utf8")
+                      .match(/email:\s*"([^"]+)"/) || [])[1] || "";
+  const alan = (m) => (m.split("@")[1] || "").toLowerCase();
+  if (contact && siteMail && alan(contact) !== alan(siteMail))
+    eksik.push(`ALAN ADI CAKISMASI: yasal iletisim ${contact} (${alan(contact)}) ama site ${siteMail} (${alan(siteMail)}) — KVKK basvurusu teslim edilemezse sorumluluk veri sorumlusundadir`);
+  if (eksik.length) {
+    console.log("");
+    console.log(`  ⚠ VERI SORUMLUSU KIMLIGI EKSIK (${eksik.length} madde) — yalniz sen doldurabilirsin:`);
+    for (const e of eksik) console.log(`      · ${e}`);
+    console.log("      Duzeltilecek yer: lib/legal-source.js satir 64-66");
+  }
+}
+
+// ============================================================
+// v0.37 · SİTE ↔ APP PALET UYUMU
+//
+// 🔴 Site, ana sayfadaki telefon maketini `--app*` token'larıyla
+// çiziyor ve o token'lar en son v0.7'de elle yazılmıştı. Uygulama
+// v3.1'de lacivert nötr ailesini TAMAMEN bıraktı; site haberdar
+// olmadı. Yani pazarlama yüzü, ARTIK OLMAYAN bir ürünün ekran
+// görüntüsünü gösteriyordu — ve palet denetimi "temiz" diyordu,
+// çünkü o "renk listede mi" sorar, "liste hâlâ doğru mu" sormaz.
+//
+// 🆕 SINIF: "AYNI ÜRÜNÜ İKİ YERDE TARİF EDİYORSAN, BİRİ DEĞİŞTİĞİNDE
+// ÖTEKİ YANLIŞ OLUR — VE YANLIŞ OLAN GENELDE İNSANLARIN İLK GÖRDÜĞÜ
+// TARAFTIR."
+try {
+  const { spawnSync } = require("child_process");
+  for (const py of ["python3", "python"]) {
+    let calisti = false;
+    for (const [betik, arg] of [["app_paleti.py", ["--denetle"]],
+                                ["site_paleti.py", ["--denetle"]],
+                                ["ekran_goruntusu_check.py", []]]) {
+      const r = spawnSync(py, [path.join(ROOT, betik), ...arg], { encoding: "utf8" });
+      if (r.error) break;
+      calisti = true;
+      process.stdout.write(r.stdout || "");
+      if (r.status !== 0) bad++;
+    }
+    if (calisti) break;
+  }
+} catch (e) {
+  console.log("  ⚠ app_paleti.py çalıştırılamadı: " + e.message);
 }
 
 console.log("=".repeat(60));

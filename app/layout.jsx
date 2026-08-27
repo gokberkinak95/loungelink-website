@@ -2,6 +2,10 @@ import "./globals.css";
 
 export const metadata = {
   metadataBase: new URL("https://loungelink.co"),
+  // 🔵 26 AĞUSTOS — hreflang. Site tek dilliyken gereksizdi; `/en` bölümü
+  // açılınca arama motorunun iki sürümü aynı içeriğin KOPYASI değil
+  // ÇEVİRİSİ saymasını sağlayan tek işaret bu.
+  alternates: { canonical: "/", languages: { tr: "/", en: "/en" } },
   title: "LoungeLink — Havalimanı salonunda yalnız beklemeyin",
   description:
     "Aynı havalimanında aynı saatlerde bulunan doğrulanmış yolcuları buluşturur. " +

@@ -21,6 +21,15 @@ const STATIC = [
   ["/kosullar", 0.3],
   ["/aydinlatma", 0.3],
   ["/cerez", 0.3],
+  ["/acik-riza", 0.3],
+  ["/destek", 0.4],
+  // 🔵 26 AĞUSTOS — İNGİLİZCE BÖLÜM. Kural sayfaları bilerek çevrilmedi
+  // (gerekçe app/en/page.jsx başlığında); ürün ve yasal ÖZET sayfaları var.
+  ["/en", 0.8],
+  ["/en/privacy", 0.3],
+  ["/en/terms", 0.3],
+  ["/en/delete-account", 0.4],
+  ["/en/support", 0.4],
 ];
 
 export default function sitemap() {

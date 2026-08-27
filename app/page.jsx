@@ -1,7 +1,10 @@
 import { SITE, SECTIONS, FAQ, STATS, FLOW, SHOTS_MAIN, SHOTS_TRUST, PROGRAMS, TRUST, SHELF, HOST_WHY, HOST_RISK } from "../lib/content";
-import NightScene from "../components/NightScene";
 import SiteHeader from "../components/SiteHeader";
-import PhoneShelf from "../components/PhoneShelf";
+// 🔴 v0.41 — `PhoneShelf` yerine `EkranKarusel`.
+// Eski bileşen SİLİNMEDİ, `components/_arsiv/`e taşındı: geri dönüş
+// yolunu silmek, değişikliği geri alınamaz yapar.
+import EkranKarusel from "../components/EkranKarusel";
+import EgikEkran from "../components/EgikEkran";
 import SectionScene from "../components/SectionScene";
 import RuleDemo from "../components/RuleDemo";
 import Coverage from "../components/Coverage";
@@ -64,7 +67,15 @@ export default function Home() {
           ekranda keskin), kural matrisi sahnenin İÇİNDE duruyor —
           yani gösteri ile kanıt aynı karede. */}
       <section className="dark-band hero-dark">
-        <NightScene />
+        {/* 🔴 SAHNE ARTIK FOTOĞRAF. `NightScene` kanadı, şehir ışıklarını
+            ve ufuk çizgisini KODLA çiziyordu — o gün elimizde görsel
+            yoktu. Bugün var ve app ile AYNI görsel. İkisini üst üste
+            koyunca çizilmiş kanat, gerçek pencerenin üstünde anlamsız
+            bir geometri oluyor.
+
+            🆕 SINIF: "BİR ŞEYİ TAKLİT ETMEK İÇİN KURDUĞUN YAPIYI,
+            GERÇEĞİ ELİNE GEÇTİĞİNDE KALDIRMAYI UNUTMA — İKİSİ BİR ARADA
+            İKİSİNDEN DE KÖTÜDÜR." */}
         <div className="wrap split rise">
           <div className="col-text">
             <div className="eyebrow">Salon hakkı cüzdanı</div>
@@ -93,7 +104,7 @@ export default function Home() {
           <div><RuleDemo /></div>
         </div>
         <div className="wrap">
-          <PhoneShelf shots={SHELF} />
+          <EkranKarusel shots={SHELF} caption="Sürükle · ok tuşları · noktalar — yedi ekran, tek akış." />
         </div>
       </section>
 
@@ -190,13 +201,23 @@ export default function Home() {
         <div className="ghost" aria-hidden="true">KURAL</div>
         <div className="wrap">
           <div className="eyebrow">Kural motoru</div>
-          <h2>"Bu kartla misafir götürebilir miyim?"</h2>
+          {/* 🔴 BAŞLIK SORUYU SORUYORDU, CEVABI VERMİYORDU.
+              Rakibin başlığı bir SÖZ veriyor: "We find your perfect +1."
+              Bizimki soruyu tekrar ediyordu — ziyaretçi zaten soruyu
+              biliyor, cevabı arıyor. */}
+          <h2>Doğru +1'i buluruz.</h2>
           <p style={{ marginTop: 10, fontFamily: "var(--serif)", fontSize: 19, color: "var(--gold)", fontStyle: "italic" }}>
             {SITE.ruleSlogan}
           </p>
-          <p className="lead" style={{ marginTop: 12, maxWidth: 640 }}>
-            Türkiye'de bu sorunun cevabını üç saniyede veren tek yer. Her program
-            resmî kaynağından, tarih damgasıyla modellenir — kapıda sürpriz yok.
+          {/* 🔴 GİRİŞ CÜMLESİ ARTIK FARKI SÖYLÜYOR.
+              Herkes "kuralları biliyoruz" der. Bizim ayrımımız kuralları
+              BİLMEK değil, BİRLEŞTİRMEMEK: dokuz programın dokuz ayrı
+              cevabı var ve biz onları tek cümleye indirmiyoruz. */}
+          <p className="lead" style={{ marginTop: 12, maxWidth: 660 }}>
+            Her programın misafir kuralı ayrı — ve birbirine benzemiyor.
+            Hepsini tek cümlede toplamıyoruz, çünkü kapıda tek cümle diye
+            bir şey yok. Her kart kendi cevabını veriyor; hepsi resmî
+            kaynağından, tarih damgasıyla.
           </p>
           {/* 🔴 v0.18 — ÜRÜNÜN EN GÜÇLÜ CÜMLESİ, ŞİMDİYE KADAR HİÇ
               YAZILMAMIŞTI. Aynı uçuş / birlikte varış şartı bir kısıt
@@ -214,6 +235,9 @@ export default function Home() {
               <div className="prog-card" key={p.t}>
                 <div className="prog-tag">{p.tag}</div>
                 <h3>{p.t}</h3>
+                {/* İtalik tek cümle: kartın KARAKTERİ. Göz önce buna
+                    takılıyor, gövdeyi okumadan da farkı anlıyor. */}
+                {!!p.alt && <p className="prog-alt">{p.alt}</p>}
                 <p>{p.d}</p>
               </div>
             ))}
@@ -295,9 +319,10 @@ export default function Home() {
                 zarar verir: (1) ürünün gerçeğine benzemez, (2) ürün
                 değişince bayatlar ve kimse güncellemez. Artık gerçek
                 cihaz ekranı — eğik çerçevede, tıklanabilir hissiyle. */}
-            <div className="shot-tilt">
-              <img src={s.shot} alt={s.shotAlt} width={s.shotW} height={s.shotH} loading="lazy" />
-            </div>
+            {/* v0.41 — sabit eğim yerine işaretçiye tepki veren eğim.
+                Sınıf adı ve düşüş davranışı aynı; yalnız hareket
+                kullanıcının kendi hareketi oldu. */}
+            <EgikEkran src={s.shot} alt={s.shotAlt} w={s.shotW} h={s.shotH} />
           </div>
         </section>
       ))}
@@ -437,16 +462,19 @@ export default function Home() {
             ))}
           </div>
 
-          {/* 🔴 KREDİ SATMIYORUZ — ve bunu açıkça yazıyoruz.
-              Söylemezsek ziyaretçi "neden kredi paketi yok" diye
-              sorar ve cevabı bilmez. */}
+          {/* 🔴 26 AĞUSTOS — BU PARAGRAF "KREDİ PARAYLA SATILMAZ" DİYORDU
+              ve uygulama ₺ fiyatlı kredi paketleri listeliyordu. İki yüzey
+              iki farklı cevap veriyordu. Karar verildi: kredi satılıyor.
+              O yüzden burada satılmadığını söylemek değil, SATILAN ŞEYİN NE
+              OLDUĞUNU söylemek gerekiyor. */}
           <p className="note" style={{ marginTop: 24, maxWidth: "60ch" }}>
-            Kredi parayla satılmaz. Krediye üç yoldan sahip olursun: kayıt hediyesi,
-            planının aylık payı ve <b>ağırlama</b>. Ürünün cümlesi bu:
+            Krediye dört yoldan sahip olursun: kayıt hediyesi, planının aylık payı,
+            <b> ağırlama</b> ve kredi paketi. Satın aldığın şey <b>giriş değil</b>,
+            bir host'a istek gönderme hakkı — host reddederse, kimse yanıtlamazsa
+            ya da kapıda alınmazsan kredin geri döner. Ürünün cümlesi değişmedi:
             kullanmadığın hakkı, hakkın olmayan yerde misafir olma hakkına çevirmek.
-            Krediyi satsaydık o cümle bozulurdu.
           </p>
-          <p className="note">Beta boyunca tüm planlar ücretsiz.</p>
+          <p className="note">Beta boyunca tüm <b>planlar</b> ücretsiz; kredi paketleri ücretlidir.</p>
           <a className="beat" href="#cuzdan">Önce hakkının ne ettiğini gör <span>→</span></a>
         </div>
       </section>
@@ -521,9 +549,20 @@ export default function Home() {
             </p>
           </div>
           <div style={{ display: "flex", gap: 22, flexWrap: "wrap" }}>
+            {/* 🔴 v0.34 — BEŞ YASAL METİNDEN İKİSİ FOOTER'DA YOKTU.
+                `/cerez` sayfası vardı ama SİTEDE HİÇBİR YERDEN bağlantı
+                verilmiyordu (tüm href taraması: 0 sonuç); `/aydinlatma`
+                yalnız bekleme listesi formundan erişilebiliyordu.
+                🆕 SINIF: "YAYINLANMIŞ AMA BAĞLANTI VERİLMEMİŞ BİR SAYFA,
+                YAYINLANMAMIŞTIR." */}
             <a href="/gizlilik">Gizlilik</a>
+            <a href="/aydinlatma">Aydınlatma Metni</a>
+            <a href="/acik-riza">Açık Rıza</a>
+            <a href="/cerez">Çerez Politikası</a>
             <a href="/kosullar">Kullanım Koşulları</a>
             <a href="/hesap-sil">Hesap Silme</a>
+            <a href="/destek">Destek</a>
+            <a href="/en">English</a>
             <a href={`mailto:${SITE.email}`}>İletişim</a>
           </div>
         </div>

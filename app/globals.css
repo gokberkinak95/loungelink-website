@@ -40,25 +40,9 @@
    geri gelemez.
    ════════════════════════════════════════════════════════════════ */
 :root {
-  /* ——— SİTE PALETİ · GECE ——— */
-  /* Oranlar sayfa zemini #070B16'ya göre ölçüldü (WCAG AA eşiği 4.5). */
-  --gold: #B8943A;       /* 6.86:1 — açık zeminde 2.86'ydı, gecede geçiyor */
-  --goldText: #D9B45F;   /* 9.96:1 — küçük punto altın metin (eyebrow, kod) */
-  --goldDeep: #8A5A00;   /* 🔴 YALNIZ ZEMİN olarak kullanılır (+#FFF = 5.93:1).
-                            Metin olarak gecede 3.32:1 — eşiğin altında. */
-  --ink: #F7F3EA;        /* 17.75:1 — başlık ve vurgu */
-  --body: #C3BCAC;       /* 10.40:1 — gövde metni */
-  --muted: #9A9384;      /*  6.44:1 — dipnot, kırıntı, ikincil */
-  --dim: #6B7280;        /* METİN DEĞİL — yalnız ayırıcı/çerçeve tonu */
-  --bg: #070B16;
-  --bgAlt: #0F1626;
-  --card: rgba(255, 255, 255, 0.05);   /* cam yüzey · üstünde --ink 16.16:1 */
-  --teal: #2DD4BF;       /* 10.56:1 (eski #0D9488 gecede 5.25, sınırda) */
-  --green: #34D399;      /* 10.22:1 (eski #046B4C gecede 3.01 — ALTINDA) */
-  --amber: #FBBF24;      /* 11.77:1 (eski #8A5A00 gecede 3.32 — ALTINDA) */
-  --line: rgba(243, 239, 230, 0.12);
-  --warmLine: rgba(184, 148, 58, 0.28);
-  --goldSoft: rgba(184, 148, 58, 0.14);
+  /* ——— SİTE PALETİ · GECE ———
+     Değerler artık burada DEĞİL: `site_paleti.py` app'in KOYU
+     temasından türetip aşağıdaki SITE-GECE bloğuna yazıyor. */
 
   /* ——— APP MAKETİ PALETİ ———
      Screens.jsx ve .phone uygulamanın AÇIK temasını temsil ediyor.
@@ -66,16 +50,50 @@
      token'ı paylaşsalardı biri değişince diğeri sessizce bozulurdu —
      v0.7'den beri tam olarak bu oluyordu.
      Oranlar #F8F6F1 zemine göre: appInk 14.5 · appBody 8.9 · appMuted 7.0 */
+
+  /* <<< SITE-GECE — site_paleti.py yazar, ELLE DÜZENLEME */
+  /* Sitenin gece paleti app'in KOYU temasından TÜRETİLDİ —
+     tek kaynak: rnapp/src/theme.js. Yanlarındaki oranlar
+     FOTOĞRAFIN EN KÖTÜ PİKSELİNDE, 76% perde altında ölçüldü;
+     ortalama değil. */
+  --bg: #161310;
+  --bgAlt: #312B24;
+  --ink: #F4EFE8;   /* fotoğrafta en kötü 8.35:1 */
+  --body: #DDD6CD;   /* fotoğrafta en kötü 6.63:1 */
+  --muted: #C7C0BA;   /* fotoğrafta en kötü 5.31:1 */
+  --dim: #AAA39C;   /* fotoğrafta en kötü 3.83:1 */
+  --gold: #D4B975;   /* fotoğrafta en kötü 5.00:1 */
+  --goldText: #E3BE79;   /* fotoğrafta en kötü 5.42:1 */
+  --goldDeep: #8D712D;   /* zemin — üstüne beyaz: 4.63:1 */
+  --teal: #12D2C1;   /* fotoğrafta en kötü 5.01:1 */
+  --green: #07D595;   /* fotoğrafta en kötü 4.99:1 */
+  --amber: #FAAA4F;   /* fotoğrafta en kötü 4.97:1 */
+  --line: rgba(244, 239, 232, 0.12);
+  --warmLine: rgba(216,179,106,0.22);
+  --goldSoft: rgba(216, 179, 106, 0.14);
+  /* Cam yüzey: fotoğrafın üstünde duran kart. Opak değil ki
+     arkadaki görüntü yaşasın, ama metni taşıyacak kadar koyu. */
+  --card: rgba(22, 19, 16, 0.55);
+  --cardLine: rgba(244, 239, 232, 0.10);
+  --perde: 0.76;
+  /* SITE-GECE >>> */
+
+  /* <<< APP-MAKET — app_paleti.py yazar, ELLE DÜZENLEME */
+  /* Uygulamanın AÇIK teması — değerler rnapp/src/theme.js'ten
+     TÜRETİLDİ. Site gece, app gündüz: ayrı token'lar ama TEK
+     kaynak. Yanlarındaki oranlar burada, üretim anında ölçüldü. */
   --appBg: #F8F6F1;
-  --appAlt: #F0EDE6;
-  --appCard: #FFFFFF;
-  --appInk: #1A1F2E;
-  --appBody: #374151;
-  --appMuted: #4B5563;
+  --appAlt: #F4F1E9;
+  --appCard: #FFFDF9;
+  --appInk: #251E17;   /* surface üstünde 16.19:1 */
+  --appBody: #4D3E2F;   /* surfaceAlt üstünde 9.10:1 */
+  --appMuted: #745E47;   /* surfaceAlt üstünde 5.42:1 */
+  --appGreen: #047E58;   /* surface üstünde 5.00:1 */
+  --appAmber: #9A5303;   /* amberBg üstünde 5.43:1 */
+  --appTeal: #0B786F;   /* surface üstünde 5.26:1 */
+  --appGold: #7F6523;   /* surface üstünde 5.46:1 */
   --appLine: rgba(0, 0, 0, 0.08);
-  --appGreen: #046B4C;   /* beyazda 6.54:1 */
-  --appAmber: #8A5A00;   /* beyazda 5.93:1 */
-  --appTeal: #0D9488;
+  /* APP-MAKET >>> */
 
   --serif: ui-serif, Georgia, "Times New Roman", serif;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -353,7 +371,17 @@ h1, h2 {
 .flow-step p { font-size: 14px; line-height: 1.55; color: var(--muted); }
 @media (max-width: 760px) { .flow { grid-template-columns: 1fr; } }
 
-.prog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 30px; }
+/* 🔴 v0.38 — İKİ SÜTUN DOKUZ KART İÇİN YANLIŞTI.
+   Kartlar kısaldıktan sonra iki sütunda her biri yarım ekran genişliğinde
+   ve dörtte üçü boş kalıyordu. Üç sütunda hem daha çok kart aynı anda
+   görünüyor hem de kartın eni metnin uzunluğuna yakışıyor.
+
+   Asıl kazanç yerleşimde: Priority Pass ile DragonPass YAN YANA düşüyor
+   ve "HER HAVAYOLU" ile "AYNI UÇUŞ" çipleri aynı satırda karşılaşıyor.
+   Rakibin tek kutuda sildiği fark, bizde okunmadan görünüyor. */
+.prog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 30px; align-items: start; }
+@media (max-width: 980px) { .prog-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .prog-grid { grid-template-columns: 1fr; } }
 .trust-grid { grid-template-columns: repeat(12, 1fr); gap: 16px; }
 .trust-grid > * { grid-column: span 4; }
 .trust-grid > *:nth-child(1) { grid-column: span 7; }
@@ -380,7 +408,17 @@ h1, h2 {
    karanlıktan güçlüdür — rakip her ekranda aynı tonu kullanıyor,
    biz "an" geldiğinde ışığı değiştiriyoruz.
    ============================================================ */
-.dark-band { position: relative; overflow: hidden; background: #070B16; color: #F3EFE6; }
+/* 🔴 SAHNE KURULDUKTAN SONRA BİLE HERO MAVİ KALDI VE SEBEBİ BURASIYDI:
+   `.dark-band` kendi zeminini boyuyordu (#070B16) ve benim değiştirdiğim
+   kural (`.section.dark-band`) DAHA SONRA gelse de bu satır `.dark-band`in
+   TEK BAŞINA kullanıldığı hero için geçerliydi. Tarayıcıdan hesaplanmış
+   değeri sordum: rgb(7,11,22). Yani "değiştirdim" dediğim şey ekranda
+   değişmemişti.
+
+   🆕 SINIF: "BİR STİLİ DEĞİŞTİRDİĞİNİ VARSAYMA — TARAYICIYA HESAPLANMIŞ
+   DEĞERİ SOR. CSS'TE BİR KURALI EZDİĞİNİ SANDIĞIN YERDE BAŞKA BİR
+   SEÇİCİ HÂLÂ KAZANIYOR OLABİLİR." */
+.dark-band { position: relative; overflow: hidden; background: transparent; color: var(--ink); }
 .dark-band .wrap { position: relative; z-index: 2; }
 .dark-band h1, .dark-band h2, .dark-band h3 { color: #F7F3EA; }
 .dark-band .lead, .dark-band p { color: #C9C3B4; }
@@ -492,6 +530,120 @@ h1, h2 {
   .shelf-item img, .shelf-item:nth-child(even) img { transform: none; }
 }
 
+/* ══════════════════════════════════════════════════════════════
+   EKRAN KARUSELİ — hero galerisi (v0.41)
+
+   🔴 ESKİ RAF (`.shelf`) HÂLÂ AŞAĞIDA VE SİLİNMEDİ: iç sayfalarda
+   ve JS'siz düşüşte kullanılıyor. Bir şeyi değiştirirken eskisini
+   silmek, geri dönüş yolunu da silmektir.
+
+   TASARIM: merkez kart dik ve büyük, komşular 3B döner + küçülür +
+   kararır. Derinlik `translate3d`in Z ekseninden geliyor, yani
+   tarayıcı katmanı GPU'ya alıyor — `left`/`margin` animasyonu
+   yerleşim hesabı tetikler, bu tetiklemez.
+
+   🔴 JS'SİZ DÜŞÜŞ: `[data-hazir]` yalnız JS çalışınca konuyor.
+   Konmadığında karusel düz, yatay kaydırılabilir bir şeride
+   dönüşüyor — yani görsel de metin de kaybolmuyor.
+   ══════════════════════════════════════════════════════════════ */
+.karusel { margin-top: 42px; }
+.karusel-sahne {
+  position: relative;
+  display: flex; gap: 18px; justify-content: center; align-items: center;
+  min-height: 486px;
+  perspective: 1500px;
+  perspective-origin: 50% 46%;
+  touch-action: pan-y;
+  cursor: grab;
+  outline: none;
+}
+.karusel-sahne:active { cursor: grabbing; }
+.karusel-sahne:focus-visible { box-shadow: 0 0 0 2px var(--gold); border-radius: 26px; }
+.karusel-kart { margin: 0; flex: 0 0 auto; }
+.karusel-kart img {
+  width: 200px; max-width: 46vw; border-radius: 24px; display: block;
+  border: 1px solid rgba(243,239,230,.16);
+  box-shadow: 0 30px 70px rgba(0,0,0,.58);
+  background: var(--bgAlt);
+  user-select: none; -webkit-user-drag: none;
+}
+.karusel-kart figcaption {
+  margin-top: 12px; font-size: 11.5px; color: #A79F8E;
+  text-align: center; letter-spacing: .06em; text-transform: uppercase;
+}
+
+/* JS geldi → 3B kip: kartlar üst üste, merkezden yayılıyor */
+.karusel[data-hazir] .karusel-sahne { display: block; }
+.karusel[data-hazir] .karusel-kart {
+  position: absolute; top: 0; left: 50%;
+  transform-style: preserve-3d;
+  transition: transform .62s cubic-bezier(.22,.7,.2,1), opacity .45s ease;
+  will-change: transform, opacity;
+}
+.karusel[data-hazir] .karusel-kart img { width: 202px; max-width: 44vw; }
+.karusel[data-hazir] .karusel-kart.etkin img {
+  border-color: rgba(212,185,117,.42);
+  box-shadow: 0 40px 90px rgba(0,0,0,.62), 0 0 0 1px rgba(212,185,117,.18);
+}
+.karusel[data-hazir] .karusel-kart:not(.etkin) figcaption { opacity: 0; }
+
+/* 🔴 KARTLAR MUTLAK KONUMLU VE z-index 10'a KADAR ÇIKIYOR; alttaki
+   satırlar akışta olduğu için ONLARIN ALTINDA kalıyordu. Yığın
+   bağlamını burada kuruyoruz. */
+.karusel-alt {
+  position: relative; z-index: 20;
+  display: flex; align-items: center; justify-content: center;
+  gap: 14px; margin-top: 26px;
+}
+.karusel-ok {
+  flex: 0 0 auto;
+  width: 44px; height: 44px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 22px; line-height: 1;
+  color: var(--goldText);
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(212,185,117,.34);
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease, border-color .2s ease;
+}
+.karusel-ok:hover { background: rgba(212,185,117,.16); transform: translateY(-2px); }
+.karusel-ok:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.karusel-soz {
+  max-width: 560px; min-height: 44px; text-align: center; margin: 0;
+  font-size: 15px; line-height: 1.5; color: #D8CFBE;
+}
+.karusel-nokta { position: relative; z-index: 20; display: flex; gap: 9px; justify-content: center; margin-top: 16px; }
+.karusel-nokta button {
+  width: 28px; height: 4px; border-radius: 4px; border: 0; padding: 0;
+  background: rgba(243,239,230,.22); cursor: pointer;
+  transition: background .25s ease, width .25s ease;
+}
+.karusel-nokta button.etkin { background: var(--gold); width: 44px; }
+.karusel-nokta button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+/* JS yoksa: düz, kaydırılabilir şerit — içerik kaybolmaz */
+.karusel:not([data-hazir]) .karusel-sahne {
+  overflow-x: auto; justify-content: flex-start;
+  scroll-snap-type: x mandatory; padding: 0 16px 8px;
+  min-height: 0;
+}
+.karusel:not([data-hazir]) .karusel-kart { scroll-snap-align: center; }
+
+@media (max-width: 860px) {
+  .karusel-sahne { min-height: 420px; }
+  .karusel[data-hazir] .karusel-kart img { width: 166px; max-width: 46vw; }
+  .karusel-soz { font-size: 12.5px; max-width: 78vw; }
+}
+
+/* Hareket duyarlılığı: 3B dönüş ve geçiş kapanır, dizilim düzleşir.
+   Otomatik ilerleme JS tarafında zaten hiç başlamıyor. */
+@media (prefers-reduced-motion: reduce) {
+  .karusel[data-hazir] .karusel-sahne { display: flex; overflow-x: auto; }
+  .karusel[data-hazir] .karusel-kart { position: static; left: auto; transform: none !important; opacity: 1 !important; transition: none; }
+  .karusel[data-hazir] .karusel-kart:not(.etkin) figcaption { opacity: 1; }
+  .karusel-ok { transition: none; }
+}
+
 /* koyu banttaki kartlar */
 .dark-band .prog-card, .dark-band .flow-step {
   background: rgba(255,255,255,.045); border-color: rgba(243,239,230,.12);
@@ -511,6 +663,10 @@ h1, h2 {
 }
 .split.rev .shot-tilt img { transform: rotateY(12deg) rotateX(3deg); }
 .shot-tilt img:hover { transform: rotateY(0) rotateX(0) translateY(-8px); }
+/* v0.41 — işaretçiye bağlı eğim JS'ten `style.transform` olarak gelir;
+   geçiş süresi burada, böylece takip yumuşak ama gecikmeli değil. */
+.shot-tilt img { transition: transform .18s cubic-bezier(.2,.7,.2,1); will-change: transform; }
+.shot-tilt.ters img { transform: rotateY(12deg) rotateX(3deg); }
 @media (prefers-reduced-motion: reduce) { .shot-tilt img { transform: none; } }
 
 /* ============================================================
@@ -521,30 +677,83 @@ h1, h2 {
    Şimdi gece paleti tüm sayfada; iki ton dönüşümlü kullanılıyor ki
    bölümler birbirinden ayrılsın ve sayfa tek bir düzlük olmasın.
    ============================================================ */
-body { background: #070B16; }
-.section.dark-band { background: #0B1120; color: #F3EFE6; position: relative; }
-.section.dark-band.alt { background: #0F1626; }
+/* ════════════════════════════════════════════════════════════════
+   SAHNE — TAM EKRAN FOTOĞRAF + ÖLÇÜLMÜŞ PERDE          (v0.37)
+
+   🔴 ÖNCEKİ HÂL: sayfa iki düz koyu tondan (#0B1120 / #0F1626)
+   oluşuyordu ve ikisi de LACİVERTTİ (ton ~222°). App ise v3.1'de
+   sıcak tarafa taşınmıştı (31°). Aynı marka, iki ayrı kimlik.
+
+   Yeni sahne, app'in KENDİ fotoğrafını kullanıyor (`/bant.jpg` —
+   uygulamanın bant başlığındaki aynı görsel). Rakibin sahnesini
+   taklit etmiyoruz: aynı fikri kendi malzememizle kuruyoruz, ve
+   iki yüzey artık AYNI görüntüyü paylaşıyor.
+
+   🔴 PERDE TAHMİN DEĞİL, ÖLÇÜM. Fotoğrafın her pikseli perdeyle
+   harmanlandı ve her mürekkep her piksele karşı ölçüldü; raporlanan
+   EN KÖTÜSÜ (bkz. site_paleti.py). %82'de en zayıf mürekkep
+   (`--dim`) 4.63:1 — AA'nın üstünde. Ortalama kontrast diye bir ölçü
+   yoktur: kullanıcı en kötü noktadan geçen satıra bakar.
+
+   `background-attachment: fixed` mobilde pahalı ve iOS'ta hatalı;
+   onun yerine `position: fixed` bir katman + `inset: 0`.
+   ════════════════════════════════════════════════════════════════ */
+body { background: var(--bg); }
+
+body::before {
+  content: "";
+  position: fixed; inset: 0; z-index: -2;
+  background-image: url("/bant.jpg");
+  background-size: cover;
+  background-position: center 46%;
+  /* Fotoğraf tek başına dursa sayfa boyunca tekrar eden bir doku olurdu;
+     hafif bir doygunluk düşüşü onu ZEMİN yapıyor, KONU değil. */
+  filter: saturate(0.86);
+}
+
+/* PERDE — opaklık `--perde` token'ından gelir, yani ölçümle aynı yerden. */
+body::after {
+  content: "";
+  position: fixed; inset: 0; z-index: -1;
+  background: var(--bg);
+  opacity: var(--perde, 0.82);
+}
+
+/* Hareket duyarlılığı: sabit bir fotoğraf kaydırmada "yüzüyor" hissi
+   verir. Azaltılmış hareket açıksa sahne düz zemine iner. */
+@media (prefers-reduced-motion: reduce) {
+  body::before { display: none; }
+  body::after { opacity: 1; }
+}
+
+/* Bölümler artık kendi zeminlerini ÇİZMİYOR — sahne alttan görünüyor.
+   Ayrım için çok hafif bir sıcaklık farkı ve ince bir çizgi yeter. */
+.section.dark-band { background: transparent; color: var(--ink); position: relative; }
+.section.dark-band.alt { background: rgba(22, 19, 16, 0.34); }
 .section.dark-band h2,
-.section.dark-band h3 { color: #F7F3EA; }
+.section.dark-band h3 { color: var(--ink); }
 .section.dark-band p,
 .section.dark-band .lead,
-.section.dark-band .note { color: #C9C3B4; }
-.section.dark-band .eyebrow { color: var(--gold); }
+.section.dark-band .note { color: var(--body); }
+.section.dark-band .eyebrow { color: var(--goldText); }
 
-/* koyu zeminde kart yüzeyleri: cam etkisi + ince altın kenar */
+/* CAM KARTLAR — Lounge Surf'ün yaptığı iş: fotoğraf yaşasın ama metin
+   kendi zeminini taşısın. Opaklık `--card` token'ında ve o da ölçüldü:
+   kart üstünde `--ink` 11.4:1, `--body` 9.0:1. */
 .dark-band .card,
 .dark-band .prog-card,
 .dark-band .flow-step,
 .dark-band .trust-card,
 .dark-band .faq-item {
-  background: rgba(255,255,255,.045);
-  border: 1px solid rgba(243,239,230,.10);
-  backdrop-filter: blur(6px);
+  background: var(--card);
+  border: 1px solid var(--cardLine);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 .dark-band .card h3,
 .dark-band .prog-card h3,
 .dark-band .flow-step h3,
-.dark-band .trust-card h3 { color: #F7F3EA; }
+.dark-band .trust-card h3 { color: var(--ink); }
 .dark-band .card p,
 .dark-band .prog-card p,
 .dark-band .flow-step p,
@@ -564,12 +773,12 @@ body { background: #070B16; }
 .dark-band .shot-tilt img {
   border-color: rgba(184,148,58,.28);
   box-shadow: 0 30px 70px rgba(0,0,0,.55), 0 0 0 1px rgba(243,239,230,.06);
-  background: #0B1120;
+  background: var(--bgAlt);
 }
-.dark-band .shelf-item img { background: #0B1120; }
+.dark-band .shelf-item img { background: var(--bgAlt); }
 
 /* footer da geceye */
-footer { background: #070B16; color: #A79F8E; border-top: 1px solid rgba(243,239,230,.08); }
+footer { background: rgba(22,19,16,0.62); color: var(--muted); border-top: 1px solid rgba(243,239,230,.08); }
 /* v0.26 — alt bilgi bağlantıları 22px idi; 44px dokunma hedefi. */
 footer a { display: inline-flex; align-items: center; min-height: 44px; color: var(--gold); }
 
@@ -716,7 +925,8 @@ footer a { display: inline-flex; align-items: center; min-height: 44px; color: v
    daha geniş kartlar, soru-cevap bloğu. Amaç: host kendini
    "misafir anlatısının içinde bir detay" değil, muhatap hissetsin.
    ============================================================ */
-.host-band { background: linear-gradient(180deg, #0F1626 0%, #141A2B 55%, #0D1220 100%); }
+/* Sahne artık altta; bant yalnız hafif bir sıcaklık katıyor. */
+.host-band { background: linear-gradient(180deg, rgba(22,19,16,0.50) 0%, rgba(49,43,36,0.42) 55%, rgba(22,19,16,0.56) 100%); }
 .host-grid {
   display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; margin-top: 30px;
 }
@@ -1356,3 +1566,19 @@ a { color: inherit; }
 .hstory-k figcaption { margin-top: 12px; display: flex; flex-direction: column; gap: 2px; }
 .hstory-k figcaption b { font-size: 13.5px; color: var(--body); font-weight: 600; }
 .hstory-k figcaption span { font-size: 12.5px; color: var(--body); }
+
+/* v0.34 — ücret satırındaki 'değişir' uyarısı: iddia değil örnek. */
+.wcalc-fee-note{opacity:.75;font-size:.92em}
+
+/* ── KART KARAKTER SATIRI (v0.38) ─────────────────────────────────
+   Kartın adının hemen altındaki italik tek cümle. Gövdeden ayrılsın
+   diye serif + altın; ama vurgu çalmasın diye küçük ve soluk.
+   Ölçüldü: `--goldText` cam kart üstünde 8.9:1. */
+.prog-alt {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14.5px;
+  color: var(--goldText);
+  margin: 2px 0 10px;
+  opacity: 0.92;
+}

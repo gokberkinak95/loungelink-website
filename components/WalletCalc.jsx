@@ -173,7 +173,17 @@ export default function WalletCalc() {
               {kalan} hakkın <em>{gun} gün</em> sonra yanıyor
             </div>
             {deger ? (
-              <div className="wcalc-val">≈ {deger} € değerinde</div>
+              /* 🔴 26 AĞUSTOS — BU SATIR SİTENİN KENDİ KARARIYLA ÇELİŞİYORDU.
+                 `lib/content.js:117-125` şunu yazmış: "Ayrıca sabit '30€ / 36€'
+                 yazılıydı; sql/107 md.150 'Tutar kartı veren kuruma göre değişir'
+                 diyor. UYDURULMUŞ KESİNLİK, BELİRSİZLİKTEN KÖTÜDÜR." Vitrin metni
+                 düzeltilmiş, hesaplayıcı düzeltilmemişti — ve burada o sabit ücret
+                 ÇARPILIP "≈ 300 € değerinde" diye bir para iddiasına dönüyordu.
+                 Ticari Reklam Yönetmeliği açısından doğrulanabilir olmayan sayısal
+                 iddia. "≈" bir tahmin işareti değil, bir savunma değildir.
+                 🆕 SINIF: "BİR SAYIYI ÇARPMAK, ONU DAHA KESİN YAPMAZ — YALNIZCA
+                 HATAYI BÜYÜTÜR." */
+              <div className="wcalc-val">yaklaşık {deger} € · kartına göre değişir</div>
             ) : null}
             <div className="wcalc-note">
               Bankaya yatmıyor, devretmiyor — kullanılmazsa siliniyor.
@@ -199,7 +209,8 @@ export default function WalletCalc() {
 
         {kart.ucret && kalan !== 0 && (
           <div className="wcalc-fee">
-            Misafir ücreti: <b>{kart.ucret} €</b> · {kart.kisa}
+            Misafir ücreti: <b>~{kart.ucret} €</b> · {kart.kisa}
+            <span className="wcalc-fee-note"> — tutar kartını veren kuruma göre değişir</span>
           </div>
         )}
       </div>
@@ -215,9 +226,10 @@ export default function WalletCalc() {
       </div>
 
       <p className="wcalc-src">
-        Ücretler programların kendi resmî fiyat sayfalarından alındı ve
-        veritabanımızda kaynak bağlantısıyla birlikte tutuluyor. Kendi hakkını
-        kartını veren kurumdan teyit et.
+        Buradaki ücret ve üyelik rakamları programların yayınlanmış fiyatlarına
+        dayanan <b>örneklerdir</b> ve değişebilir; bağlayıcı değildir. Kendi
+        hakkını ve ücretini <b>kartını veren kurumdan teyit et</b> — kural motoru
+        uygulamada senin kendi kartına göre karar verir.
       </p>
     </div>
   );

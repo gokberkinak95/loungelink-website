@@ -99,7 +99,7 @@ export default function SectionScene({ kind = "wing", flip = false, id }) {
           <linearGradient id={`hz-${uid}`} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#B8943A" stopOpacity="0" />
             <stop offset="80%" stopColor="#B8943A" stopOpacity=".30" />
-            <stop offset="100%" stopColor="#8A5A2B" stopOpacity=".45" />
+            <stop offset="100%" stopColor="var(--goldDeep)" stopOpacity=".45" />
           </linearGradient>
         </defs>
         <rect x="0" y="380" width="1200" height="320" fill={`url(#hz-${uid})`} />

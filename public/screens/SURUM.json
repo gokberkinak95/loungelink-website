@@ -1,0 +1,28 @@
+{
+  "_not": "Sitedeki ekran görüntülerinin HANGİ app sürümünden ve NASIL üretildiği. ekran_goruntusu_check.py bunu rnapp/app.json ile karşılaştırır ve `tur` alanını okur.",
+  "app_surumu": "3.3.2",
+  "alindi": "2026-08-26",
+  "tur": "render",
+  "uretici": "rnapp/ekran_uret.py",
+  "tur_aciklama": "Bu görseller GERÇEK CİHAZDAN alınmadı. `ekran_uret.py` ürünün kaynağından üretiyor: renkler theme.js, geometri ui.js, metinler i18n.js. Bayat bir cihaz görüntüsünden daha doğru, ama cihazın kendisi değil — font hinting, durum çubuğu, güvenli alan ve platform bileşenleri (klavye/seçici) burada yok. Cihaz görüntüsü alındığında `tur` alanını 'cihaz' yap.",
+  "kabul_edildi": false,
+  "gorseller": [
+    "ss-splash.jpg",
+    "ss-kesfet.jpg",
+    "ss-n.jpg",
+    "ss-eslesme.jpg",
+    "ss-tanis.jpg",
+    "ss-m.jpg",
+    "ss-oturum.jpg",
+    "ss-puanla.jpg",
+    "ss-profil.jpg",
+    "ss-home.jpg",
+    "ss-home2.jpg",
+    "ss-baglanti.jpg",
+    "ss-seyahat.jpg",
+    "ss-koyu.jpg",
+    "hero-phones.jpg",
+    "hero-raf.jpg"
+  ],
+  "aradaki_degisiklikler": []
+}
