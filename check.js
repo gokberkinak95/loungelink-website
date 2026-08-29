@@ -263,6 +263,52 @@ if (fs.existsSync(OUT)) {
   // dize her koşulda basılır, dosya yoksa canlıda 404 görünür). İlk
   // mutasyon denemem bunu gösterdi: görseli sildim, denetim yine yeşildi.
   // Artık HTML'deki her /screens/ referansının public'te karşılığı aranır.
+  // ══════════════════════════════════════════════════════════════
+  // ÖLÜ BİLEŞEN — yazılmış, hiçbir yerden çağrılmayan .jsx
+  //
+  // 🔴 `components/Screens.jsx` altı ekranı elle HTML olarak yeniden
+  // kuran, 300 satırlık bir bileşendi ve HİÇBİR YERDEN import
+  // edilmiyordu. Üstelik README hâlâ "sitenin ekranları burada" diye
+  // onu anlatıyordu. Yani ölü kod yalnız yer kaplamıyordu — BELGEYİ
+  // de yanlış tutuyordu, ve okuyan kişi siteyi yanlış tanıyordu.
+  //
+  // 🆕 SINIF: "ÖLÜ KOD SESSİZ DEĞİLDİR — ONU ANLATAN BELGE HAYATTA
+  // KALDIĞI SÜRECE, OKUYAN HERKESE YANLIŞ BİR ÜRÜN TARİF EDER."
+  //
+  // Arşivlenen bileşenler (`_arsiv/`) sayılmaz: onlar bilerek
+  // saklanıyor, çağrılmamaları normal.
+  {
+    const bilesenDir = path.join(__dirname, "components");
+    const dosyalar = fs.readdirSync(bilesenDir)
+      .filter((f) => f.endsWith(".jsx"));
+    const kaynak = [];
+    for (const d of ["app", "components", "lib"]) {
+      const yur = (p2) => {
+        for (const e of fs.readdirSync(p2, { withFileTypes: true })) {
+          if (e.name === "_arsiv" || e.name === "node_modules") continue;
+          const tam = path.join(p2, e.name);
+          if (e.isDirectory()) yur(tam);
+          else if (/\.(jsx?|mjs)$/.test(e.name)) kaynak.push(fs.readFileSync(tam, "utf8"));
+        }
+      };
+      const kok2 = path.join(__dirname, d);
+      if (fs.existsSync(kok2)) yur(kok2);
+    }
+    const hepsi = kaynak.join("\n");
+    const olu = dosyalar.filter((f) => {
+      const ad = f.replace(/\.jsx$/, "");
+      return !new RegExp(`components/${ad}["'\`]`).test(hepsi)
+          && !new RegExp(`<${ad}[\\s/>]`).test(hepsi);
+    });
+    if (olu.length) {
+      console.log(`  ✗ ölü bileşen (hiçbir yerden çağrılmıyor): ${olu.join(", ")}`);
+      console.log(`    Silme — components/_arsiv/ altına taşı ve onu anlatan belgeyi düzelt.`);
+      bad++;
+    } else {
+      console.log(`  ✓ ${dosyalar.length} bileşenin hepsi en az bir yerden çağrılıyor`);
+    }
+  }
+
   // 🔴 FOTOĞRAF ZEMİNİ HTML'DE DEĞİL CSS'TE YAŞIYOR (`body::before`).
   // HTML'de bir sınıf arayarak ölçülemez; kaynağın kendisine bakılır.
   {

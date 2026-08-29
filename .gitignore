@@ -1,4 +1,43 @@
+# 🔴 BU DOSYA PAKETTE YOKTU VE BU BİR AÇIKTI.
+#
+# Zip'te `.gitignore` bulunmuyordu. Yeni sürümü depo klasörüne
+# `robocopy /MIR` ile aynalarsan, kaynakta olmayan her dosya hedeften
+# SİLİNİR — yani deponun `.gitignore`ı silinirdi. Sonraki `git add -A`
+# ise `.env.local`i ve `node_modules`ü commit'e alırdı.
+#
+# 🆕 SINIF: "BİR PAKETTEN EKSİK OLAN DOSYA, PAKETİ AÇAN YERDE VAR OLAN
+# DOSYAYI DA SİLDİRİR — AYNALAMA, EKSİĞİ HEDEFE TAŞIR."
+
+# bağımlılıklar
 node_modules/
+.pnp
+.pnp.js
+
+# build çıktısı
 .next/
 out/
-.vercel/
+build/
+dist/
+
+# ortam değişkenleri — ASLA commit edilmez
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# vercel
+.vercel
+
+# günlükler ve geçici
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+
+# ölçüm/yedek klasörleri (repoya girmez)
+_yedek_palet/
+olcum/
