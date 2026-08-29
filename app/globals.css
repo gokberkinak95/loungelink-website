@@ -587,6 +587,52 @@ h1, h2 {
 }
 .karusel[data-hazir] .karusel-kart:not(.etkin) figcaption { opacity: 0; }
 
+/* ══════════════════════════════════════════════════════════════
+   KOMŞU KARTLAR TIKLANABİLİR (v0.43)
+
+   🔴 Gökberk: "ok'a tıklamak ilk aklıma gelen aksiyon olmuyor."
+   Ekrandaki en büyük öğe telefonlardı; el oraya gidiyordu. Artık
+   gidebiliyor. İmleç ve hafif bir aydınlanma bunu SÖYLEMEDEN
+   duyuruyor — "tıkla" yazan bir etiket eklemek, arayüzün kendini
+   anlatamadığının itirafı olurdu.
+   ══════════════════════════════════════════════════════════════ */
+.karusel-kart-tik {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border: 0; padding: 0; margin: 0;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 24px;
+  /* Odak halkası noktalarda zaten var; buraya sekmeyle gelinmiyor
+     (tabIndex=-1) çünkü aynı hedefe iki klavye yolu gereksiz. */
+}
+.karusel[data-hazir] .karusel-kart.tiklanir { cursor: pointer; }
+.karusel[data-hazir] .karusel-kart.tiklanir:hover img {
+  border-color: rgba(212,185,117,.34);
+  box-shadow: 0 34px 78px rgba(0,0,0,.6), 0 0 0 1px rgba(212,185,117,.14);
+}
+/* 🔴 AYDINLANMA `img`E UYGULANIYOR, `figure`A DEĞİL.
+   `figure`ın `filter`ı JS'ten SATIR İÇİ stil olarak geliyor
+   (`brightness(1 - uzaklık*0.22)`) ve satır içi stil sınıfı yener —
+   buraya yazsaydım hiçbir şey olmazdı ve ben "yaptım" sanırdım.
+
+   🆕 SINIF: "SATIR İÇİ STİLİN OLDUĞU ÖZELLİĞE CSS'TEN DOKUNMA;
+   KOMŞU ÖĞEYE DOKUN." */
+.karusel[data-hazir] .karusel-kart.tiklanir:hover img {
+  filter: brightness(1.22);
+  transform: translateY(-4px);
+}
+.karusel[data-hazir] .karusel-kart img {
+  transition: filter .25s ease, transform .25s ease,
+              border-color .25s ease, box-shadow .25s ease;
+}
+/* Dokunmatikte :hover yapışır — orada aydınlanmayı hiç açmıyoruz. */
+@media (hover: none) {
+  .karusel[data-hazir] .karusel-kart.tiklanir:hover img {
+    filter: none; transform: none;
+  }
+}
+
 /* 🔴 KARTLAR MUTLAK KONUMLU VE z-index 10'a KADAR ÇIKIYOR; alttaki
    satırlar akışta olduğu için ONLARIN ALTINDA kalıyordu. Yığın
    bağlamını burada kuruyoruz. */
@@ -1581,4 +1627,28 @@ a { color: inherit; }
   color: var(--goldText);
   margin: 2px 0 10px;
   opacity: 0.92;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   KAHRAMANDAKİ BAĞLANTI CÜMLESİ (v0.43)
+
+   "Aktarma uçuşları bağlar. Biz yolcuları." — bu cümle sitenin
+   ALTBİLGİSİNDE duruyordu, yani en az okunan yerde. Markanın en
+   insani cümlesi başlığın hemen altına taşındı.
+
+   Serif ve italik: başlıkla aynı aileden, ama daha ince ve daha
+   sessiz. Bir alt başlık değil, bir NEFES — okuyucu başlıktan
+   sonra bir saniye burada duruyor.
+   ══════════════════════════════════════════════════════════════ */
+.hero-baglanti {
+  margin: 14px 0 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.45;
+  color: var(--goldText);
+  opacity: .92;
+}
+@media (max-width: 860px) {
+  .hero-baglanti { font-size: 16.5px; margin-top: 12px; }
 }

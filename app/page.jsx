@@ -78,8 +78,16 @@ export default function Home() {
             İKİSİNDEN DE KÖTÜDÜR." */}
         <div className="wrap split rise">
           <div className="col-text">
-            <div className="eyebrow">Salon hakkı cüzdanı</div>
-            <h1>Senin uçağında,<br /><em>lounge'da yeri olan biri var.</em></h1>
+            <div className="eyebrow">{SITE.heroEyebrow}</div>
+            <h1>{SITE.heroLead}<br /><em>{SITE.heroEm}</em></h1>
+            {/* 🔴 v0.43 — RAKİBİN FİKRİ, BİZİM CÜMLEMİZLE.
+                "connecting flights, connecting travelers" doğru bir
+                fikir ve bizim Türkçesi zaten yazılmıştı — ama sitenin
+                DİBİNDE, altbilgi sloganı olarak duruyordu. Bir markanın
+                en insani cümlesi, en az okunan yerde durmamalı.
+                🆕 SINIF: "EN İYİ CÜMLENİ NEREYE KOYDUĞUN, ONU YAZMAK
+                KADAR ÖNEMLİDİR." */}
+            <p className="hero-baglanti">{SITE.heroBaglanti}</p>
             {/* 🔴 v0.20 — KONUMLANDIRMA CÜMLESİ, kahramanın içinde.
                 Eskiden ilk satır "Havalimanı yol arkadaşı" idi: doğru
                 ama ayırt edici değil — o cümleyi rakip de kurabilir
@@ -104,7 +112,7 @@ export default function Home() {
           <div><RuleDemo /></div>
         </div>
         <div className="wrap">
-          <EkranKarusel shots={SHELF} caption="Sürükle · ok tuşları · noktalar — yedi ekran, tek akış." />
+          <EkranKarusel shots={SHELF} caption="Bir ekrana dokun ya da kaydır — yedi ekran, tek akış." />
         </div>
       </section>
 
