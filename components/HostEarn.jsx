@@ -123,7 +123,7 @@ export default function HostEarn() {
   return (
     <div className="hearn">
       <div className="hearn-head">
-        <span className="eyebrow">KARŞILIK</span>
+        <span className="eyebrow">KREDİ VE LOUNGEPUAN</span>
         <h3>Bir kez ağırla — bir kez misafir ol.</h3>
         {/* 🔴 MARKA CÜMLESİ. Kredi oranı 1:1 olduğu için artık BİREBİR
             doğru — 3 iken bu cümle kurulamazdı. Bir mottonun taşıması

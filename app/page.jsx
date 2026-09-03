@@ -79,7 +79,6 @@ export default function Home() {
             İKİSİNDEN DE KÖTÜDÜR." */}
         <div className="wrap split rise">
           <div className="col-text">
-            <div className="eyebrow">{SITE.heroEyebrow}</div>
             <h1>{SITE.heroLead}<br /><em>{SITE.heroEm}</em></h1>
             {/* 🔴 v0.43 — RAKİBİN FİKRİ, BİZİM CÜMLEMİZLE.
                 "connecting flights, connecting travelers" doğru bir
@@ -117,7 +116,7 @@ export default function Home() {
           <div><RuleDemo /></div>
         </div>
         <div className="wrap">
-          <EkranKarusel shots={SHELF} caption="Bir ekrana dokun ya da kaydır — yedi ekran, tek akış." />
+          <EkranKarusel shots={SHELF} />
         </div>
       </section>
 
@@ -281,7 +280,7 @@ export default function Home() {
           ══════════════════════════════════════════════════════════════ */}
       <section className="section dark-band" id="an">
         <div className="wrap" style={{ maxWidth: 720 }}>
-          <div className="eyebrow">Eşleştikten sonra</div>
+          <div className="eyebrow">Sohbet</div>
           <h2>Kalan tek iş, birbirinizi bulmak.</h2>
           <div className="an-sohbet">
             {SAHNE.map((m, i) => (
@@ -336,7 +335,7 @@ export default function Home() {
           {/* v0.8 — İFADE SATIRI: LS kart ızgaralarının arasına tek
               cümlelik büyük ifadeler koyuyor; okuyucu nefes alıyor ve
               argüman ilerliyor. Bizim karşılığımız kural motoruna bağlı. */}
-          <p className="statement">Çoğu lounge üyeliği yanına bir kişi alır.<br />Sorun hakkın olması değil — kimin yanında olacağı.</p>
+          <p className="statement">Çoğu lounge üyeliği yanına bir kişi alır.<br />Sorun hakkın olması değil — yanında kimin olacağı.</p>
           <h2>{BOLUM.guven.h2}</h2>
           <div className="prog-grid trust-grid">
             {/* v0.8 — LS kart grameri: sessiz ikon çipi + soru başlığı +
@@ -384,22 +383,7 @@ export default function Home() {
       ))}
       <hr className="wing-rule" />
 
-      {/* --- SSS ---
-          🔴 v0.3.1 SEO: FAQPage JSON-LD. Rakip FAQ-ağır SEO oynuyor;
-          bizim SSS içeriğimiz zaten var, şema onu Google'ın zengin
-          sonuçlarına aday yapar. Veri FAQ dizisinden üretilir — metin
-          değişince şema kendiliğinden günceldir, elle senkron yok. */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: FAQ.map((f) => ({
-            "@type": "Question", name: f.q,
-            acceptedAnswer: { "@type": "Answer", text: f.a },
-          })),
-        }) }}
-      />
+      {/* SSS şeması artık /sss sayfasında (v0.52) */}
       {/* --- HOST BÖLÜMÜ ---
           🔴 İki taraflı pazarda ARZ önce gelir. Misafir, host olmadan
           hiçbir şey göremez; host ise misafir olmadan da kartını
@@ -546,18 +530,21 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 🔴 v0.52 — SSS ANA SAYFADAN AYRILDI (Gökberk: "gereksiz uzatıyor").
+          Burada yalnız ilk üç soru + tam listeye bağlantı; içerik /sss'te. */}
       <section className="section dark-band alt" id="sss">
         <SectionScene kind="contrail" flip />
         <div className="ghost" aria-hidden="true">SSS</div>
         <div className="wrap" style={{ maxWidth: 760 }}>
           <div className="eyebrow">{BOLUM.sss.eyebrow}</div>
           <h2 style={{ marginBottom: 14 }}>{BOLUM.sss.h2}</h2>
-          {FAQ.map((f) => (
+          {FAQ.slice(0, 3).map((f) => (
             <div className="faq-item" key={f.q}>
               <h3>{f.q}</h3>
               <p>{f.a}</p>
             </div>
           ))}
+          <a className="beat" href="/sss">Tüm soruları gör <span>→</span></a>
         </div>
       </section>
 

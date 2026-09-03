@@ -58,7 +58,7 @@ if _sunulan != _BEKLENEN_SURUM:
 print(f"✓ sürüm kapısı: {BASE} → v{_sunulan} (package.json ile aynı)")
 
 SAYFALAR=["/","/kartlar","/rehber","/gizlilik","/kosullar","/cerez","/aydinlatma",
-          "/hesap-sil","/kart/elite-plus-ist-ic-hat","/rehber/elite-plus-ist"]
+          "/hesap-sil","/sss","/kart/elite-plus-ist-ic-hat","/rehber/elite-plus-ist"]
 CIHAZLAR=[("iPhone SE",320,568),("iPhone 12",390,844),("Android",412,915),
           ("iPad",768,1024),("Laptop",1280,800),("Masaüstü",1440,900),("Geniş",1920,1080)]
 

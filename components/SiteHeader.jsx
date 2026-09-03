@@ -44,7 +44,7 @@ const NAV = [
   { href: "/rehber", label: "Rehber" },
   { href: "/#akis", label: "Nasıl çalışır" },
   { href: "/#kart-sahibi", label: "Kartın ne kazandırır" },
-  { href: "/#sss", label: "SSS" },
+  { href: "/sss", label: "SSS" },
 ];
 
 export default function SiteHeader({ children }) {

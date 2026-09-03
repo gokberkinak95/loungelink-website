@@ -667,8 +667,12 @@ h1, h2 {
 }
 .karusel-ok:hover { background: rgba(212,185,117,.16); transform: translateY(-2px); }
 .karusel-ok:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+/* 🔴 v0.52 — OKLAR ARTIK SABİT DURUYOR. Söz kutusu içeriğe göre
+   genişliyor, oklar onunla birlikte kayıyordu (Gökberk fark etti).
+   Kutu sabit genişlik alır; metin içinde sarar, oklar yerinden oynamaz. */
 .karusel-soz {
-  max-width: 560px; min-height: 44px; text-align: center; margin: 0;
+  flex: 0 0 min(560px, 70vw); max-width: min(560px, 70vw);
+  min-height: 44px; text-align: center; margin: 0;
   font-size: 15px; line-height: 1.5; color: #D8CFBE;
 }
 .karusel-nokta { position: relative; z-index: 20; display: flex; gap: 9px; justify-content: center; margin-top: -4px; }
@@ -701,7 +705,7 @@ h1, h2 {
 @media (max-width: 860px) {
   .karusel-sahne { min-height: 420px; }
   .karusel[data-hazir] .karusel-kart img { width: 166px; max-width: 46vw; }
-  .karusel-soz { font-size: 12.5px; max-width: 78vw; }
+  .karusel-soz { font-size: 12.5px; flex-basis: 66vw; max-width: 66vw; }
 }
 
 /* Hareket duyarlılığı: 3B dönüş ve geçiş kapanır, dizilim düzleşir.
@@ -1466,7 +1470,7 @@ a { color: inherit; }
   border-radius: 20px;
   padding: 28px;
   max-width: 860px;
-  margin: 0 auto;
+  margin: 36px auto 0;   /* v0.52 — üstteki kartlara bitişik duruyordu */
 }
 .hearn-head h3 {
   font-family: var(--serif);
