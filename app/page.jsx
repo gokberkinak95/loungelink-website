@@ -1,5 +1,6 @@
-import { SITE, SECTIONS, FAQ, STATS, FLOW, SHOTS_MAIN, SHOTS_TRUST, PROGRAMS, TRUST, SHELF, HOST_WHY, HOST_RISK } from "../lib/content";
+import { SITE, BOLUM, SAHNE, SECTIONS, FAQ, STATS, FLOW, SHOTS_MAIN, SHOTS_TRUST, PROGRAMS, TRUST, SHELF, HOST_WHY, HOST_RISK } from "../lib/content";
 import SiteHeader from "../components/SiteHeader";
+import OlayLink from "../components/OlayLink";
 // 🔴 v0.41 — `PhoneShelf` yerine `EkranKarusel`.
 // Eski bileşen SİLİNMEDİ, `components/_arsiv/`e taşındı: geri dönüş
 // yolunu silmek, değişikliği geri alınamaz yapar.
@@ -100,8 +101,12 @@ export default function Home() {
             </p>
             <p className="lead">{SITE.heroSub}</p>
             <div className="hero-cta">
-              <a href="#beta" className="btn-gold">{SITE.betaCta}</a>
-              <a href="/rehber" className="btn-ghost">Kartını sor · 3 saniye</a>
+              {/* Üç dönüşüm olayı — huninin tamamı. Ayrıntı ve neden
+                  yalnız üç tane olduğu: components/Olcum.jsx */}
+              <OlayLink ad="indir" ozellik={{ yer: "hero" }}
+                        href="#beta" className="btn-gold">{SITE.betaCta}</OlayLink>
+              <OlayLink ad="kural_sorusu" ozellik={{ yer: "hero" }}
+                        href="/rehber" className="btn-ghost">Kartını sor · 3 saniye</OlayLink>
             </div>
             <div className="hero-stats">
               {STATS.map((x) => (
@@ -142,7 +147,7 @@ export default function Home() {
           {/* §3 ritmi: her içerik bölümü DAVET VURUŞUYLA kapanır.
               İlk yazımda iki yeni bölümü vuruşsuz bıraktım ve sitenin
               kendi denetimi yakaladı — kural işliyor. */}
-          <a className="beat" href="/kartlar">Kendi kartının cevabını gör <span>→</span></a>
+          <OlayLink ad="kural_sorusu" ozellik={{ yer: "kartlar" }} className="beat" href="/kartlar">Kendi kartının cevabını gör <span>→</span></OlayLink>
         </div>
       </section>
 
@@ -153,8 +158,8 @@ export default function Home() {
         <SectionScene kind="contrail" />
         <div className="ghost" aria-hidden="true">AKIŞ</div>
         <div className="wrap">
-          <div className="eyebrow">Nasıl çalışır</div>
-          <h2>Uçuşunu yaz, eşleşmeni bul.</h2>
+          <div className="eyebrow">{BOLUM.akis.eyebrow}</div>
+          <h2>{BOLUM.akis.h2}</h2>
           <div className="flow">
             {FLOW.map((f) => (
               <div className="flow-step" key={f.n}>
@@ -178,8 +183,8 @@ export default function Home() {
         <div className="ghost" aria-hidden="true">NEDEN</div>
         <div className="wrap split">
           <div className="col-text">
-            <div className="eyebrow">Neden LoungeLink</div>
-            <h2>Her uçuşta biri yalnız uçuyor — ve yanında bir kişilik yer var.</h2>
+            <div className="eyebrow">{BOLUM.neden.eyebrow}</div>
+            <h2>{BOLUM.neden.h2}</h2>
             <p className="lead" style={{ marginTop: 18 }}>
               Kartındaki misafir hakkı yıl sonunda sessizce siliniyor. Aynı anda,
               aynı terminalde biri üç saatlik aktarmayı telefonuna bakarak geçiriyor.
@@ -208,12 +213,12 @@ export default function Home() {
         <SectionScene kind="runway" />
         <div className="ghost" aria-hidden="true">KURAL</div>
         <div className="wrap">
-          <div className="eyebrow">Kural motoru</div>
+          <div className="eyebrow">{BOLUM.kural.eyebrow}</div>
           {/* 🔴 BAŞLIK SORUYU SORUYORDU, CEVABI VERMİYORDU.
               Rakibin başlığı bir SÖZ veriyor: "We find your perfect +1."
               Bizimki soruyu tekrar ediyordu — ziyaretçi zaten soruyu
               biliyor, cevabı arıyor. */}
-          <h2>Doğru +1'i buluruz.</h2>
+          <h2>{BOLUM.kural.h2}</h2>
           <p style={{ marginTop: 10, fontFamily: "var(--serif)", fontSize: 19, color: "var(--gold)", fontStyle: "italic" }}>
             {SITE.ruleSlogan}
           </p>
@@ -251,7 +256,50 @@ export default function Home() {
             ))}
           </div>
         {/* v0.9 — §3 ritim: bölüm DAVET vuruşuyla kapanır. Okuyucu bilgiyle bırakılırsa akış durur; her bölüm bir sonraki adımı işaret etmeli. */}
-          <a className="beat" href="/rehber">Kendi kartının cevabını gör <span>→</span></a>
+          <a className="beat" href="/rehber">{BOLUM.kural.beat} <span>→</span></a>
+        </div>
+      </section>
+
+      <hr className="wing-rule" />
+
+      {/* ══════════════════════════════════════════════════════════════
+          🔴 v0.44 — MİKRO SAHNE. YENİ BÖLÜM.
+
+          Lounge Surf'ün en iyi hamlesi bu ve bizde hiç yoktu: ürünü
+          ANLATMAK yerine bir AN gösteriyorlar — "I'm at gate B12, blue
+          jacket." Tek cümlelik somut bir sahne, üç paragraflık özellik
+          listesinden daha çok iş yapıyor, çünkü okuyucu kendini oraya
+          koyuyor.
+
+          Bizde bu sahnenin gerçek bir karşılığı var: eşleşmeden SONRA
+          açılan sohbet. Sitede o âna dair tek kelime yoktu; ziyaretçi
+          "eşleştim, sonra ne oluyor?" sorusunun cevabını hiçbir yerde
+          göremiyordu.
+
+          🆕 SINIF: "SOMUT BİR CÜMLE, DOĞRU BİR PARAGRAFTAN DAHA İKNA
+          EDİCİDİR — İKNA BİLGİYLE DEĞİL, CANLANDIRMAYLA OLUR."
+          ══════════════════════════════════════════════════════════════ */}
+      <section className="section dark-band" id="an">
+        <div className="wrap" style={{ maxWidth: 720 }}>
+          <div className="eyebrow">Eşleştikten sonra</div>
+          <h2>Kalan tek iş, birbirinizi bulmak.</h2>
+          <div className="an-sohbet">
+            {SAHNE.map((m, i) => (
+              <div key={i} className={"an-bal" + (m.kim === "sen" ? " ben" : "")}>
+                <p>{m.m}</p>
+                <time>{m.saat}</time>
+              </div>
+            ))}
+          </div>
+          <p className="an-not">
+            Salon, kapı ve kalkışa kalan süre sohbetin üstünde donmuş durur —
+            konuşurken yukarı kaydırmak gerekmez.
+          </p>
+          {/* §3 ritim — sitenin kendi kuralı: her bölüm bir DAVET
+              vuruşuyla kapanır. İlk yazımda unutmuştum ve `check.js`
+              yakaladı: "an bölümü davet vuruşuyla kapanmıyor".
+              Bir sonraki adım burada belli: "peki karşımdaki kim?" */}
+          <a className="beat" href="#guven">Karşındakini nereden biliyorsun <span>→</span></a>
         </div>
       </section>
 
@@ -270,8 +318,8 @@ export default function Home() {
         <SectionScene kind="radar" />
         <div className="ghost" aria-hidden="true">KAPSAM</div>
         <div className="wrap" style={{ maxWidth: 820 }}>
-          <div className="eyebrow">Kapsam</div>
-          <h2>Kartınla nereye girebilirsin?</h2>
+          <div className="eyebrow">{BOLUM.kapsam.eyebrow}</div>
+          <h2>{BOLUM.kapsam.h2}</h2>
           <Coverage />
           <a className="beat" href="/rehber">Havalimanını seç, salonu gör <span>→</span></a>
         </div>
@@ -284,12 +332,12 @@ export default function Home() {
         <SectionScene kind="radar" />
         <div className="ghost" aria-hidden="true">GÜVEN</div>
         <div className="wrap">
-          <div className="eyebrow">Güven & güvenlik</div>
+          <div className="eyebrow">{BOLUM.guven.eyebrow}</div>
           {/* v0.8 — İFADE SATIRI: LS kart ızgaralarının arasına tek
               cümlelik büyük ifadeler koyuyor; okuyucu nefes alıyor ve
               argüman ilerliyor. Bizim karşılığımız kural motoruna bağlı. */}
           <p className="statement">Çoğu lounge üyeliği yanına bir kişi alır.<br />Sorun hakkın olması değil — kimin yanında olacağı.</p>
-          <h2>Güven, süs değil iskelet.</h2>
+          <h2>{BOLUM.guven.h2}</h2>
           <div className="prog-grid trust-grid">
             {/* v0.8 — LS kart grameri: sessiz ikon çipi + soru başlığı +
                 somut ayrıntılı gövde. Çip tek renk ve düşük kontrast;
@@ -362,9 +410,17 @@ export default function Home() {
         <div className="ghost" aria-hidden="true">KART</div>
         <div className="wrap">
           <div className="sec-no">04</div>
-          <div className="eyebrow">KART SAHİBİNE</div>
+          <div className="eyebrow">{BOLUM.host.eyebrow.toLocaleUpperCase("tr-TR")}</div>
+          {/* 🔴 v0.44 — HOST BÖLÜMÜNE BAŞLIK GELDİ.
+              Burada bir `h2` HİÇ YOKTU: bölüm doğrudan bir soruyla
+              başlıyordu. Soru iyi bir soruydu ama sayfa taramasında
+              başlık hiyerarşisinde bir DELİK bırakıyordu — ekran
+              okuyucu için de, göz için de.
+              Yeni başlık Lounge Surf'ün "zaten X'e sahipsin" kalıbı:
+              kullanıcının elindekinden başlıyor, üründen değil. */}
+          <h2>{BOLUM.host.h2}</h2>
           <p className="statement">
-            Bu yıl kartındaki misafir haklarından kaçını kullandın?<br />
+            {BOLUM.host.statement}<br />
             <span style={{ color: "var(--gold)" }}>Kullanmadıkların 31 Aralık&apos;ta siliniyor.</span>
           </p>
           {/* 🔴 v0.18 — host'un ilk itirazı "hakkımı mı veriyorum?".
@@ -416,7 +472,10 @@ export default function Home() {
             ))}
           </div>
 
-          <a className="beat" href="#beta">Kurucu çembere katıl <span>→</span></a>
+          {/* 🔴 HUNİNİN EN KRİTİK OLAYI. Soğuk başlangıç sorununun tek
+              erken göstergesi bu: arz tarafında hiç niyet var mı? */}
+          <OlayLink ad="host_ol" ozellik={{ yer: "host_bolumu" }}
+                    className="beat" href="#beta">Kurucu çembere katıl <span>→</span></OlayLink>
         </div>
       </section>
 
@@ -430,8 +489,8 @@ export default function Home() {
           ÖDEMEMENIN yolu olsun. */}
       <section className="section dark-band" id="plan">
         <div className="wrap">
-          <div className="eyebrow">Abonelik</div>
-          <h2>Ağırlarsan ödemezsin.</h2>
+          <div className="eyebrow">{BOLUM.plan.eyebrow}</div>
+          <h2>{BOLUM.plan.h2}</h2>
           <p className="lead" style={{ maxWidth: "52ch" }}>
             Ayda iki kişi ağırlayan host, o ay Sık Uçan ayrıcalıklarını ücretsiz
             kullanır. Abonelik bir maliyet değil, ağırlamadığın aylarda devreye
@@ -491,8 +550,8 @@ export default function Home() {
         <SectionScene kind="contrail" flip />
         <div className="ghost" aria-hidden="true">SSS</div>
         <div className="wrap" style={{ maxWidth: 760 }}>
-          <div className="eyebrow">Sık sorulanlar</div>
-          <h2 style={{ marginBottom: 14 }}>Aklınızdaki soru muhtemelen burada.</h2>
+          <div className="eyebrow">{BOLUM.sss.eyebrow}</div>
+          <h2 style={{ marginBottom: 14 }}>{BOLUM.sss.h2}</h2>
           {FAQ.map((f) => (
             <div className="faq-item" key={f.q}>
               <h3>{f.q}</h3>

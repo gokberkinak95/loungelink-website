@@ -21,8 +21,45 @@
 // Next 15'te bu ayar üst düzeydedir (Next 14'te experimental altında).
 const path = require("path");
 
+// 🔴 v0.51 — GÜVENLİK BAŞLIKLARI. Site bugüne kadar hiçbir güvenlik
+// başlığı göndermiyordu (ölçüldü: curl -I → yalnız Next varsayılanları).
+// Bir pazarlama sitesi için risk düşük ama sıfır değil: iframe içine
+// alınıp tıklama hırsızlığı (clickjacking), MIME koklama, referrer sızması.
+// CSP: Next'in hidrasyon betikleri satır içi olduğu için script-src
+// 'unsafe-inline' ZORUNLU (nonce'suz statik render). Ölçüm betiği
+// yalnız NEXT_PUBLIC_OLCUM_HOST'tan yüklenir; o adres CSP'ye burada
+// eklenir — env boşsa hiçbir dış betik kaynağı açılmaz.
+const OLCUM = process.env.NEXT_PUBLIC_OLCUM_HOST ? " " + process.env.NEXT_PUBLIC_OLCUM_HOST : "";
+// Bekleme listesi formu PostgREST'e fetch atar; adres env'den okunur,
+// "*.supabase.co" varsayımı yok (özel alan adı olabilir).
+const SB = (() => { try { return process.env.NEXT_PUBLIC_SUPABASE_URL ? " " + new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).origin : ""; } catch { return ""; } })();
+const CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline'" + OLCUM,
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com data:",
+  "img-src 'self' data: blob: https:",
+  "connect-src 'self'" + OLCUM + SB,
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+].join("; ");
+
 module.exports = {
   reactStrictMode: true,
   images: { formats: ["image/avif", "image/webp"] },
   outputFileTracingRoot: path.join(__dirname),
+  async headers() {
+    return [{
+      source: "/(.*)",
+      headers: [
+        { key: "Content-Security-Policy", value: CSP },
+        { key: "X-Content-Type-Options", value: "nosniff" },
+        { key: "X-Frame-Options", value: "DENY" },
+        { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+        { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=()" },
+        { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" },
+      ],
+    }];
+  },
 };

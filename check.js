@@ -53,7 +53,14 @@ function walk(dir, out = []) {
     // `_arsiv`: kullanımdan kalkmış ama SİLİNMEYEN dosyalar. Silmek yerine
     // arşivlemek bu projenin kuralı; denetimin onları ölçmesi ise yanlış
     // alarm üretir — çizilmeyen bir dosyanın rengi kimseyi rahatsız etmez.
-    if (f === "node_modules" || f === ".next" || f === "_arsiv" || f.startsWith(".")) continue;
+    // 🔴 30 Ağu · v0.44 — `_yedek*` DE ATLANMALI.
+    // Ölü açık-tema bileşenlerini `_yedek_acik_maket/` altına taşıyınca
+    // bu denetim onları CANLI sanıp 9 kırmızı verdi: arşive kaldırmak,
+    // kaldırmanın kendisi yüzünden hata sayıldı.
+    // 🆕 SINIF: "BİR DENETİM 'SİL' DEĞİL 'ARŞİVLE' DİYORSA, ARŞİVİ DE
+    // TANIMAK ZORUNDADIR — YOKSA ÖNERDİĞİ ŞEYİ CEZALANDIRIR."
+    if (f === "node_modules" || f === ".next" || f === "_arsiv" ||
+        f.startsWith("_yedek") || f.startsWith(".")) continue;
     const p = path.join(dir, f);
     // 🔴 Denetim KENDİNİ taramaz: yorumdaki örnek href'i "ölü bağlantı"
     // sandı. Bir denetimin kendi metnini bulgu sayması, gerçek bulguları
@@ -285,7 +292,8 @@ if (fs.existsSync(OUT)) {
     for (const d of ["app", "components", "lib"]) {
       const yur = (p2) => {
         for (const e of fs.readdirSync(p2, { withFileTypes: true })) {
-          if (e.name === "_arsiv" || e.name === "node_modules") continue;
+          if (e.name === "_arsiv" || e.name === "node_modules" ||
+              e.name.startsWith("_yedek")) continue;
           const tam = path.join(p2, e.name);
           if (e.isDirectory()) yur(tam);
           else if (/\.(jsx?|mjs)$/.test(e.name)) kaynak.push(fs.readFileSync(tam, "utf8"));
@@ -960,7 +968,12 @@ try {
   const { spawnSync } = require("child_process");
   for (const py of ["python3", "python"]) {
     let calisti = false;
-    for (const [betik, arg] of [["app_paleti.py", ["--denetle"]],
+    // 🔴 30 Ağu · v0.44 — `app_paleti.py` ARŞİVE ALINDI.
+    // O betik sitedeki AÇIK "app maketi" paletini uygulamanın AÇIK
+    // temasından türetiyordu. İkisi de artık yok: uygulama tek temalı
+    // (gece), sitedeki maket paleti de kaldırıldı. Betiği listede
+    // bırakmak, olmayan bir temayı denetlemek olurdu.
+    for (const [betik, arg] of [
                                 ["site_paleti.py", ["--denetle"]],
                                 ["ekran_goruntusu_check.py", []]]) {
       const r = spawnSync(py, [path.join(ROOT, betik), ...arg], { encoding: "utf8" });

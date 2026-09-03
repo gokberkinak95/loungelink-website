@@ -66,7 +66,7 @@ export default function RuleDemo() {
     <div className="demo">
       <div className="demo-head">
         <span className="demo-tag">CANLI</span>
-        Türkiye'nin ilk lounge kural motoru
+        Kartına göre cevap veren kural motoru
       </div>
 
       <div className="demo-label">Kartın</div>

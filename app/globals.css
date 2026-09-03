@@ -39,6 +39,27 @@
    tarayıcıda ölçüyor, ihlal varsa çıkış 1. Artık bu kusur sessizce
    geri gelemez.
    ════════════════════════════════════════════════════════════════ */
+
+/* ════════════════════════════════════════════════════════════════
+   🔴 30 AĞUSTOS · v0.44 — ALTIN ZEMİNDE BEYAZ MÜREKKEP OKUNMUYORDU.
+
+   `--goldDeep` app'in KOYU temasından türetilince #8D712D'den
+   #EBCD92'ye çıktı (tasarımın `.btn-altin` gradyanının üst ucu).
+   Zemin parladı ama üstündeki mürekkep BEYAZ kaldı:
+
+       #FFFFFF / #EBCD92 =  1.54:1     ← AA 4.5 ister
+       #171009 / #EBCD92 = 12.27:1     ← tasarımın kendi mürekkebi
+
+   Yani sitedeki her altın hap, düğme ve rozet — beta CTA dahil —
+   neredeyse görünmez bir metinle çiziliyordu. Ölçüm bunu söylüyordu
+   (`--goldDeep … üstüne beyaz: 1.54:1`) ve ben satırı okumamışım.
+
+   Tasarım zaten cevabı yazıyor: `.btn-altin{ color:#171009 }`.
+   App'te de öyle (`KOYU.onGold`). Yalnız site geride kalmıştı.
+
+   🆕 SINIF: "BİR ZEMİNİ DEĞİŞTİRDİĞİNDE ÜSTÜNDEKİ MÜREKKEP DE
+   DEĞİŞMEK ZORUNDADIR — RENK BİR DEĞER DEĞİL, BİR ÇİFTTİR."
+   ════════════════════════════════════════════════════════════════ */
 :root {
   /* ——— SİTE PALETİ · GECE ———
      Değerler artık burada DEĞİL: `site_paleti.py` app'in KOYU
@@ -54,46 +75,50 @@
   /* <<< SITE-GECE — site_paleti.py yazar, ELLE DÜZENLEME */
   /* Sitenin gece paleti app'in KOYU temasından TÜRETİLDİ —
      tek kaynak: rnapp/src/theme.js. Yanlarındaki oranlar
-     FOTOĞRAFIN EN KÖTÜ PİKSELİNDE, 76% perde altında ölçüldü;
+     FOTOĞRAFIN EN KÖTÜ PİKSELİNDE, 84% perde altında ölçüldü;
      ortalama değil. */
-  --bg: #161310;
-  --bgAlt: #312B24;
-  --ink: #F4EFE8;   /* fotoğrafta en kötü 8.35:1 */
-  --body: #DDD6CD;   /* fotoğrafta en kötü 6.63:1 */
-  --muted: #C7C0BA;   /* fotoğrafta en kötü 5.31:1 */
-  --dim: #AAA39C;   /* fotoğrafta en kötü 3.83:1 */
-  --gold: #D4B975;   /* fotoğrafta en kötü 5.00:1 */
-  --goldText: #E3BE79;   /* fotoğrafta en kötü 5.42:1 */
-  --goldDeep: #8D712D;   /* zemin — üstüne beyaz: 4.63:1 */
-  --teal: #12D2C1;   /* fotoğrafta en kötü 5.01:1 */
-  --green: #07D595;   /* fotoğrafta en kötü 4.99:1 */
-  --amber: #FAAA4F;   /* fotoğrafta en kötü 4.97:1 */
+  --bg: #100E12;
+  --bgAlt: #1C1820;
+  --ink: #F6F1E8;   /* fotoğrafta en kötü 11.58:1 */
+  --body: #D9D1C6;   /* fotoğrafta en kötü 8.62:1 */
+  --muted: #A79B8A;   /* fotoğrafta en kötü 4.78:1 */
+  --dim: #918677;   /* fotoğrafta en kötü 3.65:1 */
+  --gold: #D1B56D;   /* fotoğrafta en kötü 6.54:1 */
+  --goldText: #E0BE7A;   /* fotoğrafta en kötü 7.33:1 */
+  --goldDeep: #EBCD92;   /* zemin — üstündeki --onGold ile: 12.27:1 */
+  --teal: #12CDBC;   /* fotoğrafta en kötü 6.51:1 */
+  --green: #07D192;   /* fotoğrafta en kötü 6.54:1 */
+  --amber: #FAA542;   /* fotoğrafta en kötü 6.53:1 */
+  --onGold: #171009;
   --line: rgba(244, 239, 232, 0.12);
-  --warmLine: rgba(216,179,106,0.22);
+  --warmLine: #3C3225;
   --goldSoft: rgba(216, 179, 106, 0.14);
   /* Cam yüzey: fotoğrafın üstünde duran kart. Opak değil ki
      arkadaki görüntü yaşasın, ama metni taşıyacak kadar koyu. */
   --card: rgba(22, 19, 16, 0.55);
   --cardLine: rgba(244, 239, 232, 0.10);
-  --perde: 0.76;
+  --perde: 0.84;
   /* SITE-GECE >>> */
 
-  /* <<< APP-MAKET — app_paleti.py yazar, ELLE DÜZENLEME */
-  /* Uygulamanın AÇIK teması — değerler rnapp/src/theme.js'ten
-     TÜRETİLDİ. Site gece, app gündüz: ayrı token'lar ama TEK
-     kaynak. Yanlarındaki oranlar burada, üretim anında ölçüldü. */
-  --appBg: #F8F6F1;
-  --appAlt: #F4F1E9;
-  --appCard: #FFFDF9;
-  --appInk: #251E17;   /* surface üstünde 16.19:1 */
-  --appBody: #4D3E2F;   /* surfaceAlt üstünde 9.10:1 */
-  --appMuted: #745E47;   /* surfaceAlt üstünde 5.42:1 */
-  --appGreen: #047E58;   /* surface üstünde 5.00:1 */
-  --appAmber: #9A5303;   /* amberBg üstünde 5.43:1 */
-  --appTeal: #0B786F;   /* surface üstünde 5.26:1 */
-  --appGold: #7F6523;   /* surface üstünde 5.46:1 */
-  --appLine: rgba(0, 0, 0, 0.08);
-  /* APP-MAKET >>> */
+  /* ════════════════════════════════════════════════════════════
+     🔴 30 AĞUSTOS · v0.44 — AÇIK "APP MAKETİ" PALETİ KALDIRILDI.
+     (arşiv: _yedek_acik_maket/app_maket_paleti.css)
+
+     11 token vardı ve gerekçesi şuydu: "site gece, app gündüz".
+     O gerekçe artık YANLIŞ — uygulama gece sistemine geçti ve açık
+     tema arşive alındı (rnapp/_yedek_acik_tema/).
+
+     Ölçtüm: 11 token'dan 10'u YALNIZ `components/_arsiv/` altındaki
+     hiç import edilmeyen 488 satırlık ölü koda hizmet ediyordu.
+     Onbirincisi (`--appCard` #FFFDF9) iki kuralda, JPEG ekran
+     görüntülerinin ARKASINDA duruyordu: görsel yüklenene kadar
+     görünen beyaz bir dikdörtgen. Yani sitede kalan tek açık yüzey,
+     koyu bir ekran görüntüsünün altında parlayan beyaz bir kâğıttı.
+
+     🆕 SINIF: "BİR PALETİ 'İSTİSNA' DİYE AYIRDIĞINDA, O İSTİSNANIN
+     SEBEBİ ORTADAN KALKINCA PALET KENDİLİĞİNDEN KALKMAZ — İSTİSNALAR
+     GEREKÇELERİNDEN DAHA UZUN YAŞAR."
+     ════════════════════════════════════════════════════════════ */
 
   --serif: ui-serif, Georgia, "Times New Roman", serif;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -152,7 +177,7 @@ h3 { font-size: 19px; }
 /* --- Butonlar --- */
 .btn {
   /* 🔴 v0.17 — altın zemin + beyaz metin 2.86:1 idi; koyu altın 5.93:1. */
-  display: inline-block; background: var(--goldDeep); color: #FFFFFF;
+  display: inline-block; background: var(--goldDeep); color: var(--onGold);
   padding: 15px 30px; border-radius: 13px; font-weight: 700; font-size: 15px;
   border: none; cursor: pointer; transition: transform .15s ease, opacity .15s ease;
 }
@@ -174,19 +199,7 @@ h3 { font-size: 19px; }
    Eskiden `var(--card)` / `var(--ink)` yazıyordu; site paleti geceye
    dönünce telefonun içi de kararacaktı — oysa uygulama açık temalı.
    Maket, app'in gerçekte nasıl göründüğünü göstermezse yalan söyler. */
-.phone {
-  width: 100%; max-width: 300px; margin: 0 auto;
-  aspect-ratio: 9 / 19.5; background: var(--appCard);
-  border: 10px solid var(--appInk); border-radius: 38px;
-  overflow: hidden; position: relative;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
-}
-.phone img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.phone .placeholder {
-  width: 100%; height: 100%; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 10px;
-  background: var(--appAlt); color: var(--appBody); font-size: 13px; text-align: center; padding: 24px;
-}
+/* `.phone` kuralları kaldırıldı — tek tüketicisi arşivdeki Phone.jsx idi. */
 
 .stats { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
 .stat {
@@ -272,7 +285,7 @@ h1, h2 {
   font-size: 12.5px; color: var(--muted); font-weight: 600; margin-bottom: 20px;
 }
 .demo-tag {
-  background: var(--goldDeep); color: #FFFFFF; font-size: 9.5px; letter-spacing: 1.4px;
+  background: var(--goldDeep); color: var(--onGold); font-size: 9.5px; letter-spacing: 1.4px;
   font-weight: 800; border-radius: 6px; padding: 3px 8px;
 }
 .demo-label {
@@ -290,7 +303,7 @@ h1, h2 {
   transition: background .16s ease, color .16s ease, border-color .16s ease;
 }
 .pill:hover { border-color: var(--gold); }
-.pill.on { background: var(--goldDeep); border-color: var(--goldDeep); color: #FFFFFF; font-weight: 700; }
+.pill.on { background: var(--goldDeep); border-color: var(--goldDeep); color: var(--onGold); font-weight: 700; }
 .pill:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
 .demo-out {
@@ -354,7 +367,7 @@ h1, h2 {
   width: 232px; max-width: 28vw; border-radius: 26px;
   border: 1px solid var(--line);
   box-shadow: 0 18px 44px rgba(0, 0, 0, .45);
-  background: var(--appCard);   /* ekran görüntüsünün altı — app teması */
+  background: var(--bgAlt);   /* ekran görüntüsünün altı — app teması */
 }
 .shots .shot:nth-child(2) { transform: translateY(-14px); }
 .shots-sm { justify-content: flex-end; }
@@ -658,13 +671,23 @@ h1, h2 {
   max-width: 560px; min-height: 44px; text-align: center; margin: 0;
   font-size: 15px; line-height: 1.5; color: #D8CFBE;
 }
-.karusel-nokta { position: relative; z-index: 20; display: flex; gap: 9px; justify-content: center; margin-top: 16px; }
+.karusel-nokta { position: relative; z-index: 20; display: flex; gap: 9px; justify-content: center; margin-top: -4px; }
+/* 🔴 v0.51 — NOKTA DÜĞMELERİ 28×4 PX'Tİ. Tarayıcı ölçümü 7 cihazda 49
+   ihlal saydı: çizgi 4px yüksekti ve dokunma alanı da oydu. Görsel
+   aynı kalıyor (4px çizgi ::before ile çiziliyor); düğmenin kendisi
+   44px yüksek ve şeffaf. WCAG 2.5.5 / Apple HIG. */
 .karusel-nokta button {
-  width: 28px; height: 4px; border-radius: 4px; border: 0; padding: 0;
-  background: rgba(243,239,230,.22); cursor: pointer;
-  transition: background .25s ease, width .25s ease;
+  position: relative; width: 28px; height: 44px; border: 0; padding: 0;
+  background: transparent; cursor: pointer;
+  transition: width .25s ease;
 }
-.karusel-nokta button.etkin { background: var(--gold); width: 44px; }
+.karusel-nokta button::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 20px; height: 4px;
+  border-radius: 4px; background: rgba(243,239,230,.22);
+  transition: background .25s ease;
+}
+.karusel-nokta button.etkin { width: 44px; }
+.karusel-nokta button.etkin::before { background: var(--gold); }
 .karusel-nokta button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
 /* JS yoksa: düz, kaydırılabilir şerit — içerik kaybolmaz */
@@ -702,7 +725,7 @@ h1, h2 {
 .shot-tilt { display: flex; justify-content: center; perspective: 1200px; }
 .shot-tilt img {
   width: 250px; max-width: 62vw; border-radius: 26px;
-  border: 1px solid var(--line); background: var(--appCard);
+  border: 1px solid var(--line); background: var(--bgAlt);
   box-shadow: 0 24px 54px rgba(0,0,0,.45);
   transform: rotateY(-12deg) rotateX(3deg);
   transition: transform .5s ease;
@@ -1235,8 +1258,14 @@ a { color: inherit; }
 .site-nav a { display: inline-flex; align-items: center; min-height: 44px;
               font-size: 14px; color: var(--muted); }
 .site-nav a:hover { color: var(--ink); }
+/* 🔴 v0.44 — BU SATIR `.btn`in DOĞRU MÜREKKEBİNİ EZİYORDU.
+   `.btn` altın zeminde `var(--onGold)` (#171009, 12.27:1) kullanıyor;
+   başlıktaki aynı düğme burada `#FFFFFF`e (1.54:1) dönüyordu. Yani
+   sayfadaki en görünür CTA — "Beta listesi" — okunamıyordu.
+   🆕 SINIF: "BİR BİLEŞENİN DOĞRU DEĞERİNİ BAĞLAMA ÖZGÜ BİR KURALLA
+   EZERSEN, DÜZELTMEN O BAĞLAMDA HİÇ OLMAMIŞ SAYILIR." */
 .site-nav .btn { display: inline-flex; align-items: center; min-height: 44px;
-                 padding: 0 18px; font-size: 13.5px; color: #FFFFFF; }  /* v0.26: 40px → 44px */
+                 padding: 0 18px; font-size: 13.5px; color: var(--onGold); }
 .site-head-row { display: flex; align-items: center; gap: 20px; min-height: 66px; padding: 10px 0; }
 @media (max-width: 620px) {
   .site-head-row { flex-wrap: wrap; gap: 10px; }
@@ -1319,7 +1348,7 @@ a { color: inherit; }
    ============================================================ */
 .wcalc {
   border: 1px solid var(--warmLine);
-  background: var(--card, #FFFFFF);
+  background: var(--card, #161310);
   border-radius: 20px;
   padding: 28px;
   max-width: 720px;
@@ -1433,7 +1462,7 @@ a { color: inherit; }
    ============================================================ */
 .hearn {
   border: 1px solid var(--warmLine);
-  background: var(--card, #FFFFFF);
+  background: var(--card, #161310);
   border-radius: 20px;
   padding: 28px;
   max-width: 860px;
@@ -1652,3 +1681,42 @@ a { color: inherit; }
 @media (max-width: 860px) {
   .hero-baglanti { font-size: 16.5px; margin-top: 12px; }
 }
+
+/* ════════════════════════════════════════════════════════════════
+   MİKRO SAHNE — eşleşmeden sonraki an (v0.44)
+   Baloncuklar UYGULAMANIN `.bal` sınıfıyla aynı dili konuşur:
+   kendi mesajım altın TİNT (dolu altın değil — vurgu en geniş alana
+   verilmez), karşı taraf yüzey rengi, saat MONO ve BALONUN İÇİNDE.
+   ════════════════════════════════════════════════════════════════ */
+.an-sohbet { display: flex; flex-direction: column; gap: 10px; margin-top: 26px; }
+.an-bal {
+  max-width: 78%; align-self: flex-start;
+  background: var(--bgAlt); border: 1px solid var(--line);
+  border-radius: 16px 16px 16px 5px; padding: 12px 14px 8px;
+}
+.an-bal.ben {
+  align-self: flex-end; background: var(--goldSoft);
+  border-color: var(--warmLine); border-radius: 16px 16px 5px 16px;
+}
+.an-bal p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink); }
+.an-bal time {
+  display: block; margin-top: 6px; text-align: right;
+  font-family: ui-monospace, "JetBrains Mono", monospace;
+  font-size: 10px; color: var(--muted);
+}
+.an-not { margin-top: 22px; font-size: 13px; line-height: 1.6; color: var(--muted); }
+@media (max-width: 560px) { .an-bal { max-width: 88%; } }
+
+/* ── .legal — metin sayfaları (destek, /en, 404, hata) ───────────────
+   🔴 v0.51 — Bu sınıf altı sayfada kullanılıyordu ve HİÇ tanımlı değildi:
+   /en, /en/terms, /destek… gövde genişliği sınırsız, satır uzunluğu 200+
+   karakter. Okunabilirlik ölçütü 60–75 karakter; 720px kutu onu verir. */
+.legal { max-width: 720px; margin: 0 auto; padding: 44px 24px 80px; }
+.legal h1 { font-size: clamp(26px, 4vw, 36px); margin: 8px 0 14px; }
+.legal h2 { font-size: clamp(19px, 2.6vw, 24px); margin: 26px 0 8px; white-space: normal; }
+.legal p, .legal li { font-size: 15px; line-height: 1.75; color: var(--body); }
+.legal-lead { font-size: 16.5px; color: var(--ink); }
+.legal a { color: var(--gold, #C9A227); text-decoration: underline; text-underline-offset: 3px; }
+.legal-list { padding-left: 20px; margin: 12px 0; }
+.legal-list li { margin: 6px 0; }
+.legal .eyebrow { margin-top: 0; }
