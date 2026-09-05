@@ -1,4 +1,4 @@
-import { SITE, BOLUM, SAHNE, SECTIONS, FAQ, STATS, FLOW, SHOTS_MAIN, SHOTS_TRUST, PROGRAMS, TRUST, SHELF, HOST_WHY, HOST_RISK } from "../lib/content";
+import { SITE, BOLUM, SAHNE, SECTIONS, STATS, FLOW, SHOTS_MAIN, SHOTS_TRUST, PROGRAMS, TRUST, SHELF, HOST_WHY, HOST_RISK } from "../lib/content";
 import SiteHeader from "../components/SiteHeader";
 import OlayLink from "../components/OlayLink";
 // 🔴 v0.41 — `PhoneShelf` yerine `EkranKarusel`.
@@ -105,7 +105,7 @@ export default function Home() {
               <OlayLink ad="indir" ozellik={{ yer: "hero" }}
                         href="#beta" className="btn-gold">{SITE.betaCta}</OlayLink>
               <OlayLink ad="kural_sorusu" ozellik={{ yer: "hero" }}
-                        href="/rehber" className="btn-ghost">Kartını sor · 3 saniye</OlayLink>
+                        href="/rehber" className="btn-ghost">Kartını sor, cevabı gör</OlayLink>
             </div>
             <div className="hero-stats">
               {STATS.map((x) => (
@@ -146,7 +146,7 @@ export default function Home() {
           {/* §3 ritmi: her içerik bölümü DAVET VURUŞUYLA kapanır.
               İlk yazımda iki yeni bölümü vuruşsuz bıraktım ve sitenin
               kendi denetimi yakaladı — kural işliyor. */}
-          <OlayLink ad="kural_sorusu" ozellik={{ yer: "kartlar" }} className="beat" href="/kartlar">Kendi kartının cevabını gör <span>→</span></OlayLink>
+          <OlayLink ad="kural_sorusu" ozellik={{ yer: "kartlar" }} className="beat" href="/kartlar">{BOLUM.cuzdan.beat} <span>→</span></OlayLink>
         </div>
       </section>
 
@@ -170,7 +170,7 @@ export default function Home() {
           </div>
         
           {/* v0.9 — §3 ritim: bölüm DAVET vuruşuyla kapanır. Okuyucu bilgiyle bırakılırsa akış durur; her bölüm bir sonraki adımı işaret etmeli. */}
-          <a className="beat" href="/rehber">Kartını sor, cevabı 3 saniyede gör <span>→</span></a>
+          <a className="beat" href="/rehber">{BOLUM.akis.beat} <span>→</span></a>
         </div>
       </section>
 
@@ -298,7 +298,7 @@ export default function Home() {
               vuruşuyla kapanır. İlk yazımda unutmuştum ve `check.js`
               yakaladı: "an bölümü davet vuruşuyla kapanmıyor".
               Bir sonraki adım burada belli: "peki karşımdaki kim?" */}
-          <a className="beat" href="#guven">Karşındakini nereden biliyorsun <span>→</span></a>
+          <a className="beat" href="#guven">Buluşacağın kişi nasıl doğrulanıyor <span>→</span></a>
         </div>
       </section>
 
@@ -335,7 +335,11 @@ export default function Home() {
           {/* v0.8 — İFADE SATIRI: LS kart ızgaralarının arasına tek
               cümlelik büyük ifadeler koyuyor; okuyucu nefes alıyor ve
               argüman ilerliyor. Bizim karşılığımız kural motoruna bağlı. */}
-          <p className="statement">Çoğu lounge üyeliği yanına bir kişi alır.<br />Sorun hakkın olması değil — yanında kimin olacağı.</p>
+          {/* 4 Eylül — ifade sitenin ana cümlesine bağlandı ("Kartında bir kişilik
+              yer var." · "+1'in kim olacak?"): kahraman, güven bölümü ve Instagram
+              aynı cümleyi taşır; ikinci satır bölümün işini söyler (seçim senin,
+              doğrulama bizim). */}
+          <p className="statement">Kartında bir kişilik yer var.<br />+1'in kim olacak? Onu sen seçersin, biz doğrularız.</p>
           <h2>{BOLUM.guven.h2}</h2>
           <div className="prog-grid trust-grid">
             {/* v0.8 — LS kart grameri: sessiz ikon çipi + soru başlığı +
@@ -526,28 +530,15 @@ export default function Home() {
             kullanmadığın hakkı, hakkın olmayan yerde misafir olma hakkına çevirmek.
           </p>
           <p className="note">Beta boyunca tüm <b>planlar</b> ücretsiz; kredi paketleri ücretlidir.</p>
-          <a className="beat" href="#cuzdan">Önce hakkının ne ettiğini gör <span>→</span></a>
+          <a className="beat" href="#cuzdan">Kartının kaç kapı açtığını gör <span>→</span></a>
         </div>
       </section>
 
       {/* 🔴 v0.52 — SSS ANA SAYFADAN AYRILDI (Gökberk: "gereksiz uzatıyor").
           Burada yalnız ilk üç soru + tam listeye bağlantı; içerik /sss'te. */}
-      <section className="section dark-band alt" id="sss">
-        <SectionScene kind="contrail" flip />
-        <div className="ghost" aria-hidden="true">SSS</div>
-        <div className="wrap" style={{ maxWidth: 760 }}>
-          <div className="eyebrow">{BOLUM.sss.eyebrow}</div>
-          <h2 style={{ marginBottom: 14 }}>{BOLUM.sss.h2}</h2>
-          {FAQ.slice(0, 3).map((f) => (
-            <div className="faq-item" key={f.q}>
-              <h3>{f.q}</h3>
-              <p>{f.a}</p>
-            </div>
-          ))}
-          <a className="beat" href="/sss">Tüm soruları gör <span>→</span></a>
-        </div>
-      </section>
-
+      {/* 4 Eylül — SSS bölümü ana sayfadan kalktı: soruların tam listesi /sss'te
+          (menüde). Ana sayfa ritmi davetle (beta) kapanır; itiraz karşılama
+          kendi sayfasında. `FAQ` burada artık okunmuyor. */}
       {/* --- BETA --- */}
       <section className="section dark-band" id="beta" style={{ textAlign: "center" }}>
         <SectionScene kind="horizon" />

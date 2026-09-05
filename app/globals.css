@@ -392,16 +392,16 @@ h1, h2 {
    Asıl kazanç yerleşimde: Priority Pass ile DragonPass YAN YANA düşüyor
    ve "HER HAVAYOLU" ile "AYNI UÇUŞ" çipleri aynı satırda karşılaşıyor.
    Rakibin tek kutuda sildiği fark, bizde okunmadan görünüyor. */
-.prog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 30px; align-items: start; }
+/* 4 Eylül — Gökberk: "kutucukların boyutlarında standart bir yapı daha iyi;
+   birinin yüksekliği az birinin çok, düzensiz." Bento (7/5 · 5/7 sütun) ve
+   `align-items:start` gitti: 3 eşit sütun, satır içinde eşit yükseklik
+   (`stretch`), 980 altı 2, 640 altı 1 sütun. Kural 9 kart = 3×3, Güven 6 = 3×2. */
+.prog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 30px; align-items: stretch; }
 @media (max-width: 980px) { .prog-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) { .prog-grid { grid-template-columns: 1fr; } }
-.trust-grid { grid-template-columns: repeat(12, 1fr); gap: 16px; }
-.trust-grid > * { grid-column: span 4; }
-.trust-grid > *:nth-child(1) { grid-column: span 7; }
-.trust-grid > *:nth-child(2) { grid-column: span 5; }
-.trust-grid > *:nth-child(5) { grid-column: span 5; }
-.trust-grid > *:nth-child(6) { grid-column: span 7; }
-@media (max-width: 860px) { .trust-grid > * { grid-column: span 12 !important; } }
+.trust-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+@media (max-width: 980px) { .trust-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .trust-grid { grid-template-columns: 1fr; } }
 .prog-card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
 .prog-tag {
   display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px;
@@ -411,7 +411,7 @@ h1, h2 {
 }
 .prog-card h3 { font-size: 16.5px; color: var(--ink); margin-bottom: 7px; }
 .prog-card p { font-size: 13.5px; line-height: 1.55; color: var(--muted); }
-@media (max-width: 860px) { .prog-grid, .trust-grid { grid-template-columns: 1fr; } }
+
 
 /* ============================================================
    v0.4 — SİNEMATİK KATMAN
