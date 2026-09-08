@@ -52,61 +52,69 @@ export default function Home() {
       {/* v0.18 — menü artık SiteHeader'ın kendisinde: her sayfada aynı
           üç bağlantı ve TEK çağrı. Burada çocuk vermiyoruz ki ana sayfa
           ile alt sayfaların menüsü bir daha ayrışamasın. */}
-      <SiteHeader />
+      <SiteHeader seffaf />
 
       {/* --- KAHRAMAN ---
           🔴 Ekran görüntüsü YOK, ÜRÜNÜN KENDİSİ var.
           Tek gerçek farkımız kural motoru ve o motor başka kullanıcı
           gerektirmiyor — sitede de aynı avantajı kullanıyoruz.
           Ziyaretçi kaydolmadan, üç saniyede değeri görüyor. */}
-      {/* --- KAHRAMAN: GECE UÇUŞU ---
-          🔴 v0.4 — ESKİ HERO "BASİC"Tİ ve haklı bir eleştiriydi: açık
-          zemin + iki sütun, her SaaS şablonunda var. Rakibin gücü koyu
-          tema değil SAHNE kurması — duyguyu görsel taşıyor, ürün sonra
-          geliyor. Biz de sahne kuruyoruz ama kendi malzememizle:
-          kanat/şehir ışıkları KODLA çizildi (lisans yok, 0 KB, her
-          ekranda keskin), kural matrisi sahnenin İÇİNDE duruyor —
-          yani gösteri ile kanıt aynı karede. */}
-      <section className="dark-band hero-dark">
-        {/* 🔴 SAHNE ARTIK FOTOĞRAF. `NightScene` kanadı, şehir ışıklarını
-            ve ufuk çizgisini KODLA çiziyordu — o gün elimizde görsel
-            yoktu. Bugün var ve app ile AYNI görsel. İkisini üst üste
-            koyunca çizilmiş kanat, gerçek pencerenin üstünde anlamsız
-            bir geometri oluyor.
+      {/* --- KAHRAMAN: TAM SAHNE (v0.54.0) ---
+          🔴 Gökberk'in getirdiği "video hero" prompt'u yapıya çevrildi:
+          100svh sahne · ortalı tek başlık · tek altın çağrı · kademeli
+          giriş. Prompt'tan ALINMAYANLAR ve sebepleri:
+            · üçüncü taraf video URL'si → lisanssız ve geçici; sahne
+              bizim `/bant.jpg` (app'in bandıyla aynı görsel) ve CSS'te
+              28 sn'lik "nefes" — 0 KB, reduced-motion'a saygılı.
+            · Tailwind + Inter → sitenin kendi token'ları ve serif/sans
+              ayrımı; yeni font isteği yok.
+            · "scrollbar gizle" → erişilebilirlik bedeli, yok.
+            · kanıtsız kahraman → altta KANIT KARTI: üç kart, üç cevap;
+              gösteri ile kanıt aynı karede (v0.4'ten beri ilke).
+          RuleDemo, sayılar ve ekran karuseli hemen alttaki #kural
+          bölümüne indi — kahraman yönlendirir, o bölüm ikna eder. */}
+      <section className="hero-sahne" aria-label="Kahraman">
+        <div className="hero-foto" aria-hidden="true" />
+        <div className="hero-hale" aria-hidden="true" />
+        <div className="hero-isik" aria-hidden="true" />
+        <div className="hero-perde" aria-hidden="true" />
+        <div className="hero-orta rise">
+          <p className="eyebrow hero-dugum">{SITE.heroEyebrow}</p>
+          <h1>{SITE.heroLead}<br /><em>{SITE.heroEm}</em></h1>
+          <p className="lead">{SITE.heroSub}</p>
+          <div className="hero-cta">
+            {/* Üç dönüşüm olayı — huninin tamamı. Ayrıntı ve neden
+                yalnız üç tane olduğu: components/Olcum.jsx */}
+            <OlayLink ad="indir" ozellik={{ yer: "hero" }}
+                      href="#beta" className="btn-gold">{SITE.betaCta}</OlayLink>
+            <OlayLink ad="kural_sorusu" ozellik={{ yer: "hero" }}
+                      href="/rehber" className="btn-ghost">Kartını sor, cevabı gör</OlayLink>
+          </div>
+        </div>
+        {/* KANIT KARTI — satırlar RuleDemo'nun kendi verisinden
+            (IST · THY seferi). Uydurma cevap yok: Elite Plus misafir
+            alır, Priority Pass'te misafir tarifeden girer, Classic Plus
+            yalnız kendini sokar. Karta dokunmak canlı motora götürür. */}
+        <a href="#kural-motoru" className="hero-kanit rise-gec" aria-label="Kartını sor — canlı kural motoru">
+          <div className="kanit-bas"><span>KARTINI SOR</span><span className="kanit-yer">IST · İstanbul Havalimanı · THY seferi</span></div>
+          <div className="kanit-satir"><div>Miles&amp;Smiles · Elite Plus<small>ailen veya bir misafir</small></div><span className="roz roz-ok">Misafir ücretsiz</span></div>
+          <div className="kanit-satir"><div>Priority Pass<small>iGA ve Primeclass salonları</small></div><span className="roz roz-uc">Misafir ücretli girer</span></div>
+          <div className="kanit-satir"><div>Miles&amp;Smiles · Classic Plus<small>iç hat · misafir hakkı yok</small></div><span className="roz roz-kendin">Yalnız kendin girersin</span></div>
+        </a>
+        <div className="hero-ipucu" aria-hidden="true">↓ NASIL ÇALIŞIR</div>
+      </section>
 
-            🆕 SINIF: "BİR ŞEYİ TAKLİT ETMEK İÇİN KURDUĞUN YAPIYI,
-            GERÇEĞİ ELİNE GEÇTİĞİNDE KALDIRMAYI UNUTMA — İKİSİ BİR ARADA
-            İKİSİNDEN DE KÖTÜDÜR." */}
-        <div className="wrap split rise">
+      {/* --- KURAL MOTORU (kahramandan inen kanıt) --- */}
+      <section id="kural-motoru" className="dark-band hero-dark kural-bolum">
+        <div className="wrap split">
           <div className="col-text">
-            <h1>{SITE.heroLead}<br /><em>{SITE.heroEm}</em></h1>
-            {/* 🔴 v0.43 — RAKİBİN FİKRİ, BİZİM CÜMLEMİZLE.
-                "connecting flights, connecting travelers" doğru bir
-                fikir ve bizim Türkçesi zaten yazılmıştı — ama sitenin
-                DİBİNDE, altbilgi sloganı olarak duruyordu. Bir markanın
-                en insani cümlesi, en az okunan yerde durmamalı.
-                🆕 SINIF: "EN İYİ CÜMLENİ NEREYE KOYDUĞUN, ONU YAZMAK
-                KADAR ÖNEMLİDİR." */}
+            <p className="eyebrow">Kural motoru</p>
+            <h2>Kapıda alınıp alınmayacağını{"\n"}sen başvurmadan söyler.</h2>
             <p className="hero-baglanti">{SITE.heroBaglanti}</p>
-            {/* 🔴 v0.20 — KONUMLANDIRMA CÜMLESİ, kahramanın içinde.
-                Eskiden ilk satır "Havalimanı yol arkadaşı" idi: doğru
-                ama ayırt edici değil — o cümleyi rakip de kurabilir
-                (nitekim kuruyor: "connecting flights, connecting
-                travelers"). Bu cümleyi kuramaz, çünkü kural motoru
-                onda yok. */}
             <p className="hero-pos">
               LoungeLink bir pazar yeri değil — bir <b>salon hakkı cüzdanı</b>.
               İçinde bir pazar yeri var.
             </p>
-            <p className="lead">{SITE.heroSub}</p>
-            <div className="hero-cta">
-              {/* Üç dönüşüm olayı — huninin tamamı. Ayrıntı ve neden
-                  yalnız üç tane olduğu: components/Olcum.jsx */}
-              <OlayLink ad="indir" ozellik={{ yer: "hero" }}
-                        href="#beta" className="btn-gold">{SITE.betaCta}</OlayLink>
-              <OlayLink ad="kural_sorusu" ozellik={{ yer: "hero" }}
-                        href="/rehber" className="btn-ghost">Kartını sor, cevabı gör</OlayLink>
-            </div>
             <div className="hero-stats">
               {STATS.map((x) => (
                 <div key={x.l}><b>{x.n}</b><span>{x.l}</span></div>

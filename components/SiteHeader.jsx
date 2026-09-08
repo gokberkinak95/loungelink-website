@@ -47,9 +47,12 @@ const NAV = [
   { href: "/sss", label: "SSS" },
 ];
 
-export default function SiteHeader({ children }) {
+// v0.54.0 — `seffaf`: ana sayfada başlık çubuğu kahraman sahnesinin
+// ÜSTÜNE biner (zemin yok, çizgi yok). Alt sayfalar eskisi gibi.
+export default function SiteHeader({ children, seffaf = false }) {
   return (
-    <header style={{ borderBottom: "1px solid var(--line)", background: "var(--card)" }}>
+    <header className={seffaf ? "site-head-seffaf" : undefined}
+            style={seffaf ? undefined : { borderBottom: "1px solid var(--line)", background: "var(--card)" }}>
       <div className="wrap site-head-row">
         <a href="/" style={{ display: "flex", alignItems: "center", gap: 9, flex: 1 }}>
           <img src="/mark.svg" alt="LoungeLink" width={44} height={44} style={{ display: "block" }} />
@@ -57,13 +60,18 @@ export default function SiteHeader({ children }) {
             LoungeLink
           </b>
         </a>
+        {/* v0.54.0 — şeffaf başlıkta çağrı düğmesi menünün DIŞINDA: mobilde
+            marka ile aynı satırda sağda durur, bağlantılar alt satıra sarılır.
+            Eskiden düğme kaydırılan menü satırının sonunda kesiliyordu
+            (ölçüldü: 390'da "Beta li…"). Alt sayfalar eski yapıda. */}
+        {seffaf && !children ? <a href="/#beta" className="btn site-cta">Beta listesi</a> : null}
         <nav className="site-nav" aria-label="Ana menü">
           {children || (
             <>
               {NAV.map((n) => (
                 <a key={n.href} href={n.href}>{n.label}</a>
               ))}
-              <a href="/#beta" className="btn">Beta listesi</a>
+              {seffaf ? null : <a href="/#beta" className="btn">Beta listesi</a>}
             </>
           )}
         </nav>
