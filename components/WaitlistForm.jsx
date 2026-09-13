@@ -1,4 +1,5 @@
 "use client";
+import { olay } from "./Olcum";
 import { useState } from "react";
 import { joinWaitlist } from "../lib/supabase";
 import { SITE } from "../lib/content";
@@ -50,7 +51,12 @@ export default function WaitlistForm() {
     setDurum("gonderiliyor");
     setHata("");
     const r = await joinWaitlist({ email: email.trim().toLowerCase(), role, source: "site-beta" });
-    if (r.ok) { setDurum("oldu"); return; }
+    if (r.ok) {
+      // Asıl dönüşüm BU: çapaya tıklama değil, listeye yazılma. Rol de
+      // olaya giriyor — `host_ol`un tek gerçek göstergesi. E-posta GİRMİYOR.
+      olay("listeye_yazildi", { rol: role || "belirsiz" });
+      setDurum("oldu"); return;
+    }
     setDurum("hata");
     // Kullanıcıya teknik kod değil, YAPABİLECEĞİ ŞEY söylenir.
     setHata(

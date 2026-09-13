@@ -1,4 +1,5 @@
 import "./globals.css";
+import Olcum from "../components/Olcum";
 
 export const metadata = {
   metadataBase: new URL("https://loungelink.co"),
@@ -20,12 +21,15 @@ export const metadata = {
   // metin kesilmediği piksel taramasıyla doğrulandı).
   // canonical olmadan da "/" ile "/?utm_source=..." Google için iki
   // ayrı sayfadır; ikisi birbirinin sıralamasını yer.
-  alternates: { canonical: "/" },
+  // 🔴 Burada ikinci bir `alternates` vardı ve 9. satırdaki hreflang'i
+  // EZİYORDU — build çıktısında `rel="alternate"` sıfırdı. Bir nesnede
+  // aynı anahtar iki kez yazılınca sonuncusu kazanır ve JS bunu
+  // hata saymaz.
   openGraph: {
     title: "LoungeLink — Aktarmada üç saat, yalnız geçmek zorunda değil",
     description:
       "Kartınla hangi salona girebilirsin, misafir götürebilir misin? " +
-      "Türkiye'nin ilk lounge kural motoru.",
+      "Kartına göre cevap veren lounge kural motoru.",
     url: "/",
     siteName: "LoungeLink",
     locale: "tr_TR",
@@ -70,7 +74,28 @@ export default function RootLayout({ children }) {
       <head>
         <meta name="ll-surum" content={SURUM} />
       </head>
-      <body>{children}</body>
+      <body>
+        {/* 🔴 v0.51 — Organization + WebSite şeması. Sayfada yalnız FAQPage
+            vardı; Google "bu site kimin" sorusunu marka paneli için
+            Organization'dan okur. Logo ve tek iletişim adresi veriden. */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            { "@type": "Organization", "@id": "https://loungelink.co/#org", name: "LoungeLink",
+              url: "https://loungelink.co", logo: "https://loungelink.co/icon.png",
+              contactPoint: [{ "@type": "ContactPoint", contactType: "customer support", email: "merhaba@loungelink.co", availableLanguage: ["tr", "en"] }] },
+            { "@type": "WebSite", "@id": "https://loungelink.co/#site", url: "https://loungelink.co", name: "LoungeLink",
+              inLanguage: "tr", publisher: { "@id": "https://loungelink.co/#org" } },
+            { "@type": "SoftwareApplication", name: "LoungeLink", applicationCategory: "TravelApplication",
+              operatingSystem: "iOS, Android", offers: { "@type": "Offer", price: "0", priceCurrency: "TRY" },
+              description: "Aynı havalimanında aynı saatlerde bulunan doğrulanmış yolcuları buluşturur; kartına göre hangi salona misafir götürebileceğini söyler." },
+          ],
+        }) }} />
+        {children}
+        {/* Sitenin TEK ölçüm noktası — çerezsiz, kişisel veri toplamayan.
+            `NEXT_PUBLIC_OLCUM_HOST` yoksa hiçbir betik yüklenmez. */}
+        <Olcum />
+      </body>
     </html>
   );
 }

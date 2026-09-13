@@ -12,9 +12,29 @@ const fs = require("fs");
 const path = require("path");
 
 const PALETTE = new Set([
-  "#B8943A", "#6B7280", "#9CA3AF",
-  "#F8F6F1", "#F0EDE6", "#FFFFFF", "#fff", "#0D9488", "#059669",
-  "#E11D48", "#7C3AED", "#D97706",
+  // ══════════════════════════════════════════════════════════════
+  // 🔴 13 EYLÜL · v2 PALETİ — MAT ŞAMPANYA + OBSİDYEN
+  // Gökberk'in site brief'i: "app v5.8.0'ın mat Champagne Gold
+  // (#C9B693) ve Obsidian'ıyla eşleş; fintech sarı/yeşillerini öldür."
+  //
+  // ⚠️ BU LİSTE KIRMIZI YANIYORDU VE ÖYLE BIRAKILMIŞTI: eski kopyada
+  // `node check.js` zaten "2 sorun" diyordu. Kırmızı yanan ve
+  // görmezden gelinen bir nöbetçi, olmayan bir nöbetçiden kötüdür —
+  // çünkü ekipte "denetimimiz var" duygusu bırakır.
+  // 🆕 SINIF: "KIRMIZI YANAN BİR DENETİMİ TAŞIMAK, ONU HİÇ YAZMAMAKTAN
+  // DAHA TEHLİKELİDİR — YANLIŞ BİR GÜVEN SATAR."
+  //
+  // ÖLDÜRÜLENLER (artık listede YOK — geri gelirse denetim yakalar):
+  //   #B8943A pirinç altın · #0D9488 teal · #059669 yeşil
+  //   #E11D48 kırmızı · #D97706 amber · #7C3AED mor
+  // Karşılıkları: --gold #C9B693 · --fil #EDE6DA · --kil #B0A296
+  // ══════════════════════════════════════════════════════════════
+  "#C9B693", "#D2BF9E", "#B9A379", "#A08F73", "#E4D6BC", "#D8C6A6",
+  "#EDE6DA", "#B0A296", "#6E6A72",
+  "#0B0A0D", "#121017", "#171009",
+  "#F6F1E8", "#D9D1C6", "#B0A493", "#948979",
+  "#6B7280", "#9CA3AF",
+  "#F8F6F1", "#F0EDE6", "#FFFFFF", "#fff",
   // ── v0.37 · MAKET PALETİ ARTIK TÜRETİLİYOR ────────────────────
   // 🔴 Bu listede `#1A1F2E` · `#374151` · `#4B5563` · `#046B4C` vardı:
   // uygulamanın v3.1'de TERK ETTİĞİ lacivert nötr ailesi. Site o
@@ -53,7 +73,14 @@ function walk(dir, out = []) {
     // `_arsiv`: kullanımdan kalkmış ama SİLİNMEYEN dosyalar. Silmek yerine
     // arşivlemek bu projenin kuralı; denetimin onları ölçmesi ise yanlış
     // alarm üretir — çizilmeyen bir dosyanın rengi kimseyi rahatsız etmez.
-    if (f === "node_modules" || f === ".next" || f === "_arsiv" || f.startsWith(".")) continue;
+    // 🔴 30 Ağu · v0.44 — `_yedek*` DE ATLANMALI.
+    // Ölü açık-tema bileşenlerini `_yedek_acik_maket/` altına taşıyınca
+    // bu denetim onları CANLI sanıp 9 kırmızı verdi: arşive kaldırmak,
+    // kaldırmanın kendisi yüzünden hata sayıldı.
+    // 🆕 SINIF: "BİR DENETİM 'SİL' DEĞİL 'ARŞİVLE' DİYORSA, ARŞİVİ DE
+    // TANIMAK ZORUNDADIR — YOKSA ÖNERDİĞİ ŞEYİ CEZALANDIRIR."
+    if (f === "node_modules" || f === ".next" || f === "_arsiv" ||
+        f.startsWith("_yedek") || f.startsWith(".")) continue;
     const p = path.join(dir, f);
     // 🔴 Denetim KENDİNİ taramaz: yorumdaki örnek href'i "ölü bağlantı"
     // sandı. Bir denetimin kendi metnini bulgu sayması, gerçek bulguları
@@ -285,7 +312,8 @@ if (fs.existsSync(OUT)) {
     for (const d of ["app", "components", "lib"]) {
       const yur = (p2) => {
         for (const e of fs.readdirSync(p2, { withFileTypes: true })) {
-          if (e.name === "_arsiv" || e.name === "node_modules") continue;
+          if (e.name === "_arsiv" || e.name === "node_modules" ||
+              e.name.startsWith("_yedek")) continue;
           const tam = path.join(p2, e.name);
           if (e.isDirectory()) yur(tam);
           else if (/\.(jsx?|mjs)$/.test(e.name)) kaynak.push(fs.readFileSync(tam, "utf8"));
@@ -960,7 +988,12 @@ try {
   const { spawnSync } = require("child_process");
   for (const py of ["python3", "python"]) {
     let calisti = false;
-    for (const [betik, arg] of [["app_paleti.py", ["--denetle"]],
+    // 🔴 30 Ağu · v0.44 — `app_paleti.py` ARŞİVE ALINDI.
+    // O betik sitedeki AÇIK "app maketi" paletini uygulamanın AÇIK
+    // temasından türetiyordu. İkisi de artık yok: uygulama tek temalı
+    // (gece), sitedeki maket paleti de kaldırıldı. Betiği listede
+    // bırakmak, olmayan bir temayı denetlemek olurdu.
+    for (const [betik, arg] of [
                                 ["site_paleti.py", ["--denetle"]],
                                 ["ekran_goruntusu_check.py", []]]) {
       const r = spawnSync(py, [path.join(ROOT, betik), ...arg], { encoding: "utf8" });

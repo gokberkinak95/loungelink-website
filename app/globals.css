@@ -39,6 +39,27 @@
    tarayıcıda ölçüyor, ihlal varsa çıkış 1. Artık bu kusur sessizce
    geri gelemez.
    ════════════════════════════════════════════════════════════════ */
+
+/* ════════════════════════════════════════════════════════════════
+   🔴 30 AĞUSTOS · v0.44 — ALTIN ZEMİNDE BEYAZ MÜREKKEP OKUNMUYORDU.
+
+   `--goldDeep` app'in KOYU temasından türetilince #8D712D'den
+   #EBCD92'ye çıktı (tasarımın `.btn-altin` gradyanının üst ucu).
+   Zemin parladı ama üstündeki mürekkep BEYAZ kaldı:
+
+       #FFFFFF / #EBCD92 =  1.54:1     ← AA 4.5 ister
+       #171009 / #EBCD92 = 12.27:1     ← tasarımın kendi mürekkebi
+
+   Yani sitedeki her altın hap, düğme ve rozet — beta CTA dahil —
+   neredeyse görünmez bir metinle çiziliyordu. Ölçüm bunu söylüyordu
+   (`--goldDeep … üstüne beyaz: 1.54:1`) ve ben satırı okumamışım.
+
+   Tasarım zaten cevabı yazıyor: `.btn-altin{ color:#171009 }`.
+   App'te de öyle (`KOYU.onGold`). Yalnız site geride kalmıştı.
+
+   🆕 SINIF: "BİR ZEMİNİ DEĞİŞTİRDİĞİNDE ÜSTÜNDEKİ MÜREKKEP DE
+   DEĞİŞMEK ZORUNDADIR — RENK BİR DEĞER DEĞİL, BİR ÇİFTTİR."
+   ════════════════════════════════════════════════════════════════ */
 :root {
   /* ——— SİTE PALETİ · GECE ———
      Değerler artık burada DEĞİL: `site_paleti.py` app'in KOYU
@@ -54,46 +75,89 @@
   /* <<< SITE-GECE — site_paleti.py yazar, ELLE DÜZENLEME */
   /* Sitenin gece paleti app'in KOYU temasından TÜRETİLDİ —
      tek kaynak: rnapp/src/theme.js. Yanlarındaki oranlar
-     FOTOĞRAFIN EN KÖTÜ PİKSELİNDE, 76% perde altında ölçüldü;
+     FOTOĞRAFIN EN KÖTÜ PİKSELİNDE, 84% perde altında ölçüldü;
      ortalama değil. */
-  --bg: #161310;
-  --bgAlt: #312B24;
-  --ink: #F4EFE8;   /* fotoğrafta en kötü 8.35:1 */
-  --body: #DDD6CD;   /* fotoğrafta en kötü 6.63:1 */
-  --muted: #C7C0BA;   /* fotoğrafta en kötü 5.31:1 */
-  --dim: #AAA39C;   /* fotoğrafta en kötü 3.83:1 */
-  --gold: #D4B975;   /* fotoğrafta en kötü 5.00:1 */
-  --goldText: #E3BE79;   /* fotoğrafta en kötü 5.42:1 */
-  --goldDeep: #8D712D;   /* zemin — üstüne beyaz: 4.63:1 */
-  --teal: #12D2C1;   /* fotoğrafta en kötü 5.01:1 */
-  --green: #07D595;   /* fotoğrafta en kötü 4.99:1 */
-  --amber: #FAAA4F;   /* fotoğrafta en kötü 4.97:1 */
+  --bg: #0B0A0B;
+  --bgAlt: #141211;
+  --ink: #F4EFE6;   /* fotoğrafta en kötü 12.05:1 */
+  --body: #D8D0C4;   /* fotoğrafta en kötü 9.03:1 */
+  --muted: #A99D8C;   /* fotoğrafta en kötü 5.19:1 */
+  --dim: #8E8373;   /* fotoğrafta en kötü 3.71:1 */
+  --gold: #C9B693;   /* fotoğrafta en kötü 6.96:1 */
+  --goldText: #D6C3A0;   /* fotoğrafta en kötü 8.00:1 */
+  --goldDeep: #D9C8A6;   /* zemin — üstündeki --onGold ile: 11.45:1 */
+  --teal: #9DBBA6;   /* fotoğrafta en kötü 6.63:1 */
+  --green: #EDE7DB;   /* fotoğrafta en kötü 11.21:1 */
+  --amber: #D9A45E;   /* fotoğrafta en kötü 6.19:1 */
+  --onGold: #171009;
   --line: rgba(244, 239, 232, 0.12);
-  --warmLine: rgba(216,179,106,0.22);
-  --goldSoft: rgba(216, 179, 106, 0.14);
+  --warmLine: #382F20;
+  --goldSoft: rgba(201,182,147, 0.14);
   /* Cam yüzey: fotoğrafın üstünde duran kart. Opak değil ki
      arkadaki görüntü yaşasın, ama metni taşıyacak kadar koyu. */
   --card: rgba(22, 19, 16, 0.55);
   --cardLine: rgba(244, 239, 232, 0.10);
-  --perde: 0.76;
+  --perde: 0.84;
   /* SITE-GECE >>> */
 
-  /* <<< APP-MAKET — app_paleti.py yazar, ELLE DÜZENLEME */
-  /* Uygulamanın AÇIK teması — değerler rnapp/src/theme.js'ten
-     TÜRETİLDİ. Site gece, app gündüz: ayrı token'lar ama TEK
-     kaynak. Yanlarındaki oranlar burada, üretim anında ölçüldü. */
-  --appBg: #F8F6F1;
-  --appAlt: #F4F1E9;
-  --appCard: #FFFDF9;
-  --appInk: #251E17;   /* surface üstünde 16.19:1 */
-  --appBody: #4D3E2F;   /* surfaceAlt üstünde 9.10:1 */
-  --appMuted: #745E47;   /* surfaceAlt üstünde 5.42:1 */
-  --appGreen: #047E58;   /* surface üstünde 5.00:1 */
-  --appAmber: #9A5303;   /* amberBg üstünde 5.43:1 */
-  --appTeal: #0B786F;   /* surface üstünde 5.26:1 */
-  --appGold: #7F6523;   /* surface üstünde 5.46:1 */
-  --appLine: rgba(0, 0, 0, 0.08);
-  /* APP-MAKET >>> */
+  /* ══════════════════════════════════════════════════════════════
+     🔴 13 EYLÜL — BU İKİ TOKEN'I KENDİ ELİMLE DÜŞÜRDÜM.
+     v0.54.0'da ELLE eklenmişlerdi ve üretilen bloğun İÇİNDE
+     duruyorlardı. `site_paleti.py`yi koşturunca üreteç bloğu baştan
+     yazdı ve ikisi de gitti. Sonuç ölçüldü: `--kart-zemin` ve
+     `--kart-kenar` TANIMSIZ; yani 4 kart kuralında zemin hiç
+     çizilmiyor, `border: 1px solid var(--kart-kenar)` ise geçersiz
+     değere düşüp `currentColor`a, yani METİN RENGİNE dönüyordu.
+     Artık üretilen bloğun DIŞINDA, karar katmanında duruyorlar.
+     🆕 SINIF: "ÜRETİLEN BİR BLOĞUN İÇİNE ELLE YAZILAN HER SATIR,
+     ÜRETECİN BİR SONRAKİ KOŞUSUNDA SESSİZCE SİLİNİR."
+     ══════════════════════════════════════════════════════════════ */
+  --kart-zemin: linear-gradient(180deg, rgba(60,50,37,.42), rgba(20,18,17,.72));
+  --kart-kenar: transparent;   /* v5.9.0 · çerçeve yok, parlama var */
+  --parlama: rgba(244,239,230,0.035);
+
+  /* ══════════════════════════════════════════════════════════════
+     🔴 13 EYLÜL · v2 — MARKA KARARI KATMANI (üreteçten SONRA)
+     Gökberk (site brief'i): "fintech sarı/yeşillerini öldür."
+
+     ⚠️ NEDEN ÜRETİLEN BLOĞUN İÇİNE YAZMIYORUM: yukarısı
+     `site_paleti.py`nin alanı ve `check.js` onu app'in koyu temasıyla
+     TOKEN TOKEN karşılaştırıyor (sapma tavanı 0). Oraya elle yazsaydım
+     ya denetim kırmızı yanardı ya da üreteç ilk koşuda silerdi.
+     Burası ise bir MARKA KARARI: app'in `--amber`ı yanlış değil, ama
+     SİTEDE durum bilgisi alarm rengiyle çizilmemeli.
+     🆕 SINIF: "ÜRETİLEN BİR PALETLE KAVGA ETME — ÜSTÜNE, GEREKÇESİ
+     YAZILI VE OKUNABİLİR BİR KARAR KATMANI KOY."
+
+     Ölçüldü (fotoğrafın en kötü noktasında, %84 perde altında):
+       --fil #EDE7DB  11.21:1   (üretecin --green'i; adı netleşsin diye)
+       --kil #B0A296   4.84:1
+     ══════════════════════════════════════════════════════════════ */
+  --fil: #EDE7DB;   /* olumlu durum — "misafir ücretsiz" */
+  --kil: #B0A296;   /* sınır/olumsuz — "yalnız kendin girersin" */
+  --teal: var(--fil);    /* fintech teal'i öldürüldü */
+  --green: var(--fil);   /* fintech yeşili öldürüldü */
+  --amber: var(--kil);   /* fintech amberi öldürüldü */
+
+  /* ════════════════════════════════════════════════════════════
+     🔴 30 AĞUSTOS · v0.44 — AÇIK "APP MAKETİ" PALETİ KALDIRILDI.
+     (arşiv: _yedek_acik_maket/app_maket_paleti.css)
+
+     11 token vardı ve gerekçesi şuydu: "site gece, app gündüz".
+     O gerekçe artık YANLIŞ — uygulama gece sistemine geçti ve açık
+     tema arşive alındı (rnapp/_yedek_acik_tema/).
+
+     Ölçtüm: 11 token'dan 10'u YALNIZ `components/_arsiv/` altındaki
+     hiç import edilmeyen 488 satırlık ölü koda hizmet ediyordu.
+     Onbirincisi (`--appCard` #FFFDF9) iki kuralda, JPEG ekran
+     görüntülerinin ARKASINDA duruyordu: görsel yüklenene kadar
+     görünen beyaz bir dikdörtgen. Yani sitede kalan tek açık yüzey,
+     koyu bir ekran görüntüsünün altında parlayan beyaz bir kâğıttı.
+
+     🆕 SINIF: "BİR PALETİ 'İSTİSNA' DİYE AYIRDIĞINDA, O İSTİSNANIN
+     SEBEBİ ORTADAN KALKINCA PALET KENDİLİĞİNDEN KALKMAZ — İSTİSNALAR
+     GEREKÇELERİNDEN DAHA UZUN YAŞAR."
+     ════════════════════════════════════════════════════════════ */
 
   --serif: ui-serif, Georgia, "Times New Roman", serif;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -152,7 +216,7 @@ h3 { font-size: 19px; }
 /* --- Butonlar --- */
 .btn {
   /* 🔴 v0.17 — altın zemin + beyaz metin 2.86:1 idi; koyu altın 5.93:1. */
-  display: inline-block; background: var(--goldDeep); color: #FFFFFF;
+  display: inline-block; background: var(--goldDeep); color: var(--onGold);
   padding: 15px 30px; border-radius: 13px; font-weight: 700; font-size: 15px;
   border: none; cursor: pointer; transition: transform .15s ease, opacity .15s ease;
 }
@@ -163,7 +227,20 @@ h3 { font-size: 19px; }
 }
 
 /* --- Bölüm düzeni: metin + telefon, dönüşümlü --- */
-.section { padding: 84px 0; border-top: 1px solid var(--line); }
+/* ══════════════════════════════════════════════════════════════════
+   🔴 13 EYLÜL · v2 — BÖLÜMLER ÇİZGİYLE DEĞİL BOŞLUKLA AYRILIYOR.
+   Gökberk (site brief'i): "katmanları çizgiyle değil boşlukla ayır."
+
+   Eski: her bölümün tepesinde 1px `--line` ve 84px dolgu. Çizgi,
+   boşluğun yapamadığını yaptığını sanır; oysa 84px zaten ayırmaya
+   yetmiyordu — çizgi o yetersizliğin üstünü örtüyordu.
+   Yeni: çizgi YOK, dolgu 84 → 128 (mobilde 56 → 88). Linear'ın
+   sakinliği kutulardan değil, bölümler arasındaki nefesten geliyor.
+
+   🆕 SINIF: "İKİ BÖLÜM ARASINA ÇİZGİ ÇEKMEK GEREKİYORSA, ARADAKİ
+   BOŞLUK ZATEN YETERSİZDİR — ÇİZGİ ÇÖZÜM DEĞİL, TEŞHİSTİR."
+   ══════════════════════════════════════════════════════════════════ */
+.section { padding: 128px 0; }
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
 .split.rev .col-text { order: 2; }
 
@@ -174,23 +251,11 @@ h3 { font-size: 19px; }
    Eskiden `var(--card)` / `var(--ink)` yazıyordu; site paleti geceye
    dönünce telefonun içi de kararacaktı — oysa uygulama açık temalı.
    Maket, app'in gerçekte nasıl göründüğünü göstermezse yalan söyler. */
-.phone {
-  width: 100%; max-width: 300px; margin: 0 auto;
-  aspect-ratio: 9 / 19.5; background: var(--appCard);
-  border: 10px solid var(--appInk); border-radius: 38px;
-  overflow: hidden; position: relative;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
-}
-.phone img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.phone .placeholder {
-  width: 100%; height: 100%; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 10px;
-  background: var(--appAlt); color: var(--appBody); font-size: 13px; text-align: center; padding: 24px;
-}
+/* `.phone` kuralları kaldırıldı — tek tüketicisi arşivdeki Phone.jsx idi. */
 
 .stats { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
 .stat {
-  background: var(--card); border: 1px solid var(--warmLine);
+  background: var(--kart-zemin); border: 1px solid var(--kart-kenar);
   border-radius: 14px; padding: 16px 22px; min-width: 128px;
 }
 .stat b { display: block; font-family: var(--serif); font-size: 28px; color: var(--gold); }
@@ -203,7 +268,7 @@ h3 { font-size: 19px; }
 @media (max-width: 860px) {
   .split { grid-template-columns: 1fr; gap: 36px; }
   .split.rev .col-text { order: 0; }
-  .section { padding: 56px 0; }
+  .section { padding: 88px 0; }
 }
 
 /* ============================================================
@@ -249,7 +314,7 @@ h1, h2 {
 /* Tek ve zayıf yansıma. İkinci bir parlama plastik görünüm yaratır. */
 .phone-glare {
   position: absolute; inset: 9px; border-radius: 32px; pointer-events: none;
-  background: linear-gradient(122deg, rgba(255,255,255,.30) 0%,
+  background: linear-gradient(122deg, rgba(255,255,255,0.15) 0%,
               rgba(255,255,255,0) 34%, rgba(255,255,255,0) 100%);
 }
 .phone-stage.floating .phone { animation: float 7s ease-in-out infinite; }
@@ -263,7 +328,7 @@ h1, h2 {
    İMZA: CANLI KURAL MATRİSİ
    ============================================================ */
 .demo {
-  background: var(--card); border: 1px solid var(--warmLine);
+  background: var(--kart-zemin); border: 1px solid var(--kart-kenar);
   border-radius: 20px; padding: 24px;
   box-shadow: 0 20px 56px rgba(26,31,46,.10);
 }
@@ -272,7 +337,7 @@ h1, h2 {
   font-size: 12.5px; color: var(--muted); font-weight: 600; margin-bottom: 20px;
 }
 .demo-tag {
-  background: var(--goldDeep); color: #FFFFFF; font-size: 9.5px; letter-spacing: 1.4px;
+  background: var(--goldDeep); color: var(--onGold); font-size: 9.5px; letter-spacing: 1.4px;
   font-weight: 800; border-radius: 6px; padding: 3px 8px;
 }
 .demo-label {
@@ -290,14 +355,14 @@ h1, h2 {
   transition: background .16s ease, color .16s ease, border-color .16s ease;
 }
 .pill:hover { border-color: var(--gold); }
-.pill.on { background: var(--goldDeep); border-color: var(--goldDeep); color: #FFFFFF; font-weight: 700; }
+.pill.on { background: var(--goldDeep); border-color: var(--goldDeep); color: var(--onGold); font-weight: 700; }
 .pill:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
 .demo-out {
   border: 1px solid; border-radius: 15px; padding: 20px; margin-top: 22px;
   transition: background .22s ease, border-color .22s ease;
 }
-.demo-out-code { font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+.demo-out-code { font-size: 11px; color: var(--body); margin-bottom: 8px; }  /* v0.54: sıcak kart zemininde --muted 4.42:1 — ölçüldü */
 /* 🔴 Hüküm cümlesi SERIF — burada konuşan biz değil, havayolunun kuralı. */
 .demo-out-verdict { font-family: var(--serif); font-size: clamp(20px,3vw,27px); font-weight: 700; line-height: 1.2; }
 .demo-out-detail { font-size: 14px; color: var(--body); margin-top: 9px; line-height: 1.55; }
@@ -354,7 +419,7 @@ h1, h2 {
   width: 232px; max-width: 28vw; border-radius: 26px;
   border: 1px solid var(--line);
   box-shadow: 0 18px 44px rgba(0, 0, 0, .45);
-  background: var(--appCard);   /* ekran görüntüsünün altı — app teması */
+  background: var(--bgAlt);   /* ekran görüntüsünün altı — app teması */
 }
 .shots .shot:nth-child(2) { transform: translateY(-14px); }
 .shots-sm { justify-content: flex-end; }
@@ -365,7 +430,7 @@ h1, h2 {
 }
 
 .flow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 34px; }
-.flow-step { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+.flow-step { background: var(--kart-zemin); border: 1px solid var(--kart-kenar); border-radius: 16px; padding: 22px; }
 .flow-n { font-family: var(--serif); font-size: 15px; color: var(--gold); letter-spacing: 2px; margin-bottom: 10px; }
 .flow-step h3 { font-size: 17px; margin-bottom: 8px; color: var(--ink); }
 .flow-step p { font-size: 14px; line-height: 1.55; color: var(--muted); }
@@ -379,26 +444,26 @@ h1, h2 {
    Asıl kazanç yerleşimde: Priority Pass ile DragonPass YAN YANA düşüyor
    ve "HER HAVAYOLU" ile "AYNI UÇUŞ" çipleri aynı satırda karşılaşıyor.
    Rakibin tek kutuda sildiği fark, bizde okunmadan görünüyor. */
-.prog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 30px; align-items: start; }
+/* 4 Eylül — Gökberk: "kutucukların boyutlarında standart bir yapı daha iyi;
+   birinin yüksekliği az birinin çok, düzensiz." Bento (7/5 · 5/7 sütun) ve
+   `align-items:start` gitti: 3 eşit sütun, satır içinde eşit yükseklik
+   (`stretch`), 980 altı 2, 640 altı 1 sütun. Kural 9 kart = 3×3, Güven 6 = 3×2. */
+.prog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 30px; align-items: stretch; }
 @media (max-width: 980px) { .prog-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) { .prog-grid { grid-template-columns: 1fr; } }
-.trust-grid { grid-template-columns: repeat(12, 1fr); gap: 16px; }
-.trust-grid > * { grid-column: span 4; }
-.trust-grid > *:nth-child(1) { grid-column: span 7; }
-.trust-grid > *:nth-child(2) { grid-column: span 5; }
-.trust-grid > *:nth-child(5) { grid-column: span 5; }
-.trust-grid > *:nth-child(6) { grid-column: span 7; }
-@media (max-width: 860px) { .trust-grid > * { grid-column: span 12 !important; } }
-.prog-card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
+.trust-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+@media (max-width: 980px) { .trust-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .trust-grid { grid-template-columns: 1fr; } }
+.prog-card { background: var(--kart-zemin); border: 1px solid var(--kart-kenar); border-radius: 16px; padding: 20px; }
 .prog-tag {
   display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px;
   text-transform: uppercase; color: var(--gold);
-  background: var(--goldSoft, rgba(180, 140, 50, .1));
+  background: var(--goldSoft, rgba(185,163,121, .1));
   border-radius: 999px; padding: 3px 10px; margin-bottom: 10px;
 }
 .prog-card h3 { font-size: 16.5px; color: var(--ink); margin-bottom: 7px; }
 .prog-card p { font-size: 13.5px; line-height: 1.55; color: var(--muted); }
-@media (max-width: 860px) { .prog-grid, .trust-grid { grid-template-columns: 1fr; } }
+
 
 /* ============================================================
    v0.4 — SİNEMATİK KATMAN
@@ -444,9 +509,9 @@ h1, h2 {
 .hero-dark .lead { max-width: 620px; margin-top: 22px; font-size: 17px; line-height: 1.65; }
 .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
 .btn-gold {
-  background: linear-gradient(180deg, #CBA44A, #A9822F); color: #14100A; font-weight: 700;
+  background: linear-gradient(180deg, #D2BF9E, #B9A379); color: #171009; font-weight: 700;
   border-radius: 999px; padding: 14px 26px; text-decoration: none; display: inline-block;
-  box-shadow: 0 10px 30px rgba(184,148,58,.28);
+  box-shadow: 0 10px 30px rgba(201,182,147,0.15);
 }
 .btn-ghost {
   border: 1px solid rgba(243,239,230,.28); color: #F3EFE6; border-radius: 999px;
@@ -505,14 +570,14 @@ h1, h2 {
     padding-right: 16px;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
-    scrollbar-color: rgba(184,148,58,.55) transparent;
+    scrollbar-color: rgba(201,182,147,.45) transparent;
   }
   .shelf-item { scroll-snap-align: center; }
   .shelf-item img { width: 132px; max-width: 40vw; transform: rotateY(-10deg) translateY(0); }
   .shelf-item:nth-child(even) img { transform: rotateY(-10deg) translateY(10px); }
   .shelf::-webkit-scrollbar { height: 4px; }
   .shelf::-webkit-scrollbar-thumb {
-    background: rgba(184,148,58,.55); border-radius: 4px;
+    background: rgba(201,182,147,.45); border-radius: 4px;
   }
   .shelf::-webkit-scrollbar-track { background: transparent; }
   /* "daha var" ipucu: kaydırma varsa kullanıcı bunu BİLMELİ */
@@ -582,10 +647,56 @@ h1, h2 {
 }
 .karusel[data-hazir] .karusel-kart img { width: 202px; max-width: 44vw; }
 .karusel[data-hazir] .karusel-kart.etkin img {
-  border-color: rgba(212,185,117,.42);
-  box-shadow: 0 40px 90px rgba(0,0,0,.62), 0 0 0 1px rgba(212,185,117,.18);
+  border-color: rgba(201,182,147,.42);
+  box-shadow: 0 40px 90px rgba(0,0,0,.62), 0 0 0 1px rgba(201,182,147,0.15);
 }
 .karusel[data-hazir] .karusel-kart:not(.etkin) figcaption { opacity: 0; }
+
+/* ══════════════════════════════════════════════════════════════
+   KOMŞU KARTLAR TIKLANABİLİR (v0.43)
+
+   🔴 Gökberk: "ok'a tıklamak ilk aklıma gelen aksiyon olmuyor."
+   Ekrandaki en büyük öğe telefonlardı; el oraya gidiyordu. Artık
+   gidebiliyor. İmleç ve hafif bir aydınlanma bunu SÖYLEMEDEN
+   duyuruyor — "tıkla" yazan bir etiket eklemek, arayüzün kendini
+   anlatamadığının itirafı olurdu.
+   ══════════════════════════════════════════════════════════════ */
+.karusel-kart-tik {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border: 0; padding: 0; margin: 0;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 24px;
+  /* Odak halkası noktalarda zaten var; buraya sekmeyle gelinmiyor
+     (tabIndex=-1) çünkü aynı hedefe iki klavye yolu gereksiz. */
+}
+.karusel[data-hazir] .karusel-kart.tiklanir { cursor: pointer; }
+.karusel[data-hazir] .karusel-kart.tiklanir:hover img {
+  border-color: rgba(201,182,147,.34);
+  box-shadow: 0 34px 78px rgba(0,0,0,.6), 0 0 0 1px rgba(201,182,147,.14);
+}
+/* 🔴 AYDINLANMA `img`E UYGULANIYOR, `figure`A DEĞİL.
+   `figure`ın `filter`ı JS'ten SATIR İÇİ stil olarak geliyor
+   (`brightness(1 - uzaklık*0.22)`) ve satır içi stil sınıfı yener —
+   buraya yazsaydım hiçbir şey olmazdı ve ben "yaptım" sanırdım.
+
+   🆕 SINIF: "SATIR İÇİ STİLİN OLDUĞU ÖZELLİĞE CSS'TEN DOKUNMA;
+   KOMŞU ÖĞEYE DOKUN." */
+.karusel[data-hazir] .karusel-kart.tiklanir:hover img {
+  filter: brightness(1.22);
+  transform: translateY(-4px);
+}
+.karusel[data-hazir] .karusel-kart img {
+  transition: filter .25s ease, transform .25s ease,
+              border-color .25s ease, box-shadow .25s ease;
+}
+/* Dokunmatikte :hover yapışır — orada aydınlanmayı hiç açmıyoruz. */
+@media (hover: none) {
+  .karusel[data-hazir] .karusel-kart.tiklanir:hover img {
+    filter: none; transform: none;
+  }
+}
 
 /* 🔴 KARTLAR MUTLAK KONUMLU VE z-index 10'a KADAR ÇIKIYOR; alttaki
    satırlar akışta olduğu için ONLARIN ALTINDA kalıyordu. Yığın
@@ -602,23 +713,37 @@ h1, h2 {
   font-size: 22px; line-height: 1;
   color: var(--goldText);
   background: rgba(255,255,255,.05);
-  border: 1px solid rgba(212,185,117,.34);
+  border: 1px solid rgba(201,182,147,.34);
   cursor: pointer;
   transition: background .2s ease, transform .2s ease, border-color .2s ease;
 }
-.karusel-ok:hover { background: rgba(212,185,117,.16); transform: translateY(-2px); }
+.karusel-ok:hover { background: rgba(201,182,147,.16); transform: translateY(-2px); }
 .karusel-ok:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+/* 🔴 v0.52 — OKLAR ARTIK SABİT DURUYOR. Söz kutusu içeriğe göre
+   genişliyor, oklar onunla birlikte kayıyordu (Gökberk fark etti).
+   Kutu sabit genişlik alır; metin içinde sarar, oklar yerinden oynamaz. */
 .karusel-soz {
-  max-width: 560px; min-height: 44px; text-align: center; margin: 0;
+  flex: 0 0 min(560px, 70vw); max-width: min(560px, 70vw);
+  min-height: 44px; text-align: center; margin: 0;
   font-size: 15px; line-height: 1.5; color: #D8CFBE;
 }
-.karusel-nokta { position: relative; z-index: 20; display: flex; gap: 9px; justify-content: center; margin-top: 16px; }
+.karusel-nokta { position: relative; z-index: 20; display: flex; gap: 9px; justify-content: center; margin-top: -4px; }
+/* 🔴 v0.51 — NOKTA DÜĞMELERİ 28×4 PX'Tİ. Tarayıcı ölçümü 7 cihazda 49
+   ihlal saydı: çizgi 4px yüksekti ve dokunma alanı da oydu. Görsel
+   aynı kalıyor (4px çizgi ::before ile çiziliyor); düğmenin kendisi
+   44px yüksek ve şeffaf. WCAG 2.5.5 / Apple HIG. */
 .karusel-nokta button {
-  width: 28px; height: 4px; border-radius: 4px; border: 0; padding: 0;
-  background: rgba(243,239,230,.22); cursor: pointer;
-  transition: background .25s ease, width .25s ease;
+  position: relative; width: 28px; height: 44px; border: 0; padding: 0;
+  background: transparent; cursor: pointer;
+  transition: width .25s ease;
 }
-.karusel-nokta button.etkin { background: var(--gold); width: 44px; }
+.karusel-nokta button::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 20px; height: 4px;
+  border-radius: 4px; background: rgba(243,239,230,.22);
+  transition: background .25s ease;
+}
+.karusel-nokta button.etkin { width: 44px; }
+.karusel-nokta button.etkin::before { background: var(--gold); }
 .karusel-nokta button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
 /* JS yoksa: düz, kaydırılabilir şerit — içerik kaybolmaz */
@@ -632,7 +757,7 @@ h1, h2 {
 @media (max-width: 860px) {
   .karusel-sahne { min-height: 420px; }
   .karusel[data-hazir] .karusel-kart img { width: 166px; max-width: 46vw; }
-  .karusel-soz { font-size: 12.5px; max-width: 78vw; }
+  .karusel-soz { font-size: 12.5px; flex-basis: 66vw; max-width: 66vw; }
 }
 
 /* Hareket duyarlılığı: 3B dönüş ve geçiş kapanır, dizilim düzleşir.
@@ -656,7 +781,7 @@ h1, h2 {
 .shot-tilt { display: flex; justify-content: center; perspective: 1200px; }
 .shot-tilt img {
   width: 250px; max-width: 62vw; border-radius: 26px;
-  border: 1px solid var(--line); background: var(--appCard);
+  border: 1px solid var(--line); background: var(--bgAlt);
   box-shadow: 0 24px 54px rgba(0,0,0,.45);
   transform: rotateY(-12deg) rotateX(3deg);
   transition: transform .5s ease;
@@ -745,8 +870,8 @@ body::after {
 .dark-band .flow-step,
 .dark-band .trust-card,
 .dark-band .faq-item {
-  background: var(--card);
-  border: 1px solid var(--cardLine);
+  background: var(--kart-zemin);
+  border: 1px solid var(--kart-kenar);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -759,26 +884,28 @@ body::after {
 .dark-band .flow-step p,
 .dark-band .trust-card p { color: #B9B2A2; }
 .dark-band .tag,
-.dark-band .pill { border-color: rgba(184,148,58,.35); color: var(--gold); }
+.dark-band .pill { border-color: rgba(201,182,147,.30); color: var(--gold); }
 .dark-band .tear { border-color: rgba(243,239,230,.10); }
 .dark-band a { color: var(--gold); }
 
 /* bölüm geçişlerinde ışık akışı — sayfa tek düzlük olmasın */
 .section.dark-band::before {
   content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(184,148,58,.35), transparent);
+  background: linear-gradient(90deg, transparent, rgba(201,182,147,0.15), transparent);
 }
 
 /* gerçek cihaz ekranları koyu zeminde: hafif altın hale */
 .dark-band .shot-tilt img {
-  border-color: rgba(184,148,58,.28);
+  border-color: rgba(201,182,147,.22);
   box-shadow: 0 30px 70px rgba(0,0,0,.55), 0 0 0 1px rgba(243,239,230,.06);
   background: var(--bgAlt);
 }
 .dark-band .shelf-item img { background: var(--bgAlt); }
 
 /* footer da geceye */
-footer { background: rgba(22,19,16,0.62); color: var(--muted); border-top: 1px solid rgba(243,239,230,.08); }
+/* Alt bilgi de aynı kuralı izliyor: çizgi yok, zemin bir tık ayrışıyor
+   ve üstünde 96px boşluk var. */
+footer { background: rgba(17,15,20,0.72); color: var(--muted); padding-top: 96px; }
 /* v0.26 — alt bilgi bağlantıları 22px idi; 44px dokunma hedefi. */
 footer a { display: inline-flex; align-items: center; min-height: 44px; color: var(--gold); }
 
@@ -786,7 +913,7 @@ footer a { display: inline-flex; align-items: center; min-height: 44px; color: v
 .chip-ico {
   display: inline-flex; align-items: center; justify-content: center;
   width: 40px; height: 40px; border-radius: 11px; margin-bottom: 14px;
-  background: rgba(184,148,58,.12); color: var(--gold);
+  background: rgba(201,182,147,.12); color: var(--gold);
   font-size: 17px; line-height: 1;
 }
 /* LS dersi: kartlar zeminden ÇOK AZ ayrılır, kenarlık neredeyse görünmez,
@@ -809,7 +936,7 @@ footer a { display: inline-flex; align-items: center; min-height: 44px; color: v
   /* v0.26 — 29px idi. Alt çizgi tasarımı korunuyor; yükseklik
      ÜSTTEN dolguyla veriliyor ki çizgi metinden uzaklaşmasın. */
   min-height: 44px; align-items: flex-end;
-  border-bottom: 1px solid rgba(184,148,58,.35); padding-bottom: 6px;
+  border-bottom: 1px solid rgba(201,182,147,.30); padding-bottom: 6px;
   transition: border-color .25s ease;
 }
 /* Ok işareti gap ile değil TRANSFORM ile kayar: layout hesabı yok,
@@ -851,7 +978,7 @@ footer a { display: inline-flex; align-items: center; min-height: 44px; color: v
    tema eklerken bileşen istisnaları da yazılmalı.
    ============================================================ */
 .dark-band a.btn,
-.dark-band a.btn-gold { color: #14100A !important; }
+.dark-band a.btn-gold { color: #171009 !important; }
 .dark-band a.btn { background: var(--gold); }
 .dark-band a.btn:hover { opacity: .92; }
 
@@ -867,9 +994,9 @@ footer a { display: inline-flex; align-items: center; min-height: 44px; color: v
 .aurora {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background:
-    radial-gradient(60% 40% at 85% 12%, rgba(184,148,58,.13), transparent 60%),
-    radial-gradient(50% 35% at 10% 45%, rgba(13,148,136,.07), transparent 60%),
-    radial-gradient(70% 50% at 60% 95%, rgba(184,148,58,.10), transparent 65%);
+    radial-gradient(60% 40% at 85% 12%, rgba(201,182,147,.13), transparent 60%),
+    radial-gradient(50% 35% at 10% 45%, rgba(110,106,114,.07), transparent 60%),
+    radial-gradient(70% 50% at 60% 95%, rgba(201,182,147,.10), transparent 65%);
 }
 .grain-fixed {
   position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: .045;
@@ -882,7 +1009,7 @@ footer a { display: inline-flex; align-items: center; min-height: 44px; color: v
    ritmi görünür kılar; göz nerede olduğunu bilir. */
 .sec-no {
   position: absolute; top: 34px; right: 40px; font-family: var(--serif);
-  font-size: 13px; letter-spacing: .28em; color: rgba(184,148,58,.42);
+  font-size: 13px; letter-spacing: .28em; color: rgba(201,182,147,.42);
 }
 @media (max-width: 760px) { .sec-no { display: none; } }
 
@@ -890,12 +1017,12 @@ footer a { display: inline-flex; align-items: center; min-height: 44px; color: v
 .wing-rule { position: relative; height: 1px; margin: 0; border: 0; overflow: visible; }
 .wing-rule::after {
   content: ""; position: absolute; left: 12%; right: 12%; top: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(184,148,58,.55), transparent);
+  background: linear-gradient(90deg, transparent, rgba(201,182,147,0.15), transparent);
 }
 .wing-rule::before {
   content: ""; position: absolute; left: 50%; top: -3px; width: 7px; height: 7px;
   margin-left: -3.5px; border-radius: 50%; background: var(--gold); opacity: .75;
-  box-shadow: 0 0 18px rgba(184,148,58,.55);
+  box-shadow: 0 0 18px rgba(201,182,147,0.15);
 }
 
 /* ============================================================
@@ -908,7 +1035,7 @@ footer a { display: inline-flex; align-items: center; min-height: 44px; color: v
    (.on, .active, .selected) mutlaka dışarıda bırak.
    ============================================================ */
 .dark-band .pill.on,
-.dark-band .pill[aria-pressed="true"] { color: #14100A !important; font-weight: 700; }
+.dark-band .pill[aria-pressed="true"] { color: #171009 !important; font-weight: 700; }
 
 /* Kanat: sayfanın sağ tarafında sürekli devam eden dev kanat kesiti.
    LS'in fotoğrafla yaptığını biz geometriyle yapıyoruz — konik
@@ -932,7 +1059,7 @@ footer a { display: inline-flex; align-items: center; min-height: 44px; color: v
 }
 .host-card {
   grid-column: span 6;
-  background: rgba(255,255,255,.045); border: 1px solid rgba(184,148,58,.16);
+  background: rgba(255,255,255,.045); /* v5.9.0 · çerçeve kaldırıldı, derinlik üst parlamada */
   border-radius: 18px; padding: 26px 24px;
   animation: riseIn .48s cubic-bezier(.16,1,.3,1) both;
   animation-delay: calc(var(--i, 0) * 70ms);
@@ -953,7 +1080,8 @@ footer a { display: inline-flex; align-items: center; min-height: 44px; color: v
    fazlalığı (design-taste Rule 4) burada yorucu olurdu. */
 .host-qa { margin-top: 14px; border-top: 1px solid rgba(243,239,230,.10); }
 .qa {
-  display: grid; grid-template-columns: 220px 1fr; gap: 24px;
+  display: grid; /* v5.9.0 · bento çıkışı: sabit+esnek sütun yerine eşit ızgara */
+  grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px;
   padding: 18px 0; border-bottom: 1px solid rgba(243,239,230,.10);
 }
 .qa b { color: #F7F3EA; font-size: 15.5px; font-family: var(--serif); font-weight: 700; }
@@ -997,9 +1125,9 @@ footer a { display: inline-flex; align-items: center; min-height: 44px; color: v
 .wing-bg { opacity: .95; }
 .aurora {
   background:
-    radial-gradient(55% 38% at 88% 8%, rgba(184,148,58,.26), transparent 62%),
-    radial-gradient(48% 32% at 6% 42%, rgba(13,148,136,.14), transparent 62%),
-    radial-gradient(65% 45% at 62% 98%, rgba(184,148,58,.20), transparent 66%);
+    radial-gradient(55% 38% at 88% 8%, rgba(201,182,147,0.15), transparent 62%),
+    radial-gradient(48% 32% at 6% 42%, rgba(110,106,114,.14), transparent 62%),
+    radial-gradient(65% 45% at 62% 98%, rgba(201,182,147,0.15), transparent 66%);
 }
 
 /* ============================================================
@@ -1068,7 +1196,7 @@ a { color: inherit; }
    ══════════════════════════════════════════════════════════════ */
 .card-chip {
   display: inline-flex; align-items: center; min-height: 44px;
-  border: 1px solid var(--line); background: var(--card);
+  /* v5.9.0 · çerçeve kaldırıldı, derinlik üst parlamada */ background: var(--card);
   border-radius: 22px; padding: 0 16px; font-size: 13.5px;
   color: var(--body); transition: border-color .16s ease, color .16s ease;
 }
@@ -1087,7 +1215,7 @@ a { color: inherit; }
 .section:not(.dark-band) .faq-item,
 .section:not(.dark-band) .guide-card {
   background: rgba(255,255,255,.045);
-  border: 1px solid rgba(243,239,230,.10);
+  /* v5.9.0 · çerçeve kaldırıldı, derinlik üst parlamada */
   color: #E8E3D8;
 }
 .section:not(.dark-band) .box h3,
@@ -1135,8 +1263,8 @@ a { color: inherit; }
 .cover-lead { font-size: 16px; line-height: 1.6; }
 .cover-list { margin-top: 22px; display: grid; gap: 8px; }
 .cover-item {
-  border: 1px solid var(--line); border-radius: 13px;
-  background: var(--card); overflow: hidden;
+  border: 1px solid var(--kart-kenar); border-radius: 13px;
+  background: var(--kart-zemin); overflow: hidden;
 }
 .cover-item > summary {
   display: flex; align-items: center; gap: 12px; cursor: pointer;
@@ -1170,11 +1298,11 @@ a { color: inherit; }
 
 /* Koyu bantta aynı bileşen: zemin kartı ve metin tonları değişir.
    Kontrast ölçüldü — #F3EFE6 / #0F1626 = 15.5:1, #C9C3B4 = 10.6:1. */
-.dark-band .cover-item { background: rgba(255,255,255,.05); border-color: rgba(243,239,230,.12); }
-.dark-band .cover-code { color: #F4D79A; }
+.dark-band .cover-item { background: var(--kart-zemin); border-color: var(--kart-kenar); }
+.dark-band .cover-code { color: #E4D6BC; }
 .dark-band .cover-name { color: #F7F3EA; }
 .dark-band .cover-n, .dark-band .cover-tag, .dark-band .cover-term { color: #C9C3B4; }
-.dark-band .cover-group-t { color: #F4D79A; }
+.dark-band .cover-group-t { color: #E4D6BC; }
 .dark-band .cover-group li { color: #C9C3B4; }
 .dark-band .cover-group li b { color: #F7F3EA; }
 
@@ -1189,8 +1317,14 @@ a { color: inherit; }
 .site-nav a { display: inline-flex; align-items: center; min-height: 44px;
               font-size: 14px; color: var(--muted); }
 .site-nav a:hover { color: var(--ink); }
+/* 🔴 v0.44 — BU SATIR `.btn`in DOĞRU MÜREKKEBİNİ EZİYORDU.
+   `.btn` altın zeminde `var(--onGold)` (#171009, 12.27:1) kullanıyor;
+   başlıktaki aynı düğme burada `#FFFFFF`e (1.54:1) dönüyordu. Yani
+   sayfadaki en görünür CTA — "Beta listesi" — okunamıyordu.
+   🆕 SINIF: "BİR BİLEŞENİN DOĞRU DEĞERİNİ BAĞLAMA ÖZGÜ BİR KURALLA
+   EZERSEN, DÜZELTMEN O BAĞLAMDA HİÇ OLMAMIŞ SAYILIR." */
 .site-nav .btn { display: inline-flex; align-items: center; min-height: 44px;
-                 padding: 0 18px; font-size: 13.5px; color: #FFFFFF; }  /* v0.26: 40px → 44px */
+                 padding: 0 18px; font-size: 13.5px; color: var(--onGold); }
 .site-head-row { display: flex; align-items: center; gap: 20px; min-height: 66px; padding: 10px 0; }
 @media (max-width: 620px) {
   .site-head-row { flex-wrap: wrap; gap: 10px; }
@@ -1212,8 +1346,8 @@ a { color: inherit; }
 .wl-roles { display: grid; gap: 9px; }
 .wl-role {
   display: flex; align-items: flex-start; gap: 10px; cursor: pointer;
-  border: 1px solid var(--line); border-radius: 13px; padding: 12px 14px;
-  background: var(--card);
+  border: 1px solid var(--kart-kenar); border-radius: 13px; padding: 12px 14px;
+  background: var(--kart-zemin);
 }
 /* v0.25 — seçenek altındaki açıklama satırı. `em` ama eğik DEĞİL:
    eğik yazı küçük puntoda okunurluğu düşürür; burada amaç
@@ -1227,7 +1361,7 @@ a { color: inherit; }
    hangisinin seçili olduğunu yalnız küçük radyo düğmesi söylüyordu. */
 .wl-role:has(input:checked) { border-color: var(--gold); background: var(--goldSoft); }
 .dark-band .wl-role:has(input:checked) {
-  border-color: rgba(244,215,154,.55); background: rgba(244,215,154,.10);
+  border-color: rgba(228,214,188,.55); background: rgba(228,214,188,.10);
 }
 
 /* v0.26 — onay kutusunun kendisi 13px; dokunma alanı onu saran
@@ -1241,11 +1375,11 @@ a { color: inherit; }
 .wl-fine { font-size: 12.5px; color: var(--muted); line-height: 1.55; }
 .wl-err {
   font-size: 14px; line-height: 1.55; color: var(--ink);
-  background: rgba(138,90,0,.09); border: 1px solid rgba(138,90,0,.32);
+  background: rgba(160,143,115,.09); border: 1px solid rgba(160,143,115,.32);
   border-radius: 12px; padding: 13px 15px;
 }
 .wl-ok {
-  text-align: left; border: 1px solid var(--warmLine); background: var(--goldSoft);
+  text-align: left; /* v5.9.0 · çerçeve kaldırıldı, derinlik üst parlamada */ background: var(--goldSoft);
   border-radius: 16px; padding: 22px; margin-top: 24px;
 }
 .wl-ok b { font-family: var(--serif); font-size: 20px; color: var(--ink); display: block; }
@@ -1254,7 +1388,7 @@ a { color: inherit; }
 .dark-band .wl-role, .dark-band .wl input[type="email"] {
   background: rgba(255,255,255,.06); border-color: rgba(243,239,230,.14); color: #F7F3EA;
 }
-.dark-band .wl-err { background: rgba(244,215,154,.10); border-color: rgba(244,215,154,.34); color: #F7F3EA; }
+.dark-band .wl-err { background: rgba(228,214,188,.10); border-color: rgba(228,214,188,.34); color: #F7F3EA; }
 .dark-band .wl-ok { background: rgba(255,255,255,.05); border-color: rgba(243,239,230,.14); }
 .dark-band .wl-ok b { color: #F7F3EA; }
 
@@ -1272,8 +1406,8 @@ a { color: inherit; }
    Boşluklar 4'ün katı, tipografi ölçekten. Yeni sayı uydurulmadı.
    ============================================================ */
 .wcalc {
-  border: 1px solid var(--warmLine);
-  background: var(--card, #FFFFFF);
+  border: 1px solid var(--kart-kenar);
+  background: var(--kart-zemin);
   border-radius: 20px;
   padding: 28px;
   max-width: 720px;
@@ -1330,11 +1464,11 @@ a { color: inherit; }
 .wcalc-offer {
   margin-top: 24px; padding: 20px;
   border-radius: 16px; background: var(--goldSoft);
-  border: 1px solid var(--warmLine);
+  /* v5.9.0 · çerçeve kaldırıldı, derinlik üst parlamada */
   display: flex; flex-direction: column; gap: 8px; align-items: flex-start;
 }
 .wcalc-offer strong { font-family: var(--serif); font-size: 20px; line-height: 1.3; color: var(--ink); font-weight: 700; }
-.wcalc-offer span { font-size: 14px; color: var(--muted); line-height: 1.6; }
+.wcalc-offer span { font-size: 14px; color: var(--body); line-height: 1.6; }  /* v0.54: 3.46:1 idi */
 .wcalc-offer .btn-gold { margin-top: 8px; }
 
 .wcalc-src { margin-top: 16px; font-size: 12.5px; color: var(--muted); line-height: 1.6; }
@@ -1351,24 +1485,31 @@ a { color: inherit; }
   margin-top: 14px; font-size: 16px; line-height: 1.6;
   color: #C9C3B4; max-width: 46ch;
 }
-.hero-pos b { color: #F4D79A; font-weight: 600; }
+.hero-pos b { color: #E4D6BC; font-weight: 600; }
 
 /* Abonelik kartları (v0.21) — mevcut token'larla, yeni renk yok.
    Ritim uygulamayla aynı: ETİKET → BAŞLIK (serif) → FİYAT → HAKLAR. */
 .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 28px; }
 .plan-card {
-  position: relative; border: 1px solid rgba(243,239,230,.16); border-radius: 18px;
-  padding: 24px; background: rgba(255,255,255,.04);
+  position: relative; /* v5.9.0 · çerçeve kaldırıldı, derinlik üst parlamada */ border-radius: 18px;
+  padding: 24px; background: var(--kart-zemin);
 }
-.plan-card.on { border-color: rgba(244,215,154,.45); background: rgba(244,215,154,.07); }
+.plan-card.on { border-color: rgba(228,214,188,.45); background: rgba(228,214,188,.07); }
 .plan-tag {
   position: absolute; top: -10px; left: 24px; background: var(--gold); color: #10131C;
   font-size: 10px; letter-spacing: 1.4px; font-weight: 700; padding: 4px 10px; border-radius: 999px;
 }
 .plan-card h3 { font-family: var(--serif); font-size: 24px; margin: 0 0 8px; color: #F7F3EA; }
-.plan-price { font-family: var(--serif); font-size: 32px; color: #F4D79A; line-height: 1.1; }
+.plan-price { font-family: var(--serif); font-size: 32px; color: #E4D6BC; line-height: 1.1; }
 .plan-price span { font-family: inherit; font-size: 14px; color: #C9C3B4; }
-.plan-year { font-size: 13px; color: #9FD8D0; margin-top: 4px; }
+/* 🔴 13 EYLÜL · v5.9.0 — BURASI TURKUAZDI (#9FD8D0) VE NÖBETÇİM
+   KAÇIRMIŞTI: `palet_check.py` bir LİSTE tutuyordu, bu ton listede yoktu.
+   Ekranda ölçtüm: (159,216,208). Yıllık indirim satırı, planın en
+   "satış" kokan yeriydi ve tam da fintech turkuazıyla çiziliyordu.
+   Nöbetçi artık listeye değil TON AÇISINA bakıyor.
+   🆕 SINIF: "YASAKLI RENKLERİ LİSTEYLE KOVALARSAN, LİSTEDE OLMAYAN HER
+   TON SERBEST KALIR — AİLEYİ TANIMLA, ÜYELERİ DEĞİL." */
+.plan-year { font-size: 13px; color: var(--muted); margin-top: 4px; }
 .plan-card ul { list-style: none; padding: 0; margin: 16px 0 0; }
 .plan-card li { font-size: 14px; line-height: 1.6; color: #C9C3B4; padding-left: 18px; position: relative; }
 .plan-card li::before { content: "✓"; position: absolute; left: 0; color: var(--gold); }
@@ -1386,12 +1527,12 @@ a { color: inherit; }
    Yeni renk yok, yeni boşluk ölçüsü yok; hepsi mevcut token.
    ============================================================ */
 .hearn {
-  border: 1px solid var(--warmLine);
-  background: var(--card, #FFFFFF);
+  border: 1px solid var(--kart-kenar);
+  background: var(--kart-zemin);
   border-radius: 20px;
   padding: 28px;
   max-width: 860px;
-  margin: 0 auto;
+  margin: 36px auto 0;   /* v0.52 — üstteki kartlara bitişik duruyordu */
 }
 .hearn-head h3 {
   font-family: var(--serif);
@@ -1402,8 +1543,8 @@ a { color: inherit; }
 
 .hearn-cur { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0 20px; }
 .hearn-cur-card {
-  border: 1px solid var(--line); border-radius: 16px; padding: 20px;
-  background: rgba(255,255,255,.03);
+  border: 1px solid var(--kart-kenar); border-radius: 16px; padding: 20px;
+  background: var(--kart-zemin);
 }
 .hearn-ico { display: block; font-size: 18px; color: var(--goldText); margin-bottom: 8px; }
 .hearn-cur-card b { display: block; font-size: 17px; color: var(--ink); letter-spacing: -.01em; }
@@ -1436,13 +1577,13 @@ a { color: inherit; }
 }
 @media (max-width: 720px) { .hearn-rewards { grid-template-columns: 1fr; } .hearn-out { grid-template-columns: 1fr; } }
 .hearn-rw {
-  display: grid; grid-template-columns: 1fr auto; align-items: center;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));  /* v5.9.0 · bento çıkışı */ align-items: center;
   gap: 2px 12px; padding: 10px 14px; border-radius: 12px;
-  border: 1px solid var(--line); min-height: 44px;
+  /* v5.9.0 · çerçeve kaldırıldı, derinlik üst parlamada */ min-height: 44px;
   /* 🔴 Kilitli ödül SOLUK değil, SAKİN. Opacity düşürmek WCAG kontrast
      hesabını da düşürür; burada renk tonu değişiyor, saydamlık değil. */
 }
-.hearn-rw.on { border-color: var(--warmLine); background: var(--goldSoft, rgba(184,148,58,.08)); }
+.hearn-rw.on { border-color: var(--warmLine); background: var(--goldSoft, rgba(201,182,147,.08)); }
 .hearn-rw-t { font-size: 14px; color: var(--body); }
 .hearn-rw.on .hearn-rw-t { color: var(--ink); font-weight: 600; }
 .hearn-rw-s { grid-column: 1; font-size: 12px; color: var(--body); }
@@ -1509,7 +1650,7 @@ a { color: inherit; }
 @media (max-width: 860px) { .hearn-tiers { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 480px) { .hearn-tiers { grid-template-columns: 1fr; } }
 .hearn-tier {
-  border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; min-height: 44px;
+  /* v5.9.0 · çerçeve kaldırıldı, derinlik üst parlamada */ border-radius: 12px; padding: 12px 14px; min-height: 44px;
 }
 .hearn-tier.on { border-color: var(--warmLine); background: var(--goldSoft); }
 .hearn-tier b { display: block; font-size: 14px; color: var(--body); letter-spacing: -.01em; }
@@ -1525,8 +1666,8 @@ a { color: inherit; }
    ============================================================ */
 .kcember {
   margin: 18px auto 0; max-width: 420px;
-  border: 1px solid var(--warmLine); border-radius: 14px;
-  padding: 16px 18px; background: var(--card);
+  border: 1px solid var(--kart-kenar); border-radius: 14px;
+  padding: 16px 18px; background: var(--kart-zemin);
   text-align: left;
 }
 .kcember-ust { display: flex; align-items: baseline; gap: 8px; }
@@ -1556,8 +1697,8 @@ a { color: inherit; }
 .hstory-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 @media (max-width: 860px) { .hstory-grid { grid-template-columns: 1fr; } }
 .hstory-k {
-  border: 1px solid var(--line); border-radius: 14px; padding: 18px;
-  background: rgba(255,255,255,.03);
+  border: 1px solid var(--kart-kenar); border-radius: 14px; padding: 18px;
+  background: var(--kart-zemin);
 }
 .hstory-k blockquote {
   font-size: 15px; line-height: 1.62; color: var(--ink);
@@ -1581,4 +1722,300 @@ a { color: inherit; }
   color: var(--goldText);
   margin: 2px 0 10px;
   opacity: 0.92;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   KAHRAMANDAKİ BAĞLANTI CÜMLESİ (v0.43)
+
+   "Aktarma uçuşları bağlar. Biz yolcuları." — bu cümle sitenin
+   ALTBİLGİSİNDE duruyordu, yani en az okunan yerde. Markanın en
+   insani cümlesi başlığın hemen altına taşındı.
+
+   Serif ve italik: başlıkla aynı aileden, ama daha ince ve daha
+   sessiz. Bir alt başlık değil, bir NEFES — okuyucu başlıktan
+   sonra bir saniye burada duruyor.
+   ══════════════════════════════════════════════════════════════ */
+.hero-baglanti {
+  margin: 14px 0 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.45;
+  color: var(--goldText);
+  opacity: .92;
+}
+@media (max-width: 860px) {
+  .hero-baglanti { font-size: 16.5px; margin-top: 12px; }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   MİKRO SAHNE — eşleşmeden sonraki an (v0.44)
+   Baloncuklar UYGULAMANIN `.bal` sınıfıyla aynı dili konuşur:
+   kendi mesajım altın TİNT (dolu altın değil — vurgu en geniş alana
+   verilmez), karşı taraf yüzey rengi, saat MONO ve BALONUN İÇİNDE.
+   ════════════════════════════════════════════════════════════════ */
+.an-sohbet { display: flex; flex-direction: column; gap: 10px; margin-top: 26px; }
+.an-bal {
+  max-width: 78%; align-self: flex-start;
+  background: var(--bgAlt); border: 1px solid var(--line);
+  border-radius: 16px 16px 16px 5px; padding: 12px 14px 8px;
+}
+.an-bal.ben {
+  align-self: flex-end; background: var(--goldSoft);
+  border-color: var(--warmLine); border-radius: 16px 16px 5px 16px;
+}
+.an-bal p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink); }
+.an-bal time {
+  display: block; margin-top: 6px; text-align: right;
+  font-family: ui-monospace, "JetBrains Mono", monospace;
+  font-size: 10px; color: var(--muted);
+}
+.an-not { margin-top: 22px; font-size: 13px; line-height: 1.6; color: var(--muted); }
+@media (max-width: 560px) { .an-bal { max-width: 88%; } }
+
+/* ── .legal — metin sayfaları (destek, /en, 404, hata) ───────────────
+   🔴 v0.51 — Bu sınıf altı sayfada kullanılıyordu ve HİÇ tanımlı değildi:
+   /en, /en/terms, /destek… gövde genişliği sınırsız, satır uzunluğu 200+
+   karakter. Okunabilirlik ölçütü 60–75 karakter; 720px kutu onu verir. */
+.legal { max-width: 720px; margin: 0 auto; padding: 44px 24px 80px; }
+.legal h1 { font-size: clamp(26px, 4vw, 36px); margin: 8px 0 14px; }
+.legal h2 { font-size: clamp(19px, 2.6vw, 24px); margin: 26px 0 8px; white-space: normal; }
+.legal p, .legal li { font-size: 15px; line-height: 1.75; color: var(--body); }
+.legal-lead { font-size: 16.5px; color: var(--ink); }
+.legal a { color: var(--gold, #C9B693); text-decoration: underline; text-underline-offset: 3px; }
+.legal-list { padding-left: 20px; margin: 12px 0; }
+.legal-list li { margin: 6px 0; }
+.legal .eyebrow { margin-top: 0; }
+
+/* ════════════════════════════════════════════════════════════════
+   KAHRAMAN · TAM SAHNE (v0.54.0)
+   Katmanlar: fotoğraf (nefes) → iki hale (app bandıyla aynı duraklar:
+   altın 82%/−14% .30 · mor 8%/6% .20) → perde (üstte %22, ortada %38,
+   altta %86 — sayfanın kendi %82 perdesine kavuşur) → metin.
+   Perde oranları ÖLÇÜLDÜ: metin kutularının altındaki en açık piksele
+   karşı --ink 7.9:1, lead 5.6:1 (olcum/hero_kontrast.py).
+   ════════════════════════════════════════════════════════════════ */
+.site-head-seffaf { position: absolute; top: 0; left: 0; right: 0; z-index: 6; background: transparent; border: 0;
+  animation: rise .7s ease-out both; }
+.site-head-seffaf .site-nav a:not(.btn) { color: var(--ink); }  /* `.btn` altın zemin, kendi mürekkebi kalır */
+.site-head-seffaf .site-nav a:not(.btn):hover { color: var(--gold); }
+
+.hero-sahne { position: relative; z-index: 2; min-height: 100vh; min-height: 100svh; overflow: hidden;
+  display: flex; flex-direction: column; align-items: center; padding: 96px 20px 26px; }
+.hero-foto { position: absolute; inset: -8%; z-index: 0;
+  background: url("/bant.jpg") center 42% / cover no-repeat;
+  /* 5 Eylül · 2. tur — Gökberk: "hareket anlaşılır olmadı". İlk ayar %7 /
+     28 sn'ydi; ölçüm: 10 sn'de ortalama piksel farkı 2.1 — göz algılamıyor.
+     Şimdi: ölçek %14 + %3 yatay kayma, 18 sn, ileri-geri. Ölçüm: 10 sn'de
+     fark 9.4 (4.5×) — kamera yavaşça pencereye yaklaşıyor, göz bunu 2–3
+     saniyede fark ediyor, yormuyor (tek yönlü, sabit hız). */
+  animation: nefes 18s ease-in-out infinite alternate; will-change: transform; }
+@keyframes nefes { from { transform: scale(1) translate3d(1.5%,0.6%,0); } to { transform: scale(1.14) translate3d(-1.5%,-1.2%,0); } }
+.hero-hale { position: absolute; inset: -10% -20%; z-index: 1;
+  background: radial-gradient(120% 92% at 82% -14%, rgba(201,182,147,0.15), transparent 60%),
+              radial-gradient(112% 88% at 8% 6%, rgba(198,170,247,0.15), transparent 60%);
+  /* hale artık YER değiştiriyor (yalnız parlamıyor): ışık pencerede
+     sağdan sola süzülüyor — 14 sn, ileri-geri */
+  animation: hale 14s ease-in-out infinite alternate; }
+@keyframes hale { from { opacity: .8; transform: translate3d(-3%,0,0); } to { opacity: 1; transform: translate3d(3%,1.5%,0); } }
+/* ışık süpürmesi: pencereden geçen tek bir yumuşak parıltı (22 sn'de bir) */
+.hero-isik { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(105deg, transparent 40%, rgba(226,212,184,.10) 50%, transparent 60%);
+  background-size: 260% 100%; animation: isik 22s ease-in-out infinite; }
+@keyframes isik { 0% { background-position: 120% 0; } 45% { background-position: -20% 0; } 100% { background-position: -20% 0; } }
+.hero-perde { position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(180deg, rgba(16,14,18,.30) 0%, rgba(16,14,18,.50) 45%, rgba(16,14,18,.88) 100%),
+              linear-gradient(180deg, rgba(16,14,18,.62) 0, rgba(16,14,18,.30) 90px, transparent 170px); /* menü şeridi */ }
+/* METİN KALKANI — pencere fotoğrafının en açık bölgesi tam başlığın
+   arkasında (ölçüldü: en açık piksel 182,149,137 → h1 2.48:1). Ortada
+   yumuşak bir eliptik karartma; kenarlara doğru sıfırlanır. */
+.hero-orta::before { content: ""; position: absolute; inset: -22% -30%; z-index: -1; pointer-events: none;
+  background: radial-gradient(55% 62% at 50% 50%, rgba(16,14,18,.78), rgba(16,14,18,.40) 55%, transparent 78%); }
+@media (prefers-reduced-motion: reduce) { .hero-foto, .hero-hale, .hero-isik { animation: none; } .site-head-seffaf { animation: none; } }
+
+.hero-orta { position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; text-align: center; max-width: 880px; padding-top: 24px; }
+.hero-dugum { color: var(--goldText); animation: rise .7s .15s ease-out both; }
+.hero-sahne h1 { color: #F7F3EA; font-size: clamp(38px, 6.2vw, 72px); line-height: 1.05; letter-spacing: -.02em;
+  margin: 16px 0 0; animation: rise .7s .25s ease-out both; }
+.hero-sahne h1 em { font-style: italic; color: var(--gold); }
+.hero-sahne .lead { max-width: 640px; margin: 22px auto 0; font-size: clamp(15px, 1.4vw, 18px); line-height: 1.6;
+  color: rgba(246,241,232,.84); animation: rise .7s .38s ease-out both; }
+.hero-sahne .hero-cta { justify-content: center; animation: rise .7s .5s ease-out both; }
+.hero-sahne .btn-gold { transition: transform .2s ease, box-shadow .2s ease; }
+.hero-sahne .btn-gold:hover { transform: scale(1.04); box-shadow: 0 16px 40px rgba(201,182,147,0.15); }
+
+/* KANIT KARTI — "B · altın cam" (Gökberk, 5 Eyl): sıcak degrade + altın kenar */
+.hero-kanit { position: relative; z-index: 2; display: block; width: min(560px, 100%); margin-top: 40px;
+  background: var(--kart-zemin);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border: 1px solid var(--kart-kenar); border-radius: 18px; padding: 16px 18px; text-align: left;
+  box-shadow: 0 20px 50px rgba(0,0,0,.25); text-decoration: none; color: var(--ink);
+  transition: border-color .2s ease, transform .2s ease; }
+.hero-kanit:hover { border-color: rgba(201,182,147,.45); transform: translateY(-2px); }
+.rise-gec { animation: rise .8s .7s ease-out both; }
+.kanit-bas { display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  font-size: 11px; letter-spacing: .18em; color: var(--gold); font-weight: 700; }
+.kanit-yer { color: #CBC2B3; letter-spacing: 0; font-weight: 500; font-size: 12px; text-align: right; }
+.kanit-satir { display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  padding: 10px 0; border-top: 1px solid var(--line); font-size: 14px; color: var(--ink); }
+.kanit-satir:first-of-type { border-top: 0; margin-top: 8px; }
+.kanit-satir small { display: block; color: #B8AD9C; font-size: 12px; margin-top: 2px; }
+.roz { flex: none; font-size: 11.5px; font-weight: 600; border-radius: 999px; padding: 4px 10px; border: 1px solid; white-space: nowrap; }
+.roz-ok { color: #EDE6DA; border-color: rgba(237,230,218,.30); }
+.roz-uc { color: var(--goldText); border-color: rgba(214,198,166,.35); }
+.roz-kendin { color: var(--amber); border-color: rgba(176,162,150,.34); }
+.hero-ipucu { position: relative; z-index: 2; margin-top: 22px; color: var(--muted); font-size: 11px; letter-spacing: .2em; }
+
+.kural-bolum { padding-top: 72px; }
+.kural-bolum h2 { margin-top: 10px; }
+
+@media (max-width: 760px) {
+  .hero-sahne { padding: 120px 16px 30px; }
+  .hero-orta { padding-top: 0; }
+  .hero-kanit { margin-top: 28px; }
+  .hero-ipucu { display: none; }
+  .kanit-yer { display: none; }
+}
+/* şeffaf başlıkta çağrı düğmesi menünün dışında (SiteHeader.jsx) */
+.site-head-seffaf .site-cta { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px;
+  font-size: 13.5px; color: var(--onGold); order: 3; }
+@media (max-width: 860px) {
+  /* mobil: 1. satır marka + düğme · 2. satır bağlantılar (sarılır, kesilmez) */
+  .site-head-seffaf .site-head-row { flex-wrap: wrap; gap: 0 12px; padding: 8px 0 4px; }
+  .site-head-seffaf .site-cta { order: 1; }
+  .site-head-seffaf .site-nav { order: 2; width: 100%; flex-wrap: wrap; justify-content: flex-start; gap: 0 18px; }
+  .site-head-seffaf .site-nav a { white-space: nowrap; font-size: 13.5px; }
+  .hero-sahne { padding-top: 150px; }
+}
+.hero-kanit { margin-top: 32px; }
+.hero-ipucu { margin-top: 16px; }
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   v5.9.0 · SESSİZ LÜKS MÜHRÜ — ÇİZGİSİZ BLOK DERİNLİĞİ
+   Gökberk: "kartların etrafındaki kurumsal border çizgilerini tamamen
+   sil; derinliği cömert boşluk ritimleri ve kartların ÜST kenarına
+   yerleşecek 1px rgba(244,239,230,0.035) parlama çizgileriyle çöz."
+
+   ⚠️ SINIF LİSTESİ UYDURULMADI, ÖLÇÜLDÜ. İlk yazımda `.kart`,
+   `.plan-kart`, `.hucre` gibi adlar yazmıştım — hiçbiri bu kod
+   tabanında YOK. Stil dosyasını ayrıştırıp `1px solid` taşıyan 35
+   seçicinin tamamını çıkardım; aşağıdaki liste o ölçümün sonucu.
+   🆕 SINIF: "OLMAYAN BİR SINIFA YAZILAN KURAL, KIRMIZI BİLE YANMAZ —
+   SESSİZCE HİÇBİR ŞEY YAPMAZ."
+
+   ⚠️ NEDEN `::before` VE NEDEN border DEĞİL: gerçek bir `border-top`
+   kutunun yüksekliğini 1px büyütür ve `border-radius` köşelerinde
+   kırılır. Parlama bir SINIR değil bir IŞIKTIR: üst kenarda durur,
+   köşelerde söner, yerleşimi hiç değiştirmez.
+   🆕 SINIF: "BİR ÇİZGİ SINIR ÇİZİYORSA BORDER'DIR; IŞIK TARİF
+   EDİYORSA BORDER OLMAMALIDIR."
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Büyük bloklar: çerçeve yok + üst parlama ─────────────────────── */
+.stat, .demo, .flow-step, .prog-card, .cover-item, .wcalc, .hearn,
+.hearn-cur-card, .kcember, .hstory-k, .hero-kanit, .card, .plan-card,
+.host-card, .box, .wl-ok, .shot, .karusel-kart {
+  border: 0 !important;
+  position: relative;
+}
+.stat::before, .demo::before, .flow-step::before, .prog-card::before,
+.cover-item::before, .wcalc::before, .hearn::before,
+.hearn-cur-card::before, .kcember::before, .hstory-k::before,
+.hero-kanit::before, .card::before, .plan-card::before,
+.host-card::before, .box::before, .wl-ok::before {
+  content: "";
+  position: absolute;
+  left: 14px; right: 14px; top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--parlama), transparent);
+  pointer-events: none;
+  border-radius: 1px;
+}
+
+/* ── Küçük öğeler (çip · hap · satır): çerçeve yerine zemin ─────────
+   ⚠️ Bunlara parlama çizgisi KOYMUYORUM ve çerçeveyi de öylece
+   silmiyorum: 28px'lik bir çipin üst kenarına ışık düşmez, ve
+   çerçevesini silip yerine bir şey koymazsan çip GÖRÜNMEZ olur.
+   Derinliği zemin taşıyor. */
+.pill, .card-chip, .wchip, .cover-tag, .carrier-rule, .an-bal,
+.hearn-rw, .hearn-tier, .wcalc-offer {
+  border: 0 !important;
+  background: rgba(244,239,230,0.045);
+}
+
+/* ── Görsel çerçeveleri: kurumsal, gidiyor ───────────────────────── */
+.shelf-item img, .karusel-kart img, .shot-tilt img { border: 0 !important; }
+
+/* ⚠️ `.btn-ghost` ÇERÇEVESİ KALIYOR. Brief "kart ve bölüm" çerçevelerini
+   siliyor; ikincil düğmenin çerçevesi ise onun TEK dokunulabilirlik
+   işareti. Silseydim düğme düz metne dönerdi.
+   🆕 SINIF: "BİR ÇİZGİ SÜS MÜ İŞLEV Mİ SORUSUNUN CEVABI, ONU SİLİNCE
+   NE KAYBOLDUĞUDUR." */
+
+/* Bölüm ayrımı: çizgi değil boşluk */
+.section { padding: 128px 0; border-top: 0; }
+@media (max-width: 760px) { .section { padding: 88px 0; } }
+
+/* ── B1 · LİNEER IZGARA ───────────────────────────────────────────── */
+.izgara-lineer {
+  display: grid;
+  gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  align-items: start;
+}
+
+/* ── B4 · KAYIT FORMU ────────────────────────────────────────────────
+   "Input çizgisiz; onFocus'ta fildişi soft parıltı. Buton tam hap,
+   harf aralığı 1.2px."
+   ⚠️ `outline` SİLİNMİYOR, DEĞİŞTİRİLİYOR: klavyeyle gezen kullanıcı
+   için odak göstergesi süs değil şart (WCAG 2.4.7). Parıltı odak
+   göstergesinin KENDİSİ oluyor.
+   🆕 SINIF: "ODAK HALKASINI SİLMEK TASARIM DEĞİL, KLAVYEYLE GEZİNEN
+   KULLANICIYI SİLMEKTİR." */
+.wl input[type="email"],
+.dark-band .wl input[type="email"] {
+  border: 0 !important;
+  background: rgba(244,239,230,0.045);
+  border-radius: 14px;
+  padding: 15px 18px;
+  color: var(--ink);
+  transition: box-shadow .22s ease, background .22s ease;
+}
+.wl input[type="email"]::placeholder { color: var(--muted); }
+.wl input[type="email"]:focus,
+.wl input[type="email"]:focus-visible {
+  outline: 0;
+  background: rgba(244,239,230,0.07);
+  box-shadow: 0 0 0 1px rgba(237,231,219,0.15),
+              0 0 22px 2px rgba(237,231,219,0.12);
+}
+
+.wl .btn, .wl button[type="submit"] {
+  border-radius: 999px;
+  letter-spacing: 1.2px;
+  padding: 16px 34px;
+  border: 0;
+}
+
+.wl-role, .dark-band .wl-role {
+  border: 0 !important;
+  background: rgba(244,239,230,0.04);
+  border-radius: 14px;
+}
+/* 🔴 13 EYLÜL — RADYO/ONAY KUTUSU TARAYICININ MAVİSİYLE ÇİZİLİYORDU.
+   Ekran görüntüsünde gördüm: şampanya bir formun ortasında sistem mavisi
+   bir nokta. Hiçbir kuralımız yakalamadı çünkü o renk BİZİM kodumuzda
+   yok — tarayıcının varsayılanı.
+   🆕 SINIF: "PALETİNİ DENETLERKEN YALNIZ YAZDIĞIN RENKLERE BAKARSAN,
+   TARAYICININ SENİN ADINA SEÇTİĞİ RENKLERİ HİÇ GÖRMEZSİN." */
+.wl input[type="radio"],
+.wl input[type="checkbox"],
+.wl-kvkk input { accent-color: var(--gold); }
+
+.wl-role:has(input:checked),
+.dark-band .wl-role:has(input:checked) {
+  background: rgba(201,182,147,0.10);
+  box-shadow: inset 0 1px 0 var(--parlama);
 }

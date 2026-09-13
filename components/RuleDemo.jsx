@@ -48,8 +48,8 @@ const CARDS = [
 ];
 
 const V = {
-  yes:  { c: "var(--green)", bg: "rgba(4,107,76,.09)", b: "rgba(4,107,76,.35)", i: "✓" },
-  self: { c: "var(--amber)", bg: "rgba(138,90,0,.09)", b: "rgba(138,90,0,.35)", i: "—" },
+  yes:  { c: "var(--green)", bg: "rgba(237,230,218,.06)", b: "rgba(237,230,218,.26)", i: "✓" },
+  self: { c: "var(--amber)", bg: "rgba(160,143,115,.09)", b: "rgba(160,143,115,.35)", i: "—" },
   // "no" tonu artık yalnız GERÇEK bir engel için ayrılmıştır (örn.
   // charter uçuş). Bilinmezlik ya da "başka salonda geçerli" durumu
   // engel değildir; onlar "self" tonuyla anlatılır.
@@ -66,7 +66,7 @@ export default function RuleDemo() {
     <div className="demo">
       <div className="demo-head">
         <span className="demo-tag">CANLI</span>
-        Türkiye'nin ilk lounge kural motoru
+        Kartına göre cevap veren kural motoru
       </div>
 
       <div className="demo-label">Kartın</div>

@@ -57,9 +57,9 @@ export async function generateMetadata({ params }) {
 
 // Rozet dili /rehber ile aynı: aynı motor, aynı sözcükler.
 const V = {
-  yes: { c: "var(--green)", bg: "rgba(4,107,76,.08)", t: "MİSAFİR GÖTÜREBİLİRSİN" },
+  yes: { c: "var(--green)", bg: "rgba(237,230,218,.06)", t: "MİSAFİR GÖTÜREBİLİRSİN" },
   self_only: { c: "var(--muted)", bg: "var(--bgAlt)", t: "YALNIZ KENDİN" },
-  paid: { c: "var(--amber)", bg: "rgba(138,90,0,.08)", t: "ÜCRETLİ" },
+  paid: { c: "var(--amber)", bg: "rgba(160,143,115,.08)", t: "ÜCRETLİ" },
   no: { c: "var(--ink)", bg: "var(--bgAlt)", t: "BAŞKA SALON GEREKİR" },
 };
 
@@ -201,7 +201,7 @@ export default async function CardPage({ params }) {
             kuralı bilmediği için değil, istisnayı bilmediği için
             çevriliyor. */}
         {p.warning && (
-          <div style={{ background: "rgba(138,90,0,.07)", border: "1px solid rgba(138,90,0,.28)", borderRadius: 14, padding: 18, marginTop: 16 }}>
+          <div style={{ background: "rgba(160,143,115,.07)", borderRadius: 14, padding: 18, marginTop: 16 }}>
             <div style={{ fontSize: 11, letterSpacing: 1.6, fontWeight: 700, color: "var(--amber)", marginBottom: 6 }}>
               ⚠ SIK ATLANAN AYRINTI
             </div>

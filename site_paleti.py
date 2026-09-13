@@ -73,13 +73,38 @@ SON = "  /* SITE-GECE >>> */"
 # 🆕 SINIF: "BİR PERDEYİ YALNIZ KONTRASTA GÖRE AYARLARSAN, EN GÜVENLİ
 # DEĞER ARKA PLANI YOK EDEN DEĞERDİR — OKUNURLUK BİR ALT SINIR, TASARIM
 # HEDEF DEĞİL."
-PERDE = 0.76
+# ══════════════════════════════════════════════════════════════════
+# 🔴 30 AĞUSTOS · v0.44 — PERDE %76 → %84. CEVABI TASARIM VERİYOR.
+#
+# %76'da `--muted` (#A79B8A) fotoğrafın en kötü pikselinde 3.68:1
+# kalıyordu ve denetim aylardır kırmızı yanıyordu. Ben iki turdur
+# perdeyi "fotoğraf kaybolmasın" diye açık tutuyordum.
+#
+# Sonra onaylanan tasarımın kendi CSS'ine baktım:
+#     .ust.mesh::after{ background:url(FOTO) …; opacity:.16 }
+# Yani tasarım fotoğrafı %16 opaklıkta kullanıyor — bu, %84'lük bir
+# perdenin ta kendisi. Tasarım bu takası ZATEN YAPMIŞ: fotoğraf bir
+# RESİM değil bir DOKU. Ben onun yerine kendi tercihimi koymuşum ve
+# bedelini okunurlukla ödemişim.
+#
+# %84 ölçümü: muted 4.78 · body 8.62 · altın 6.54 · teal 6.51 — hepsi
+# geçiyor ve tek kaynak (app paleti) korunuyor.
+#
+# 🆕 SINIF: "BİR TAKASI YENİDEN MÜZAKERE ETMEDEN ÖNCE TASARIMIN ONU
+# ZATEN YAPIP YAPMADIĞINA BAK — ÇOĞU 'ZOR KARAR', VERİLMİŞ BİR KARARIN
+# OKUNMAMASIDIR."
+# ══════════════════════════════════════════════════════════════════
+PERDE = 0.84
 ESIK = 4.5
 
 # (css değişkeni, app KOYU tokeni, rol)
 #   metin  → fotoğraf üstünde ölçülür (4.5)
 #   zemin  → ölçülmez, zeminin kendisi
 #   cizgi  → 3:1 yeter
+# 🔴 30 Ağu · v0.44 — `--app*` EŞLEMELERİ KALKTI.
+# Uygulamanın açık teması arşive alındı; sitede onu temsil eden maket
+# paleti de. Eşlemede bırakmak, olmayan bir temayı türetmeye çalışmak
+# olurdu — ve denetim "sitede yok" diye kırmızı yanardı.
 ESLEME = [
     ("--bg",       "bg",       "zemin"),
     ("--bgAlt",    "surface",  "zemin"),
@@ -147,6 +172,9 @@ def olc(K):
     return sonuc, bool(zeminler)
 
 
+ONGOLD = "#171009"   # app KOYU.onGold · tasarım .btn-altin
+
+
 def blok(K, en_kotu):
     s = [BAS,
          "  /* Sitenin gece paleti app'in KOYU temasından TÜRETİLDİ —",
@@ -161,8 +189,19 @@ def blok(K, en_kotu):
         if rol == "metin":
             not_ = "   /* fotoğrafta en kötü %.2f:1 */" % en_kotu.get(css, 0)
         elif css == "--goldDeep":
-            not_ = "   /* zemin — üstüne beyaz: %.2f:1 */" % oranp((255, 255, 255), hx(v))
+            # 🔴 30 Ağu · v0.44 — BU SATIR BİR ÖLÇÜMDÜ VE BEN OKUMADIM.
+            # "üstüne beyaz: 1.54:1" yazıyordu; sitede altın zeminli her
+            # düğme, hap ve rozet gerçekten beyazla çiziliyordu. Ölçüm
+            # doğruydu, KİMSEYE BİR ŞEY YAPTIRMIYORDU.
+            #
+            # 🆕 SINIF: "BİR SAYIYI RAPORLAMAK ONU DENETLEMEK DEĞİLDİR —
+            # KIRMIZI YANMAYAN HER ÖLÇÜM, BİR SÜRE SONRA DEKORDUR."
+            #
+            # Artık mürekkebi de yazıyor ve o mürekkeple ölçüyor.
+            not_ = "   /* zemin — üstündeki --onGold ile: %.2f:1 */" % oranp(hx(ONGOLD), hx(v))
         s.append("  %s: %s;%s" % (css, v, not_))
+    # Tasarımın `.btn-altin{color:#171009}` mürekkebi. App'te `KOYU.onGold`.
+    s.append("  --onGold: %s;" % ONGOLD)
     s.append("  --line: rgba(244, 239, 232, 0.12);")
     s.append("  --warmLine: %s;" % K.get("warmLine", "rgba(216,179,106,0.22)"))
     s.append("  --goldSoft: rgba(216, 179, 106, 0.14);")

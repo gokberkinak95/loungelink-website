@@ -23,6 +23,7 @@ const STATIC = [
   ["/cerez", 0.3],
   ["/acik-riza", 0.3],
   ["/destek", 0.4],
+  ["/sss", 0.5],
   // 🔵 26 AĞUSTOS — İNGİLİZCE BÖLÜM. Kural sayfaları bilerek çevrilmedi
   // (gerekçe app/en/page.jsx başlığında); ürün ve yasal ÖZET sayfaları var.
   ["/en", 0.8],

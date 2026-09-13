@@ -23,7 +23,7 @@ export default function LegalPage({ docKey }) {
             eksik olduğunu açıkça belirtiyoruz. Yasal bir metinde
             uydurma bilgi, eksik bilgiden çok daha kötüdür. */}
         {missing && (
-          <div style={{ background: "rgba(217,119,6,.08)", border: "1px solid rgba(217,119,6,.3)",
+          <div style={{ background: "rgba(176,162,150,.08)", border: "1px solid rgba(176,162,150,.3)",
                         borderRadius: 12, padding: 14, marginTop: 18, fontSize: 13.5, color: "var(--body)" }}>
             ⚠ Bu belge beta sürümüdür. Şirket unvanı ve adres bilgileri tüzel kişilik
             kurulduğunda tamamlanacaktır.
