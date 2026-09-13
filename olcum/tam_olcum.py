@@ -58,7 +58,7 @@ if _sunulan != _BEKLENEN_SURUM:
 print(f"✓ sürüm kapısı: {BASE} → v{_sunulan} (package.json ile aynı)")
 
 SAYFALAR=["/","/kartlar","/rehber","/gizlilik","/kosullar","/cerez","/aydinlatma",
-          "/hesap-sil","/sss","/kart/elite-plus-ist-ic-hat","/rehber/elite-plus-ist"]
+          "/hesap-sil","/kart/elite-plus-ist-ic-hat","/rehber/elite-plus-ist"]
 CIHAZLAR=[("iPhone SE",320,568),("iPhone 12",390,844),("Android",412,915),
           ("iPad",768,1024),("Laptop",1280,800),("Masaüstü",1440,900),("Geniş",1920,1080)]
 
@@ -116,18 +116,9 @@ JS=r"""() => {
 
   // 2) gorsel orani
   const gorsel=[];
-  // 🔴 v0.51 — 3B DÖNMÜŞ GÖRSEL ORAN ÖLÇÜMÜNDEN MUAF. Karuselin komşu
-  // kartları rotateY ile duruyor; getBoundingClientRect döndürülmüş
-  // kutunun izdüşümünü verir ve oran "bozuk" görünür (2.60 ↔ 2.16).
-  // Görsel bozuk değil, ölçüm yanlış soruyu soruyor. Muaf sayısı
-  // AYRICA raporlanır — sessizce düşülmez.
-  let gorselMuaf=0;
-  const donmus=el=>{for(let e=el;e&&e!==document.body;e=e.parentElement){
-    const tr=getComputedStyle(e).transform; if(tr&&tr.startsWith('matrix3d')) return true;} return false;};
   document.querySelectorAll('img').forEach(el=>{
     const r=el.getBoundingClientRect();
     if(r.width<5||!el.naturalWidth) return;
-    if(donmus(el)){gorselMuaf++; return;}
     const c=r.height/r.width, d=el.naturalHeight/el.naturalWidth;
     if(Math.abs(c-d)>0.15) gorsel.push((el.getAttribute('src')||'').split('/').pop()+' '+c.toFixed(2)+' yerine '+d.toFixed(2));});
 
@@ -173,12 +164,12 @@ JS=r"""() => {
 
   return {tasma,tasanlar:tasanlar.slice(0,3),gorsel,metin,olculemedi,
           dusuk:dusuk.slice(0,4),dusukN:dusuk.length,dusukHepsi:dusuk,
-          kucuk:kucuk.slice(0,4),kucukN:kucuk.length,kucukHepsi:kucuk,muafN:muaf.length,gorselMuaf};
+          kucuk:kucuk.slice(0,4),kucukN:kucuk.length,kucukHepsi:kucuk,muafN:muaf.length};
 }"""
 
 with sync_playwright() as p:
     b=p.chromium.launch(executable_path=CH)
-    T={"tasma":0,"gorsel":0,"kontrast":0,"dokunma":0,"olcum":0,"bos":0,"olculemedi":0,"muaf":0,"gorselMuaf":0}
+    T={"tasma":0,"gorsel":0,"kontrast":0,"dokunma":0,"olcum":0,"bos":0,"olculemedi":0,"muaf":0}
     ayrinti=[]; dokunmaGrup=Counter(); kontrastGrup=Counter()
     for yol in SAYFALAR:
         for ad,w,h in CIHAZLAR:
@@ -190,7 +181,7 @@ with sync_playwright() as p:
                 r=pg.evaluate(JS)
             except Exception as e:
                 ayrinti.append(f"🔴 {yol} @ {ad}: SAYFA AÇILMADI ({str(e)[:50]})"); pg.close(); continue
-            T["olcum"]+=1; T["olculemedi"]+=r["olculemedi"]; T["muaf"]+=r["muafN"]; T["gorselMuaf"]+=r.get("gorselMuaf",0)
+            T["olcum"]+=1; T["olculemedi"]+=r["olculemedi"]; T["muaf"]+=r["muafN"]
             if r["metin"]<5:
                 T["bos"]+=1; ayrinti.append(f"🔴 {yol} @ {ad}: {r['metin']} metin — ÖLÇÜM GEÇERSİZ"); pg.close(); continue
             if r["tasma"]>1:
@@ -235,7 +226,7 @@ print(f"        gerçekten ölçülen: {T['olcum']} · geçersiz: {T['bos']}")
 print(f"        gradient zemin yüzünden ölçülemeyen metin: {T['olculemedi']}")
 print("="*76)
 print(f"  yatay taşma          : {T['tasma']} kombinasyon")
-print(f"  bozuk görsel oranı   : {T['gorsel']} kombinasyon  (3B dönmüş, muaf: {T['gorselMuaf']} görsel)")
+print(f"  bozuk görsel oranı   : {T['gorsel']} kombinasyon")
 print(f"  WCAG AA kontrast     : {T['kontrast']} kombinasyon")
 print(f"  44px altı dokunma    : {T['dokunma']} öge (bağımsız kontrol)")
 print(f"     · muaf tutulan     : {T['muaf']} öge (cümle içi bağlantı + 44px etiketle sarılı onay kutusu)")

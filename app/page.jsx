@@ -1,6 +1,5 @@
-import { SITE, BOLUM, SAHNE, SECTIONS, STATS, FLOW, SHOTS_MAIN, SHOTS_TRUST, PROGRAMS, TRUST, SHELF, HOST_WHY, HOST_RISK } from "../lib/content";
+import { SITE, SECTIONS, FAQ, STATS, FLOW, SHOTS_MAIN, SHOTS_TRUST, PROGRAMS, TRUST, SHELF, HOST_WHY, HOST_RISK } from "../lib/content";
 import SiteHeader from "../components/SiteHeader";
-import OlayLink from "../components/OlayLink";
 // 🔴 v0.41 — `PhoneShelf` yerine `EkranKarusel`.
 // Eski bileşen SİLİNMEDİ, `components/_arsiv/`e taşındı: geri dönüş
 // yolunu silmek, değişikliği geri alınamaz yapar.
@@ -52,69 +51,50 @@ export default function Home() {
       {/* v0.18 — menü artık SiteHeader'ın kendisinde: her sayfada aynı
           üç bağlantı ve TEK çağrı. Burada çocuk vermiyoruz ki ana sayfa
           ile alt sayfaların menüsü bir daha ayrışamasın. */}
-      <SiteHeader seffaf />
+      <SiteHeader />
 
       {/* --- KAHRAMAN ---
           🔴 Ekran görüntüsü YOK, ÜRÜNÜN KENDİSİ var.
           Tek gerçek farkımız kural motoru ve o motor başka kullanıcı
           gerektirmiyor — sitede de aynı avantajı kullanıyoruz.
           Ziyaretçi kaydolmadan, üç saniyede değeri görüyor. */}
-      {/* --- KAHRAMAN: TAM SAHNE (v0.54.0) ---
-          🔴 Gökberk'in getirdiği "video hero" prompt'u yapıya çevrildi:
-          100svh sahne · ortalı tek başlık · tek altın çağrı · kademeli
-          giriş. Prompt'tan ALINMAYANLAR ve sebepleri:
-            · üçüncü taraf video URL'si → lisanssız ve geçici; sahne
-              bizim `/bant.jpg` (app'in bandıyla aynı görsel) ve CSS'te
-              28 sn'lik "nefes" — 0 KB, reduced-motion'a saygılı.
-            · Tailwind + Inter → sitenin kendi token'ları ve serif/sans
-              ayrımı; yeni font isteği yok.
-            · "scrollbar gizle" → erişilebilirlik bedeli, yok.
-            · kanıtsız kahraman → altta KANIT KARTI: üç kart, üç cevap;
-              gösteri ile kanıt aynı karede (v0.4'ten beri ilke).
-          RuleDemo, sayılar ve ekran karuseli hemen alttaki #kural
-          bölümüne indi — kahraman yönlendirir, o bölüm ikna eder. */}
-      <section className="hero-sahne" aria-label="Kahraman">
-        <div className="hero-foto" aria-hidden="true" />
-        <div className="hero-hale" aria-hidden="true" />
-        <div className="hero-isik" aria-hidden="true" />
-        <div className="hero-perde" aria-hidden="true" />
-        <div className="hero-orta rise">
-          <p className="eyebrow hero-dugum">{SITE.heroEyebrow}</p>
-          <h1>{SITE.heroLead}<br /><em>{SITE.heroEm}</em></h1>
-          <p className="lead">{SITE.heroSub}</p>
-          <div className="hero-cta">
-            {/* Üç dönüşüm olayı — huninin tamamı. Ayrıntı ve neden
-                yalnız üç tane olduğu: components/Olcum.jsx */}
-            <OlayLink ad="indir" ozellik={{ yer: "hero" }}
-                      href="#beta" className="btn-gold">{SITE.betaCta}</OlayLink>
-            <OlayLink ad="kural_sorusu" ozellik={{ yer: "hero" }}
-                      href="/rehber" className="btn-ghost">Kartını sor, cevabı gör</OlayLink>
-          </div>
-        </div>
-        {/* KANIT KARTI — satırlar RuleDemo'nun kendi verisinden
-            (IST · THY seferi). Uydurma cevap yok: Elite Plus misafir
-            alır, Priority Pass'te misafir tarifeden girer, Classic Plus
-            yalnız kendini sokar. Karta dokunmak canlı motora götürür. */}
-        <a href="#kural-motoru" className="hero-kanit rise-gec" aria-label="Kartını sor — canlı kural motoru">
-          <div className="kanit-bas"><span>KARTINI SOR</span><span className="kanit-yer">IST · İstanbul Havalimanı · THY seferi</span></div>
-          <div className="kanit-satir"><div>Miles&amp;Smiles · Elite Plus<small>ailen veya bir misafir</small></div><span className="roz roz-ok">Misafir ücretsiz</span></div>
-          <div className="kanit-satir"><div>Priority Pass<small>iGA ve Primeclass salonları</small></div><span className="roz roz-uc">Misafir ücretli girer</span></div>
-          <div className="kanit-satir"><div>Miles&amp;Smiles · Classic Plus<small>iç hat · misafir hakkı yok</small></div><span className="roz roz-kendin">Yalnız kendin girersin</span></div>
-        </a>
-        <div className="hero-ipucu" aria-hidden="true">↓ NASIL ÇALIŞIR</div>
-      </section>
+      {/* --- KAHRAMAN: GECE UÇUŞU ---
+          🔴 v0.4 — ESKİ HERO "BASİC"Tİ ve haklı bir eleştiriydi: açık
+          zemin + iki sütun, her SaaS şablonunda var. Rakibin gücü koyu
+          tema değil SAHNE kurması — duyguyu görsel taşıyor, ürün sonra
+          geliyor. Biz de sahne kuruyoruz ama kendi malzememizle:
+          kanat/şehir ışıkları KODLA çizildi (lisans yok, 0 KB, her
+          ekranda keskin), kural matrisi sahnenin İÇİNDE duruyor —
+          yani gösteri ile kanıt aynı karede. */}
+      <section className="dark-band hero-dark">
+        {/* 🔴 SAHNE ARTIK FOTOĞRAF. `NightScene` kanadı, şehir ışıklarını
+            ve ufuk çizgisini KODLA çiziyordu — o gün elimizde görsel
+            yoktu. Bugün var ve app ile AYNI görsel. İkisini üst üste
+            koyunca çizilmiş kanat, gerçek pencerenin üstünde anlamsız
+            bir geometri oluyor.
 
-      {/* --- KURAL MOTORU (kahramandan inen kanıt) --- */}
-      <section id="kural-motoru" className="dark-band hero-dark kural-bolum">
-        <div className="wrap split">
+            🆕 SINIF: "BİR ŞEYİ TAKLİT ETMEK İÇİN KURDUĞUN YAPIYI,
+            GERÇEĞİ ELİNE GEÇTİĞİNDE KALDIRMAYI UNUTMA — İKİSİ BİR ARADA
+            İKİSİNDEN DE KÖTÜDÜR." */}
+        <div className="wrap split rise">
           <div className="col-text">
-            <p className="eyebrow">Kural motoru</p>
-            <h2>Kapıda alınıp alınmayacağını{"\n"}sen başvurmadan söyler.</h2>
-            <p className="hero-baglanti">{SITE.heroBaglanti}</p>
+            <div className="eyebrow">Salon hakkı cüzdanı</div>
+            <h1>Senin uçağında,<br /><em>lounge'da yeri olan biri var.</em></h1>
+            {/* 🔴 v0.20 — KONUMLANDIRMA CÜMLESİ, kahramanın içinde.
+                Eskiden ilk satır "Havalimanı yol arkadaşı" idi: doğru
+                ama ayırt edici değil — o cümleyi rakip de kurabilir
+                (nitekim kuruyor: "connecting flights, connecting
+                travelers"). Bu cümleyi kuramaz, çünkü kural motoru
+                onda yok. */}
             <p className="hero-pos">
               LoungeLink bir pazar yeri değil — bir <b>salon hakkı cüzdanı</b>.
               İçinde bir pazar yeri var.
             </p>
+            <p className="lead">{SITE.heroSub}</p>
+            <div className="hero-cta">
+              <a href="#beta" className="btn-gold">{SITE.betaCta}</a>
+              <a href="/rehber" className="btn-ghost">Kartını sor · 3 saniye</a>
+            </div>
             <div className="hero-stats">
               {STATS.map((x) => (
                 <div key={x.l}><b>{x.n}</b><span>{x.l}</span></div>
@@ -124,7 +104,7 @@ export default function Home() {
           <div><RuleDemo /></div>
         </div>
         <div className="wrap">
-          <EkranKarusel shots={SHELF} />
+          <EkranKarusel shots={SHELF} caption="Sürükle · ok tuşları · noktalar — yedi ekran, tek akış." />
         </div>
       </section>
 
@@ -154,7 +134,7 @@ export default function Home() {
           {/* §3 ritmi: her içerik bölümü DAVET VURUŞUYLA kapanır.
               İlk yazımda iki yeni bölümü vuruşsuz bıraktım ve sitenin
               kendi denetimi yakaladı — kural işliyor. */}
-          <OlayLink ad="kural_sorusu" ozellik={{ yer: "kartlar" }} className="beat" href="/kartlar">{BOLUM.cuzdan.beat} <span>→</span></OlayLink>
+          <a className="beat" href="/kartlar">Kendi kartının cevabını gör <span>→</span></a>
         </div>
       </section>
 
@@ -165,8 +145,8 @@ export default function Home() {
         <SectionScene kind="contrail" />
         <div className="ghost" aria-hidden="true">AKIŞ</div>
         <div className="wrap">
-          <div className="eyebrow">{BOLUM.akis.eyebrow}</div>
-          <h2>{BOLUM.akis.h2}</h2>
+          <div className="eyebrow">Nasıl çalışır</div>
+          <h2>Uçuşunu yaz, eşleşmeni bul.</h2>
           <div className="flow">
             {FLOW.map((f) => (
               <div className="flow-step" key={f.n}>
@@ -178,7 +158,7 @@ export default function Home() {
           </div>
         
           {/* v0.9 — §3 ritim: bölüm DAVET vuruşuyla kapanır. Okuyucu bilgiyle bırakılırsa akış durur; her bölüm bir sonraki adımı işaret etmeli. */}
-          <a className="beat" href="/rehber">{BOLUM.akis.beat} <span>→</span></a>
+          <a className="beat" href="/rehber">Kartını sor, cevabı 3 saniyede gör <span>→</span></a>
         </div>
       </section>
 
@@ -190,8 +170,8 @@ export default function Home() {
         <div className="ghost" aria-hidden="true">NEDEN</div>
         <div className="wrap split">
           <div className="col-text">
-            <div className="eyebrow">{BOLUM.neden.eyebrow}</div>
-            <h2>{BOLUM.neden.h2}</h2>
+            <div className="eyebrow">Neden LoungeLink</div>
+            <h2>Her uçuşta biri yalnız uçuyor — ve yanında bir kişilik yer var.</h2>
             <p className="lead" style={{ marginTop: 18 }}>
               Kartındaki misafir hakkı yıl sonunda sessizce siliniyor. Aynı anda,
               aynı terminalde biri üç saatlik aktarmayı telefonuna bakarak geçiriyor.
@@ -220,12 +200,12 @@ export default function Home() {
         <SectionScene kind="runway" />
         <div className="ghost" aria-hidden="true">KURAL</div>
         <div className="wrap">
-          <div className="eyebrow">{BOLUM.kural.eyebrow}</div>
+          <div className="eyebrow">Kural motoru</div>
           {/* 🔴 BAŞLIK SORUYU SORUYORDU, CEVABI VERMİYORDU.
               Rakibin başlığı bir SÖZ veriyor: "We find your perfect +1."
               Bizimki soruyu tekrar ediyordu — ziyaretçi zaten soruyu
               biliyor, cevabı arıyor. */}
-          <h2>{BOLUM.kural.h2}</h2>
+          <h2>Doğru +1'i buluruz.</h2>
           <p style={{ marginTop: 10, fontFamily: "var(--serif)", fontSize: 19, color: "var(--gold)", fontStyle: "italic" }}>
             {SITE.ruleSlogan}
           </p>
@@ -263,50 +243,7 @@ export default function Home() {
             ))}
           </div>
         {/* v0.9 — §3 ritim: bölüm DAVET vuruşuyla kapanır. Okuyucu bilgiyle bırakılırsa akış durur; her bölüm bir sonraki adımı işaret etmeli. */}
-          <a className="beat" href="/rehber">{BOLUM.kural.beat} <span>→</span></a>
-        </div>
-      </section>
-
-      <hr className="wing-rule" />
-
-      {/* ══════════════════════════════════════════════════════════════
-          🔴 v0.44 — MİKRO SAHNE. YENİ BÖLÜM.
-
-          Lounge Surf'ün en iyi hamlesi bu ve bizde hiç yoktu: ürünü
-          ANLATMAK yerine bir AN gösteriyorlar — "I'm at gate B12, blue
-          jacket." Tek cümlelik somut bir sahne, üç paragraflık özellik
-          listesinden daha çok iş yapıyor, çünkü okuyucu kendini oraya
-          koyuyor.
-
-          Bizde bu sahnenin gerçek bir karşılığı var: eşleşmeden SONRA
-          açılan sohbet. Sitede o âna dair tek kelime yoktu; ziyaretçi
-          "eşleştim, sonra ne oluyor?" sorusunun cevabını hiçbir yerde
-          göremiyordu.
-
-          🆕 SINIF: "SOMUT BİR CÜMLE, DOĞRU BİR PARAGRAFTAN DAHA İKNA
-          EDİCİDİR — İKNA BİLGİYLE DEĞİL, CANLANDIRMAYLA OLUR."
-          ══════════════════════════════════════════════════════════════ */}
-      <section className="section dark-band" id="an">
-        <div className="wrap" style={{ maxWidth: 720 }}>
-          <div className="eyebrow">Sohbet</div>
-          <h2>Kalan tek iş, birbirinizi bulmak.</h2>
-          <div className="an-sohbet">
-            {SAHNE.map((m, i) => (
-              <div key={i} className={"an-bal" + (m.kim === "sen" ? " ben" : "")}>
-                <p>{m.m}</p>
-                <time>{m.saat}</time>
-              </div>
-            ))}
-          </div>
-          <p className="an-not">
-            Salon, kapı ve kalkışa kalan süre sohbetin üstünde donmuş durur —
-            konuşurken yukarı kaydırmak gerekmez.
-          </p>
-          {/* §3 ritim — sitenin kendi kuralı: her bölüm bir DAVET
-              vuruşuyla kapanır. İlk yazımda unutmuştum ve `check.js`
-              yakaladı: "an bölümü davet vuruşuyla kapanmıyor".
-              Bir sonraki adım burada belli: "peki karşımdaki kim?" */}
-          <a className="beat" href="#guven">Buluşacağın kişi nasıl doğrulanıyor <span>→</span></a>
+          <a className="beat" href="/rehber">Kendi kartının cevabını gör <span>→</span></a>
         </div>
       </section>
 
@@ -325,8 +262,8 @@ export default function Home() {
         <SectionScene kind="radar" />
         <div className="ghost" aria-hidden="true">KAPSAM</div>
         <div className="wrap" style={{ maxWidth: 820 }}>
-          <div className="eyebrow">{BOLUM.kapsam.eyebrow}</div>
-          <h2>{BOLUM.kapsam.h2}</h2>
+          <div className="eyebrow">Kapsam</div>
+          <h2>Kartınla nereye girebilirsin?</h2>
           <Coverage />
           <a className="beat" href="/rehber">Havalimanını seç, salonu gör <span>→</span></a>
         </div>
@@ -339,16 +276,12 @@ export default function Home() {
         <SectionScene kind="radar" />
         <div className="ghost" aria-hidden="true">GÜVEN</div>
         <div className="wrap">
-          <div className="eyebrow">{BOLUM.guven.eyebrow}</div>
+          <div className="eyebrow">Güven & güvenlik</div>
           {/* v0.8 — İFADE SATIRI: LS kart ızgaralarının arasına tek
               cümlelik büyük ifadeler koyuyor; okuyucu nefes alıyor ve
               argüman ilerliyor. Bizim karşılığımız kural motoruna bağlı. */}
-          {/* 4 Eylül — ifade sitenin ana cümlesine bağlandı ("Kartında bir kişilik
-              yer var." · "+1'in kim olacak?"): kahraman, güven bölümü ve Instagram
-              aynı cümleyi taşır; ikinci satır bölümün işini söyler (seçim senin,
-              doğrulama bizim). */}
-          <p className="statement">Kartında bir kişilik yer var.<br />+1'in kim olacak? Onu sen seçersin, biz doğrularız.</p>
-          <h2>{BOLUM.guven.h2}</h2>
+          <p className="statement">Çoğu lounge üyeliği yanına bir kişi alır.<br />Sorun hakkın olması değil — kimin yanında olacağı.</p>
+          <h2>Güven, süs değil iskelet.</h2>
           <div className="prog-grid trust-grid">
             {/* v0.8 — LS kart grameri: sessiz ikon çipi + soru başlığı +
                 somut ayrıntılı gövde. Çip tek renk ve düşük kontrast;
@@ -395,7 +328,22 @@ export default function Home() {
       ))}
       <hr className="wing-rule" />
 
-      {/* SSS şeması artık /sss sayfasında (v0.52) */}
+      {/* --- SSS ---
+          🔴 v0.3.1 SEO: FAQPage JSON-LD. Rakip FAQ-ağır SEO oynuyor;
+          bizim SSS içeriğimiz zaten var, şema onu Google'ın zengin
+          sonuçlarına aday yapar. Veri FAQ dizisinden üretilir — metin
+          değişince şema kendiliğinden günceldir, elle senkron yok. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: FAQ.map((f) => ({
+            "@type": "Question", name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }) }}
+      />
       {/* --- HOST BÖLÜMÜ ---
           🔴 İki taraflı pazarda ARZ önce gelir. Misafir, host olmadan
           hiçbir şey göremez; host ise misafir olmadan da kartını
@@ -406,17 +354,9 @@ export default function Home() {
         <div className="ghost" aria-hidden="true">KART</div>
         <div className="wrap">
           <div className="sec-no">04</div>
-          <div className="eyebrow">{BOLUM.host.eyebrow.toLocaleUpperCase("tr-TR")}</div>
-          {/* 🔴 v0.44 — HOST BÖLÜMÜNE BAŞLIK GELDİ.
-              Burada bir `h2` HİÇ YOKTU: bölüm doğrudan bir soruyla
-              başlıyordu. Soru iyi bir soruydu ama sayfa taramasında
-              başlık hiyerarşisinde bir DELİK bırakıyordu — ekran
-              okuyucu için de, göz için de.
-              Yeni başlık Lounge Surf'ün "zaten X'e sahipsin" kalıbı:
-              kullanıcının elindekinden başlıyor, üründen değil. */}
-          <h2>{BOLUM.host.h2}</h2>
+          <div className="eyebrow">KART SAHİBİNE</div>
           <p className="statement">
-            {BOLUM.host.statement}<br />
+            Bu yıl kartındaki misafir haklarından kaçını kullandın?<br />
             <span style={{ color: "var(--gold)" }}>Kullanmadıkların 31 Aralık&apos;ta siliniyor.</span>
           </p>
           {/* 🔴 v0.18 — host'un ilk itirazı "hakkımı mı veriyorum?".
@@ -468,10 +408,7 @@ export default function Home() {
             ))}
           </div>
 
-          {/* 🔴 HUNİNİN EN KRİTİK OLAYI. Soğuk başlangıç sorununun tek
-              erken göstergesi bu: arz tarafında hiç niyet var mı? */}
-          <OlayLink ad="host_ol" ozellik={{ yer: "host_bolumu" }}
-                    className="beat" href="#beta">Kurucu çembere katıl <span>→</span></OlayLink>
+          <a className="beat" href="#beta">Kurucu çembere katıl <span>→</span></a>
         </div>
       </section>
 
@@ -485,8 +422,8 @@ export default function Home() {
           ÖDEMEMENIN yolu olsun. */}
       <section className="section dark-band" id="plan">
         <div className="wrap">
-          <div className="eyebrow">{BOLUM.plan.eyebrow}</div>
-          <h2>{BOLUM.plan.h2}</h2>
+          <div className="eyebrow">Abonelik</div>
+          <h2>Ağırlarsan ödemezsin.</h2>
           <p className="lead" style={{ maxWidth: "52ch" }}>
             Ayda iki kişi ağırlayan host, o ay Sık Uçan ayrıcalıklarını ücretsiz
             kullanır. Abonelik bir maliyet değil, ağırlamadığın aylarda devreye
@@ -538,15 +475,25 @@ export default function Home() {
             kullanmadığın hakkı, hakkın olmayan yerde misafir olma hakkına çevirmek.
           </p>
           <p className="note">Beta boyunca tüm <b>planlar</b> ücretsiz; kredi paketleri ücretlidir.</p>
-          <a className="beat" href="#cuzdan">Kartının kaç kapı açtığını gör <span>→</span></a>
+          <a className="beat" href="#cuzdan">Önce hakkının ne ettiğini gör <span>→</span></a>
         </div>
       </section>
 
-      {/* 🔴 v0.52 — SSS ANA SAYFADAN AYRILDI (Gökberk: "gereksiz uzatıyor").
-          Burada yalnız ilk üç soru + tam listeye bağlantı; içerik /sss'te. */}
-      {/* 4 Eylül — SSS bölümü ana sayfadan kalktı: soruların tam listesi /sss'te
-          (menüde). Ana sayfa ritmi davetle (beta) kapanır; itiraz karşılama
-          kendi sayfasında. `FAQ` burada artık okunmuyor. */}
+      <section className="section dark-band alt" id="sss">
+        <SectionScene kind="contrail" flip />
+        <div className="ghost" aria-hidden="true">SSS</div>
+        <div className="wrap" style={{ maxWidth: 760 }}>
+          <div className="eyebrow">Sık sorulanlar</div>
+          <h2 style={{ marginBottom: 14 }}>Aklınızdaki soru muhtemelen burada.</h2>
+          {FAQ.map((f) => (
+            <div className="faq-item" key={f.q}>
+              <h3>{f.q}</h3>
+              <p>{f.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* --- BETA --- */}
       <section className="section dark-band" id="beta" style={{ textAlign: "center" }}>
         <SectionScene kind="horizon" />
