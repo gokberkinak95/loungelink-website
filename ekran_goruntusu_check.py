@@ -31,6 +31,7 @@ Tazeleme kısa yol yok — gerçek cihazdan/emülatörden yeni görüntü
 almak gerekir. Denetimin işi o borcu GÖRÜNÜR tutmak, kapatmak değil.
 """
 import json
+import re
 import os
 import sys
 
@@ -126,5 +127,44 @@ def main():
     return 0
 
 
+# ════════════════════════════════════════════════════════════════════
+# 🔴 21 EYLÜL — YÖNETİLMEYEN KARE. `lib/content.js` `/screens/ss-koyu.jpg`i
+# basıyordu; o dosya `SURUM.json`ın yönettiği listede DEĞİLDİ, yani
+# hiçbir turda tazelenmiyordu. 30 Ağustos'ta üreticisi kaldırıldı,
+# tüketicisi kalmadı — dosya diskte durduğu için site eski kareyi
+# göstermeye devam etti ve hiçbir denetim itiraz etmedi.
+# 🆕 SINIF: "TAZELENEN LİSTEYİ DENETLEYİP KULLANILAN LİSTEYİ
+# DENETLEMEZSEN, ARADA KALAN HER DOSYA SESSİZCE DONAR."
+# ════════════════════════════════════════════════════════════════════
+def yonetilmeyen_kare():
+    kok = os.path.dirname(os.path.abspath(__file__))
+    surum = json.load(open(os.path.join(kok, "public", "screens", "SURUM.json"),
+                           encoding="utf-8"))
+    yonetilen = set(surum.get("gorseller", []))
+    kaynak = open(os.path.join(kok, "lib", "content.js"), encoding="utf-8").read()
+    kaynak = re.sub(r"//[^\n]*", "", kaynak)          # yorumlar muaf
+    kullanilan = set(re.findall(r"/screens/([A-Za-z0-9_\-]+\.jpg)", kaynak))
+    disarida = sorted(kullanilan - yonetilen)
+    print("")
+    print("=" * 74)
+    print("YÖNETİLEN KARE DENETİMİ — site, tazelenmeyen bir görsel basıyor mu?")
+    print("=" * 74)
+    print("  SURUM.json'ın yönettiği : %d" % len(yonetilen))
+    print("  content.js'in bastığı   : %d" % len(kullanilan))
+    if disarida:
+        for d in disarida:
+            print("  ✗ %s — yönetilen listede YOK, hiçbir turda tazelenmiyor" % d)
+        print("")
+        print("  ÇÖZÜM: ya `site_ekran_tazele.py`nin ESLESME tablosuna ekle,")
+        print("  ya da content.js'ten çıkar. Arada kalan dosya DONAR.")
+        return 1
+    print("  ✓ basılan her kare yönetilen listede — hepsi her turda tazeleniyor")
+    return 0
+
+
 if __name__ == "__main__":
-    sys.exit(main())
+    _a = main()
+    _b = yonetilmeyen_kare()
+    sys.exit(_a or _b)
+
+
