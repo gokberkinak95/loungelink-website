@@ -595,7 +595,7 @@ export default function Home() {
         <div className="wrap" style={{ display: "flex", gap: 30, flexWrap: "wrap", fontSize: 13.5, color: "var(--muted)" }}>
           <div style={{ flex: 1, minWidth: 200 }}>
             <b style={{ fontFamily: "var(--serif)", color: "var(--ink)", fontSize: 16, display: "inline-flex", alignItems: "center", gap: 8 }}>
-              <img src="/mark.svg" alt="" width={20} height={20} /> LoungeLink
+              <img src="/mark-kanat.svg" alt="" width={28} height={13} /> LoungeLink
             </b>
             <p style={{ marginTop: 6, fontSize: 12.5 }}>
               {SITE.footerSlogan} Lounge erişimi satmaz; doğrulanmış yolcuları buluşturur.

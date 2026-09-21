@@ -58,7 +58,15 @@ if (gitVar) {
   console.log("     Burada build alabilirsin ama `git push` yapamazsın;");
   console.log("     yani yaptığın değişiklik CANLIYA ÇIKMAZ.");
   console.log("");
-  console.log("     Deploy zinciri:  C:\\website-git → GitHub → Vercel");
+  // 🔴 21 EYLÜL — BURADA SABİT BİR YOL YAZIYORDU (`C:\\website-git`).
+  // O yol 21 Eylül'de değişti (depo `C:\\LoungeLink\\website`e taşındı) ve
+  // mesaj bir anda YANLIŞ YERE yönlendirmeye başladı. Bir nöbetçinin
+  // kendi çözümünde sabit yol tutması, çözümü bozulabilir kılıyor.
+  // 🆕 SINIF: "BİR UYARININ İÇİNDEKİ SABİT YOL, UYARININ KENDİSİNDEN
+  // DAHA HIZLI ESKİR — YOLU SÖYLEME, NASIL BULACAĞINI SÖYLE."
+  console.log("     Deploy klasörü = içinde `.git` OLAN klasör.");
+  console.log("     Bulmak için üst klasörde:  Get-ChildItem -Directory |");
+  console.log("       Where-Object { Test-Path (Join-Path $_.FullName '.git') }");
   console.log("     Zip'i oraya aç, build'i orada al.");
   console.log("");
   console.log(cizgi + "\n");

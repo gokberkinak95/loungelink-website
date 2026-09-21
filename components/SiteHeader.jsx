@@ -63,7 +63,18 @@ export default function SiteHeader({ children, seffaf = false }) {
               HARF + sans + harf aralığıyla yazılıyor (App.js:2026 ·
               ekranlar_ana.js:6613 · ui.js:54). Sitede serif "LoungeLink"
               yazmak, aynı markanın iki farklı imzası demekti. */}
-          <img src="/mark.svg" alt="LoungeLink" width={40} height={40} style={{ display: "block" }} />
+          {/* 🔴 21 EYLÜL — KEMER YERİNE KANAT (Gökberk sordu, ölçüm doğruladı).
+              Kemer 148×158 birimlik mimari bir form; anlamı kavsinden,
+              iç ışık çizgilerinden ve eşik çubuğundan geliyor. 40px'e
+              inince üçü de 1px'in altına düşüyor ve geriye koyu bir leke
+              kalıyor. Kanat 62×29 (en/boy 2.14) — tek jest, tek kontur;
+              40px'te silueti bozulmuyor.
+              Kemer emekli DEĞİL: ikon, açılış ve lockup onun. Yalnız
+              sitenin 40px'lik yerlerinde kanat kullanılıyor.
+              🆕 SINIF: "BİR İŞARETİN OKUNURLUĞU ÖLÇEKTEN BAĞIMSIZ
+              DEĞİLDİR: KAÇ AYIRT EDİCİ DETAYI VARSA O KADAR BÜYÜK
+              ÇİZİLMEK ZORUNDADIR." */}
+          <img src="/mark-kanat.svg" alt="LoungeLink" width={44} height={21} style={{ display: "block" }} />
           <b style={{ fontFamily: "var(--sans)", fontSize: 15, color: "var(--ink)",
                       fontWeight: 700, letterSpacing: "0.22em" }}>
             LOUNGELINK

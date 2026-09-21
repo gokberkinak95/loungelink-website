@@ -41,3 +41,15 @@ next-env.d.ts
 # ölçüm/yedek klasörleri (repoya girmez)
 _yedek_palet/
 olcum/
+
+# 🔴 21 EYLÜL — ARŞİV GÖRSELLERİ `public/` ALTINDA DURUYOR.
+# `public/` Next.js'te SERVİS EDİLEN klasör: oraya konan her dosya
+# canlıda `loungelink.com/arsiv_gorsel/...` adresinden indirilebilir
+# hale gelir. Yani "eski dosyayı silme, arşivle" kuralı, arşivi
+# yanlışlıkla YAYINLIYORDU. Dosyalar diskte kalsın diye siliyor
+# değiliz — yalnız depoya girmesinler, dolayısıyla Vercel'e de
+# gitmesinler.
+#
+# 🆕 SINIF: "ARŞİVİ SERVİS EDİLEN BİR KLASÖRÜN İÇİNE KOYARSAN,
+# SAKLAMIŞ DEĞİL YAYINLAMIŞ OLURSUN."
+public/arsiv_gorsel/

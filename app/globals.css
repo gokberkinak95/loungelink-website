@@ -862,6 +862,21 @@ h1, h2 {
    ════════════════════════════════════════════════════════════════ */
 body { background: var(--bg); }
 
+/* 🔴 21 EYLÜL — PENCERE İKİ YERDE AYRI ÇİZİLİYORDU (Gökberk gördü).
+   Aynı fotoğraf sayfada İKİ KEZ kuruluyordu:
+     · `body::before`  →  fixed · inset 0     · center 46% · saturate .86 · sabit
+     · `.hero-foto`    →  absolute · inset -8% · center 42% · doygun · scale 1→1.14
+   Üç fark (kırpma noktası · ölçek · doygunluk) + biri hareketli.
+   Hero'nun bittiği yerde pencere dikmeleri kaçınılmaz olarak kayıyordu:
+   iki ayrı fotoğrafın ek yeri, hizalanabilecek bir şey değil.
+
+   Düzeltme HİZALAMA değil, TEKLEŞTİRME: fotoğraf artık yalnız bu
+   katmanda var ve nefes de burada. Hero kendi kopyasını çizmiyor
+   (aşağıda `.hero-foto` kapatıldı). Ek yeri diye bir şey kalmıyor —
+   ayarlanarak değil, YAPISAL olarak.
+
+   🆕 SINIF: "AYNI GÖRÜNTÜYÜ İKİ KATMANDA AYRI AYRI ÇİZERSEN, EK YERİNİ
+   HİZALAMAYA ÇALIŞIRSIN — OYSA ÇÖZÜM İKİNCİ KOPYAYI SİLMEKTİR."           */
 body::before {
   content: "";
   position: fixed; inset: 0; z-index: -2;
@@ -871,6 +886,12 @@ body::before {
   /* Fotoğraf tek başına dursa sayfa boyunca tekrar eden bir doku olurdu;
      hafif bir doygunluk düşüşü onu ZEMİN yapıyor, KONU değil. */
   filter: saturate(0.86);
+  /* nefes: 5 Eylül'de hero için ölçülmüş ayar (ölçek %14 · 18 sn ·
+     ileri-geri). Artık sahnenin TAMAMI aynı ritimde. Perde ölçümü
+     etkilenmiyor: ölçek aynı fotoğrafın pikselleri arasında kalıyor,
+     yeni piksel girmiyor. */
+  animation: nefes 18s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
 /* PERDE — opaklık `--perde` token'ından gelir, yani ölçümle aynı yerden. */
@@ -884,7 +905,7 @@ body::after {
 /* Hareket duyarlılığı: sabit bir fotoğraf kaydırmada "yüzüyor" hissi
    verir. Azaltılmış hareket açıksa sahne düz zemine iner. */
 @media (prefers-reduced-motion: reduce) {
-  body::before { display: none; }
+  body::before { display: none; animation: none; }
   body::after { opacity: 1; }
 }
 
@@ -1839,7 +1860,10 @@ a { color: inherit; }
 
 .hero-sahne { position: relative; z-index: 2; min-height: 100vh; min-height: 100svh; overflow: hidden;
   display: flex; flex-direction: column; align-items: center; padding: 96px 20px 26px; }
-.hero-foto { position: absolute; inset: -8%; z-index: 0;
+/* 🔴 21 Eylül — KAPATILDI. Sebep yukarıda (`body::before`). Öğe DOM'da
+   kalıyor ki JSX değişmesin; hiçbir şey çizmiyor. Fotoğraf tek katmanda. */
+.hero-foto { display: none; }
+.hero-foto--eski { position: absolute; inset: -8%; z-index: 0;
   background: url("/bant.jpg") center 42% / cover no-repeat;
   /* 5 Eylül · 2. tur — Gökberk: "hareket anlaşılır olmadı". İlk ayar %7 /
      28 sn'ydi; ölçüm: 10 sn'de ortalama piksel farkı 2.1 — göz algılamıyor.
@@ -1860,8 +1884,17 @@ a { color: inherit; }
   background: linear-gradient(105deg, transparent 40%, rgba(226,212,184,.10) 50%, transparent 60%);
   background-size: 260% 100%; animation: isik 22s ease-in-out infinite; }
 @keyframes isik { 0% { background-position: 120% 0; } 45% { background-position: -20% 0; } 100% { background-position: -20% 0; } }
+/* 🔴 21 Eylül · 2. ölçüm — GEOMETRİ DÜZELDİ AMA PARLAKLIK BASAMAĞI KALDI.
+   Fotoğrafı tekleştirdikten sonra pencere dikmeleri ek yerinden düzgün
+   geçiyordu, ama 4 pikselde ortalama parlaklık 18 → 36'ya sıçrıyordu
+   (ölçüldü, göz kararı değil): hero'nun kendi perdesi dibinde .88'e
+   çıkıyor, altındaki bölüm ise sayfanın .82'lik perdesiyle yetiniyor.
+   Yani ek yerinde görüntü değil, KARARTMA kesiliyordu.
+   Perde artık dibe doğru sayfanın kendi düzeyine geri iniyor.
+   🆕 SINIF: "İKİ YÜZEYİ HİZALAMAK YETMEZ; ÜSTLERİNDEKİ KARARTMALAR DA
+   AYNI DEĞERDE BİTMELİ — YOKSA EK YERİ GÖRÜNTÜDE DEĞİL IŞIKTA OLUR." */
 .hero-perde { position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(180deg, rgba(16,14,18,.30) 0%, rgba(16,14,18,.50) 45%, rgba(16,14,18,.88) 100%),
+  background: linear-gradient(180deg, rgba(16,14,18,.30) 0%, rgba(16,14,18,.50) 45%, rgba(16,14,18,.86) 72%, rgba(16,14,18,0) 100%),
               linear-gradient(180deg, rgba(16,14,18,.62) 0, rgba(16,14,18,.30) 90px, transparent 170px); /* menü şeridi */ }
 /* METİN KALKANI — pencere fotoğrafının en açık bölgesi tam başlığın
    arkasında (ölçüldü: en açık piksel 182,149,137 → h1 2.48:1). Ortada

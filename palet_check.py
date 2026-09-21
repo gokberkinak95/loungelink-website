@@ -63,12 +63,32 @@ def ton_ailesi(hx):
 
 # rgb/rgba yazımı da aynı süzgeçten geçer.
 RGBA = re.compile(r"rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)")
-HEX = re.compile(r"#([0-9A-Fa-f]{6})")
+HEX = re.compile(r"#([0-9A-Fa-f]{6})")
 
 # Muaf dosyalar: arşiv ve üreteçler (tarih), bu nöbetçinin kendisi,
 # ve `site_paleti.py` (ölçüm çıktısını yorumlarında anlatıyor).
 MUAF_AD = ("palet_check.py", "palet_gecis.py", "site_paleti.py", "karsilastir_cek.py")
-MUAF_DIZIN = ("_yedek", "node_modules", ".next", "arsiv", "olcum", "public", "scripts")
+# 🔴 21 EYLÜL — ARŞİV KLASÖRÜ DENETLENİYORDU.
+# Listede "arsiv" yazıyordu ama Gökberk'in diskindeki klasörün adı
+# `_arsiv`. Eşleşme tam ad üzerinden olduğu için `_arsiv` muaf
+# sayılmadı ve arşivlenmiş `components/_arsiv/Screens.jsx` 14 bulgu
+# üretti. O dosya ÖLÜ; kural "eski dosyayı silme, arşivle" olduğu için
+# orada duruyor — yani projenin kendi kuralı nöbetçiyi yanlış alarma
+# sokuyordu. Benim kopyamda `_arsiv` hiç yoktu, bu yüzden bende hep
+# yeşil yandı: kapı yalnız ONUN diskinde kırmızıydı.
+#
+# 🆕 SINIF: "MUAFİYET LİSTESİ BİR ADI TAM YAZIYORSA, O ADIN GERÇEK
+# HAYATTAKİ YAZIMINI DA VARSAYMIŞ OLUR — ÖNEK/SONEK KAÇIRAN LİSTE
+# MUAF ETMEZ, YALNIZ MUAF ETTİĞİNİ SANIR."
+MUAF_DIZIN = ("_yedek", "node_modules", ".next", "olcum", "public", "scripts")
+# Adı `arsiv` ile başlayan ya da `_arsiv` olan HER klasör muaf
+# (arsiv, _arsiv, arsiv_20260914, _arsiv_eski …).
+MUAF_ONEK = ("arsiv", "_arsiv", "_yedek", "_eski")
+
+
+def arsiv_mi(parca):
+    return any(parca == o or parca.startswith(o + "_") or parca.startswith(o)
+               for o in MUAF_ONEK)
 
 
 def yorumsuz(metin, js=False):
@@ -100,7 +120,8 @@ for desen in ("app/**/*.css", "app/**/*.jsx", "components/**/*.jsx", "lib/**/*.j
         bag = os.path.relpath(yol, KOK)
         if os.path.basename(yol) in MUAF_AD:
             continue
-        if any(d in bag.split(os.sep) for d in MUAF_DIZIN):
+        parcalar = bag.split(os.sep)
+        if any(d in parcalar for d in MUAF_DIZIN) or any(arsiv_mi(x) for x in parcalar):
             continue
         ham = open(yol, encoding="utf-8", errors="replace").read()
         s2 = yorumsuz(ham, js=not yol.endswith(".css"))
