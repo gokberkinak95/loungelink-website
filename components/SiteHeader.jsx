@@ -55,9 +55,18 @@ export default function SiteHeader({ children, seffaf = false }) {
             style={seffaf ? undefined : { borderBottom: "1px solid var(--line)", background: "var(--card)" }}>
       <div className="wrap site-head-row">
         <a href="/" style={{ display: "flex", alignItems: "center", gap: 9, flex: 1 }}>
-          <img src="/mark.svg" alt="LoungeLink" width={44} height={44} style={{ display: "block" }} />
-          <b style={{ fontFamily: "var(--serif)", fontSize: 18, color: "var(--ink)", fontWeight: 700 }}>
-            LoungeLink
+          {/* 🔴 20 EYLÜL — BAŞLIK ÇUBUĞU ARTIK LOCKUP'IN KENDİSİ.
+              İşaret eski kanattı ve emekli pirinç altın tonundaydı; artık
+              Kemer (brand/build_lockup.py üretiyor, mürekkebe kırpılmış
+              viewBox ile 44px kutuyu doldurur).
+              Kelime de hizalandı: app'te marka satırı ÜÇ yerde BÜYÜK
+              HARF + sans + harf aralığıyla yazılıyor (App.js:2026 ·
+              ekranlar_ana.js:6613 · ui.js:54). Sitede serif "LoungeLink"
+              yazmak, aynı markanın iki farklı imzası demekti. */}
+          <img src="/mark.svg" alt="LoungeLink" width={40} height={40} style={{ display: "block" }} />
+          <b style={{ fontFamily: "var(--sans)", fontSize: 15, color: "var(--ink)",
+                      fontWeight: 700, letterSpacing: "0.22em" }}>
+            LOUNGELINK
           </b>
         </a>
         {/* v0.54.0 — şeffaf başlıkta çağrı düğmesi menünün DIŞINDA: mobilde

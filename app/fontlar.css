@@ -1,0 +1,65 @@
+/* ÜRETİLDİ — build_fontlar.py. ELLE DÜZENLEME.
+   Kaynak: rnapp/assets/fonts/*.ttf (OFL) · alt küme + woff2. */
+@font-face {
+  font-family: "LL Serif";
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/cormorant-light.woff2") format("woff2");
+}
+@font-face {
+  font-family: "LL Serif";
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/cormorant-semibold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "LL Serif";
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/cormorant-bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "LL Sans";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/jakarta-regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "LL Sans";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/jakarta-medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: "LL Sans";
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/jakarta-semibold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "LL Sans";
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/jakarta-bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "LL Mono";
+  font-weight: 400 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/jetbrains-medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: "LL Mono";
+  font-weight: 600 900;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/jetbrains-semibold.woff2") format("woff2");
+}

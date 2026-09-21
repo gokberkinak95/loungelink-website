@@ -1,0 +1,104 @@
+{
+ "uretici": "build_fontlar.py",
+ "fontlar": [
+  {
+   "ttf": "CormorantGaramond-Light.ttf",
+   "ttf_md5": "303a251a7fa07c3f660e195a7a9b01a4",
+   "woff2": "cormorant-light.woff2",
+   "woff2_md5": "65cce9b6bef8a6ab3a0415ded2f97e3d",
+   "aile": "LL Serif",
+   "agirlik": "300",
+   "stil": "normal",
+   "ham_bayt": 775236,
+   "bayt": 24184
+  },
+  {
+   "ttf": "CormorantGaramond-SemiBold.ttf",
+   "ttf_md5": "11f17f8dc1351491d9cf2da34abf2089",
+   "woff2": "cormorant-semibold.woff2",
+   "woff2_md5": "b7c641dd2c2e23e30d4dac866a96a408",
+   "aile": "LL Serif",
+   "agirlik": "600",
+   "stil": "normal",
+   "ham_bayt": 776264,
+   "bayt": 26264
+  },
+  {
+   "ttf": "CormorantGaramond-Bold.ttf",
+   "ttf_md5": "30cccf826fe3512c2f93cd6dafeb5580",
+   "woff2": "cormorant-bold.woff2",
+   "woff2_md5": "19c0dc58761e80abba8cdb8bf4e74ad5",
+   "aile": "LL Serif",
+   "agirlik": "700 900",
+   "stil": "normal",
+   "ham_bayt": 775372,
+   "bayt": 24636
+  },
+  {
+   "ttf": "PlusJakartaSans-Regular.ttf",
+   "ttf_md5": "79f8cf37aa9c7e197af9a6a0cf519d53",
+   "woff2": "jakarta-regular.woff2",
+   "woff2_md5": "3482961da8dbecd07f989451d552cadb",
+   "aile": "LL Sans",
+   "agirlik": "400",
+   "stil": "normal",
+   "ham_bayt": 96900,
+   "bayt": 14572
+  },
+  {
+   "ttf": "PlusJakartaSans-Medium.ttf",
+   "ttf_md5": "936416f4dd5dbcc2ee02b6d8d260576c",
+   "woff2": "jakarta-medium.woff2",
+   "woff2_md5": "3c58093980942bc90beddf13dac851a2",
+   "aile": "LL Sans",
+   "agirlik": "500",
+   "stil": "normal",
+   "ham_bayt": 96884,
+   "bayt": 15248
+  },
+  {
+   "ttf": "PlusJakartaSans-SemiBold.ttf",
+   "ttf_md5": "b86f93984727a6a1d99b473781ed16d9",
+   "woff2": "jakarta-semibold.woff2",
+   "woff2_md5": "e94cfb90dbbaf755a04c177425080dcf",
+   "aile": "LL Sans",
+   "agirlik": "600",
+   "stil": "normal",
+   "ham_bayt": 96872,
+   "bayt": 15144
+  },
+  {
+   "ttf": "PlusJakartaSans-Bold.ttf",
+   "ttf_md5": "acf462e084f6e7929c724420c5982191",
+   "woff2": "jakarta-bold.woff2",
+   "woff2_md5": "6b5580e09b5645debe4f4a05a3e24e81",
+   "aile": "LL Sans",
+   "agirlik": "700 900",
+   "stil": "normal",
+   "ham_bayt": 96776,
+   "bayt": 15276
+  },
+  {
+   "ttf": "JetBrainsMono-Medium.ttf",
+   "ttf_md5": "9200bf1d80f2f4947b496a2e6ab2e224",
+   "woff2": "jetbrains-medium.woff2",
+   "woff2_md5": "db252edd0fe53e91496e0ca8f35fc414",
+   "aile": "LL Mono",
+   "agirlik": "400 500",
+   "stil": "normal",
+   "ham_bayt": 114920,
+   "bayt": 23260
+  },
+  {
+   "ttf": "JetBrainsMono-SemiBold.ttf",
+   "ttf_md5": "9d1d8c76cca7c52b5ba85124ea0dde52",
+   "woff2": "jetbrains-semibold.woff2",
+   "woff2_md5": "1b81c76687fe3989502f51a05cf64622",
+   "aile": "LL Mono",
+   "agirlik": "600 900",
+   "stil": "normal",
+   "ham_bayt": 114900,
+   "bayt": 23268
+  }
+ ]
+}

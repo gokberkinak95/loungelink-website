@@ -73,6 +73,18 @@ export default function RootLayout({ children }) {
     <html lang="tr">
       <head>
         <meta name="ll-surum" content={SURUM} />
+        {/* 🔴 20 EYLÜL — İLK EKRANIN İKİ FONTU ÖN YÜKLENİYOR.
+            `@import`la gelen bir @font-face, tarayıcı O KURALI KULLANAN
+            bir öğe bulana kadar indirilmeye BAŞLAMAZ; yani CSS inecek,
+            ayrıştırılacak, sonra font istenecek. İlk boyamada gövde
+            (Jakarta Regular) ve başlık (Cormorant Bold) kesin
+            kullanılıyor — ikisini baştan isteyerek o zinciri kısaltıyoruz.
+            ⚠️ Yalnız İKİSİ: her fontu ön yüklemek bant genişliğini ilk
+            boyamanın ÖNÜNE koyar ve tersine çalışır. */}
+        <link rel="preload" as="font" type="font/woff2" crossOrigin="anonymous"
+              href="/fonts/jakarta-regular.woff2" />
+        <link rel="preload" as="font" type="font/woff2" crossOrigin="anonymous"
+              href="/fonts/cormorant-bold.woff2" />
       </head>
       <body>
         {/* 🔴 v0.51 — Organization + WebSite şeması. Sayfada yalnız FAQPage

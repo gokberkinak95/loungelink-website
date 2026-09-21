@@ -228,15 +228,33 @@ function collectRoutes(dir, prefix = "") {
 }
 collectRoutes(path.join(ROOT, "app"));
 
+// 🔴 20 EYLÜL — BU ÖLÇÜ BİR VARLIK BAĞLANTISINI "ÖLÜ SAYFA" SANDI.
+//
+// Fontları self-host edip `layout.jsx`e iki `<link rel="preload"
+// href="/fonts/…woff2">` ekleyince bu kapı ikisini de "böyle bir sayfa
+// yok" diye kırmızı yaktı. Kapı haklı bir soruyu YANLIŞ evrene soruyordu:
+// `/fonts/jakarta-regular.woff2` bir ROTA değil, `public/` altındaki bir
+// DOSYA. Aynı kusur `href="/og.jpg"` için de patlardı — yani hata
+// fontlarla ortaya çıktı, fontlarla gelmedi.
+//
+// 🆕 SINIF: "BİR BAĞLANTININ HEDEFİ İKİ YERDE OLABİLİYORSA, DENETİM
+// İKİSİNE DE BAKMALIDIR — TEK EVRENE BAKAN KAPI, DİĞER EVRENDEKİ HER
+// DOĞRU BAĞLANTIYI HATA SAYAR."
+const PUBLIC = path.join(ROOT, "public");
+function varlikMi(r) {
+  const p = path.join(PUBLIC, r.replace(/^\//, ""));
+  return p.startsWith(PUBLIC) && fs.existsSync(p) && fs.statSync(p).isFile();
+}
+
 for (const f of files) {
   const src = fs.readFileSync(f, "utf8");
   for (const m of src.matchAll(/href="(\/[^"#?]*)"/g)) {
     const r = m[1].replace(/\/$/, "") || "/";
     if (r.startsWith("/rehber/")) continue;      // dinamik rota
-    if (!routes.has(r)) {
-      console.log(`  ✗ ${f}: ölü bağlantı ${m[1]} — böyle bir sayfa yok`);
-      bad++;
-    }
+    if (routes.has(r)) continue;
+    if (varlikMi(m[1])) continue;                // public/ altında gerçek dosya
+    console.log(`  ✗ ${f}: ölü bağlantı ${m[1]} — ne sayfa ne de public/ altında dosya`);
+    bad++;
   }
 }
 

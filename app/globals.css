@@ -1,3 +1,9 @@
+/* 🔴 20 EYLÜL — TİPOGRAFİ ARTIK SİSTEM FONTUNA DÜŞMÜYOR.
+   Bu import, `build_fontlar.py`nin app'in TTF'lerinden ürettiği
+   alt küme woff2'leri getirir (2875 KB → 178 KB). EN BAŞTA olması
+   şart: @font-face'ler ilk kuraldan önce tanımlı olmalı. */
+@import "./fontlar.css";
+
 /* ============================================================
    LoungeLink · site paleti
    🔴 DEĞERLER APP'TEN BİREBİR KOPYALANDI (rnapp/src/theme.js).
@@ -159,13 +165,37 @@
      GEREKÇELERİNDEN DAHA UZUN YAŞAR."
      ════════════════════════════════════════════════════════════ */
 
-  --serif: ui-serif, Georgia, "Times New Roman", serif;
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* ════════════════════════════════════════════════════════════════
+     🔴 20 EYLÜL — MARKANIN EN ÇOK OKUNAN PARÇASI SİSTEM VARSAYILANIYDI.
+
+     Bu üç satır 20 Eylül'e kadar şöyleydi:
+         --serif: ui-serif, Georgia, "Times New Roman", serif;
+         --sans:  -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto…
+         --mono:  ui-monospace, SFMono-Regular, Menlo, Consolas…
+
+     Yani ziyaretçi Georgia okuyordu, kullanıcı Cormorant. Renk
+     jetonlarını `site_paleti.py` ile app'ten TÜRETİYORUZ (sapma
+     tavanı 0), görselleri `gorsel_tutarlilik_check.py` ile bağladık —
+     ama tipografi bağlı değildi ve tipografi, renkten sonra bir
+     markanın en çok tanınan parçasıdır.
+
+     Artık üçü de app'in KENDİ dosyalarından (rnapp/assets/fonts, OFL)
+     alt küme + woff2 olarak geliyor. Üretici tek: `build_fontlar.py`.
+     `font_check.py` her woff2'nin o TTF'ten türediğini makbuzla
+     doğruluyor — elle kopyalanan bir font kapıda kırmızı yanar.
+
+     ⚠️ SİSTEM YEDEĞİ KALIYOR. woff2 inmezse (ağ, engelleyici, eski
+     tarayıcı) sayfa yazısız kalmasın diye her aileden sonra eski
+     yığın duruyor. Yedek SESSİZ DEĞİL: `font_check.py` yedeğin
+     BİRİNCİ sırada olmadığını da ölçer.
+     ════════════════════════════════════════════════════════════════ */
+  --serif: "LL Serif", ui-serif, Georgia, "Times New Roman", serif;
+  --sans: "LL Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   /* 🔴 v0.26 — `var(--mono)` Screens.jsx'te üç yerde çağrılıyordu ama
      hiçbir yerde TANIMLI DEĞİLDİ: tarayıcı sessizce devralınan yazı
      tipini kullanıyordu. Tanımsız değişken hata vermez, sadece yanlış
      görünür — bu yüzden bir yıl fark edilmez. */
-  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --mono: "LL Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -279,7 +309,14 @@ h3 { font-size: 19px; }
      serif → KURALIN sesi (yalnız hüküm cümleleri)
      mono  → kodlar (IST, TK1979, ELPL) — biniş kartı vernakülü
    ============================================================ */
-:root { --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+/* 🔴 20 EYLÜL — ÖLÜ ATAMA SİLİNDİ (app'teki `KOYU.gold` ile AYNI SINIF).
+   Burada ikinci bir `:root { --mono: … }` vardı ve 168. satırdaki
+   tanımı EZİYORDU. Dosyayı okuyan biri yukarıdaki satıra bakıp
+   "mono tanımlı" diyor, tarayıcı ise BU satırı kullanıyordu. app'te
+   `KOYU.gold` üç kez atanmıştı ve beni bir tur boyunca yanlış renge
+   ikna etmişti — aynı sınıf, başka dosya.
+   `olu_jeton_check.py` app tarafında bunu artık yakalıyor;
+   `font_check.py` sitede aynı ölçüyü yapıyor. */
 
 h1, h2 {
   font-family: var(--sans);
