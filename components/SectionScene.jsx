@@ -45,31 +45,23 @@ export default function SectionScene({ kind = "wing", flip = false, id }) {
           <g key={i} opacity={0.5 - i * 0.13}>
             <path d={`M-40 ${640 - i * 120} C 300 ${520 - i * 110}, 780 ${330 - i * 90}, 1260 ${120 - i * 70}`}
                   fill="none" stroke={`url(#ct-${uid})`} strokeWidth={3 - i * 0.6} />
-            <circle cx={1240 - i * 40} cy={128 - i * 70} r={4 - i} fill="#E4D6BC" />
           </g>
         ))}
       </svg>
     );
   }
 
+  // 🔴 25 EYLÜL · v0.66 — PİST IŞIKLARI KALDIRILDI. 44 dolu daire, bölüm
+  // perdesinin altında gri "toz lekesi" gibi okunuyordu (ekran görüntüsü:
+  // #kural ve #kapsam). Sessiz lükste dekor çizgiyle konuşur, noktayla değil:
+  // pist artık iki kenar çizgisi + ince orta hat, aynı perspektif.
   if (kind === "runway") {
-    // KURAL — perspektifte daralan pist ışıkları: "karar" hissi
-    const rows = Array.from({ length: 22 }, (_, i) => i / 21);
     return (
       <svg {...common} viewBox="0 0 1200 700">
-        {rows.map((t, i) => {
-          const y = 210 + 500 * Math.pow(t, 1.7);
-          const sp = 40 + 560 * Math.pow(t, 1.55);
-          const r = 2 + t * 7;
-          const o = 0.15 + t * 0.5;
-          return (
-            <g key={i} opacity={o}>
-              <circle cx={600 - sp} cy={y} r={r} fill="#E4D6BC" />
-              <circle cx={600 + sp} cy={y} r={r} fill="#E4D6BC" />
-            </g>
-          );
-        })}
-        <path d="M594 210 L606 210 L760 700 L440 700 Z" fill="#C9B693" opacity=".07" />
+        <path d="M596 210 L150 700 M604 210 L1050 700" fill="none"
+              stroke="#C9B693" strokeOpacity=".16" strokeWidth="1" />
+        <path d="M600 230 L600 700" fill="none" stroke="#C9B693"
+              strokeOpacity=".10" strokeWidth="1" strokeDasharray="10 18" />
       </svg>
     );
   }
@@ -86,7 +78,6 @@ export default function SectionScene({ kind = "wing", flip = false, id }) {
           <circle key={"g" + r} cx="980" cy="350" r={r} fill="none"
                   stroke="#C9B693" strokeOpacity={0.26 - i * 0.06} strokeWidth="1" />
         ))}
-        <circle cx="980" cy="350" r="7" fill="#C9B693" opacity=".7" />
       </svg>
     );
   }
@@ -104,10 +95,6 @@ export default function SectionScene({ kind = "wing", flip = false, id }) {
         </defs>
         <rect x="0" y="380" width="1200" height="320" fill={`url(#hz-${uid})`} />
         <line x1="0" y1="470" x2="1200" y2="470" stroke="#E4D6BC" strokeOpacity=".45" strokeWidth="1.5" />
-        {Array.from({ length: 46 }, (_, i) => (
-          <circle key={i} cx={(i * 137) % 1200} cy={500 + ((i * 61) % 170)} r={1.6 + (i % 3)}
-                  fill="#E4D6BC" opacity={0.25 + ((i % 5) / 12)} />
-        ))}
       </svg>
     );
   }
@@ -127,7 +114,6 @@ export default function SectionScene({ kind = "wing", flip = false, id }) {
             fill={`url(#wg-${uid})`} opacity=".55" />
       <path d="M1280 -60 C 920 140, 540 350, 80 780" fill="none"
             stroke="#C9B693" strokeOpacity=".38" strokeWidth="1.6" />
-      <circle cx="1268" cy="-52" r="6" fill="#E4D6BC" opacity=".8" />
     </svg>
   );
 }

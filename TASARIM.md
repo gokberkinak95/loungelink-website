@@ -39,3 +39,39 @@ Cesaretin tamamı buraya harcanıyor. Gerisi sessiz kalacak.
 Perspektif + hafif döndürme, bölümlere göre yön değiştiriyor.
 Ekranlar PNG değil GERÇEK HTML: her çözünürlükte keskin, canlanabilir.
 `prefers-reduced-motion` açıksa tüm hareket kapanır.
+
+---
+
+## v0.66 — Sessiz Lüks II (25 Eylül 2026 denetimi)
+
+**Karar: başlık sesi serif'e geçti.** Rol ayrımı kalıyor ama sınırları yeniden
+çizildi:
+
+| ses | aile | nerede |
+|---|---|---|
+| sahne & hüküm | Cormorant Garamond 300/400/500 + **gerçek italik** | h1, h2, ifade satırı, kart başlığı, kuralın cevabı, büyük rakamlar |
+| bilgi | Plus Jakarta Sans 400/500 | gövde, arayüz, etiket, düğme |
+| kod | JetBrains Mono | IST, TK1979, saat, sıra numarası |
+
+Neden: 800 ağırlıklı, −0.03em sıkıştırılmış sans başlıklar "fintech lansmanı"
+gibi bağırıyordu; sessiz lüks yüksek sesle değil **ölçek ve boşlukla** konuşur.
+Vurgu (`em`) bugüne kadar tarayıcının sahte italiğiydi — artık Cormorant'ın
+kendi italik kesiti var (`build_fontlar.py`, kaynak `rnapp/assets/fonts`) ve
+`font-synthesis: none` sahte kesiti yasaklıyor. Alt kümeye `lnum` eklendi:
+Cormorant varsayılan olarak eski stil rakam çizer (284 → "2" aşağı sarkar).
+
+**Tek sıcaklık.** Bölüm perdeleri lacivertti (`rgba(9,13,24)`); obsidyen
+zeminin üstünde soğuk bantlar çıkıyordu. Perde artık `--bg` ile aynı ton.
+Kahraman halesindeki leylak ikinci bir renk ailesiydi → sıcak gri.
+
+**Dekor inceltildi.** Hayalet kelimeler, bölüm başı nokta, pist/ufuk "bokeh"
+noktaları, unicode ikon çipleri (✓ ◆ ⬡ ★ ⏻ ◐) ve düğme parıltısı kaldırıldı.
+Yerlerine: kıl çizgi (`--hair`), mono sıra numarası (`.idx`), düz şampanya
+düğme. Kural: bir dekor ya bilgi taşır ya da çıkar.
+
+**Dürüstlük.** Ücretsiz betada "EN ÇOK SEÇİLEN" etiketi doğrulanamaz bir iddia
+→ "ÖNERİLEN".
+
+Tüm katman `app/globals.css` sonunda "v0.66 · SESSİZ LÜKS II" başlığı altında;
+jetonlar: `--hair`, `--hair-gold`, `--surface`, `--surface-2`, `--r-card`,
+`--ease-lux`.

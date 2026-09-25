@@ -1018,6 +1018,15 @@ try {
       if (r.error) break;
       calisti = true;
       process.stdout.write(r.stdout || "");
+      // 🔴 25 EYLÜL — BETİK ÇÖKÜNCE NEDEN SESSİZDİ. stderr yutuluyordu:
+      // "✗ 2 sorun" yazıyor ama hangi sorun olduğunu hiçbir satır
+      // söylemiyordu (sebep: yan klasörde `rnapp` yok → ImportError).
+      if (r.status !== 0 && r.stderr) {
+        const son = r.stderr.trim().split("\n").slice(-1)[0];
+        console.log(`  ✗ ${betik} çöktü: ${son}`);
+        if (/rnapp|tema_oku|No such file/.test(r.stderr))
+          console.log("     → app kaynağı yan klasörde (../rnapp) olmalı; bu denetim onu okur.");
+      }
       if (r.status !== 0) bad++;
     }
     if (calisti) break;

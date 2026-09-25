@@ -76,6 +76,13 @@ UNICODE = ("U+0000-00FF,U+0100-017F,U+0180-024F,"
 # demek, "800 ve 900 isteyen de bu dosyayı kullansın" demektir.
 AILE = [
     ("CormorantGaramond-Light.ttf",    "LL Serif", "300",     "normal"),
+    # 25 EYLÜL · v0.66 — başlık sesi serif'e geçti: gövde ağırlığı (400/500)
+    # ve GERÇEK italik kesitler. Önceki `em` vurguları tarayıcının eğdiği
+    # sahte italikti (font-synthesis) — harf formu değil, kaydırılmış dik harf.
+    ("CormorantGaramond-Regular.ttf",  "LL Serif", "400",     "normal"),
+    ("CormorantGaramond-Medium.ttf",   "LL Serif", "500",     "normal"),
+    ("CormorantGaramond-LightItalic.ttf", "LL Serif", "300",  "italic"),
+    ("CormorantGaramond-Italic.ttf",   "LL Serif", "400 900", "italic"),
     ("CormorantGaramond-SemiBold.ttf", "LL Serif", "600",     "normal"),
     ("CormorantGaramond-Bold.ttf",     "LL Serif", "700 900", "normal"),
     ("PlusJakartaSans-Regular.ttf",    "LL Sans",  "400",     "normal"),
@@ -109,7 +116,7 @@ def uret(cikis):
         subset.main([
             kaynak,
             "--unicodes=" + UNICODE,
-            "--layout-features=kern,liga,calt,tnum,onum,locl",
+            "--layout-features=kern,liga,calt,tnum,onum,lnum,pnum,locl",
             "--flavor=woff2",
             "--no-hinting",
             "--desubroutinize",

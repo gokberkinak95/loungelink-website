@@ -74,6 +74,18 @@ export default function EkranKarusel({ shots, caption }) {
 
   const git = useCallback((d) => setI((v) => (v + d + n) % n), [n]);
 
+  // 🔴 25 EYLÜL · v0.66 — AZALTILMIŞ HAREKETTE NOKTA/OK HİÇBİR ŞEY YAPMIYORDU.
+  // O kipte kartlar düz, kaydırılabilir bir şerit; `i` değişiyor ama şerit
+  // yerinde duruyordu. Seçilen kart artık görünüme kaydırılıyor (anında —
+  // kullanıcı hareketi zaten istemedi).
+  const ilkTur = useRef(true);
+  useEffect(() => {
+    if (ilkTur.current) { ilkTur.current = false; return; }
+    if (!hazir || !azHareket.current) return;
+    const kart = kok.current?.querySelectorAll(".karusel-kart")[i];
+    kart?.scrollIntoView({ behavior: "auto", block: "nearest", inline: "center" });
+  }, [i, hazir]);
+
   // otomatik ilerleme — yalnız görünürken, duraklatılmamışken ve
   // hareket kısıtlaması yokken
   useEffect(() => {
@@ -263,7 +275,10 @@ export default function EkranKarusel({ shots, caption }) {
 
         {/* Etkin ekranın CÜMLESİ. Etiket ne olduğunu söyler; bu satır
             ne işe yaradığını. `aria-live` ile ekran okuyucuya da gider. */}
-        <p className="karusel-soz" aria-live="polite">
+        {/* 🔴 v0.66 — kendiliğinden ilerlerken `polite` bölge ekran okuyucuya
+            her 5 sn'de bir cümle okutuyordu. Canlı bölge yalnız kullanıcı
+            sürerken (duraklatılmışken ya da hareket kapalıyken) konuşur. */}
+        <p className="karusel-soz" aria-live={duraklat || azHareket.current ? "polite" : "off"}>
           {shots[i].soz || shots[i].alt}
         </p>
 

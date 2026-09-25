@@ -217,7 +217,19 @@ body {
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  /* 🔴 25 EYLÜL · v0.66 — SAHTE İTALİK/KALIN YASAK. Cormorant'ın italik
+     kesiti yokken `em` tarayıcı tarafından eğiliyordu (dik harfin
+     kaydırılmışı); Jakarta'da da aynı. Artık gerçek kesitler var ve
+     eksik kalan bir ağırlık SESSİZCE uydurulmuyor. */
+  font-synthesis: none;
 }
+
+/* 🔴 v0.66 — FORM ÖĞELERİ SİSTEM FONTUYLA ÇİZİLİYORDU.
+   <button>/<input> yazı tipini miras ALMAZ; "Listeye yazıl" düğmesi ve
+   e-posta alanı Arial'dı (ölçüldü: computed font-family). */
+button, input, select, textarea { font: inherit; color: inherit; letter-spacing: inherit; }
 
 a { color: inherit; text-decoration: none; }
 
@@ -800,7 +812,8 @@ h1, h2 {
 /* Hareket duyarlılığı: 3B dönüş ve geçiş kapanır, dizilim düzleşir.
    Otomatik ilerleme JS tarafında zaten hiç başlamıyor. */
 @media (prefers-reduced-motion: reduce) {
-  .karusel[data-hazir] .karusel-sahne { display: flex; overflow-x: auto; }
+  .karusel[data-hazir] .karusel-sahne { display: flex; overflow-x: auto; justify-content: flex-start; scroll-snap-type: x mandatory; padding: 0 16px 8px; min-height: 0; }
+  .karusel[data-hazir] .karusel-kart { scroll-snap-align: center; }
   .karusel[data-hazir] .karusel-kart { position: static; left: auto; transform: none !important; opacity: 1 !important; transition: none; }
   .karusel[data-hazir] .karusel-kart:not(.etkin) figcaption { opacity: 1; }
   .karusel-ok { transition: none; }
@@ -1173,10 +1186,10 @@ footer a { display: inline-flex; align-items: center; min-height: 44px; color: v
 /* Bölüm okunabilirlik perdesi: sahne canlı, metin net kalsın */
 .section.dark-band::after {
   content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(90deg, rgba(9,13,24,.92) 0%, rgba(9,13,24,.72) 45%, rgba(9,13,24,.30) 100%);
+  background: linear-gradient(90deg, rgba(11,10,11,.92) 0%, rgba(11,10,11,.72) 45%, rgba(11,10,11,.30) 100%);
 }
 .section.dark-band.alt::after {
-  background: linear-gradient(270deg, rgba(11,16,30,.92) 0%, rgba(11,16,30,.70) 45%, rgba(11,16,30,.28) 100%);
+  background: linear-gradient(270deg, rgba(11,10,11,.92) 0%, rgba(11,10,11,.70) 45%, rgba(11,10,11,.28) 100%);
 }
 
 /* Global kanat artık GÖRÜNÜR (eski: .5 → yeni: 1 ve daha güçlü stop'lar) */
@@ -1383,7 +1396,7 @@ a { color: inherit; }
    EZERSEN, DÜZELTMEN O BAĞLAMDA HİÇ OLMAMIŞ SAYILIR." */
 .site-nav .btn { display: inline-flex; align-items: center; min-height: 44px;
                  padding: 0 18px; font-size: 13.5px; color: var(--onGold); }
-.site-head-row { display: flex; align-items: center; gap: 20px; min-height: 66px; padding: 10px 0; }
+.site-head-row { display: flex; align-items: center; gap: 20px; min-height: 66px; padding-block: 10px; }
 @media (max-width: 620px) {
   .site-head-row { flex-wrap: wrap; gap: 10px; }
   .site-nav { width: 100%; gap: 14px; justify-content: space-between; }
@@ -1554,7 +1567,7 @@ a { color: inherit; }
 }
 .plan-card.on { border-color: rgba(228,214,188,.45); background: rgba(228,214,188,.07); }
 .plan-tag {
-  position: absolute; top: -10px; left: 24px; background: var(--gold); color: #10131C;
+  position: absolute; top: -10px; left: 24px; background: var(--gold); color: var(--onGold);
   font-size: 10px; letter-spacing: 1.4px; font-weight: 700; padding: 4px 10px; border-radius: 999px;
 }
 .plan-card h3 { font-family: var(--serif); font-size: 24px; margin: 0 0 8px; color: #F7F3EA; }
@@ -1825,7 +1838,7 @@ a { color: inherit; }
 .an-bal p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink); }
 .an-bal time {
   display: block; margin-top: 6px; text-align: right;
-  font-family: ui-monospace, "JetBrains Mono", monospace;
+  font-family: var(--mono);
   font-size: 10px; color: var(--muted);
 }
 .an-not { margin-top: 22px; font-size: 13px; line-height: 1.6; color: var(--muted); }
@@ -1952,7 +1965,7 @@ a { color: inherit; }
   font-size: 13.5px; color: var(--onGold); order: 3; }
 @media (max-width: 860px) {
   /* mobil: 1. satır marka + düğme · 2. satır bağlantılar (sarılır, kesilmez) */
-  .site-head-seffaf .site-head-row { flex-wrap: wrap; gap: 0 12px; padding: 8px 0 4px; }
+  .site-head-seffaf .site-head-row { flex-wrap: wrap; gap: 0 12px; padding-block: 8px 4px; }
   .site-head-seffaf .site-cta { order: 1; }
   .site-head-seffaf .site-nav { order: 2; width: 100%; flex-wrap: wrap; justify-content: flex-start; gap: 0 18px; }
   .site-head-seffaf .site-nav a { white-space: nowrap; font-size: 13.5px; }
@@ -2089,3 +2102,288 @@ a { color: inherit; }
   background: rgba(201,182,147,0.10);
   box-shadow: inset 0 1px 0 var(--parlama);
 }
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   v0.66 · SESSİZ LÜKS II — TİPOGRAFİ, SUKÛNET, TEK SICAKLIK
+   (25 Eylül — tasarım denetimi; gerekçeler TASARIM.md §v0.66)
+
+   Denetimde görülen üç kök sorun:
+     1) BAŞLIK SESİ YANLIŞ TÜRDEYDİ. 800 ağırlıklı, −0.03em sıkıştırılmış
+        sans başlıklar bir fintech lansman sayfası gibi "bağırıyordu";
+        vurgu (`em`) ise sahte italikti. Sessiz lüks yüksek sesle değil,
+        ÖLÇEK ve BOŞLUKLA konuşur: büyük, ince, gerçek italikli serif.
+     2) İKİ SICAKLIK VARDI. Bölüm perdeleri lacivert (rgba 9,13,24) —
+        sıcak obsidyen zeminin üstünde soğuk bantlar. (yukarıda düzeltildi)
+     3) DEKOR KALABALIĞI. Hayalet kelimeler, gri "bokeh" noktaları,
+        unicode ikon çipleri, parlayan düğme gölgeleri, bölüm başına bir
+        nokta. Her biri tek başına zararsız; toplamı "pahalı" değil
+        "süslü" okutuyordu.
+
+   Rol ayrımı korunuyor, yalnız yeniden adlandırılıyor:
+     serif → SAHNE ve HÜKÜM sesi (başlık, ifade, kuralın cevabı, rakam)
+     sans  → BİLGİ sesi (gövde, arayüz, etiket)
+     mono  → KOD sesi (IST, TK1979, saat)
+   ══════════════════════════════════════════════════════════════════════ */
+:root {
+  --ease-lux: cubic-bezier(.22, .61, .36, 1);
+  --hair: rgba(244, 239, 230, 0.08);
+  --hair-gold: rgba(201, 182, 147, 0.22);
+  --surface: rgba(244, 239, 230, 0.028);
+  --surface-2: rgba(244, 239, 230, 0.045);
+  --r-card: 14px;
+}
+
+/* ── Başlıklar: serif, ince, ölçekle konuşan ───────────────────────── */
+h1, h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: -0.012em;
+  line-height: 1.06;
+  font-variant-numeric: lining-nums;
+  text-wrap: balance;
+}
+h2 { font-size: clamp(34px, 4.8vw, 58px); }
+h1 em, h2 em {
+  font-style: italic; font-weight: 300;
+  color: var(--gold); letter-spacing: -0.005em;
+}
+h3 { font-family: var(--serif); font-weight: 500; letter-spacing: 0; font-variant-numeric: lining-nums; }
+.lead, .section.dark-band .lead { text-wrap: pretty; }
+
+.hero-sahne h1 {
+  font-size: clamp(48px, 7.6vw, 104px);
+  line-height: 1.0; letter-spacing: -0.018em;
+}
+.hero-sahne h1 em { display: inline-block; margin-top: .06em; }
+.hero-sahne .lead { font-size: clamp(16px, 1.35vw, 18.5px); line-height: 1.7; max-width: 600px; }
+
+/* Etiket: daha ince, daha geniş aralık, önünde kıl çizgi */
+.eyebrow, .section.dark-band .eyebrow, .dark-band .eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 10.5px; font-weight: 500; letter-spacing: .3em;
+  color: var(--goldText); margin-bottom: 22px;
+}
+.eyebrow::before { content: ""; width: 28px; height: 1px; background: currentColor; opacity: .55; }
+.hero-dugum.eyebrow::after { content: ""; width: 28px; height: 1px; background: currentColor; opacity: .55; }
+
+/* İfade satırı: ince serif, nefesli */
+.statement {
+  font-weight: 300; font-size: clamp(26px, 3.3vw, 42px); line-height: 1.28;
+  letter-spacing: -0.01em; color: var(--ink); text-wrap: balance;
+}
+.slogan {
+  margin-top: 14px; font-family: var(--serif); font-style: italic; font-weight: 300;
+  font-size: clamp(19px, 1.8vw, 23px); color: var(--goldText);
+}
+.hero-baglanti, .prog-alt { font-weight: 300; }
+.hero-baglanti { font-size: clamp(18px, 1.7vw, 22px); }
+
+/* Rakamlar: eski stil rakam (284 → "2" düşük) başlıkta tutarsız duruyordu */
+.hero-stats b, .stat b, .hearn-num b, .kcember-ust b, .plan-price, .wcalc-big {
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.hero-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: 44px; padding-top: 28px; border-top: 1px solid var(--hair); }
+.hero-stats div { min-width: 0; }
+.hero-stats b { font-weight: 300; font-size: clamp(34px, 3.4vw, 46px); line-height: 1; color: var(--ink); }
+.hero-stats span { display: block; margin-top: 8px; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+
+/* ── Ritim: daha çok boşluk, daha az çizgi ─────────────────────────── */
+.section { padding: 128px 0; }
+@media (max-width: 760px) { .section { padding: 88px 0; } }
+.split h2 { font-size: clamp(32px, 3.7vw, 48px); }
+.wrap { padding-inline: clamp(20px, 4vw, 32px); }
+
+.wing-rule::before { display: none; }                 /* bölüm başına nokta yok */
+.wing-rule::after { left: 50%; right: auto; width: min(1080px, 88vw); transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, var(--hair-gold) 30%, var(--hair-gold) 70%, transparent); opacity: .7; }
+.section.dark-band::before { display: none; }         /* çift çizgi: wing-rule zaten ayırıyor */
+
+/* Atmosfer: var ama konuşmuyor */
+.ghost, .sec-no { display: none !important; }
+.wing-bg { opacity: .32; }
+.sec-scene { opacity: .55; }
+.aurora {
+  background:
+    radial-gradient(60% 42% at 86% 6%, rgba(201,182,147,0.10), transparent 64%),
+    radial-gradient(70% 50% at 50% 104%, rgba(201,182,147,0.07), transparent 66%);
+}
+/* hale: leylak ikinci bir renk ailesiydi (tek vurgu kuralı) → sıcak gri */
+.hero-hale {
+  background: radial-gradient(120% 92% at 82% -14%, rgba(201,182,147,0.14), transparent 60%),
+              radial-gradient(112% 88% at 8% 6%, rgba(110,106,114,0.14), transparent 60%);
+}
+.hero-isik { opacity: .6; }
+
+/* ── Yüzeyler: kıl çizgi, düşük kontrast, cömert iç boşluk ─────────── */
+.dark-band .prog-card, .prog-card, .flow-step, .dark-band .flow-step, .host-card,
+.cover-item, .dark-band .cover-item, .plan-card, .hearn-cur-card, .hstory-k, .kcember {
+  background: var(--surface) !important;
+  border-radius: var(--r-card);
+  box-shadow: inset 0 0 0 1px var(--hair);
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+  transition: box-shadow .4s var(--ease-lux), background .4s var(--ease-lux);
+}
+@media (hover: hover) {
+  .prog-card:hover, .host-card:hover, .flow-step:hover, .plan-card:hover {
+    box-shadow: inset 0 0 0 1px var(--hair-gold);
+    background: var(--surface-2) !important;
+  }
+}
+.dark-band .prog-card, .host-card { padding: 34px 30px 32px; }
+.flow-step { padding: 30px 28px; }
+.prog-grid, .trust-grid { gap: 14px; margin-top: 44px; }
+.demo, .wcalc, .hearn, .hero-kanit {
+  background: linear-gradient(180deg, rgba(38,33,27,.62), rgba(18,16,15,.78));
+  border-radius: 18px;
+  box-shadow: inset 0 0 0 1px var(--hair), 0 40px 80px -40px rgba(0,0,0,.7);
+}
+.hero-kanit { backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.hero-kanit:hover { box-shadow: inset 0 0 0 1px var(--hair-gold), 0 40px 80px -40px rgba(0,0,0,.7); }
+
+/* Kart başlıkları: serif orta ağırlık — küçük punto kalın serif sıkışıyordu */
+.dark-band .prog-card h3, .prog-card h3, .flow-step h3, .host-card h3 {
+  font-family: var(--serif); font-weight: 500; font-size: 22px; line-height: 1.2;
+  letter-spacing: -0.005em; margin-bottom: 10px; color: var(--ink);
+}
+.dark-band .prog-card p, .host-card p, .flow-step p { font-size: 14.5px; line-height: 1.7; color: #ABA495; }
+.prog-alt { font-size: 16px; margin: 0 0 14px; }
+.prog-tag {
+  background: transparent; padding: 0; border-radius: 0; margin-bottom: 18px;
+  font-size: 10px; font-weight: 500; letter-spacing: .24em; color: var(--goldText);
+}
+
+/* Unicode ikon çipleri yerine sıra numarası: mono, altın, kıl çizgili */
+.idx {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 22px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .2em; color: var(--gold);
+}
+.idx::after { content: ""; flex: 0 0 28px; height: 1px; background: var(--hair-gold); }
+.chip-ico, .hearn-ico { display: none; }
+
+.flow-n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .24em;
+  color: var(--gold); margin-bottom: 26px;
+}
+
+/* ── Düğmeler: düz şampanya, parıltısız; hayalet kıl çizgili ───────── */
+.btn, .btn-gold, .dark-band a.btn, .site-nav .btn, .site-head-seffaf .site-cta {
+  background: var(--goldDeep);
+  color: var(--onGold) !important;
+  border-radius: 999px;
+  font-weight: 500; letter-spacing: .03em;
+  box-shadow: none;
+  transition: background .35s var(--ease-lux), transform .35s var(--ease-lux);
+}
+.btn-gold { padding: 16px 32px; font-size: 15px; }
+.btn:hover, .btn-gold:hover, .dark-band a.btn:hover { background: #E4D6BC; opacity: 1; transform: none; }
+.hero-sahne .btn-gold:hover { transform: none; box-shadow: none; }
+.btn-ghost {
+  border: 1px solid rgba(244,239,230,.22); color: var(--ink);
+  border-radius: 999px; padding: 15px 30px; font-weight: 500; font-size: 15px; letter-spacing: .03em;
+  transition: border-color .35s var(--ease-lux), background .35s var(--ease-lux);
+}
+.btn-ghost:hover { border-color: var(--hair-gold); background: rgba(244,239,230,.04); }
+.hero-cta { gap: 14px; margin-top: 40px; }
+
+/* Davet vuruşu: daha sakin, daha ince */
+.beat { font-weight: 500; font-size: 14.5px; letter-spacing: .02em; margin-top: 44px;
+  border-bottom-color: var(--hair-gold); color: var(--goldText) !important; }
+
+/* Çipler/haplar: seçili hâl altın dolgu yerine altın kıl çizgi + açık zemin */
+.pill, .wchip { font-weight: 400; }
+.pill.on, .dark-band .pill.on, .dark-band .pill[aria-pressed="true"] { font-weight: 500; }
+.demo-out-verdict { font-weight: 500; letter-spacing: -0.005em; }
+
+/* ── Hesaplayıcılar / planlar ──────────────────────────────────────── */
+.wcalc-head h3, .hearn-head h3 { font-weight: 400; font-size: clamp(30px, 3.2vw, 40px); letter-spacing: -0.01em; }
+.wcalc-big { font-weight: 400; }
+.wcalc-offer strong { font-weight: 500; font-size: 22px; }
+.wcalc, .hearn { padding: clamp(24px, 4vw, 44px); }
+.plan-grid { gap: 14px; margin-top: 44px; }
+.plan-card { padding: 34px 30px; }
+.plan-card.on { box-shadow: inset 0 0 0 1px var(--hair-gold); background: rgba(201,182,147,.05) !important; }
+.plan-card h3 { font-weight: 500; font-size: 26px; }
+.plan-price { font-weight: 300; font-size: 44px; color: var(--ink); margin-top: 6px; }
+.plan-price span { font-family: var(--sans); font-size: 13px; color: var(--muted); letter-spacing: .02em; }
+.plan-tag { top: -9px; font-weight: 500; letter-spacing: .22em; padding: 4px 12px; }
+.plan-card ul { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--hair); display: grid; gap: 6px; }
+.plan-card li { padding-left: 22px; }
+.plan-card li::before { content: ""; top: .82em; width: 10px; height: 1px; background: var(--gold); }
+
+/* SSS satırları: soru serif, cevap sans */
+.qa { padding: 26px 0; }
+.qa b { font-weight: 500; font-size: 20px; line-height: 1.3; }
+.host-qa-title { font-size: 11px; letter-spacing: .3em; font-weight: 500; margin-top: 72px; }
+
+/* ── Beta / form ───────────────────────────────────────────────────── */
+#beta h2 { font-size: clamp(38px, 5.4vw, 64px); }
+.beta-form-t { margin-top: 56px; font-size: 28px; font-weight: 400; }
+.beta-list { gap: 12px; margin-top: 28px; }
+.beta-list li { padding-left: 26px; }
+.beta-list li::before { content: ""; left: 0; top: .8em; width: 12px; height: 1px; background: var(--gold); }
+.wl { gap: 16px; margin-top: 32px; }
+.wl label { font-size: 13px; letter-spacing: .02em; color: var(--muted); }
+.wl .btn, .wl button[type="submit"] { letter-spacing: .06em; font-weight: 500; padding: 17px 34px; font-size: 15px; }
+
+/* Radyo ve onay kutusu: tarayıcı varsayılanı değil, markanın kendi çizgisi */
+.wl input[type="radio"], .wl input[type="checkbox"] {
+  appearance: none; -webkit-appearance: none; flex: 0 0 auto;
+  width: 18px; height: 18px; margin: 2px 0 0; cursor: pointer;
+  border: 1px solid rgba(244,239,230,.34); background: transparent;
+  transition: border-color .25s var(--ease-lux), background .25s var(--ease-lux);
+}
+.wl input[type="radio"] { border-radius: 50%; }
+.wl input[type="checkbox"] { border-radius: 5px; }
+.wl input[type="radio"]:checked {
+  border-color: var(--gold);
+  background: radial-gradient(circle, var(--gold) 0 4px, transparent 4.5px);
+}
+.wl input[type="checkbox"]:checked {
+  border-color: var(--gold); background: var(--gold) no-repeat center / 12px 12px
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><path d='M2.5 6.2l2.3 2.3 4.7-5' fill='none' stroke='%23171009' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+}
+.wl input[type="radio"]:focus-visible, .wl input[type="checkbox"]:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.wl-role { padding: 16px 18px; gap: 14px; }
+
+/* ── Sohbet sahnesi ────────────────────────────────────────────────── */
+.an-bal { padding: 14px 16px 10px; }
+.an-bal.ben { background: rgba(201,182,147,.10); }
+.an-bal time { font-size: 10px; letter-spacing: .08em; }
+
+/* ── Ekran görüntüleri: daha yumuşak gölge ─────────────────────────── */
+.shot, .karusel-kart img, .shot-tilt img, .dark-band .shot-tilt img {
+  box-shadow: 0 50px 90px -30px rgba(0,0,0,.75), 0 0 0 1px rgba(244,239,230,.06);
+}
+.shots-sm .shot { width: 168px; max-width: 26vw; border-radius: 24px; }
+.shots .shot:nth-child(2) { transform: translateY(-28px); }
+
+/* ── Başlık çubuğu ve altbilgi ─────────────────────────────────────── */
+.site-nav a { font-size: 13.5px; letter-spacing: .01em; transition: color .3s var(--ease-lux); }
+.site-nav .btn, .site-head-seffaf .site-cta { padding: 0 20px; font-size: 13px; }
+footer { background: rgba(12,11,12,.86); }
+footer a { color: var(--muted); font-size: 13px; transition: color .3s var(--ease-lux); }
+footer a:hover { color: var(--goldText); }
+.foot-lockup {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--sans); font-weight: 600; font-size: 13px; letter-spacing: .24em; color: var(--ink);
+}
+
+/* ── Alt sayfalar: aynı başlık sesi, okunaklı ölçü ─────────────────── */
+.legal h1 { font-size: clamp(36px, 5vw, 54px); font-weight: 400; line-height: 1.08; }
+.legal h2 { font-size: clamp(22px, 2.6vw, 28px); font-weight: 500; }
+
+@media (max-width: 760px) {
+  .hero-sahne h1 { font-size: clamp(38px, 10vw, 58px); }
+  h2 { font-size: clamp(32px, 8.6vw, 42px); }
+  .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 24px; }
+  .dark-band .prog-card, .host-card { padding: 28px 24px; }
+  .plan-card { padding: 30px 24px; }
+  .qa b { font-size: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn, .btn-gold, .btn-ghost, .prog-card, .host-card { transition: none; }
+}
+h2 { margin-bottom: 22px; }
+.statement + h2 { margin-top: 0; }

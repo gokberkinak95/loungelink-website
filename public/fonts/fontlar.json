@@ -5,78 +5,122 @@
    "ttf": "CormorantGaramond-Light.ttf",
    "ttf_md5": "303a251a7fa07c3f660e195a7a9b01a4",
    "woff2": "cormorant-light.woff2",
-   "woff2_md5": "65cce9b6bef8a6ab3a0415ded2f97e3d",
+   "woff2_md5": "c41e5cd27c5644f759d540f0d8dfd0ff",
    "aile": "LL Serif",
    "agirlik": "300",
    "stil": "normal",
    "ham_bayt": 775236,
-   "bayt": 24184
+   "bayt": 26696
+  },
+  {
+   "ttf": "CormorantGaramond-Regular.ttf",
+   "ttf_md5": "ee260d140d6c8b0f806d60e1c1390bb1",
+   "woff2": "cormorant-regular.woff2",
+   "woff2_md5": "1977f5273f03134baf1f964701954926",
+   "aile": "LL Serif",
+   "agirlik": "400",
+   "stil": "normal",
+   "ham_bayt": 290236,
+   "bayt": 27816
+  },
+  {
+   "ttf": "CormorantGaramond-Medium.ttf",
+   "ttf_md5": "832adc783f194841a19fbe30dd2850ab",
+   "woff2": "cormorant-medium.woff2",
+   "woff2_md5": "1c5b6b9b73cde0b3efd224331ea12a9d",
+   "aile": "LL Serif",
+   "agirlik": "500",
+   "stil": "normal",
+   "ham_bayt": 290496,
+   "bayt": 28396
+  },
+  {
+   "ttf": "CormorantGaramond-LightItalic.ttf",
+   "ttf_md5": "4eed99abca1892ebd55e9e23e5c34c37",
+   "woff2": "cormorant-lightitalic.woff2",
+   "woff2_md5": "dcdce34bedd4edefab2331c8a422bddc",
+   "aile": "LL Serif",
+   "agirlik": "300",
+   "stil": "italic",
+   "ham_bayt": 292904,
+   "bayt": 27232
+  },
+  {
+   "ttf": "CormorantGaramond-Italic.ttf",
+   "ttf_md5": "f12194064a40a36ad0676a8380d324e9",
+   "woff2": "cormorant-italic.woff2",
+   "woff2_md5": "5c6b7e2752e50f79e758a602adb51fbc",
+   "aile": "LL Serif",
+   "agirlik": "400 900",
+   "stil": "italic",
+   "ham_bayt": 293036,
+   "bayt": 29256
   },
   {
    "ttf": "CormorantGaramond-SemiBold.ttf",
    "ttf_md5": "11f17f8dc1351491d9cf2da34abf2089",
    "woff2": "cormorant-semibold.woff2",
-   "woff2_md5": "b7c641dd2c2e23e30d4dac866a96a408",
+   "woff2_md5": "7f6b9acdbcae08b023cd50bf4a480ea0",
    "aile": "LL Serif",
    "agirlik": "600",
    "stil": "normal",
    "ham_bayt": 776264,
-   "bayt": 26264
+   "bayt": 28880
   },
   {
    "ttf": "CormorantGaramond-Bold.ttf",
    "ttf_md5": "30cccf826fe3512c2f93cd6dafeb5580",
    "woff2": "cormorant-bold.woff2",
-   "woff2_md5": "19c0dc58761e80abba8cdb8bf4e74ad5",
+   "woff2_md5": "a6fbf12c0c30c2f1d40095c06d48cce5",
    "aile": "LL Serif",
    "agirlik": "700 900",
    "stil": "normal",
    "ham_bayt": 775372,
-   "bayt": 24636
+   "bayt": 27208
   },
   {
    "ttf": "PlusJakartaSans-Regular.ttf",
    "ttf_md5": "79f8cf37aa9c7e197af9a6a0cf519d53",
    "woff2": "jakarta-regular.woff2",
-   "woff2_md5": "3482961da8dbecd07f989451d552cadb",
+   "woff2_md5": "1a490d31febd4c143cd99adb3ab894fe",
    "aile": "LL Sans",
    "agirlik": "400",
    "stil": "normal",
    "ham_bayt": 96900,
-   "bayt": 14572
+   "bayt": 14640
   },
   {
    "ttf": "PlusJakartaSans-Medium.ttf",
    "ttf_md5": "936416f4dd5dbcc2ee02b6d8d260576c",
    "woff2": "jakarta-medium.woff2",
-   "woff2_md5": "3c58093980942bc90beddf13dac851a2",
+   "woff2_md5": "8029563de33d7cf0a584030a472a0c89",
    "aile": "LL Sans",
    "agirlik": "500",
    "stil": "normal",
    "ham_bayt": 96884,
-   "bayt": 15248
+   "bayt": 15252
   },
   {
    "ttf": "PlusJakartaSans-SemiBold.ttf",
    "ttf_md5": "b86f93984727a6a1d99b473781ed16d9",
    "woff2": "jakarta-semibold.woff2",
-   "woff2_md5": "e94cfb90dbbaf755a04c177425080dcf",
+   "woff2_md5": "2d314f065f942e1652804053df6b3c7e",
    "aile": "LL Sans",
    "agirlik": "600",
    "stil": "normal",
    "ham_bayt": 96872,
-   "bayt": 15144
+   "bayt": 15160
   },
   {
    "ttf": "PlusJakartaSans-Bold.ttf",
    "ttf_md5": "acf462e084f6e7929c724420c5982191",
    "woff2": "jakarta-bold.woff2",
-   "woff2_md5": "6b5580e09b5645debe4f4a05a3e24e81",
+   "woff2_md5": "22e456b703ed7743049f440000eded7e",
    "aile": "LL Sans",
    "agirlik": "700 900",
    "stil": "normal",
    "ham_bayt": 96776,
-   "bayt": 15276
+   "bayt": 15240
   },
   {
    "ttf": "JetBrainsMono-Medium.ttf",

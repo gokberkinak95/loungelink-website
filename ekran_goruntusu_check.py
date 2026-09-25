@@ -91,6 +91,21 @@ def main():
     for d in eksik:
         print("    ✗ %s — manifestte var, diskte yok" % d)
 
+    # 🔴 25 EYLÜL — YÖN BİLGİSİ YOKTU. Denetim yalnız "farklı mı" diye
+    # soruyordu; görseller app kopyasından YENİ olduğunda da "site eski
+    # sürümü gösteriyor" diyordu. Oysa o durumda bayat olan GÖRSEL değil,
+    # yanındaki app KOPYASIDIR (ör. 5.17.1 kareleri, 5.14.0 zip'i).
+    def surum_t(v):
+        try:
+            return tuple(int(x) for x in str(v).split(".")[:3])
+        except ValueError:
+            return ()
+    if surum_t(kayitli) and surum_t(guncel) and surum_t(kayitli) > surum_t(guncel):
+        print()
+        print("  ⚠ GÖRSELLER (%s) YANDAKİ APP KOPYASINDAN (%s) YENİ." % (kayitli, guncel))
+        print("     Site doğru; denetimin okuduğu `../rnapp` eski bir kopya.")
+        print("     Güncel app kaynağını yan klasöre koy (ya da depodan çek).")
+        return 0
     bayat = anahat(kayitli) != anahat(guncel)
     if bayat and not kabul:
         print()

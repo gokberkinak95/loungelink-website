@@ -163,7 +163,6 @@ export default function Home() {
       {/* --- AKIŞ: 3 ADIM — numara gerçek sıra taşıyor --- */}
       <section className="section dark-band alt" id="akis">
         <SectionScene kind="contrail" />
-        <div className="ghost" aria-hidden="true">AKIŞ</div>
         <div className="wrap">
           <div className="eyebrow">{BOLUM.akis.eyebrow}</div>
           <h2>{BOLUM.akis.h2}</h2>
@@ -187,7 +186,6 @@ export default function Home() {
       {/* --- NEDEN --- */}
       <section className="section dark-band" id="neden">
         <SectionScene kind="wing" flip />
-        <div className="ghost" aria-hidden="true">NEDEN</div>
         <div className="wrap split">
           <div className="col-text">
             <div className="eyebrow">{BOLUM.neden.eyebrow}</div>
@@ -218,7 +216,6 @@ export default function Home() {
           kural verisinden konuşuyor. Bu bölüm bizim hendek. */}
       <section className="section dark-band alt" id="kural">
         <SectionScene kind="runway" />
-        <div className="ghost" aria-hidden="true">KURAL</div>
         <div className="wrap">
           <div className="eyebrow">{BOLUM.kural.eyebrow}</div>
           {/* 🔴 BAŞLIK SORUYU SORUYORDU, CEVABI VERMİYORDU.
@@ -226,7 +223,7 @@ export default function Home() {
               Bizimki soruyu tekrar ediyordu — ziyaretçi zaten soruyu
               biliyor, cevabı arıyor. */}
           <h2>{BOLUM.kural.h2}</h2>
-          <p style={{ marginTop: 10, fontFamily: "var(--serif)", fontSize: 19, color: "var(--gold)", fontStyle: "italic" }}>
+          <p className="slogan">
             {SITE.ruleSlogan}
           </p>
           {/* 🔴 GİRİŞ CÜMLESİ ARTIK FARKI SÖYLÜYOR.
@@ -323,7 +320,6 @@ export default function Home() {
       <section className="section dark-band" id="kapsam">
         {/* radar = kapsama alanı; sahne bölümün konusunu taşır */}
         <SectionScene kind="radar" />
-        <div className="ghost" aria-hidden="true">KAPSAM</div>
         <div className="wrap" style={{ maxWidth: 820 }}>
           <div className="eyebrow">{BOLUM.kapsam.eyebrow}</div>
           <h2>{BOLUM.kapsam.h2}</h2>
@@ -337,7 +333,6 @@ export default function Home() {
       {/* --- GÜVEN — hepsi app'te gerçekten var olan mekanizmalar --- */}
       <section className="section dark-band" id="guven">
         <SectionScene kind="radar" />
-        <div className="ghost" aria-hidden="true">GÜVEN</div>
         <div className="wrap">
           <div className="eyebrow">{BOLUM.guven.eyebrow}</div>
           {/* v0.8 — İFADE SATIRI: LS kart ızgaralarının arasına tek
@@ -355,7 +350,7 @@ export default function Home() {
                 dikkat başlığa gitsin, ikona değil. */}
             {TRUST.map((c, i) => (
               <div className="prog-card" key={c.t} style={{ "--i": i }}>
-                <span className="chip-ico" aria-hidden="true">{c.i}</span>
+                <span className="idx" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
                 <h3>{c.t}</h3>
                 <p>{c.d}</p>
               </div>
@@ -403,9 +398,7 @@ export default function Home() {
           site bugüne kadar misafire konuşuyordu. */}
       <section className="section dark-band host-band" id="kart-sahibi">
         <SectionScene kind="wing" />
-        <div className="ghost" aria-hidden="true">KART</div>
         <div className="wrap">
-          <div className="sec-no">04</div>
           <div className="eyebrow">{BOLUM.host.eyebrow.toLocaleUpperCase("tr-TR")}</div>
           {/* 🔴 v0.44 — HOST BÖLÜMÜNE BAŞLIK GELDİ.
               Burada bir `h2` HİÇ YOKTU: bölüm doğrudan bir soruyla
@@ -435,7 +428,7 @@ export default function Home() {
           <div className="host-grid">
             {HOST_WHY.map((c, i) => (
               <div className="host-card" key={c.t} style={{ "--i": i }}>
-                <span className="chip-ico" aria-hidden="true">{c.i}</span>
+                <span className="idx" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
                 <h3>{c.t}</h3>
                 <p>{c.d}</p>
               </div>
@@ -514,7 +507,7 @@ export default function Home() {
                          "Öncelikli destek"] },
             ].map(p2 => (
               <div key={p2.ad} className={"plan-card" + (p2.one ? " on" : "")}>
-                {p2.one && <span className="plan-tag">EN ÇOK SEÇİLEN</span>}
+                {p2.one && <span className="plan-tag">ÖNERİLEN</span>}
                 <h3>{p2.ad}</h3>
                 <div className="plan-price">{p2.fiyat}
                   {p2.fiyat !== "Ücretsiz" && <span> / ay</span>}
@@ -550,10 +543,9 @@ export default function Home() {
       {/* --- BETA --- */}
       <section className="section dark-band" id="beta" style={{ textAlign: "center" }}>
         <SectionScene kind="horizon" />
-        <div className="ghost" aria-hidden="true">BETA</div>
         <div className="wrap" style={{ maxWidth: 620 }}>
           <div className="eyebrow">Kapalı beta</div>
-          <h2>{SITE.closing} <em style={{ color: "var(--gold)", fontStyle: "italic" }}>{SITE.closingEm}</em></h2>
+          <h2>{SITE.closing} <em>{SITE.closingEm}</em></h2>
           {/* 🔴 v0.17 — SİTENİN DÖNÜŞÜM NOKTASINDA AYNI CÜMLE İKİ KEZ
               yazılıydı ("Kurucu Host rozeti kalıcıdır" iki paragrafta).
               Kopyala-yapıştır artığı, hem de en pahalı yerde: ziyaretçi
@@ -585,7 +577,7 @@ export default function Home() {
               kanaldan geldiği ölçülemiyor, sonradan yazılacak liste
               birikmiyordu. mailto silinmedi — formun dibinde küçük
               puntoda yedek yol olarak duruyor. */}
-          <h3 style={{ marginTop: 26, fontSize: 22 }}>Kurucu çembere katıl</h3>
+          <h3 className="beta-form-t">Kurucu çembere katıl</h3>
           <p style={{ marginTop: 8 }}>İlk 100 host beta&apos;yı birlikte kuruyor.</p>
           <WaitlistForm />
         </div>
@@ -594,8 +586,8 @@ export default function Home() {
       <footer style={{ borderTop: "1px solid var(--line)", padding: "40px 0", background: "var(--card)" }}>
         <div className="wrap" style={{ display: "flex", gap: 30, flexWrap: "wrap", fontSize: 13.5, color: "var(--muted)" }}>
           <div style={{ flex: 1, minWidth: 200 }}>
-            <b style={{ fontFamily: "var(--serif)", color: "var(--ink)", fontSize: 16, display: "inline-flex", alignItems: "center", gap: 8 }}>
-              <img src="/mark-kanat.svg" alt="" width={28} height={13} /> LoungeLink
+            <b className="foot-lockup">
+              <img src="/mark-kanat.svg" alt="" width={32} height={15} /> LOUNGELINK
             </b>
             <p style={{ marginTop: 6, fontSize: 12.5 }}>
               {SITE.footerSlogan} Lounge erişimi satmaz; doğrulanmış yolcuları buluşturur.

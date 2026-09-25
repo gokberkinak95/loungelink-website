@@ -142,7 +142,7 @@ export default function HostEarn() {
           somut ve bu ürüne özel. */}
       <div className="hearn-cur">
         <div className="hearn-cur-card">
-          <span className="hearn-ico" aria-hidden="true">⬡</span>
+          <span className="idx" aria-hidden="true">01</span>
           <b>Kredi</b>
           <em>1 ağırlama = {KREDI_BASINA_AGIRLAMA} kredi</em>
           <p>
@@ -153,7 +153,7 @@ export default function HostEarn() {
           </p>
         </div>
         <div className="hearn-cur-card">
-          <span className="hearn-ico" aria-hidden="true">★</span>
+          <span className="idx" aria-hidden="true">02</span>
           <b>LoungePuan</b>
           <em>1 ağırlama = {PUAN_HOST} puan</em>
           <p>
