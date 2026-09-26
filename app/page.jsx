@@ -24,6 +24,22 @@ import KurucuSayac from "../components/KurucuSayac";
 // gelmeli — çünkü ziyaretçi bizi bilmiyor ve ilk 10 saniyede
 // "bunu başka kim yapıyor" sorusunun cevabını almalı.
 // ============================================================
+function Hikaye({ s, rev }) {
+  // v0.67 — eski ayrı "BÖLÜMLER" satırı; artık komşu bölümün içinde.
+  return (
+    <div id={s.id} className={"wrap split birlesik-alt" + (rev ? " rev" : "")}>
+      <div className="col-text">
+        <div className="eyebrow">{s.eyebrow}</div>
+        <h2>{s.title}</h2>
+        <p className="lead" style={{ marginTop: 18 }}>{s.body}</p>
+        {s.note && <p className="note">{s.note}</p>}
+        <a className="beat" href={s.cta?.href || "#beta"}>{s.cta?.label || "Beta listesine yazıl →"}</a>
+      </div>
+      <EgikEkran src={s.shot} alt={s.shotAlt} w={s.shotW} h={s.shotH} />
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <>
@@ -151,72 +167,10 @@ export default function Home() {
       <section className="section dark-band" id="cuzdan" style={{ background: "var(--bg)" }}>
         <div className="wrap">
           <WalletCalc />
-          {/* §3 ritmi: her içerik bölümü DAVET VURUŞUYLA kapanır.
-              İlk yazımda iki yeni bölümü vuruşsuz bıraktım ve sitenin
-              kendi denetimi yakaladı — kural işliyor. */}
-          <OlayLink ad="kural_sorusu" ozellik={{ yer: "kartlar" }} className="beat" href="/kartlar">{BOLUM.cuzdan.beat} <span>→</span></OlayLink>
-        </div>
-      </section>
-
-      <hr className="wing-rule" />
-
-      {/* --- AKIŞ: 3 ADIM — numara gerçek sıra taşıyor --- */}
-      <section className="section dark-band alt" id="akis">
-        <SectionScene kind="contrail" />
-        <div className="wrap">
-          <div className="eyebrow">{BOLUM.akis.eyebrow}</div>
-          <h2>{BOLUM.akis.h2}</h2>
-          <div className="flow">
-            {FLOW.map((f) => (
-              <div className="flow-step" key={f.n}>
-                <div className="flow-n">{f.n}</div>
-                <h3>{f.t}</h3>
-                <p>{f.d}</p>
-              </div>
-            ))}
-          </div>
-        
-          {/* v0.9 — §3 ritim: bölüm DAVET vuruşuyla kapanır. Okuyucu bilgiyle bırakılırsa akış durur; her bölüm bir sonraki adımı işaret etmeli. */}
-          <a className="beat" href="/rehber">{BOLUM.akis.beat} <span>→</span></a>
-        </div>
-      </section>
-
-      <hr className="wing-rule" />
-
-      {/* --- NEDEN --- */}
-      <section className="section dark-band" id="neden">
-        <SectionScene kind="wing" flip />
-        <div className="wrap split">
-          <div className="col-text">
-            <div className="eyebrow">{BOLUM.neden.eyebrow}</div>
-            <h2>{BOLUM.neden.h2}</h2>
-            <p className="lead" style={{ marginTop: 18 }}>
-              Kartındaki misafir hakkı yıl sonunda sessizce siliniyor. Aynı anda,
-              aynı terminalde biri üç saatlik aktarmayı telefonuna bakarak geçiriyor.
-              İki tarafı da tanıyoruz; ikisini buluşturuyoruz.
-            </p>
-            <p className="note">
-              Aynı uçuşta, aynı salonda — kalkıştan önce yanındaki koltuktaki kişiyle tanış.
-            </p>
-          </div>
-          <div className="shots shots-sm">
-            {SHOTS_TRUST.map((p) => (
-              <img key={p.src} src={p.src} alt={p.alt} className="shot" width={p.w} height={p.h} loading="lazy" />
-            ))}
-          </div>
-        {/* v0.9 — §3 ritim: bölüm DAVET vuruşuyla kapanır. Okuyucu bilgiyle bırakılırsa akış durur; her bölüm bir sonraki adımı işaret etmeli. */}
-          <a className="beat" href="#beta">Sıradaki uçuşunda yalnız uçma <span>→</span></a>
-        </div>
-      </section>
-
-      <hr className="wing-rule" />
-
-      {/* --- KURAL MOTORU ---
-          🔴 Rakipte 4 GENEL ittifak kartı var; bizde her kart gerçek
-          kural verisinden konuşuyor. Bu bölüm bizim hendek. */}
-      <section className="section dark-band alt" id="kural">
-        <SectionScene kind="runway" />
-        <div className="wrap">
+          {/* 🔴 v0.67 — 14 → 9 BÖLÜM (Gökberk önce/sonra önizlemesini onayladı).
+              Bu blok eskiden ayrı bir bölümdü; içerik silinmedi, konusunun
+              komşusuna taşındı. Çapa (#…) aynı kaldı: eski bağlantılar kırılmaz. */}
+          <div id="kural" className="birlesik-alt">
           <div className="eyebrow">{BOLUM.kural.eyebrow}</div>
           {/* 🔴 BAŞLIK SORUYU SORUYORDU, CEVABI VERMİYORDU.
               Rakibin başlığı bir SÖZ veriyor: "We find your perfect +1."
@@ -261,31 +215,44 @@ export default function Home() {
           </div>
         {/* v0.9 — §3 ritim: bölüm DAVET vuruşuyla kapanır. Okuyucu bilgiyle bırakılırsa akış durur; her bölüm bir sonraki adımı işaret etmeli. */}
           <a className="beat" href="/rehber">{BOLUM.kural.beat} <span>→</span></a>
+          </div>
+          <div id="kapsam" className="birlesik-alt">
+            <div className="eyebrow">{BOLUM.kapsam.eyebrow}</div>
+          <h2>{BOLUM.kapsam.h2}</h2>
+          <Coverage />
+          <a className="beat" href="/rehber">Havalimanını seç, salonu gör <span>→</span></a>
+          </div>
+          {/* §3 ritmi: her içerik bölümü DAVET VURUŞUYLA kapanır.
+              İlk yazımda iki yeni bölümü vuruşsuz bıraktım ve sitenin
+              kendi denetimi yakaladı — kural işliyor. */}
+          <OlayLink ad="kural_sorusu" ozellik={{ yer: "kartlar" }} className="beat" href="/kartlar">{BOLUM.cuzdan.beat} <span>→</span></OlayLink>
         </div>
       </section>
 
       <hr className="wing-rule" />
 
-      {/* ══════════════════════════════════════════════════════════════
-          🔴 v0.44 — MİKRO SAHNE. YENİ BÖLÜM.
-
-          Lounge Surf'ün en iyi hamlesi bu ve bizde hiç yoktu: ürünü
-          ANLATMAK yerine bir AN gösteriyorlar — "I'm at gate B12, blue
-          jacket." Tek cümlelik somut bir sahne, üç paragraflık özellik
-          listesinden daha çok iş yapıyor, çünkü okuyucu kendini oraya
-          koyuyor.
-
-          Bizde bu sahnenin gerçek bir karşılığı var: eşleşmeden SONRA
-          açılan sohbet. Sitede o âna dair tek kelime yoktu; ziyaretçi
-          "eşleştim, sonra ne oluyor?" sorusunun cevabını hiçbir yerde
-          göremiyordu.
-
-          🆕 SINIF: "SOMUT BİR CÜMLE, DOĞRU BİR PARAGRAFTAN DAHA İKNA
-          EDİCİDİR — İKNA BİLGİYLE DEĞİL, CANLANDIRMAYLA OLUR."
-          ══════════════════════════════════════════════════════════════ */}
-      <section className="section dark-band" id="an">
-        <div className="wrap" style={{ maxWidth: 720 }}>
-          <div className="eyebrow">Sohbet</div>
+      {/* --- AKIŞ: 3 ADIM — numara gerçek sıra taşıyor --- */}
+      <section className="section dark-band alt" id="akis">
+        <SectionScene kind="contrail" />
+        <div className="wrap">
+          <div className="eyebrow">{BOLUM.akis.eyebrow}</div>
+          <h2>{BOLUM.akis.h2}</h2>
+          <div className="flow">
+            {FLOW.map((f) => (
+              <div className="flow-step" key={f.n}>
+                <div className="flow-n">{f.n}</div>
+                <h3>{f.t}</h3>
+                <p>{f.d}</p>
+              </div>
+            ))}
+          </div>
+        
+          {/* v0.9 — §3 ritim: bölüm DAVET vuruşuyla kapanır. Okuyucu bilgiyle bırakılırsa akış durur; her bölüm bir sonraki adımı işaret etmeli. */}
+          {/* 🔴 v0.67 — 14 → 9 BÖLÜM (Gökberk önce/sonra önizlemesini onayladı).
+              Bu blok eskiden ayrı bir bölümdü; içerik silinmedi, konusunun
+              komşusuna taşındı. Çapa (#…) aynı kaldı: eski bağlantılar kırılmaz. */}
+          <div id="an" className="birlesik-alt birlesik-dar">
+            <div className="eyebrow">Sohbet</div>
           <h2>Kalan tek iş, birbirinizi bulmak.</h2>
           <div className="an-sohbet">
             {SAHNE.map((m, i) => (
@@ -299,33 +266,41 @@ export default function Home() {
             Salon, kapı ve kalkışa kalan süre sohbetin üstünde donmuş durur —
             konuşurken yukarı kaydırmak gerekmez.
           </p>
-          {/* §3 ritim — sitenin kendi kuralı: her bölüm bir DAVET
-              vuruşuyla kapanır. İlk yazımda unutmuştum ve `check.js`
-              yakaladı: "an bölümü davet vuruşuyla kapanmıyor".
-              Bir sonraki adım burada belli: "peki karşımdaki kim?" */}
-          <a className="beat" href="#guven">Buluşacağın kişi nasıl doğrulanıyor <span>→</span></a>
+          </div>
+          <a className="beat" href="/rehber">{BOLUM.akis.beat} <span>→</span></a>
         </div>
       </section>
 
       <hr className="wing-rule" />
 
-      {/* --- KAPSAM ---
-          🔴 Gökberk: "Kartınızla nereye girebilirsiniz ekranında sadece
-          IST ve Sabiha Gökçen var. Bizim kapsamımız bundan çok çok daha
-          fazlası." Doğru teşhis: kapsam vardı, SİTEDE yoktu. Ziyaretçi
-          kendi havalimanını göremezse "bu ürün bana göre değil" der ve
-          çıkar — ve haklıdır, çünkü gördüğü şey doğruydu.
-          Veri lib/lounges-data.js'ten gelir, o da data/salonlar.csv'den
-          ÜRETİLİR. Buraya elle sayı yazılmaz. */}
-      <section className="section dark-band" id="kapsam">
-        {/* radar = kapsama alanı; sahne bölümün konusunu taşır */}
-        <SectionScene kind="radar" />
-        <div className="wrap" style={{ maxWidth: 820 }}>
-          <div className="eyebrow">{BOLUM.kapsam.eyebrow}</div>
-          <h2>{BOLUM.kapsam.h2}</h2>
-          <Coverage />
-          <a className="beat" href="/rehber">Havalimanını seç, salonu gör <span>→</span></a>
+      {/* --- NEDEN --- */}
+      <section className="section dark-band" id="neden">
+        <SectionScene kind="wing" flip />
+        <div className="wrap split">
+          <div className="col-text">
+            <div className="eyebrow">{BOLUM.neden.eyebrow}</div>
+            <h2>{BOLUM.neden.h2}</h2>
+            <p className="lead" style={{ marginTop: 18 }}>
+              Kartındaki misafir hakkı yıl sonunda sessizce siliniyor. Aynı anda,
+              aynı terminalde biri üç saatlik aktarmayı telefonuna bakarak geçiriyor.
+              İki tarafı da tanıyoruz; ikisini buluşturuyoruz.
+            </p>
+            <p className="note">
+              Aynı uçuşta, aynı salonda — kalkıştan önce yanındaki koltuktaki kişiyle tanış.
+            </p>
+          </div>
+          <div className="shots shots-sm">
+            {SHOTS_TRUST.map((p) => (
+              <img key={p.src} src={p.src} alt={p.alt} className="shot" width={p.w} height={p.h} loading="lazy" />
+            ))}
+          </div>
+        {/* v0.9 — §3 ritim: bölüm DAVET vuruşuyla kapanır. Okuyucu bilgiyle bırakılırsa akış durur; her bölüm bir sonraki adımı işaret etmeli. */}
+          <a className="beat" href="#beta">Sıradaki uçuşunda yalnız uçma <span>→</span></a>
         </div>
+        {/* 🔴 v0.67 — 14 → 9 BÖLÜM (Gökberk önce/sonra önizlemesini onayladı).
+              Bu blok eskiden ayrı bir bölümdü; içerik silinmedi, konusunun
+              komşusuna taşındı. Çapa (#…) aynı kaldı: eski bağlantılar kırılmaz. */}
+        <Hikaye s={SECTIONS[0]} rev />
       </section>
 
       <hr className="wing-rule" />
@@ -363,33 +338,6 @@ export default function Home() {
 
       <hr className="wing-rule" />
 
-      {/* --- BÖLÜMLER --- */}
-      {SECTIONS.map((s, i) => (
-        <section className={"section dark-band" + (i % 2 ? " alt" : "")} id={s.id} key={s.id}>
-          <div className={"wrap split" + (i % 2 ? " rev" : "")}>
-            <div className="col-text">
-              <div className="eyebrow">{s.eyebrow}</div>
-              <h2>{s.title}</h2>
-              <p className="lead" style={{ marginTop: 18 }}>{s.body}</p>
-              {s.note && <p className="note">{s.note}</p>}
-              {/* v0.9 — §3: bölüm metni DAVET vuruşuyla biter */}
-              <a className="beat" href={s.cta?.href || "#beta"}>{s.cta?.label || "Beta listesine yazıl →"}</a>
-            </div>
-            {/* 🔴 v0.4 (Gokberk: "gerçekçi olmayan görseller iğrenç
-                duruyor") — HAKLI. Bu bölümlerde ÇİZİM telefon vardı:
-                elle kodlanmış sahte bir arayüz. Sahte arayüz iki kez
-                zarar verir: (1) ürünün gerçeğine benzemez, (2) ürün
-                değişince bayatlar ve kimse güncellemez. Artık gerçek
-                cihaz ekranı — eğik çerçevede, tıklanabilir hissiyle. */}
-            {/* v0.41 — sabit eğim yerine işaretçiye tepki veren eğim.
-                Sınıf adı ve düşüş davranışı aynı; yalnız hareket
-                kullanıcının kendi hareketi oldu. */}
-            <EgikEkran src={s.shot} alt={s.shotAlt} w={s.shotW} h={s.shotH} />
-          </div>
-        </section>
-      ))}
-      <hr className="wing-rule" />
-
       {/* SSS şeması artık /sss sayfasında (v0.52) */}
       {/* --- HOST BÖLÜMÜ ---
           🔴 İki taraflı pazarda ARZ önce gelir. Misafir, host olmadan
@@ -398,6 +346,10 @@ export default function Home() {
           site bugüne kadar misafire konuşuyordu. */}
       <section className="section dark-band host-band" id="kart-sahibi">
         <SectionScene kind="wing" />
+        {/* 🔴 v0.67 — 14 → 9 BÖLÜM (Gökberk önce/sonra önizlemesini onayladı).
+              Bu blok eskiden ayrı bir bölümdü; içerik silinmedi, konusunun
+              komşusuna taşındı. Çapa (#…) aynı kaldı: eski bağlantılar kırılmaz. */}
+        <Hikaye s={SECTIONS[1]} />
         <div className="wrap">
           <div className="eyebrow">{BOLUM.host.eyebrow.toLocaleUpperCase("tr-TR")}</div>
           {/* 🔴 v0.44 — HOST BÖLÜMÜNE BAŞLIK GELDİ.

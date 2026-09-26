@@ -2145,6 +2145,9 @@ h1, h2 {
 }
 h2 { font-size: clamp(34px, 4.8vw, 58px); }
 h1 em, h2 em {
+  /* v0.67 — aile AÇIKÇA serif: 300 kesiti yalnız Cormorant'ta var;
+     aileyi mirasa bırakınca font_check sans'ta sahte ince kesit görüyordu. */
+  font-family: var(--serif);
   font-style: italic; font-weight: 300;
   color: var(--gold); letter-spacing: -0.005em;
 }
@@ -2169,14 +2172,14 @@ h3 { font-family: var(--serif); font-weight: 500; letter-spacing: 0; font-varian
 
 /* İfade satırı: ince serif, nefesli */
 .statement {
-  font-weight: 300; font-size: clamp(26px, 3.3vw, 42px); line-height: 1.28;
+  font-family: var(--serif); font-weight: 300; font-size: clamp(26px, 3.3vw, 42px); line-height: 1.28;
   letter-spacing: -0.01em; color: var(--ink); text-wrap: balance;
 }
 .slogan {
   margin-top: 14px; font-family: var(--serif); font-style: italic; font-weight: 300;
   font-size: clamp(19px, 1.8vw, 23px); color: var(--goldText);
 }
-.hero-baglanti, .prog-alt { font-weight: 300; }
+.hero-baglanti, .prog-alt { font-family: var(--serif); font-weight: 300; }
 .hero-baglanti { font-size: clamp(18px, 1.7vw, 22px); }
 
 /* Rakamlar: eski stil rakam (284 → "2" düşük) başlıkta tutarsız duruyordu */
@@ -2185,7 +2188,7 @@ h3 { font-family: var(--serif); font-weight: 500; letter-spacing: 0; font-varian
 }
 .hero-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: 44px; padding-top: 28px; border-top: 1px solid var(--hair); }
 .hero-stats div { min-width: 0; }
-.hero-stats b { font-weight: 300; font-size: clamp(34px, 3.4vw, 46px); line-height: 1; color: var(--ink); }
+.hero-stats b { font-family: var(--serif); font-weight: 300; font-size: clamp(34px, 3.4vw, 46px); line-height: 1; color: var(--ink); }
 .hero-stats span { display: block; margin-top: 8px; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
 
 /* ── Ritim: daha çok boşluk, daha az çizgi ─────────────────────────── */
@@ -2304,7 +2307,7 @@ h3 { font-family: var(--serif); font-weight: 500; letter-spacing: 0; font-varian
 .plan-card { padding: 34px 30px; }
 .plan-card.on { box-shadow: inset 0 0 0 1px var(--hair-gold); background: rgba(201,182,147,.05) !important; }
 .plan-card h3 { font-weight: 500; font-size: 26px; }
-.plan-price { font-weight: 300; font-size: 44px; color: var(--ink); margin-top: 6px; }
+.plan-price { font-family: var(--serif); font-weight: 300; font-size: 44px; color: var(--ink); margin-top: 6px; }
 .plan-price span { font-family: var(--sans); font-size: 13px; color: var(--muted); letter-spacing: .02em; }
 .plan-tag { top: -9px; font-weight: 500; letter-spacing: .22em; padding: 4px 12px; }
 .plan-card ul { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--hair); display: grid; gap: 6px; }
@@ -2387,3 +2390,18 @@ footer a:hover { color: var(--goldText); }
 }
 h2 { margin-bottom: 22px; }
 .statement + h2 { margin-top: 0; }
+
+/* ══════════════════════════════════════════════════════════════════
+   v0.67 · 14 → 9 BÖLÜM — BİRLEŞİK ALT BLOK
+   Eskiden ayrı bölüm olan içerik (kural kartları, kapsam, sohbet anı,
+   iki hikâye) artık komşu bölümün içinde. Ayrım yeni bir bant değil,
+   tek bir ince ışık çizgisi + nefes: aynı konunun ikinci paragrafı.
+   ══════════════════════════════════════════════════════════════════ */
+.birlesik-alt {
+  margin-top: clamp(56px, 8vw, 96px);
+  padding-top: clamp(40px, 6vw, 72px);
+  border-top: 1px solid var(--hair);
+  scroll-margin-top: 96px;
+}
+.birlesik-dar { max-width: 720px; }
+.wrap.split.birlesik-alt { margin-left: auto; margin-right: auto; }
