@@ -1,100 +1,94 @@
+"use client";
+import { useEffect, useState } from "react";
+
 // ============================================================
 // SiteHeader — TEK marka işareti, TEK başlık çubuğu
 //
-// 🔴 v0.17 — AYNI SİTEDE İKİ MARKA İŞARETİ VARDI.
-// Ana sayfa /mark.svg (gerçek konik kanat işareti) kullanıyordu;
-// /rehber, /rehber/[slug], yasal sayfalar ve /hesap-sil ise eski
-// metin sembolünü (U+25C8) kullanıyordu. Yani ziyaretçinin gördüğü 78
-// alt sayfada marka BAŞKA bir işaretle duruyordu.
+// 🔴 v0.17 — aynı sitede iki marka işareti vardı; başlık beş dosyada
+// beş kez yazılmıştı. Çözüm bileşen: bir daha ayrışamaz.
+// 🔴 v0.18 — menü bileşenin KENDİSİNDE: bir sayfa eklenince menüyü de
+// eklemeyi unutmak imkânsız. Bağlantılar "/#..." biçiminde: alt
+// sayfalardan da ana sayfanın doğru bölümüne gider.
+// 🔴 v0.28 — "iki çağrı yarışır" kuralı İKİ BUTON içindir, iki menü
+// maddesi için değil. Buton hâlâ TEK.
 //
-// Bu, "kopyala-yapıştır başlık" hatasının klasik sonucu: başlık beş
-// dosyada beş kez yazılmıştı, biri güncellenince diğerleri kaldı.
-// Çözüm bileşen çıkarmak — bir daha ayrışamaz.
-// check.js §5 bekçisi: kaynakta o sembolü görürse derlemeyi durdurur.
+// 🔴 v0.69 (Gökberk, 28 Eylül: "header daha premium olmalı") —
+// ÖLÇÜLDÜ: ana sayfa 22 ekran boyuydu ve başlık `position:absolute`
+// olduğu için İLK EKRANDAN SONRA MENÜ YOKTU. Artık:
+//   · yapışkan: kahramanın üstünde şeffaf, kaydırınca cam zemin + incelir
+//   · menü sayfaları adlandırıyor (ana sayfa kısaldı, içerik sayfalara
+//     taşındı: Kartlar · Rehber · Ayrıcalıklar · SSS)
+//   · bulunulan sayfa işaretli (aria-current)
+//   · telefonda iki satırlık sarılan menü yerine tam ekran menü
+//   · çağrı her yerde aynı cümle: "Beta'ya katıl"
 // ============================================================
-// 🔴 v0.18 — SALON REHBERİNE HEADER'DAN GİDİLEMİYORDU (Gökberk).
-// Menü yalnız ana sayfada vardı: alt sayfalarda <SiteHeader /> çocuksuz
-// çağrılıyordu, yani rehberde, yasal sayfalarda ve /hesap-sil'de hiç
-// gezinme yoktu. Rehber sitenin en değerli varlığı ve ona giden tek
-// yol ana sayfanın ortasındaki bir bağlantıydı.
-//
-// Menü artık bileşenin KENDİSİNDE: bir sayfa eklenince menüyü de
-// eklemeyi unutmak imkânsız. Sade tutuldu —
-//   Rehber · Nasıl çalışır · SSS  +  TEK çağrı (Beta listesi)
-// MARKA_RUHU §9.5: iki çağrı yarışır, ikisi de kaybeder. Eski menüdeki
-// "Kart sahibiysen" bağlantısı ikinci bir davetti; host bölümüne giden
-// yol sayfanın içindeki davet vuruşlarında zaten var.
-//
-// Bağlantılar "/#..." biçiminde: alt sayfalardan da ana sayfanın
-// doğru bölümüne gider. "#akis" yazsaydım rehberde hiçbir yere
-// gitmezdi (aynı sayfada o çapa yok).
-// 🔴 v0.28 — YUKARIDAKİ KARARIMI KISMEN GERİ ALIYORUM, sebebiyle.
-// v0.18'de "Kart sahibiysen" bağlantısını menüden çıkardım ve gerekçem
-// şuydu: "iki çağrı yarışır, ikisi de kaybeder." Gerekçe DOĞRUYDU ama
-// yanlış şeye uygulandı — o kural İKİ BUTON için geçerlidir, iki menü
-// maddesi için değil. Sonuç: sitenin ikna etmesi gereken taraf (host)
-// menüde hiç adlandırılmadı; host bölümüne giden tek yol sayfanın
-// ortasındaki bir vuruştu ve oraya inen ziyaretçi zaten ikna olmuş
-// olandı.
-// 🆕 SINIF: **"DOĞRU BİR KURALI YANLIŞ YERE UYGULAMAK, YANLIŞ BİR
-// KURAL KADAR PAHALIYA MAL OLUR."**
-// Buton hâlâ TEK (Beta listesi). Bu bir menü maddesi ve karşılığı
-// olan bir söz veriyor: "ne kazanırım" sorusunun cevabı orada.
 const NAV = [
-  { href: "/rehber", label: "Rehber" },
-  { href: "/#akis", label: "Nasıl çalışır" },
-  { href: "/#kart-sahibi", label: "Kartın ne kazandırır" },
-  { href: "/sss", label: "SSS" },
+  { href: "/#akis", label: "Nasıl çalışır", yol: null },
+  { href: "/kartlar", label: "Kartlar", yol: /^\/kart(lar|\/)/ },
+  { href: "/rehber", label: "Rehber", yol: /^\/rehber/ },
+  { href: "/ayricaliklar", label: "Ayrıcalıklar", yol: /^\/ayricaliklar/ },
+  { href: "/sss", label: "SSS", yol: /^\/sss/ },
 ];
 
-// v0.54.0 — `seffaf`: ana sayfada başlık çubuğu kahraman sahnesinin
-// ÜSTÜNE biner (zemin yok, çizgi yok). Alt sayfalar eskisi gibi.
+const CTA = "Beta'ya katıl";
+
+// `seffaf`: ana sayfada çubuk kahraman sahnesinin ÜSTÜNE biner ve
+// ilk kaydırmaya kadar zeminsizdir. Alt sayfalarda baştan cam zemin.
 export default function SiteHeader({ children, seffaf = false }) {
+  const [kaydi, setKaydi] = useState(false);
+  const [acik, setAcik] = useState(false);
+  const [yol, setYol] = useState("");
+
+  useEffect(() => {
+    setYol(window.location.pathname);
+    const olc = () => setKaydi(window.scrollY > 24);
+    olc();
+    window.addEventListener("scroll", olc, { passive: true });
+    return () => window.removeEventListener("scroll", olc);
+  }, []);
+
+  // Menü açıkken arka sayfa kaymaz; Esc kapatır.
+  useEffect(() => {
+    document.documentElement.classList.toggle("menu-acik", acik);
+    const tus = (e) => { if (e.key === "Escape") setAcik(false); };
+    window.addEventListener("keydown", tus);
+    return () => window.removeEventListener("keydown", tus);
+  }, [acik]);
+
+  const sinif = ["lx-head", seffaf ? "is-seffaf" : "is-alt", kaydi ? "is-kaydi" : "", acik ? "is-acik" : ""]
+    .filter(Boolean).join(" ");
+
+  const baglantilar = children || NAV.map((n) => {
+    const aktif = n.yol ? n.yol.test(yol) : false;
+    return (
+      <a key={n.href} href={n.href} aria-current={aktif ? "page" : undefined}
+         onClick={() => setAcik(false)}>{n.label}</a>
+    );
+  });
+
   return (
-    <header className={seffaf ? "site-head-seffaf" : undefined}
-            style={seffaf ? undefined : { borderBottom: "1px solid var(--line)", background: "var(--card)" }}>
-      <div className="wrap site-head-row">
-        <a href="/" style={{ display: "flex", alignItems: "center", gap: 9, flex: 1 }}>
-          {/* 🔴 20 EYLÜL — BAŞLIK ÇUBUĞU ARTIK LOCKUP'IN KENDİSİ.
-              İşaret eski kanattı ve emekli pirinç altın tonundaydı; artık
-              Kemer (brand/build_lockup.py üretiyor, mürekkebe kırpılmış
-              viewBox ile 44px kutuyu doldurur).
-              Kelime de hizalandı: app'te marka satırı ÜÇ yerde BÜYÜK
-              HARF + sans + harf aralığıyla yazılıyor (App.js:2026 ·
-              ekranlar_ana.js:6613 · ui.js:54). Sitede serif "LoungeLink"
-              yazmak, aynı markanın iki farklı imzası demekti. */}
-          {/* 🔴 21 EYLÜL — KEMER YERİNE KANAT (Gökberk sordu, ölçüm doğruladı).
-              Kemer 148×158 birimlik mimari bir form; anlamı kavsinden,
-              iç ışık çizgilerinden ve eşik çubuğundan geliyor. 40px'e
-              inince üçü de 1px'in altına düşüyor ve geriye koyu bir leke
-              kalıyor. Kanat 62×29 (en/boy 2.14) — tek jest, tek kontur;
-              40px'te silueti bozulmuyor.
-              Kemer emekli DEĞİL: ikon, açılış ve lockup onun. Yalnız
-              sitenin 40px'lik yerlerinde kanat kullanılıyor.
-              🆕 SINIF: "BİR İŞARETİN OKUNURLUĞU ÖLÇEKTEN BAĞIMSIZ
-              DEĞİLDİR: KAÇ AYIRT EDİCİ DETAYI VARSA O KADAR BÜYÜK
-              ÇİZİLMEK ZORUNDADIR." */}
-          <img src="/mark-kanat.svg" alt="LoungeLink" width={44} height={21} style={{ display: "block" }} />
-          <b style={{ fontFamily: "var(--sans)", fontSize: 15, color: "var(--ink)",
-                      fontWeight: 700, letterSpacing: "0.22em" }}>
-            LOUNGELINK
-          </b>
+    <header className={sinif}>
+      <div className="wrap lx-row">
+        <a href="/" className="lx-marka" aria-label="LoungeLink ana sayfa">
+          {/* 21 Eylül — sitenin 40px'lik yerlerinde KANAT (kemer bu ölçekte lekeye döner). */}
+          <img src="/mark-kanat.svg" alt="" width={40} height={19} />
+          <b>LOUNGELINK</b>
         </a>
-        {/* v0.54.0 — şeffaf başlıkta çağrı düğmesi menünün DIŞINDA: mobilde
-            marka ile aynı satırda sağda durur, bağlantılar alt satıra sarılır.
-            Eskiden düğme kaydırılan menü satırının sonunda kesiliyordu
-            (ölçüldü: 390'da "Beta li…"). Alt sayfalar eski yapıda. */}
-        {seffaf && !children ? <a href="/#beta" className="btn site-cta">Beta listesi</a> : null}
-        <nav className="site-nav" aria-label="Ana menü">
-          {children || (
-            <>
-              {NAV.map((n) => (
-                <a key={n.href} href={n.href}>{n.label}</a>
-              ))}
-              {seffaf ? null : <a href="/#beta" className="btn">Beta listesi</a>}
-            </>
-          )}
-        </nav>
+
+        <nav className="lx-nav" aria-label="Ana menü">{baglantilar}</nav>
+
+        <a href="/#beta" className="lx-cta">{CTA}</a>
+
+        <button type="button" className="lx-burger" aria-label={acik ? "Menüyü kapat" : "Menüyü aç"}
+                aria-expanded={acik} aria-controls="lx-menu" onClick={() => setAcik((x) => !x)}>
+          <span /><span />
+        </button>
+      </div>
+
+      {/* Telefon menüsü — serif, büyük, sessiz. Çağrı en altta, tek. */}
+      <div id="lx-menu" className="lx-menu" hidden={!acik}>
+        <nav aria-label="Menü">{baglantilar}</nav>
+        <a href="/#beta" className="btn-gold lx-menu-cta" onClick={() => setAcik(false)}>{CTA}</a>
       </div>
     </header>
   );

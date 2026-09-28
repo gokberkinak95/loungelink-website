@@ -16,6 +16,8 @@ const STATIC = [
   // 🔴 /kart sayfalarının tek giriş düğümü. Dizin sitemap'te yoksa
   // 144 sayfa yalnız sitemap satırlarıyla var olur; ağırlık taşımaz.
   ["/kartlar", 0.9],
+  // v0.69 — host kazancı ve abonelik ana sayfadan buraya taşındı.
+  ["/ayricaliklar", 0.8],
   ["/hesap-sil", 0.4],
   ["/gizlilik", 0.3],
   ["/kosullar", 0.3],

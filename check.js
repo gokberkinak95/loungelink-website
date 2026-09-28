@@ -518,7 +518,10 @@ if (fs.existsSync(OUT)) {
     // Artık HTML'deki her bölüm tek tek açılıp içinde vuruş aranıyor.
     // Alt sınır (MIN_BEAT) yine duruyor — bölüm silinerek "temiz"
     // görünmesin diye.
-    const MIN_BEAT = 7;
+    // 🔴 v0.69 — ana sayfa 9 bölümden 6'ya BİLEREK kısaldı (Gökberk: "bitmeyen
+    // alan"); taşınan bölümlerin vuruşları kendi sayfalarında. Eşik yine
+    // GERÇEK sayıya kilitli: kural motoru · akış · taraf · güven = 4.
+    const MIN_BEAT = 4;
     // Kendi çağrısını taşıyan bölümler: hero (btn-gold), SSS (soru
     // listesi), beta (dönüşümün kendisi).
     const MUAF = new Set(["sss", "beta"]);
@@ -807,8 +810,12 @@ if (fs.existsSync(OUT)) {
         console.log(`  ✗ ana sayfada salon sayısı (${mod.LOUNGE_COUNTS.lounges}) geçmiyor — kapsam bölümü boş dönüyor olabilir`);
         bad++;
       }
-      if (!/class="cover-item"/.test(html)) {
-        console.log("  ✗ ana sayfada kapsam listesi (cover-item) yok — havalimanları basılmamış");
+      // 🔴 v0.69 — kapsam listesi ana sayfadan /rehber'e taşındı (orada zaten
+      // vardı). Denetim SİLİNMEDİ: listenin yeni evinde aranıyor.
+      const rehberHtml = path.join(ROOT, ".next/server/app/rehber.html");
+      const kapsamHtml = fs.existsSync(rehberHtml) ? fs.readFileSync(rehberHtml, "utf8") : "";
+      if (!/class="cover-item"/.test(kapsamHtml)) {
+        console.log("  ✗ /rehber'de kapsam listesi (cover-item) yok — havalimanları basılmamış");
         bad++;
       }
     }
@@ -1023,7 +1030,9 @@ try {
     for (const [betik, arg] of [
                                 ["site_paleti.py", ["--denetle"]],
                                 ["ekran_goruntusu_check.py", []]]) {
-      const r = spawnSync(py, [path.join(ROOT, betik), ...arg], { encoding: "utf8" });
+      // PYTHONIOENCODING: Windows'ta boru cp1252 açılıyor, "✓" basınca betik düşüyordu.
+      const r = spawnSync(py, [path.join(ROOT, betik), ...arg],
+                          { encoding: "utf8", env: { ...process.env, PYTHONIOENCODING: "utf-8" } });
       if (r.error) break;
       calisti = true;
       process.stdout.write(r.stdout || "");

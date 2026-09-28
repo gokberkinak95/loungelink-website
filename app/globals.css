@@ -2578,3 +2578,111 @@ h2 { margin-bottom: 22px; }
   .kh-baslik { font-size: 15px; letter-spacing: 4px; }
   .gk-satir text { font-size: 23px; }
 }
+
+/* ════════════════════════════════════════════════════════════════
+   v0.69 · SESSİZ LÜKS — başlık, taraf seçimi, telefon (28 Eylül)
+   Gökberk: "aşağı indikçe bitmeyen alan" + "header daha premium" +
+   "mobil uyum önemli". Yeni renk YOK (yalnız :root jetonları).
+   Eski .site-head-* kuralları yerinde duruyor (geri dönüş yolu);
+   bileşen artık .lx-* sınıflarını kullanıyor.
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── Başlık: yapışkan, kaydırınca cam + incelir ─────────────── */
+.lx-head { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid transparent;
+  transition: background .45s var(--ease-lux), border-color .45s var(--ease-lux), backdrop-filter .45s var(--ease-lux); }
+.lx-head.is-seffaf { position: fixed; left: 0; right: 0; }
+.lx-head.is-alt, .lx-head.is-kaydi { background: rgba(11,10,11,.74); border-bottom-color: var(--line);
+  -webkit-backdrop-filter: saturate(140%) blur(16px); backdrop-filter: saturate(140%) blur(16px); }
+.lx-row { position: relative; z-index: 2; display: flex; align-items: center; gap: 30px; height: 78px;
+  transition: height .45s var(--ease-lux); }
+.is-kaydi .lx-row { height: 62px; }
+.lx-marka { display: flex; align-items: center; gap: 11px; margin-right: auto; min-height: 44px; }
+.lx-marka img { display: block; width: 40px; height: auto; }
+.lx-marka b { font-family: var(--sans); font-size: 12.5px; font-weight: 600; letter-spacing: .34em; color: var(--ink); }
+
+.lx-nav { display: flex; align-items: center; gap: 32px; }
+.lx-nav a { position: relative; display: inline-flex; align-items: center; min-height: 44px;
+  font-family: var(--sans); font-size: 11.5px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--muted); transition: color .35s var(--ease-lux); }
+.lx-nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 9px; height: 1px; background: var(--gold);
+  transform: scaleX(0); transform-origin: center; transition: transform .5s var(--ease-lux); }
+.lx-nav a:hover, .lx-nav a[aria-current="page"] { color: var(--ink); }
+.lx-nav a:hover::after, .lx-nav a[aria-current="page"]::after { transform: scaleX(1); }
+.lx-nav a:focus-visible, .lx-cta:focus-visible, .lx-burger:focus-visible { outline: 1px solid var(--gold); outline-offset: 4px; }
+
+.lx-cta { display: inline-flex; align-items: center; min-height: 42px; padding: 0 22px; border-radius: 999px;
+  border: 1px solid var(--hair-gold); color: var(--gold); white-space: nowrap;
+  font-family: var(--sans); font-size: 11.5px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+  transition: background .35s var(--ease-lux), color .35s var(--ease-lux), border-color .35s var(--ease-lux); }
+.lx-cta:hover { background: var(--gold); border-color: var(--gold); color: var(--bg); }
+
+.lx-burger { display: none; position: relative; width: 44px; height: 44px; margin-right: -10px;
+  background: none; border: 0; cursor: pointer; }
+.lx-burger span { position: absolute; left: 11px; right: 11px; height: 1px; background: var(--ink);
+  transition: transform .45s var(--ease-lux), top .45s var(--ease-lux); }
+.lx-burger span:first-child { top: 18px; }
+.lx-burger span:last-child { top: 25px; left: 17px; }
+.is-acik .lx-burger span:first-child { top: 22px; transform: rotate(45deg); }
+.is-acik .lx-burger span:last-child { top: 22px; left: 11px; transform: rotate(-45deg); }
+
+.lx-menu { position: fixed; inset: 0; z-index: 1; display: flex; flex-direction: column; justify-content: space-between;
+  gap: 28px; padding: 104px 24px max(32px, env(safe-area-inset-bottom)); background: var(--bg); overflow-y: auto;
+  animation: sartGel .4s var(--ease-lux) both; }
+.lx-menu[hidden] { display: none; }
+.lx-menu nav a { display: flex; align-items: center; min-height: 60px; border-bottom: 1px solid var(--line);
+  font-family: var(--serif); font-size: 30px; font-weight: 400; color: var(--ink); }
+.lx-menu nav a[aria-current="page"] { color: var(--gold); }
+.lx-menu-cta { width: 100%; justify-content: center; text-align: center; }
+.lx-head.is-acik { background: var(--bg); }
+html.menu-acik { overflow: hidden; }
+
+/* çapaya gelen başlık yapışkan çubuğun altında kalmasın */
+section[id], .capa, [id="an"], [id="liste"] { scroll-margin-top: 84px; }
+.capa { display: block; position: relative; top: -84px; height: 0; }
+
+@media (max-width: 960px) {
+  .lx-nav, .lx-cta { display: none; }
+  .lx-burger { display: block; }
+  .lx-row { height: 64px; gap: 12px; }
+  .is-kaydi .lx-row { height: 56px; }
+}
+@media (min-width: 961px) { .lx-menu { display: none !important; } }
+
+/* ── Taraf seçimi: "Kartım var / Kartım yok" ─────────────────── */
+.taraf { margin-top: 34px; }
+.taraf-sec { display: inline-flex; gap: 4px; padding: 4px; border: 1px solid var(--line); border-radius: 999px;
+  background: rgba(244,239,230,.03); }
+.taraf-sec button { min-height: 46px; padding: 0 26px; border: 0; border-radius: 999px; background: transparent; cursor: pointer;
+  font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--muted); transition: background .4s var(--ease-lux), color .4s var(--ease-lux); }
+.taraf-sec button:hover { color: var(--ink); }
+.taraf-sec button.on { background: var(--gold); color: var(--bg); }
+.taraf-sec button:focus-visible { outline: 1px solid var(--gold); outline-offset: 3px; }
+.taraf-panel { margin-top: 32px; animation: sartGel .5s var(--ease-lux) both; }
+.taraf-baslik { max-width: 24ch; font-family: var(--serif); font-size: clamp(24px, 3.2vw, 34px); font-weight: 400;
+  line-height: 1.2; color: var(--ink); }
+.taraf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 26px; }
+.taraf-kart { padding: 24px; border-radius: 16px; background: var(--kart-zemin); border: 1px solid var(--kart-kenar); }
+.taraf-kart h4 { margin: 12px 0 8px; font-family: var(--serif); font-size: 20px; font-weight: 500; line-height: 1.25; color: var(--ink); }
+.taraf-kart p { font-size: 14.5px; line-height: 1.65; color: var(--body); }
+.taraf-alt { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 28px; margin-top: 30px; }
+.taraf-alt .beat { margin-top: 0; }
+@media (max-width: 860px) { .taraf-grid { grid-template-columns: 1fr; } }
+@media (max-width: 560px) {
+  .taraf-sec { display: flex; width: 100%; }
+  .taraf-sec button { flex: 1; padding: 0 10px; letter-spacing: .12em; }
+  .taraf-alt .btn-gold { width: 100%; justify-content: center; text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) { .taraf-panel, .lx-menu { animation: none; } }
+
+/* ── alt sayfa başlığı · alt bilgi ─────────────────────────── */
+.sayfa-h1 { font-size: clamp(30px, 4.6vw, 48px); line-height: 1.12; }
+.foot-nav, .foot-legal { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+.foot-nav a { color: var(--ink); }
+.foot-nav a, .foot-legal a { min-height: 32px; display: inline-flex; align-items: center; }
+/* v0.69 · telefon: alt bilgi bağlantıları 32 px ölçüldü → 44 px dokunma alanı */
+@media (max-width: 760px) { .foot-nav a, .foot-legal a { min-height: 44px; } }
+/* v0.69 · taraf paneli: başlık + gerçek ekran yan yana; telefonda alt alta */
+.taraf-ust { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; align-items: center; }
+.guven-ekran { margin: 26px 0 8px; }
+@media (max-width: 860px) { .taraf-ust { grid-template-columns: 1fr; } }

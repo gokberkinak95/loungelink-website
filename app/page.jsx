@@ -1,51 +1,40 @@
-import { SITE, BOLUM, SAHNE, SECTIONS, STATS, FLOW, SHOTS_MAIN, SHOTS_TRUST, PROGRAMS, TRUST, SHELF, HOST_WHY, HOST_RISK } from "../lib/content";
+import { SITE, BOLUM, SAHNE, STATS, FLOW, TRUST, SHELF, SHOTS_TRUST } from "../lib/content";
 import SiteHeader from "../components/SiteHeader";
 import OlayLink from "../components/OlayLink";
 // 🔴 v0.41 — `PhoneShelf` yerine `EkranKarusel`.
 // Eski bileşen SİLİNMEDİ, `components/_arsiv/`e taşındı: geri dönüş
 // yolunu silmek, değişikliği geri alınamaz yapar.
 import EkranKarusel from "../components/EkranKarusel";
-import EgikEkran from "../components/EgikEkran";
 import SectionScene from "../components/SectionScene";
 import RuleDemo from "../components/RuleDemo";
-import Coverage from "../components/Coverage";
 import WaitlistForm from "../components/WaitlistForm";
-import WalletCalc from "../components/WalletCalc";
-import HostEarn from "../components/HostEarn";
-import HostStories from "../components/HostStories";
 import KurucuSayac from "../components/KurucuSayac";
-// v0.68 — hareket katmanı (Gökberk onayı · W1–W9). Yeni kütüphane yok: SVG + CSS.
 import SahneCanlandir from "../components/SahneCanlandir";
+// v0.68 — hareket katmanı (Gökberk onayı · W1–W9). Yeni kütüphane yok: SVG + CSS.
+// v0.69 — W2'nin "Onaylı" mührü ve W9 kurucu çember kaldırıldı (Gökberk); diğerleri yerinde.
 import HeroIz from "../components/HeroIz";
 import RotaAkis from "../components/RotaAkis";
 import GuvenKalkan from "../components/GuvenKalkan";
-import BosKoltuk from "../components/BosKoltuk";
+import TarafSecimi from "../components/TarafSecimi";
+import EskiCapa from "../components/EskiCapa";
 
 // ============================================================
 // Ana sayfa
 //
-// 🔴 SIRALAMA BİLİNÇLİ: kahraman → KURAL MOTORU → keşif → güven → host.
-// Kural motorunu 2. sıraya koydum çünkü tek gerçek farkımız o.
-// Rakip sitesinde "nasıl çalışır" en başta; bizde önce "neden biz"
-// gelmeli — çünkü ziyaretçi bizi bilmiyor ve ilk 10 saniyede
-// "bunu başka kim yapıyor" sorusunun cevabını almalı.
+// 🔴 v0.69 (Gökberk, 28 Eylül: "aşağı indikçe bitmeyen bir alan fazlalığı")
+// ÖLÇÜLDÜ: masaüstü 19.790 px = 22 ekran, telefon 26.657 px = 32,8 ekran,
+// 2.362 kelime. "Kapı" 26, "kural motoru" 11, "misafir hakkı" 10 kez.
+// Ana sayfa artık bir FRAGMAN: her bölüm tek şey söyler, derinlik
+// isteyene yolu gösterir. İçerik SİLİNMEDİ, sayfasına taşındı:
+//   · hak hesaplayıcı + 9 program kartı → /kartlar
+//   · Türkiye kapsamı                  → /rehber (zaten oradaydı)
+//   · kazanç, basamaklar, mağaza, plan, host soruları → /ayricaliklar
+//   · SSS                               → /sss (v0.52'den beri)
+// Eski çapalar (/#cuzdan, /#plan …) EskiCapa ile yeni yerine gider.
+//
+// SIRA: kahraman → KURAL MOTORU → nasıl çalışır → senin tarafın →
+// güven → beta. Kural motoru 2. sırada: tek gerçek farkımız o.
 // ============================================================
-function Hikaye({ s, rev }) {
-  // v0.67 — eski ayrı "BÖLÜMLER" satırı; artık komşu bölümün içinde.
-  return (
-    <div id={s.id} className={"wrap split birlesik-alt" + (rev ? " rev" : "")}>
-      <div className="col-text">
-        <div className="eyebrow">{s.eyebrow}</div>
-        <h2>{s.title}</h2>
-        <p className="lead" style={{ marginTop: 18 }}>{s.body}</p>
-        {s.note && <p className="note">{s.note}</p>}
-        <a className="beat" href={s.cta?.href || "#beta"}>{s.cta?.label || "Beta listesine yazıl →"}</a>
-      </div>
-      <EgikEkran src={s.shot} alt={s.shotAlt} w={s.shotW} h={s.shotH} />
-    </div>
-  );
-}
-
 export default function Home() {
   return (
     <>
@@ -76,6 +65,7 @@ export default function Home() {
           üç bağlantı ve TEK çağrı. Burada çocuk vermiyoruz ki ana sayfa
           ile alt sayfaların menüsü bir daha ayrışamasın. */}
       <SiteHeader seffaf />
+      <EskiCapa />
 
       {/* --- KAHRAMAN ---
           🔴 Ekran görüntüsü YOK, ÜRÜNÜN KENDİSİ var.
@@ -149,97 +139,14 @@ export default function Home() {
         </div>
         <div className="wrap">
           <EkranKarusel shots={SHELF} />
-        </div>
-      </section>
-
-      {/* v0.17 — burada İKİ tane <hr className="wing-rule" /> üst üsteydi:
-          kopyala-yapıştır artığı. İkinci çizgi ritmi bozuyordu. */}
-      <hr className="wing-rule" />
-
-      {/* --- CÜZDAN: SİTENİN YENİ GİRİŞ KAPISI (v0.20) ---
-          🔴 SIRALAMA DEĞİŞTİ VE SEBEBİ STRATEJİK.
-          Bugüne kadar sıra "kahraman → akış → neden biz"di; yani
-          ziyaretçiye önce PAZAR YERİ anlatılıyordu. Pazar yeri
-          cümlesi ("seni hakkı olan biriyle eşleştiriyoruz") tavuk-
-          yumurta problemini SİTEDE de yaşatır: ziyaretçi "burada
-          kimse yok galiba" der ve çıkar.
-
-          Cüzdan cümlesi bunu yaşatmaz — cüzdanın değeri karşı tarafta
-          HİÇ KİMSE YOKKEN DE gerçek. Bu yüzden akıştan ÖNCE, kahramanın
-          hemen ardında duruyor: ziyaretçi ilk 15 saniyede kaydolmadan
-          kendi hakkının kaç para ettiğini öğreniyor.
-
-          Ve bu, host toplamanın da kapısı: kartını sorup "3 hakkın 136
-          gün sonra yanıyor, ≈90 €" cevabını alan kişi, o an host
-          olduğunu öğreniyor. İkna ile haber vermenin kesiştiği yer. */}
-      <section className="section dark-band" id="cuzdan" style={{ background: "var(--bg)" }}>
-        <div className="wrap">
-          <WalletCalc />
-          {/* 🔴 v0.67 — 14 → 9 BÖLÜM (Gökberk önce/sonra önizlemesini onayladı).
-              Bu blok eskiden ayrı bir bölümdü; içerik silinmedi, konusunun
-              komşusuna taşındı. Çapa (#…) aynı kaldı: eski bağlantılar kırılmaz. */}
-          <div id="kural" className="birlesik-alt">
-          <div className="eyebrow">{BOLUM.kural.eyebrow}</div>
-          {/* 🔴 BAŞLIK SORUYU SORUYORDU, CEVABI VERMİYORDU.
-              Rakibin başlığı bir SÖZ veriyor: "We find your perfect +1."
-              Bizimki soruyu tekrar ediyordu — ziyaretçi zaten soruyu
-              biliyor, cevabı arıyor. */}
-          <h2>{BOLUM.kural.h2}</h2>
-          <p className="slogan">
-            {SITE.ruleSlogan}
-          </p>
-          {/* 🔴 GİRİŞ CÜMLESİ ARTIK FARKI SÖYLÜYOR.
-              Herkes "kuralları biliyoruz" der. Bizim ayrımımız kuralları
-              BİLMEK değil, BİRLEŞTİRMEMEK: dokuz programın dokuz ayrı
-              cevabı var ve biz onları tek cümleye indirmiyoruz. */}
-          <p className="lead" style={{ marginTop: 12, maxWidth: 660 }}>
-            Her programın misafir kuralı ayrı — ve birbirine benzemiyor.
-            Hepsini tek cümlede toplamıyoruz, çünkü kapıda tek cümle diye
-            bir şey yok. Her kart kendi cevabını veriyor; hepsi resmî
-            kaynağından, tarih damgasıyla.
-          </p>
-          {/* 🔴 v0.18 — ÜRÜNÜN EN GÜÇLÜ CÜMLESİ, ŞİMDİYE KADAR HİÇ
-              YAZILMAMIŞTI. Aynı uçuş / birlikte varış şartı bir kısıt
-              gibi anlatılıyordu; oysa o şart bir UYUM aracı: kart sahibi
-              zaten orada ve birlikte giriyorlar — programların misafir
-              kuralının öngördüğü senaryonun ta kendisi. Riski satış
-              argümanına çeviren tek cümle bu. */}
-          <p className="statement" style={{ marginTop: 22 }}>{SITE.ruleCompliance}</p>
-          <p className="note" style={{ maxWidth: 640 }}>
-            Aynı uçuş ve birlikte varış şartını eşleşmeden önce ararız —
-            program kuralı bunu istediği için. {SITE.creditFrame}
-          </p>
-          <div className="prog-grid">
-            {PROGRAMS.map((p) => (
-              <div className="prog-card" key={p.t}>
-                <div className="prog-tag">{p.tag}</div>
-                <h3>{p.t}</h3>
-                {/* İtalik tek cümle: kartın KARAKTERİ. Göz önce buna
-                    takılıyor, gövdeyi okumadan da farkı anlıyor. */}
-                {!!p.alt && <p className="prog-alt">{p.alt}</p>}
-                <p>{p.d}</p>
-              </div>
-            ))}
-          </div>
-        {/* v0.9 — §3 ritim: bölüm DAVET vuruşuyla kapanır. Okuyucu bilgiyle bırakılırsa akış durur; her bölüm bir sonraki adımı işaret etmeli. */}
-          <a className="beat" href="/rehber">{BOLUM.kural.beat} <span>→</span></a>
-          </div>
-          <div id="kapsam" className="birlesik-alt">
-            <div className="eyebrow">{BOLUM.kapsam.eyebrow}</div>
-          <h2>{BOLUM.kapsam.h2}</h2>
-          <Coverage />
-          <a className="beat" href="/rehber">Havalimanını seç, salonu gör <span>→</span></a>
-          </div>
-          {/* §3 ritmi: her içerik bölümü DAVET VURUŞUYLA kapanır.
-              İlk yazımda iki yeni bölümü vuruşsuz bıraktım ve sitenin
-              kendi denetimi yakaladı — kural işliyor. */}
-          <OlayLink ad="kural_sorusu" ozellik={{ yer: "kartlar" }} className="beat" href="/kartlar">{BOLUM.cuzdan.beat} <span>→</span></OlayLink>
+          <OlayLink ad="kural_sorusu" ozellik={{ yer: "kural_motoru" }} className="beat" href="/kartlar#programlar">{BOLUM.kural.beat} <span>→</span></OlayLink>
         </div>
       </section>
 
       <hr className="wing-rule" />
 
-      {/* --- AKIŞ: 3 ADIM — numara gerçek sıra taşıyor --- */}
+      {/* --- NASIL ÇALIŞIR: 3 ADIM — numara gerçek sıra taşıyor ---
+          W4 rota ve W6 sohbet anı burada kalıyor. */}
       <section className="section dark-band alt" id="akis">
         <SectionScene kind="contrail" />
         <div className="wrap">
@@ -257,87 +164,55 @@ export default function Home() {
               ))}
             </div>
           </div>
-        
-          {/* v0.9 — §3 ritim: bölüm DAVET vuruşuyla kapanır. Okuyucu bilgiyle bırakılırsa akış durur; her bölüm bir sonraki adımı işaret etmeli. */}
-          {/* 🔴 v0.67 — 14 → 9 BÖLÜM (Gökberk önce/sonra önizlemesini onayladı).
-              Bu blok eskiden ayrı bir bölümdü; içerik silinmedi, konusunun
-              komşusuna taşındı. Çapa (#…) aynı kaldı: eski bağlantılar kırılmaz. */}
           <div id="an" className="birlesik-alt birlesik-dar">
             <div className="eyebrow">Sohbet</div>
-          <h2>Kalan tek iş, birbirinizi bulmak.</h2>
-          {/* v0.68 · W6 — balonlar sırayla gelir, sonunda karşı taraf yazıyor */}
-          <div className="an-sohbet canli">
-            {SAHNE.map((m, i) => (
-              <div key={i} className={"an-bal" + (m.kim === "sen" ? " ben" : "")} style={{ "--b": i }}>
-                <p>{m.m}</p>
-                <time>{m.saat}</time>
-              </div>
-            ))}
-            <div className="an-yaziyor" aria-hidden="true"><i /><i /><i /></div>
+            <h2>Kalan tek iş, birbirinizi bulmak.</h2>
+            {/* v0.68 · W6 — balonlar sırayla gelir, sonunda karşı taraf yazıyor */}
+            <div className="an-sohbet canli">
+              {SAHNE.map((m, i) => (
+                <div key={i} className={"an-bal" + (m.kim === "sen" ? " ben" : "")} style={{ "--b": i }}>
+                  <p>{m.m}</p>
+                  <time>{m.saat}</time>
+                </div>
+              ))}
+              <div className="an-yaziyor" aria-hidden="true"><i /><i /><i /></div>
+            </div>
           </div>
-          <p className="an-not">
-            Salon, kapı ve kalkışa kalan süre sohbetin üstünde donmuş durur —
-            konuşurken yukarı kaydırmak gerekmez.
-          </p>
-          </div>
-          <a className="beat" href="/rehber">{BOLUM.akis.beat} <span>→</span></a>
+          <a className="beat" href="/kartlar">{BOLUM.akis.beat} <span>→</span></a>
         </div>
       </section>
 
       <hr className="wing-rule" />
 
-      {/* --- NEDEN --- */}
-      <section className="section dark-band" id="neden">
-        <SectionScene kind="wing" flip />
-        <div className="wrap split">
-          <div className="col-text">
-            <div className="eyebrow">{BOLUM.neden.eyebrow}</div>
-            <h2>{BOLUM.neden.h2}</h2>
-            <p className="lead" style={{ marginTop: 18 }}>
-              Kartındaki misafir hakkı yıl sonunda sessizce siliniyor. Aynı anda,
-              aynı terminalde biri üç saatlik aktarmayı telefonuna bakarak geçiriyor.
-              İki tarafı da tanıyoruz; ikisini buluşturuyoruz.
-            </p>
-            <p className="note">
-              Aynı uçuşta, aynı salonda — kalkıştan önce yanındaki koltuktaki kişiyle tanış.
-            </p>
-          </div>
-          <div className="shots shots-sm">
-            {SHOTS_TRUST.map((p) => (
-              <img key={p.src} src={p.src} alt={p.alt} className="shot" width={p.w} height={p.h} loading="lazy" />
-            ))}
-          </div>
-        {/* v0.9 — §3 ritim: bölüm DAVET vuruşuyla kapanır. Okuyucu bilgiyle bırakılırsa akış durur; her bölüm bir sonraki adımı işaret etmeli. */}
-          <a className="beat" href="#beta">Sıradaki uçuşunda yalnız uçma <span>→</span></a>
+      {/* --- SENİN TARAFIN — iki kitle sırayla değil, SEÇİMLE ---
+          Eski çapalar: #kart-sahibi (host) ve #neden (misafir) buraya iner. */}
+      <section className="section dark-band" id="kart-sahibi">
+        <span id="neden" className="capa" aria-hidden="true" />
+        <div className="wrap">
+          <div className="eyebrow">{BOLUM.neden.eyebrow}</div>
+          <h2>{BOLUM.neden.h2}</h2>
+          <TarafSecimi />
         </div>
-        {/* 🔴 v0.67 — 14 → 9 BÖLÜM (Gökberk önce/sonra önizlemesini onayladı).
-              Bu blok eskiden ayrı bir bölümdü; içerik silinmedi, konusunun
-              komşusuna taşındı. Çapa (#…) aynı kaldı: eski bağlantılar kırılmaz. */}
-        <Hikaye s={SECTIONS[0]} rev />
       </section>
 
       <hr className="wing-rule" />
 
-      {/* --- GÜVEN — hepsi app'te gerçekten var olan mekanizmalar --- */}
+      {/* --- GÜVEN — altı madde yerine üçü; kalanlar tarafların içinde --- */}
       <section className="section dark-band" id="guven">
         <SectionScene kind="radar" />
         <div className="wrap">
           <div className="eyebrow">{BOLUM.guven.eyebrow}</div>
-          {/* v0.8 — İFADE SATIRI: LS kart ızgaralarının arasına tek
-              cümlelik büyük ifadeler koyuyor; okuyucu nefes alıyor ve
-              argüman ilerliyor. Bizim karşılığımız kural motoruna bağlı. */}
-          {/* 4 Eylül — ifade sitenin ana cümlesine bağlandı ("Kartında bir kişilik
-              yer var." · "+1'in kim olacak?"): kahraman, güven bölümü ve Instagram
-              aynı cümleyi taşır; ikinci satır bölümün işini söyler (seçim senin,
-              doğrulama bizim). */}
           <p className="statement">Kartında bir kişilik yer var.<br />+1'in kim olacak? Onu sen seçersin, biz doğrularız.</p>
           <h2>{BOLUM.guven.h2}</h2>
           <GuvenKalkan />
-          <div className="prog-grid trust-grid">
-            {/* v0.8 — LS kart grameri: sessiz ikon çipi + soru başlığı +
-                somut ayrıntılı gövde. Çip tek renk ve düşük kontrast;
-                dikkat başlığa gitsin, ikona değil. */}
-            {TRUST.map((c, i) => (
+          {/* gerçek ekran şeridi (güven) — eski "neden" bölümünden */}
+          <div className="shots shots-sm guven-ekran">
+            {SHOTS_TRUST.map((p) => (
+              <img key={p.src} src={p.src} alt={p.alt} className="shot" width={p.w} height={p.h} loading="lazy" />
+            ))}
+          </div>
+          <div className="prog-grid trust-grid trust-3">
+            {[TRUST[0], TRUST[3], TRUST[4]].map((c, i) => (
               <div className="prog-card" key={c.t} style={{ "--i": i }}>
                 <span className="idx" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
                 <h3>{c.t}</h3>
@@ -345,160 +220,7 @@ export default function Home() {
               </div>
             ))}
           </div>
-        {/* v0.9 — §3 ritim: bölüm DAVET vuruşuyla kapanır. Okuyucu bilgiyle bırakılırsa akış durur; her bölüm bir sonraki adımı işaret etmeli. */}
-          <a className="beat" href="#beta">Güvenli tarafta başla <span>→</span></a>
-        </div>
-      </section>
-
-      <hr className="wing-rule" />
-
-      {/* SSS şeması artık /sss sayfasında (v0.52) */}
-      {/* --- HOST BÖLÜMÜ ---
-          🔴 İki taraflı pazarda ARZ önce gelir. Misafir, host olmadan
-          hiçbir şey göremez; host ise misafir olmadan da kartını
-          kullanmaya devam eder. İkna edilmesi gereken taraf host, ve
-          site bugüne kadar misafire konuşuyordu. */}
-      <section className="section dark-band host-band" id="kart-sahibi">
-        <SectionScene kind="wing" />
-        {/* 🔴 v0.67 — 14 → 9 BÖLÜM (Gökberk önce/sonra önizlemesini onayladı).
-              Bu blok eskiden ayrı bir bölümdü; içerik silinmedi, konusunun
-              komşusuna taşındı. Çapa (#…) aynı kaldı: eski bağlantılar kırılmaz. */}
-        <Hikaye s={SECTIONS[1]} />
-        <div className="wrap">
-          <div className="eyebrow">{BOLUM.host.eyebrow.toLocaleUpperCase("tr-TR")}</div>
-          {/* 🔴 v0.44 — HOST BÖLÜMÜNE BAŞLIK GELDİ.
-              Burada bir `h2` HİÇ YOKTU: bölüm doğrudan bir soruyla
-              başlıyordu. Soru iyi bir soruydu ama sayfa taramasında
-              başlık hiyerarşisinde bir DELİK bırakıyordu — ekran
-              okuyucu için de, göz için de.
-              Yeni başlık Lounge Surf'ün "zaten X'e sahipsin" kalıbı:
-              kullanıcının elindekinden başlıyor, üründen değil. */}
-          <h2>{BOLUM.host.h2}</h2>
-          <p className="statement">
-            {BOLUM.host.statement}<br />
-            <span style={{ color: "var(--gold)" }}>Kullanmadıkların 31 Aralık&apos;ta siliniyor.</span>
-          </p>
-          {/* 🔴 v0.18 — host'un ilk itirazı "hakkımı mı veriyorum?".
-              Cevap tek cümlede: hak devredilmiyor, koltuk paylaşılıyor.
-              🔴 v0.28 — İKİNCİ cümle eklendi. Gökberk: "ben bir host
-              olsam tek işlevim içeri birini almak mı olacak diye
-              düşünürüm." Bölüm o soruyu 400 kelime sonra cevaplıyordu;
-              artık ilk paragrafta cevaplıyor. */}
-          <p className="lead" style={{ maxWidth: 660 }}>
-            Hakkın sende kalır. Sen zaten içeri giriyorsun — yanındaki koltuk
-            boş gitmesin. <b>Ve bu tek yönlü bir iyilik değil:</b> ağırladığın
-            her kişi, hakkın <i>olmayan</i> bir salonda sana bir kez misafir
-            olma hakkı bırakıyor.
-          </p>
-          <BosKoltuk />
-
-          <div className="host-grid">
-            {HOST_WHY.map((c, i) => (
-              <div className="host-card" key={c.t} style={{ "--i": i }}>
-                <span className="idx" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-                <h3>{c.t}</h3>
-                <p>{c.d}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* 🔴 v0.28 — KARŞILIK BLOĞU.
-              Dört kart "neden paylaşayım / kimi alırım / riskim ne"yi
-              cevaplıyordu; "bana ne kazandırır" cevapsızdı. Sayılar
-              zaten koddaydı (SQL 206, 007, i18n 677) — site onları hiç
-              söylememişti. Bkz. components/HostEarn.jsx başlığı. */}
-          <HostEarn />
-
-          {/* 🔴 v0.29 — GERÇEK HOST CÜMLELERİ.
-              Bugün 0 kayıt var, bileşen null dönüyor, bu satır sayfada
-              HİÇ görünmüyor. Uydurma referans yazmak yerine toplayan
-              makineyi kurduk (SQL 230); ilk gerçek cümle geldiği gün
-              burası kendiliğinden açılacak. Bkz. components/HostStories.jsx */}
-          <HostStories />
-
-          {/* İtirazlar: host'un aklından geçen soruyu ONUN cümlesiyle
-              sorup cevaplıyoruz. Sormadan cevaplamak güven verir. */}
-          <h3 className="host-qa-title">Aklından geçenler</h3>
-          <div className="host-qa">
-            {HOST_RISK.map((x) => (
-              <div className="qa" key={x.q}>
-                <b>{x.q}</b>
-                <span>{x.a}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* 🔴 HUNİNİN EN KRİTİK OLAYI. Soğuk başlangıç sorununun tek
-              erken göstergesi bu: arz tarafında hiç niyet var mı? */}
-          <OlayLink ad="host_ol" ozellik={{ yer: "host_bolumu" }}
-                    className="beat" href="#beta">Kurucu çembere katıl <span>→</span></OlayLink>
-        </div>
-      </section>
-
-      <hr className="wing-rule" />
-
-      {/* --- SSS --- */}
-      {/* --- ABONELİK (v0.21) ---
-          🔴 Fiyat sayfası SSS'den ÖNCE, host bandından SONRA geliyor.
-          Sıra bir tez: ziyaretçi önce ürünü ve host tarafını görsün,
-          sonra fiyatı — ve fiyatı gördüğü an ilk okuduğu şey
-          ÖDEMEMENIN yolu olsun. */}
-      <section className="section dark-band" id="plan">
-        <div className="wrap">
-          <div className="eyebrow">{BOLUM.plan.eyebrow}</div>
-          <h2>{BOLUM.plan.h2}</h2>
-          <p className="lead" style={{ maxWidth: "52ch" }}>
-            Ayda iki kişi ağırlayan host, o ay Sık Uçan ayrıcalıklarını ücretsiz
-            kullanır. Abonelik bir maliyet değil, ağırlamadığın aylarda devreye
-            giren bir seçenek.
-          </p>
-
-          <div className="plan-grid">
-            {[
-              { ad: "Yolcu", fiyat: "Ücretsiz", yil: null,
-                haklar: ["Cüzdan: hak takibi, yanma sayacı, değer hesabı",
-                         "Kural motoru: kartın nerede geçer",
-                         "Ağırlayarak kredi kazanma",
-                         "Aylık kaçırılan değer özeti"] },
-              { ad: "Sık Uçan", fiyat: "₺99", yil: "₺890 / yıl · %25 indirim", one: true,
-                haklar: ["Yolcu'daki her şey",
-                         "Haftalık kaçırılan değer bildirimi",
-                         "Ayda 2 ilan öne çıkarma",
-                         "Yanma uyarısı: 90 · 30 · 7 gün",
-                         "3 karta kadar cüzdan"] },
-              { ad: "Kâhya", fiyat: "₺249", yil: "₺2.290 / yıl",
-                haklar: ["Sık Uçan'daki her şey",
-                         "Anlık kaçırılan değer bildirimi",
-                         "Sınırsız ilan öne çıkarma",
-                         "Sınırsız kart ve uçuş doğrulama",
-                         "Öncelikli destek"] },
-            ].map(p2 => (
-              <div key={p2.ad} className={"plan-card" + (p2.one ? " on" : "")}>
-                {p2.one && <span className="plan-tag">ÖNERİLEN</span>}
-                <h3>{p2.ad}</h3>
-                <div className="plan-price">{p2.fiyat}
-                  {p2.fiyat !== "Ücretsiz" && <span> / ay</span>}
-                </div>
-                {p2.yil && <div className="plan-year">{p2.yil}</div>}
-                <ul>{p2.haklar.map(h => <li key={h}>{h}</li>)}</ul>
-              </div>
-            ))}
-          </div>
-
-          {/* 🔴 26 AĞUSTOS — BU PARAGRAF "KREDİ PARAYLA SATILMAZ" DİYORDU
-              ve uygulama ₺ fiyatlı kredi paketleri listeliyordu. İki yüzey
-              iki farklı cevap veriyordu. Karar verildi: kredi satılıyor.
-              O yüzden burada satılmadığını söylemek değil, SATILAN ŞEYİN NE
-              OLDUĞUNU söylemek gerekiyor. */}
-          <p className="note" style={{ marginTop: 24, maxWidth: "60ch" }}>
-            Krediye dört yoldan sahip olursun: kayıt hediyesi, planının aylık payı,
-            <b> ağırlama</b> ve kredi paketi. Satın aldığın şey <b>giriş değil</b>,
-            bir host'a istek gönderme hakkı — host reddederse, kimse yanıtlamazsa
-            ya da kapıda alınmazsan kredin geri döner. Ürünün cümlesi değişmedi:
-            kullanmadığın hakkı, hakkın olmayan yerde misafir olma hakkına çevirmek.
-          </p>
-          <p className="note">Beta boyunca tüm <b>planlar</b> ücretsiz; kredi paketleri ücretlidir.</p>
-          <a className="beat" href="#cuzdan">Kartının kaç kapı açtığını gör <span>→</span></a>
+          <a className="beat" href="/sss">Aklındaki diğer sorular <span>→</span></a>
         </div>
       </section>
 
@@ -544,7 +266,9 @@ export default function Home() {
               kanaldan geldiği ölçülemiyor, sonradan yazılacak liste
               birikmiyordu. mailto silinmedi — formun dibinde küçük
               puntoda yedek yol olarak duruyor. */}
-          <h3 className="beta-form-t">Kurucu çembere katıl</h3>
+          {/* v0.69 — dört ayrı çağrı cümlesi ("Kurucu çembere katıl",
+              "Beta listesine katıl", "Listeye yazıl"…) tek cümlede birleşti. */}
+          <h3 className="beta-form-t">{SITE.betaCta}</h3>
           <p style={{ marginTop: 8 }}>İlk 100 host beta&apos;yı birlikte kuruyor.</p>
           <WaitlistForm />
         </div>
@@ -560,7 +284,14 @@ export default function Home() {
               {SITE.footerSlogan} Lounge erişimi satmaz; doğrulanmış yolcuları buluşturur.
             </p>
           </div>
-          <div style={{ display: "flex", gap: 22, flexWrap: "wrap" }}>
+          {/* v0.69 — ana sayfadan taşınan içeriğin sayfaları alt bilgide de. */}
+          <nav className="foot-nav" aria-label="Sayfalar">
+            <a href="/kartlar">Kartlar</a>
+            <a href="/rehber">Rehber</a>
+            <a href="/ayricaliklar">Ayrıcalıklar</a>
+            <a href="/sss">SSS</a>
+          </nav>
+          <div className="foot-legal">
             {/* 🔴 v0.34 — BEŞ YASAL METİNDEN İKİSİ FOOTER'DA YOKTU.
                 `/cerez` sayfası vardı ama SİTEDE HİÇBİR YERDEN bağlantı
                 verilmiyordu (tüm href taraması: 0 sonuç); `/aydinlatma`

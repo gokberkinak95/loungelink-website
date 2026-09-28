@@ -1,6 +1,13 @@
 import { CARDS } from "../../lib/guide";
 import { CARD_PAGES, SCOPES, SOURCE_NOTE, groupedPages } from "../../lib/card-pages";
 import SiteHeader from "../../components/SiteHeader";
+import WalletCalc from "../../components/WalletCalc";
+import { BOLUM, SITE, PROGRAMS } from "../../lib/content";
+
+// 🔴 v0.69 (28 Eylül) — ANA SAYFADAN GELENLER: hak hesaplayıcı (#hesapla)
+// ve dokuz programın kural kartları (#programlar). Ana sayfada 4.852 px
+// tutuyorlardı; konuları zaten bu sayfanındı ("kartınla ne olur").
+// Metinler aynen. Eski /#cuzdan ve /#kural bağlantıları buraya gelir.
 
 // 🔴 DİZİN SAYFASI OLMADAN ÜRETİLEN SAYFA YOK SAYILIR.
 // Sitemap bir sayfayı haber verir ama ona AĞIRLIK taşımaz; ağırlık
@@ -37,7 +44,42 @@ export default function CardsIndex() {
   return (
     <>
       <SiteHeader />
-      <div className="wrap" style={{ maxWidth: 860, padding: "48px 24px 80px" }}>
+      <section className="section dark-band" id="hesapla">
+        <div className="wrap">
+          <WalletCalc />
+        </div>
+      </section>
+
+      <section className="section dark-band" id="programlar">
+        <div className="wrap">
+          <div className="eyebrow">{BOLUM.kural.eyebrow}</div>
+          <h2>{BOLUM.kural.h2}</h2>
+          <p className="slogan">{SITE.ruleSlogan}</p>
+          <p className="lead" style={{ marginTop: 12, maxWidth: 660 }}>
+            Her programın misafir kuralı ayrı — ve birbirine benzemiyor.
+            Hepsini tek cümlede toplamıyoruz, çünkü kapıda tek cümle diye
+            bir şey yok. Her kart kendi cevabını veriyor; hepsi resmî
+            kaynağından, tarih damgasıyla.
+          </p>
+          <p className="statement" style={{ marginTop: 22 }}>{SITE.ruleCompliance}</p>
+          <p className="note" style={{ maxWidth: 640 }}>
+            Aynı uçuş ve birlikte varış şartını eşleşmeden önce ararız —
+            program kuralı bunu istediği için. {SITE.creditFrame}
+          </p>
+          <div className="prog-grid">
+            {PROGRAMS.map((p) => (
+              <div className="prog-card" key={p.t}>
+                <div className="prog-tag">{p.tag}</div>
+                <h3>{p.t}</h3>
+                {!!p.alt && <p className="prog-alt">{p.alt}</p>}
+                <p>{p.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <div className="wrap" id="liste" style={{ maxWidth: 860, padding: "48px 24px 80px" }}>
         <div className="eyebrow">Kart sayfaları</div>
         <h1 style={{ fontSize: "clamp(28px,4.5vw,42px)" }}>Kartınla hangi lounge'a girersin?</h1>
 

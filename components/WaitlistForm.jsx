@@ -124,7 +124,8 @@ export default function WaitlistForm() {
       {durum === "hata" && <p className="wl-err" role="alert">{hata}</p>}
 
       <button type="submit" className="btn" disabled={durum === "gonderiliyor"}>
-        {durum === "gonderiliyor" ? "Gönderiliyor…" : "Listeye yazıl"}
+        {/* v0.69 — sitenin tek çağrı cümlesi */}
+        {durum === "gonderiliyor" ? "Gönderiliyor…" : "Beta'ya katıl"}
       </button>
 
       <p className="wl-fine">

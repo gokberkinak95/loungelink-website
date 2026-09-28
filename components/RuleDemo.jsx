@@ -114,13 +114,8 @@ export default function RuleDemo() {
           <div className="demo-out-verdict" style={{ color: v.c }}>
             <span aria-hidden="true">{v.i}</span> {r.t}
           </div>
-          {r.v === "yes" && (
-            <div className="demo-muhur" aria-hidden="true">
-              {/* Mühür bir ÇİZİM (uygulamadaki OnayDamgasi'nin karşılığı), kart çerçevesi değil */}
-              <svg viewBox="0 0 80 80" focusable="false"><circle cx="40" cy="40" r="38.5" /></svg>
-              <span>ONAYLI<em>MİSAFİR HAKKI</em></span>
-            </div>
-          )}
+          {/* v0.69 (Gökberk, 28 Eylül) — "Onaylı" mührü kaldırıldı. Şartların
+              sırayla onaylanması (W2'nin geri kalanı) yerinde. */}
         </div>
         <div className="demo-out-detail">{r.d}</div>
       </div>

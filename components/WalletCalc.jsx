@@ -238,7 +238,7 @@ export default function WalletCalc() {
           Birini ağırladığında kredi kazanırsın; o krediyle hakkın olmayan bir
           salonda sen misafir olursun.
         </span>
-        <a href="#beta" className="btn-gold">Beta listesine katıl</a>
+        <a href="/#beta" className="btn-gold">Beta'ya katıl</a>
       </div>
 
       <p className="wcalc-src">
