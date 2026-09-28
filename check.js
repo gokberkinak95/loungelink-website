@@ -138,10 +138,15 @@ function htmlNorm(x) {
 // KODU denetlemeli, kodun HAKKINDAKİ cümleleri değil.
 // String literal içindeki "//" (örn. https://) korunuyor.
 // ============================================================
+// 🔴 28 EYLÜL — WINDOWS'TA SATIR YORUMLARI HİÇ SİLİNMİYORDU.
+// "\n" ile bölünce CRLF dosyada her satır "\r" ile bitiyor; JS'te `.`
+// "\r"yi yakalamaz, `.*$` eşleşmez, yorum yerinde kalır. Bulutta (LF)
+// temiz, PC'de (autocrlf) 3 yanlış alarm: ◈ ve sayaçtaki 3/231/8
+// hepsi YORUMDAYDI. Ölçüldü: eski hâli true/4 sayı, yeni hâli false/0.
 function yorumsuz(src) {
   return src
     .replace(/\/\*[\s\S]*?\*\//g, " ")          // blok yorum (JSX yorumu dahil)
-    .split("\n")
+    .split(/\r?\n/)
     .map((l) => l.replace(/(^|[^:])\/\/.*$/, "$1")) // satır yorumu ("://" hariç)
     .join("\n");
 }
@@ -1005,6 +1010,10 @@ if (fs.existsSync(OUT)) {
 try {
   const { spawnSync } = require("child_process");
   for (const py of ["python3", "python"]) {
+    // 🔴 28 Eylül — Windows'ta `python3` Store kısayolu: hata FIRLATMADAN
+    // "Python was not found" deyip 9009 döner; betik "çöktü" sanılıyordu.
+    // Önce sürüm yoklanır (verify.js `pythonVar()` ile aynı).
+    if (spawnSync(py, ["--version"], { encoding: "utf8" }).status !== 0) continue;
     let calisti = false;
     // 🔴 30 Ağu · v0.44 — `app_paleti.py` ARŞİVE ALINDI.
     // O betik sitedeki AÇIK "app maketi" paletini uygulamanın AÇIK
