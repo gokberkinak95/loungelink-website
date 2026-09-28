@@ -57,7 +57,7 @@ export default function KapsamHaritasi({ havalimanlari }) {
     <div className="kapsam-harita canli isikli" role="img"
          aria-label="Türkiye havalimanları: İstanbul'dan diğer havalimanlarına ışık yaylar, salonu çok olanlar daha sık nabız atıyor">
       <svg viewBox="0 0 640 330" aria-hidden="true" focusable="false">
-        <text className="kh-baslik" x="30" y="34">KAPSAM · TÜRKİYE</text>
+        <text className="kh-baslik" x="30" y="34">KAPSAM</text>
         <g>
           {liste.filter((h) => h.code !== "IST").map((h, i) => {
             const p = xy(KOOR[h.code]);

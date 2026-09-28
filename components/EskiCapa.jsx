@@ -5,15 +5,13 @@ import { useEffect } from "react";
 // ESKİ ÇAPALAR — v0.69'da ana sayfadan taşınan bölümler
 //
 // Ana sayfa 22 ekrandan kısaldı; içerik silinmedi, kendi sayfasına
-// taşındı. Instagram'da, e-postada, app'te paylaşılmış "/#cuzdan" gibi
+// taşındı (v0.69.1: kapsam ve abonelik ana sayfaya DÖNDÜ, çapaları yerinde). Instagram'da, e-postada, app'te paylaşılmış "/#cuzdan" gibi
 // bağlantılar boş bir yere düşmesin diye yeni adresine gider.
 // 🆕 SINIF: "BİR BÖLÜMÜ TAŞIMAK, ONA GİDEN YOLU DA TAŞIMAKTIR."
 // ============================================================
 const YENI = {
   "#cuzdan": "/kartlar#hesapla",
   "#kural": "/kartlar#programlar",
-  "#kapsam": "/rehber",
-  "#plan": "/ayricaliklar#plan",
 };
 
 export default function EskiCapa() {

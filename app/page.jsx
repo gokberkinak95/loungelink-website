@@ -16,6 +16,8 @@ import HeroIz from "../components/HeroIz";
 import RotaAkis from "../components/RotaAkis";
 import GuvenKalkan from "../components/GuvenKalkan";
 import TarafSecimi from "../components/TarafSecimi";
+import Coverage from "../components/Coverage";
+import PlanKartlari from "../components/PlanKartlari";
 import EskiCapa from "../components/EskiCapa";
 
 // ============================================================
@@ -184,6 +186,20 @@ export default function Home() {
 
       <hr className="wing-rule" />
 
+      {/* --- KAPSAM (v0.69.1 · Gökberk: "güzel bilgi, animasyonu güzel; ana sayfaya
+          geri gelsin") — harita + havalimanı listesi; ayrıntı /rehber'de.
+          Harita başlığındaki "· TÜRKİYE" kalktı (yurt dışı da katalogda). */}
+      <section className="section dark-band" id="kapsam">
+        <div className="wrap">
+          <div className="eyebrow">{BOLUM.kapsam.eyebrow}</div>
+          <h2>{BOLUM.kapsam.h2}</h2>
+          <Coverage />
+          <a className="beat" href="/rehber">Salon rehberini aç <span>→</span></a>
+        </div>
+      </section>
+
+      <hr className="wing-rule" />
+
       {/* --- SENİN TARAFIN — iki kitle sırayla değil, SEÇİMLE ---
           Eski çapalar: #kart-sahibi (host) ve #neden (misafir) buraya iner. */}
       <section className="section dark-band" id="kart-sahibi">
@@ -221,6 +237,23 @@ export default function Home() {
             ))}
           </div>
           <a className="beat" href="/sss">Aklındaki diğer sorular <span>→</span></a>
+        </div>
+      </section>
+
+      <hr className="wing-rule" />
+
+      {/* --- ABONELİK (v0.69.1 · Gökberk) — kartlar ana sayfada, ayrıntı
+          (kredinin dört yolu, kazanç, basamaklar) /ayricaliklar'da. */}
+      <section className="section dark-band" id="plan">
+        <div className="wrap">
+          <div className="eyebrow">{BOLUM.plan.eyebrow}</div>
+          <h2>{BOLUM.plan.h2}</h2>
+          <p className="lead" style={{ maxWidth: "52ch" }}>
+            Ayda iki kişi ağırlayan host, o ay Sık Uçan ayrıcalıklarını ücretsiz
+            kullanır. Beta boyunca tüm planlar ücretsiz.
+          </p>
+          <PlanKartlari />
+          <a className="beat" href="/ayricaliklar#plan">Planların ve kredinin ayrıntısı <span>→</span></a>
         </div>
       </section>
 
@@ -286,9 +319,9 @@ export default function Home() {
           </div>
           {/* v0.69 — ana sayfadan taşınan içeriğin sayfaları alt bilgide de. */}
           <nav className="foot-nav" aria-label="Sayfalar">
-            <a href="/kartlar">Kartlar</a>
-            <a href="/rehber">Rehber</a>
-            <a href="/ayricaliklar">Ayrıcalıklar</a>
+            <a href="/kartlar">Kartlar ve kurallar</a>
+            <a href="/rehber">Salon rehberi</a>
+            <a href="/ayricaliklar">Ayrıcalıklar ve üyelik</a>
             <a href="/sss">SSS</a>
           </nav>
           <div className="foot-legal">

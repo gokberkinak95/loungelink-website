@@ -24,9 +24,12 @@ import { useEffect, useState } from "react";
 // ============================================================
 const NAV = [
   { href: "/#akis", label: "Nasıl çalışır", yol: null },
-  { href: "/kartlar", label: "Kartlar", yol: /^\/kart(lar|\/)/ },
-  { href: "/rehber", label: "Rehber", yol: /^\/rehber/ },
-  { href: "/ayricaliklar", label: "Ayrıcalıklar", yol: /^\/ayricaliklar/ },
+  // v0.69.1 (Gökberk: "başlıklar içeriği tam karşılamıyor") — ad, sayfanın
+  // TAMAMINI söyler: /kartlar'da hesaplayıcı + kurallar, /ayricaliklar'da
+  // kazanç + abonelik var.
+  { href: "/kartlar", label: "Kartlar ve kurallar", yol: /^\/kart(lar|\/)/ },
+  { href: "/rehber", label: "Salon rehberi", yol: /^\/rehber/ },
+  { href: "/ayricaliklar", label: "Ayrıcalıklar ve üyelik", yol: /^\/ayricaliklar/ },
   { href: "/sss", label: "SSS", yol: /^\/sss/ },
 ];
 

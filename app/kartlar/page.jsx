@@ -95,11 +95,19 @@ export default function CardsIndex() {
           iki terminal iki ayrı sayfadır.
         </p>
 
+        {/* 🔴 v0.69.1 — 15 havalimanı × iç/dış hat hepsi açıkken liste
+            sayfanın çoğunu tutuyordu. Rehberle aynı akordeon. */}
+        <div style={{ marginTop: 34 }}>
         {groups.map(({ airport, scopes }) => (
-          <div key={airport.code} style={{ marginTop: 42 }}>
-            <h2 style={{ fontSize: 23 }}>{airport.name}</h2>
-            <div style={{ fontSize: 13, color: "var(--muted)", marginTop: 4 }}>
-              {airport.city} · {airport.code} · katalogda {airport.lounges.length} salon
+          <details key={airport.code} className="acc">
+            <summary>
+              <h2>{airport.name}</h2>
+              <span className="acc-say">{airport.code} · {airport.lounges.length} salon</span>
+              <span className="acc-ok" aria-hidden="true" />
+            </summary>
+            <div className="acc-ic">
+            <div style={{ fontSize: 13, color: "var(--muted)" }}>
+              {airport.city} · katalogda {airport.lounges.length} salon
             </div>
 
             {scopes.map(({ scope, list }) => (
@@ -117,8 +125,10 @@ export default function CardsIndex() {
                 </div>
               </div>
             ))}
-          </div>
+            </div>
+          </details>
         ))}
+        </div>
 
         <p className="note" style={{ marginTop: 44 }}>
           Misafir ve aile hakkının kart kart ayrıntısı <a href="/rehber">Salon Rehberi</a>'nde.

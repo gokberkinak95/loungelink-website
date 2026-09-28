@@ -2640,13 +2640,14 @@ html.menu-acik { overflow: hidden; }
 section[id], .capa, [id="an"], [id="liste"] { scroll-margin-top: 84px; }
 .capa { display: block; position: relative; top: -84px; height: 0; }
 
-@media (max-width: 960px) {
+/* v0.69.1 — menü adları uzadı: satır 1.016 px istiyor (ölçüldü) → eşik 1100 */
+@media (max-width: 1100px) {
   .lx-nav, .lx-cta { display: none; }
   .lx-burger { display: block; }
   .lx-row { height: 64px; gap: 12px; }
   .is-kaydi .lx-row { height: 56px; }
 }
-@media (min-width: 961px) { .lx-menu { display: none !important; } }
+@media (min-width: 1101px) { .lx-menu { display: none !important; } }
 
 /* ── Taraf seçimi: "Kartım var / Kartım yok" ─────────────────── */
 .taraf { margin-top: 34px; }
@@ -2686,3 +2687,39 @@ section[id], .capa, [id="an"], [id="liste"] { scroll-margin-top: 84px; }
 .taraf-ust { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; align-items: center; }
 .guven-ekran { margin: 26px 0 8px; }
 @media (max-width: 860px) { .taraf-ust { grid-template-columns: 1fr; } }
+
+/* ════════════════════════════════════════════════════════════════
+   v0.69.1 · Gökberk'in önizleme gözlemleri (28 Eylül)
+   ════════════════════════════════════════════════════════════════ */
+/* 🔴 SCROLL SONRASI MENÜ BOZUK AÇILIYORDU. Kaydırınca başlık cam zemin
+   alıyor (`backdrop-filter`) ve bu özellik, içindeki `position:fixed`
+   öğeler için YENİ BİR KAPSAYICI kurar: tam ekran menü ekrana değil
+   62 px'lik başlığa göre yerleşiyordu. En üstte cam yok → orada doğru.
+   Menü açıkken cam kalkar, zemin opak olur. */
+.lx-head.is-acik { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--bg); }
+
+/* 🔴 "Bu yıl kaçını kullandın" topları: 10 × 22 px + 9 × 10 px = 310 px,
+   375 px telefonda sığmıyor → onuncu top alt satıra iniyordu.
+   Artık tek satır: toplar alana göre küçülür, 22 px'i geçmez. */
+.wjeton-dizi { flex-wrap: nowrap; gap: clamp(4px, 1.8vw, 10px); }
+.wjeton-dizi span { flex: 0 1 22px; width: auto; height: auto; aspect-ratio: 1; min-width: 0; }
+
+/* ── Akordeon: uzun listeler başlığa bağlı açılıp kapanır ──────
+   <details>/<summary>: JS yok, klavye ve ekran okuyucu yerleşik,
+   arama motoru kapalı içeriği de okur. */
+.acc { border-bottom: 1px solid var(--line); }
+.acc:first-of-type { border-top: 1px solid var(--line); }
+.acc > summary { list-style: none; display: flex; align-items: center; gap: 14px; min-height: 64px;
+  padding: 14px 2px; cursor: pointer; }
+.acc > summary::-webkit-details-marker { display: none; }
+.acc > summary h2, .acc > summary h3 { flex: 1; margin: 0; font-size: clamp(19px, 2.4vw, 23px); font-weight: 400; }
+.acc-say { font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+.acc-ok { flex: none; position: relative; width: 14px; height: 14px; }
+.acc-ok::before, .acc-ok::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px;
+  background: var(--gold); transition: transform .4s var(--ease-lux); }
+.acc-ok::after { transform: rotate(90deg); }
+.acc[open] > summary .acc-ok::after { transform: rotate(0deg); }
+.acc > summary:hover h2, .acc > summary:hover h3 { color: var(--gold); }
+.acc > summary:focus-visible { outline: 1px solid var(--gold); outline-offset: 2px; }
+.acc-ic { padding: 4px 0 22px; }
+@media (prefers-reduced-motion: reduce) { .acc-ok::before, .acc-ok::after { transition: none; } }

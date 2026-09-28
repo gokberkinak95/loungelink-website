@@ -66,11 +66,19 @@ export default function GuideIndex() {
           <a href="/kartlar">Kart kart lounge listesi</a>
         </p>
 
-        <h2 style={{ fontSize: 24, marginTop: 46 }}>Kart kart kural sayfaları</h2>
+        <h2 style={{ fontSize: 24, marginTop: 46, marginBottom: 14 }}>Kart kart kural sayfaları</h2>
+        {/* 🔴 v0.69.1 (Gökberk) — HEPSİ AÇIKKEN SAYFA ÇOK UZUYORDU.
+            Her havalimanı artık başlığına bağlı açılır; ziyaretçi kendi
+            havalimanını açar. <details>: bağlantılar HTML'de durur, arama
+            motoru kapalıyken de okur. */}
         {Object.entries(byAirport).map(([code, list]) => (
-          <div key={code} style={{ marginTop: 40 }}>
-            <h2 style={{ fontSize: 24 }}>{AIRPORTS[code].name}</h2>
-            <div style={{ marginTop: 14 }}>
+          <details key={code} className="acc">
+            <summary>
+              <h3>{AIRPORTS[code].name}</h3>
+              <span className="acc-say">{list.length} sayfa</span>
+              <span className="acc-ok" aria-hidden="true" />
+            </summary>
+            <div className="acc-ic">
               {list.map((e) => {
                 const [col, lab] = V[e.verdict];
                 return (
@@ -87,7 +95,7 @@ export default function GuideIndex() {
                 );
               })}
             </div>
-          </div>
+          </details>
         ))}
       </div>
     </>
