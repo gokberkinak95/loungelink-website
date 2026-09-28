@@ -27,8 +27,9 @@ const NAV = [
   // v0.69.1 (Gökberk: "başlıklar içeriği tam karşılamıyor") — ad, sayfanın
   // TAMAMINI söyler: /kartlar'da hesaplayıcı + kurallar, /ayricaliklar'da
   // kazanç + abonelik var.
-  { href: "/kartlar", label: "Kartlar ve kurallar", yol: /^\/kart(lar|\/)/ },
-  { href: "/rehber", label: "Salon rehberi", yol: /^\/rehber/ },
+  // v0.69.3 — /kart/… sayfalarının evi artık Salon rehberi (akordeondan açılıyor).
+  { href: "/kartlar", label: "Kartlar ve kurallar", yol: /^\/kartlar/ },
+  { href: "/rehber", label: "Salon rehberi", yol: /^\/(rehber|kart\/)/ },
   { href: "/ayricaliklar", label: "Ayrıcalıklar ve üyelik", yol: /^\/ayricaliklar/ },
   { href: "/sss", label: "SSS", yol: /^\/sss/ },
 ];

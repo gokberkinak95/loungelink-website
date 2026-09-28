@@ -180,7 +180,8 @@ export default function Home() {
               <div className="an-yaziyor" aria-hidden="true"><i /><i /><i /></div>
             </div>
           </div>
-          <a className="beat" href="/kartlar">{BOLUM.akis.beat} <span>→</span></a>
+          {/* v0.69.3 — akışın (uçuşunu yaz → eşleş → salonda buluş) doğal devamı salonu görmek */}
+          <a className="beat" href="#kapsam">Havalimanını seç, salonu gör <span>→</span></a>
         </div>
       </section>
 
@@ -240,7 +241,8 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <a className="beat" href="/sss">Aklındaki diğer sorular <span>→</span></a>
+          {/* v0.69.3 (Gökberk: "yönlendirme cümleleri alanla uyumlu olsun") */}
+          <a className="beat" href="/sss">Güven ve gizlilik soruları <span>→</span></a>
         </div>
       </section>
 

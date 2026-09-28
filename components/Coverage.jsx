@@ -28,7 +28,9 @@ function Grup({ baslik, list }) {
           <li key={l.name + i}>
             <b>{l.name}</b>
             {l.section && <span className="cover-tag">{l.section}</span>}
-            {l.terminal && <span className="cover-term">{l.terminal}</span>}
+            {/* v0.69.3 — terminal adı etiketle aynıysa ("İç hat" · "İç Hat") tekrar yazılmaz */}
+            {l.terminal && (!l.section || l.terminal.toLocaleLowerCase("tr-TR") !== l.section.toLocaleLowerCase("tr-TR"))
+              && <span className="cover-term">{l.terminal}</span>}
           </li>
         ))}
       </ul>

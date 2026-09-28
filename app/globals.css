@@ -2781,3 +2781,19 @@ section[id], .capa, [id="an"], [id="liste"] { scroll-margin-top: 84px; }
 .dz-sonuc { font-size: 13px; color: var(--muted); margin: -4px 0 10px; }
 .dz-hepsi { margin-top: 20px; }
 @media (max-width: 560px) { .dz-sayilar { gap: 8px; } .dz-sayilar div { padding: 12px; } }
+
+/* ── v0.69.3 · Salon rehberi: havalimanı içinde salonlar + kartlar + kurallar ── */
+.dz-ek-bas, .dz-ek h4 { margin: 18px 0 8px; font-size: 11px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--goldText); }
+.dz-ek { margin-top: 8px; }
+.dz-kart-sat + .dz-kart-sat { margin-top: 12px; }
+.dz-kart-et { display: block; font-size: 12.5px; color: var(--muted); margin-bottom: 8px; }
+.dz-dugmeler { display: flex; flex-wrap: wrap; gap: 8px; }
+.dz-kural { display: flex; align-items: center; gap: 12px; padding: 13px 14px; margin-bottom: 8px; border-radius: 13px;
+  background: var(--kart-zemin); border: 1px solid var(--kart-kenar); transition: border-color .3s var(--ease-lux); }
+.dz-kural:hover { border-color: var(--hair-gold); }
+.dz-kural-m { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.dz-kural-m b { color: var(--ink); font-size: 14.5px; font-weight: 500; }
+.dz-kural-m small { font-size: 13px; line-height: 1.45; }
+.dz-kural-s { font-size: 11.5px; font-weight: 700; white-space: nowrap; }
+.dz-ok { color: var(--gold); }
+@media (max-width: 560px) { .dz-kural { flex-wrap: wrap; } .dz-kural-s { order: 3; width: 100%; white-space: normal; } }

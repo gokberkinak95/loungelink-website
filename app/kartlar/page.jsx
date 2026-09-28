@@ -23,14 +23,15 @@ const AIRPORT_COUNT = [...new Set(CARD_PAGES.map((p) => p.code))].length;
 
 export const metadata = {
   // v0.69.2 — "168 sayfa" ziyaretçiye bir şey söylemiyordu (Gökberk: "168 sayfa ne?").
-  title: `Kartınla hangi lounge'a girersin? Türkiye'de ${AIRPORT_COUNT} havalimanı, dünyada ${LOUNGE_COUNTS.countries} ülke | LoungeLink`,
+  // v0.69.3 — havalimanı listesi Salon rehberine taşındı; başlık sayfanın yeni işini söylüyor.
+  title: "Kartın ne veriyor, kuralı ne diyor? Hak hesaplayıcı ve misafir kuralları | LoungeLink",
   description:
-    `Miles&Smiles, Star Alliance Gold ve Priority Pass ile Türkiye'nin ${AIRPORT_COUNT} ` +
-    "havalimanında hangi lounge'a girersin? İç hat ve dış hat ayrı ayrı, salon adı ve terminaliyle.",
+    "Miles&Smiles, Star Alliance Gold, Priority Pass, DragonPass: kullanılmayan misafir hakkın ne ediyor " +
+    "ve her programın misafir kuralı ne diyor? Kaydolmadan, resmî kaynağından.",
   alternates: { canonical: "/kartlar" },
   openGraph: {
-    title: "Kartınla hangi lounge'a girersin?",
-    description: `Türkiye'de ${AIRPORT_COUNT} havalimanında kart kart, terminal terminal; dünyada ${LOUNGE_COUNTS.lounges} salon.`,
+    title: "Kartın ne veriyor, kuralı ne diyor?",
+    description: `Hak hesaplayıcı ve dokuz programın misafir kuralı. Salon rehberi: dünyada ${LOUNGE_COUNTS.lounges} salon.`,
     url: "/kartlar",
     siteName: "LoungeLink",
     locale: "tr_TR",
@@ -41,7 +42,6 @@ export const metadata = {
 };
 
 export default function CardsIndex() {
-  const groups = groupedPages();
 
   return (
     <>
@@ -50,27 +50,29 @@ export default function CardsIndex() {
           v0.69'da üstüne eklenmişti). Başlık artık başta; altında sayfanın
           üç durağı ve DÜNYA kapsamı (Gökberk: "yalnız yurt içi değiliz"). */}
       <header className="wrap sayfa-bas">
+        {/* v0.69.3 (Gökberk) — havalimanı listesi Salon rehberine taşındı;
+            bu sayfa kartın DEĞERİ ve programın KURALI. Başlık da bunu söylüyor. */}
         <div className="eyebrow">Kartlar ve kurallar</div>
-        <h1 className="sayfa-h1">Kartınla hangi lounge&apos;a girersin?</h1>
+        <h1 className="sayfa-h1">Kartın ne veriyor, kuralı ne diyor?</h1>
         <p className="lead" style={{ marginTop: 14, maxWidth: 640 }}>
-          Önce hakkının ne ettiğini gör, sonra programının misafir kuralını oku,
-          en sonda havalimanı havalimanı hangi salona girdiğine bak.
+          Önce hakkının ne ettiğini gör, sonra programının misafir kuralını oku.
+          Hangi havalimanında hangi salona girdiğin Salon rehberinde.
         </p>
         <nav className="sayfa-duraklar" aria-label="Bu sayfada">
           <a href="#hesapla">Hakkın ne ediyor?</a>
           <a href="#programlar">Programların kuralı</a>
-          <a href="#liste">Havalimanı listesi</a>
+          <a href="/rehber">Salon rehberi →</a>
         </nav>
         <div className="dz-dunya">
           <div>
             <b>Türkiye&apos;de kart kart, dünyada salon salon.</b>
             <p>
-              Kart–terminal sayfaları Türkiye&apos;deki {AIRPORT_COUNT} havalimanı için hazır.
+              Türkiye&apos;deki {AIRPORT_COUNT} havalimanında kartının her terminaldeki cevabı hazır.
               Yurt dışında {LOUNGE_COUNTS.abroadCountries} ülkede {LOUNGE_COUNTS.abroadAirports} havalimanı,
               {" "}{LOUNGE_COUNTS.abroadLounges} salon kataloğumuzda.
             </p>
           </div>
-          <a className="beat" href="/rehber#yurtdisi">Yurt dışı salonlarını gör <span>→</span></a>
+          <a className="beat" href="/rehber">Salon rehberini aç <span>→</span></a>
         </div>
       </header>
 
@@ -109,60 +111,21 @@ export default function CardsIndex() {
         </div>
       </section>
 
+      {/* 🔴 v0.69.3 — "Havalimanını aç, kartını seç" listesi Salon rehberinin
+          havalimanı akordeonuna taşındı (orada salonlarla ve misafir kuralıyla
+          birlikte). Eski /kartlar#liste bağlantısı kapanışa iner. */}
       <div className="wrap" id="liste" style={{ maxWidth: 860, padding: "48px 24px 80px" }}>
-        <div className="eyebrow">Türkiye · kart kart</div>
-        <h2 style={{ fontSize: "clamp(24px,3.4vw,32px)" }}>Havalimanını aç, kartını seç.</h2>
-
-        {/* v0.69.2 — "{TOTAL} sayfa" yerine sayfanın NE olduğu. */}
-        <p className="lead" style={{ marginTop: 14 }}>
-          Türkiye&apos;deki {AIRPORT_COUNT} havalimanında iç ve dış hat ayrı ayrı. Her düğme bir
-          kartın o terminaldeki cevabı: hangi salona girersin, misafirini götürebilir misin —
-          salon adı ve terminaliyle.
-        </p>
-        <p className="note" style={{ marginTop: 14 }}>
-          Aynı kart iç hatta ve dış hatta farklı sonuç verir. Classic Plus iç hat
-          salonuna ücretsiz girer, dış hatta tanımlı bir hakkı yoktur — bu yüzden
-          iki terminal iki ayrı sayfadır.
-        </p>
-
-        {/* 🔴 v0.69.1 — 15 havalimanı × iç/dış hat hepsi açıkken liste
-            sayfanın çoğunu tutuyordu. Rehberle aynı akordeon. */}
-        <div style={{ marginTop: 34 }}>
-        {groups.map(({ airport, scopes }) => (
-          <details key={airport.code} className="acc">
-            <summary>
-              <h3>{airport.name}</h3>
-              <span className="acc-say">{airport.code} · {airport.lounges.length} salon</span>
-              <span className="acc-ok" aria-hidden="true" />
-            </summary>
-            <div className="acc-ic">
-            <div style={{ fontSize: 13, color: "var(--muted)" }}>
-              {airport.city} · katalogda {airport.lounges.length} salon
-            </div>
-
-            {scopes.map(({ scope, list }) => (
-              <div key={scope} style={{ marginTop: 18 }}>
-                <div className="eyebrow">
-                  {SCOPES[scope].label} · {list[0].lounges.length} salon
-                </div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 9, marginTop: 10 }}>
-                  {list.map((p) => (
-                    <a key={p.slug} href={`/kart/${p.slug}`}
-                       className="card-chip">
-                      {CARDS[p.card].short}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            ))}
-            </div>
-          </details>
-        ))}
+        <div className="dz-dunya">
+          <div>
+            <b>Havalimanını aç, kartını seç.</b>
+            <p>
+              Aynı kart iç hatta ve dış hatta farklı sonuç verir. Classic Plus iç hat
+              salonuna ücretsiz girer, dış hatta tanımlı bir hakkı yoktur. Her
+              havalimanında terminal terminal cevap Salon rehberinde.
+            </p>
+          </div>
+          <a className="beat" href="/rehber">Salon rehberine git <span>→</span></a>
         </div>
-
-        <p className="note" style={{ marginTop: 44 }}>
-          Misafir ve aile hakkının kart kart ayrıntısı <a href="/rehber">Salon Rehberi</a>'nde.
-        </p>
         <p style={{ fontSize: 12, color: "var(--muted)", marginTop: 16, lineHeight: 1.6 }}>
           {SOURCE_NOTE}
         </p>

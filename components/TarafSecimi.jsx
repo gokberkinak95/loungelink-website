@@ -40,7 +40,8 @@ const TARAF = {
     baslik: SECTIONS[0].title,
     kartlar: [TRUST[1], TRUST[2], TRUST[5]],
     ekran: SECTIONS[0],
-    derin: { href: "/kartlar", label: "Kartları ve salonları gör" },
+    // v0.69.3 — kartı OLMAYAN kişiye kart sayfası değil salonlar ve kapıyı açanlar
+    derin: { href: "/rehber", label: "Salonları ve kapıyı açabilecekleri gör" },
   },
 };
 

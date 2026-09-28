@@ -2,6 +2,7 @@ import { AIRPORTS, CARDS, ENTRIES, CARRIER_RULE, slugOf } from "../../lib/guide"
 import SiteHeader from "../../components/SiteHeader";
 import KapsamDizini from "../../components/KapsamDizini";
 import { LOUNGE_COUNTS } from "../../lib/lounges-data";
+import { SCOPES, groupedPages } from "../../lib/card-pages";
 
 export const metadata = {
   title: "Salon Rehberi — hangi kartla nereye girebilirsin? | LoungeLink",
@@ -37,6 +38,26 @@ export default function GuideIndex() {
     no:        ["var(--ink)",    "bu salonda hakkın yok"],
   };
 
+  // 🔴 v0.69.3 (Gökberk: "iki benzer alanı iki sayfada vermek gereksiz") —
+  // /kartlar'daki "Havalimanını aç, kartını seç" listesi ve bu sayfanın
+  // alttaki "Kart kart kural sayfaları" listesi AYNI 15 havalimanını iki kez
+  // sayıyordu. Artık tek akordeon: her havalimanında salonlar + kartınla bu
+  // terminalde (/kart/…) + misafir kuralı (/rehber/…). Bağlantılar HTML'de
+  // durur: kart ve kural sayfalarının tek giriş düğümü burası.
+  const trEk = {};
+  for (const { airport, scopes } of groupedPages()) {
+    (trEk[airport.code] ||= { kartlar: [], kurallar: [] }).kartlar = scopes.map(({ scope, list }) => ({
+      etiket: SCOPES[scope].label, salon: list[0].lounges.length,
+      dugmeler: list.map((p) => ({ href: `/kart/${p.slug}`, ad: CARDS[p.card].short })),
+    }));
+  }
+  for (const [code, list] of Object.entries(byAirport)) {
+    (trEk[code] ||= { kartlar: [], kurallar: [] }).kurallar = list.map((e) => ({
+      href: `/rehber/${slugOf(e)}`, kart: CARDS[e.card].label, baslik: e.headline,
+      renk: V[e.verdict][0], sonuc: V[e.verdict][1],
+    }));
+  }
+
   return (
     <>
       <SiteHeader />
@@ -62,51 +83,9 @@ export default function GuideIndex() {
           Türkiye&apos;den dünyaya: {LOUNGE_COUNTS.countries} ülkede {LOUNGE_COUNTS.lounges} salon.
         </h2>
         <div style={{ marginTop: 20 }}>
-          <KapsamDizini />
+          <KapsamDizini trEk={trEk} />
         </div>
 
-        {/* 🔴 v0.20 — SALON LİSTESİ SAYFALARINA GİDEN TEK YOL.
-            Rehber "hangi hak" sorusunu, /kartlar "hangi salon" sorusunu
-            cevaplar. Rehber menüde olduğu için tarama buradan devam eder. */}
-        <p className="note" style={{ marginTop: 34 }}>
-          Terminal terminal salon listesi ve kartının orada ne verdiği:{" "}
-          <a href="/kartlar">Kart kart lounge listesi</a>
-        </p>
-
-        <h2 style={{ fontSize: 24, marginTop: 46 }}>Kart kart kural sayfaları</h2>
-        <p className="note" style={{ marginTop: 8, marginBottom: 14 }}>
-          Türkiye&apos;deki {LOUNGE_COUNTS.trAirports} havalimanı için, kart kart: misafirini götürebilir misin?
-        </p>
-        {/* 🔴 v0.69.1 (Gökberk) — HEPSİ AÇIKKEN SAYFA ÇOK UZUYORDU.
-            Her havalimanı artık başlığına bağlı açılır; ziyaretçi kendi
-            havalimanını açar. <details>: bağlantılar HTML'de durur, arama
-            motoru kapalıyken de okur. */}
-        {Object.entries(byAirport).map(([code, list]) => (
-          <details key={code} className="acc">
-            <summary>
-              <h3>{AIRPORTS[code].name}</h3>
-              <span className="acc-say">{list.length} sayfa</span>
-              <span className="acc-ok" aria-hidden="true" />
-            </summary>
-            <div className="acc-ic">
-              {list.map((e) => {
-                const [col, lab] = V[e.verdict];
-                return (
-                  <a key={slugOf(e)} href={`/rehber/${slugOf(e)}`}
-                     style={{ display: "flex", alignItems: "center", gap: 12, background: "var(--card)",
-                              border: "1px solid var(--line)", borderRadius: 13, padding: 15, marginBottom: 9 }}>
-                    <div style={{ flex: 1 }}>
-                      <b style={{ color: "var(--ink)", fontSize: 15.5 }}>{CARDS[e.card].label}</b>
-                      <div style={{ fontSize: 13.5, color: col, marginTop: 2 }}>{e.headline}</div>
-                    </div>
-                    <span style={{ fontSize: 11.5, color: col, fontWeight: 700, whiteSpace: "nowrap" }}>{lab}</span>
-                    <span style={{ color: "var(--gold)" }}>›</span>
-                  </a>
-                );
-              })}
-            </div>
-          </details>
-        ))}
       </div>
     </>
   );

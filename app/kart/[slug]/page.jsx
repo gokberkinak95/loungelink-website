@@ -134,7 +134,7 @@ export default async function CardPage({ params }) {
 
       <div className="wrap" style={{ maxWidth: 780, padding: "48px 24px 80px" }}>
         <div className="crumb">
-          <a href="/">Ana sayfa</a> › <a href="/kartlar">Kartlar</a> › {p.airport.city}
+          <a href="/">Ana sayfa</a> › <a href="/rehber">Salon rehberi</a> › {p.airport.city}
         </div>
 
         <div className="eyebrow">{p.airport.name} · {sc.label}</div>

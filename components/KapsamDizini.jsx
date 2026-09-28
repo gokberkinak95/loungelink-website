@@ -40,15 +40,53 @@ function Salonlar({ a }) {
     <ul className="dz-salon">
       {a.lounges.map((l, i) => {
         const et = kapsamEtiketi(l);
+        // v0.69.3 (Gökberk: "iç hattın yanında bir daha İç Hat yazıyor") —
+        // terminal adı etiketle AYNIYSA ("İç hat" · "İç Hat") yazılmaz.
+        const term = l.terminal && (!et || sade(l.terminal) !== sade(et)) ? l.terminal : null;
         return (
           <li key={l.name + i}>
             <b>{l.name}</b>
             {et && <span className="cover-tag">{et}</span>}
-            {l.terminal && <span className="cover-term">{l.terminal}</span>}
+            {term && <span className="cover-term">{term}</span>}
           </li>
         );
       })}
     </ul>
+  );
+}
+
+// v0.69.3 — Türkiye'de havalimanının içinde ÜÇ katman: salonlar · kartınla
+// bu terminalde (/kart/…) · misafirini götürebilir misin (/rehber/…).
+function TrEk({ ek }) {
+  if (!ek) return null;
+  return (
+    <>
+      {ek.kartlar.length > 0 && (
+        <div className="dz-ek">
+          <h4>Kartınla bu terminalde</h4>
+          {ek.kartlar.map((k) => (
+            <div key={k.etiket} className="dz-kart-sat">
+              <span className="dz-kart-et">{k.etiket} · {k.salon} salon</span>
+              <div className="dz-dugmeler">
+                {k.dugmeler.map((d) => <a key={d.href} href={d.href} className="card-chip">{d.ad}</a>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+      {ek.kurallar.length > 0 && (
+        <div className="dz-ek">
+          <h4>Misafirini götürebilir misin?</h4>
+          {ek.kurallar.map((r) => (
+            <a key={r.href} href={r.href} className="dz-kural">
+              <span className="dz-kural-m"><b>{r.kart}</b><small style={{ color: r.renk }}>{r.baslik}</small></span>
+              <span className="dz-kural-s" style={{ color: r.renk }}>{r.sonuc}</span>
+              <span aria-hidden="true" className="dz-ok">›</span>
+            </a>
+          ))}
+        </div>
+      )}
+    </>
   );
 }
 
@@ -68,7 +106,7 @@ function ulkeler() {
     .sort((x, y) => y.salon - x.salon || x.ulke.localeCompare(y.ulke, "tr"));
 }
 
-export default function KapsamDizini() {
+export default function KapsamDizini({ trEk = {} }) {
   const [sekme, setSekme] = useState("tr");
   const [ara, setAra] = useState("");
   const [hepsi, setHepsi] = useState(false);
@@ -112,8 +150,8 @@ export default function KapsamDizini() {
       {/* TÜRKİYE — salonlar + kart kart kural sayfaları var */}
       <div id="dz-panel-tr" role="tabpanel" aria-labelledby="dz-tr" hidden={sekme !== "tr"}>
         <p className="dz-not">
-          {c.trAirports} havalimanında {c.trLounges} salon. Burada kartının her terminalde ne
-          verdiği de hazır: <a href="/kartlar#liste">kart kart kural sayfaları</a>.
+          {c.trAirports} havalimanında {c.trLounges} salon. Havalimanını aç: salonlar, kartının o
+          terminalde hangi salona girdiği ve misafirini götürüp götüremeyeceğin tek yerde.
         </p>
         {TR_AIRPORTS.map((a) => (
           <details className="acc" key={a.code}>
@@ -124,7 +162,9 @@ export default function KapsamDizini() {
             </summary>
             <div className="acc-ic">
               <div className="dz-alt">{a.city} · iç hat {a.lounges.filter((l) => inScope(l, "domestic")).length} · dış hat {a.lounges.filter((l) => inScope(l, "international")).length}</div>
+              <h4 className="dz-ek-bas">Salonlar</h4>
               <Salonlar a={a} />
+              <TrEk ek={trEk[a.code]} />
             </div>
           </details>
         ))}
