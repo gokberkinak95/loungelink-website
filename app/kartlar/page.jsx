@@ -3,6 +3,7 @@ import { CARD_PAGES, SCOPES, SOURCE_NOTE, groupedPages } from "../../lib/card-pa
 import SiteHeader from "../../components/SiteHeader";
 import WalletCalc from "../../components/WalletCalc";
 import { BOLUM, SITE, PROGRAMS } from "../../lib/content";
+import { LOUNGE_COUNTS } from "../../lib/lounges-data";
 
 // 🔴 v0.69 (28 Eylül) — ANA SAYFADAN GELENLER: hak hesaplayıcı (#hesapla)
 // ve dokuz programın kural kartları (#programlar). Ana sayfada 4.852 px
@@ -21,14 +22,15 @@ const TOTAL = CARD_PAGES.length;
 const AIRPORT_COUNT = [...new Set(CARD_PAGES.map((p) => p.code))].length;
 
 export const metadata = {
-  title: `Kart kart lounge listesi — ${AIRPORT_COUNT} havalimanı, ${TOTAL} sayfa | LoungeLink`,
+  // v0.69.2 — "168 sayfa" ziyaretçiye bir şey söylemiyordu (Gökberk: "168 sayfa ne?").
+  title: `Kartınla hangi lounge'a girersin? Türkiye'de ${AIRPORT_COUNT} havalimanı, dünyada ${LOUNGE_COUNTS.countries} ülke | LoungeLink`,
   description:
     `Miles&Smiles, Star Alliance Gold ve Priority Pass ile Türkiye'nin ${AIRPORT_COUNT} ` +
     "havalimanında hangi lounge'a girersin? İç hat ve dış hat ayrı ayrı, salon adı ve terminaliyle.",
   alternates: { canonical: "/kartlar" },
   openGraph: {
-    title: "Kart kart lounge listesi",
-    description: `${TOTAL} sayfa: kart × havalimanı × terminal. Salon adı ve terminaliyle.`,
+    title: "Kartınla hangi lounge'a girersin?",
+    description: `Türkiye'de ${AIRPORT_COUNT} havalimanında kart kart, terminal terminal; dünyada ${LOUNGE_COUNTS.lounges} salon.`,
     url: "/kartlar",
     siteName: "LoungeLink",
     locale: "tr_TR",
@@ -44,6 +46,34 @@ export default function CardsIndex() {
   return (
     <>
       <SiteHeader />
+      {/* 🔴 v0.69.2 — SAYFANIN h1'İ EN ALTTAYDI (hesaplayıcı ve programlar
+          v0.69'da üstüne eklenmişti). Başlık artık başta; altında sayfanın
+          üç durağı ve DÜNYA kapsamı (Gökberk: "yalnız yurt içi değiliz"). */}
+      <header className="wrap sayfa-bas">
+        <div className="eyebrow">Kartlar ve kurallar</div>
+        <h1 className="sayfa-h1">Kartınla hangi lounge&apos;a girersin?</h1>
+        <p className="lead" style={{ marginTop: 14, maxWidth: 640 }}>
+          Önce hakkının ne ettiğini gör, sonra programının misafir kuralını oku,
+          en sonda havalimanı havalimanı hangi salona girdiğine bak.
+        </p>
+        <nav className="sayfa-duraklar" aria-label="Bu sayfada">
+          <a href="#hesapla">Hakkın ne ediyor?</a>
+          <a href="#programlar">Programların kuralı</a>
+          <a href="#liste">Havalimanı listesi</a>
+        </nav>
+        <div className="dz-dunya">
+          <div>
+            <b>Türkiye&apos;de kart kart, dünyada salon salon.</b>
+            <p>
+              Kart–terminal sayfaları Türkiye&apos;deki {AIRPORT_COUNT} havalimanı için hazır.
+              Yurt dışında {LOUNGE_COUNTS.abroadCountries} ülkede {LOUNGE_COUNTS.abroadAirports} havalimanı,
+              {" "}{LOUNGE_COUNTS.abroadLounges} salon kataloğumuzda.
+            </p>
+          </div>
+          <a className="beat" href="/rehber#yurtdisi">Yurt dışı salonlarını gör <span>→</span></a>
+        </div>
+      </header>
+
       <section className="section dark-band" id="hesapla">
         <div className="wrap">
           <WalletCalc />
@@ -80,14 +110,14 @@ export default function CardsIndex() {
       </section>
 
       <div className="wrap" id="liste" style={{ maxWidth: 860, padding: "48px 24px 80px" }}>
-        <div className="eyebrow">Kart sayfaları</div>
-        <h1 style={{ fontSize: "clamp(28px,4.5vw,42px)" }}>Kartınla hangi lounge'a girersin?</h1>
+        <div className="eyebrow">Türkiye · kart kart</div>
+        <h2 style={{ fontSize: "clamp(24px,3.4vw,32px)" }}>Havalimanını aç, kartını seç.</h2>
 
-        {/* Sayı önce: kapsamın kendisi iddianın kanıtı. */}
-        <p className="lead" style={{ marginTop: 16 }}>
-          {AIRPORT_COUNT} havalimanı, iç hat ve dış hat ayrı ayrı, {TOTAL} sayfa.
-          Her sayfada o terminaldeki salonlar adıyla ve terminaliyle yazılı;
-          kartının orada ne verdiği kural motorundan okunuyor.
+        {/* v0.69.2 — "{TOTAL} sayfa" yerine sayfanın NE olduğu. */}
+        <p className="lead" style={{ marginTop: 14 }}>
+          Türkiye&apos;deki {AIRPORT_COUNT} havalimanında iç ve dış hat ayrı ayrı. Her düğme bir
+          kartın o terminaldeki cevabı: hangi salona girersin, misafirini götürebilir misin —
+          salon adı ve terminaliyle.
         </p>
         <p className="note" style={{ marginTop: 14 }}>
           Aynı kart iç hatta ve dış hatta farklı sonuç verir. Classic Plus iç hat
@@ -101,7 +131,7 @@ export default function CardsIndex() {
         {groups.map(({ airport, scopes }) => (
           <details key={airport.code} className="acc">
             <summary>
-              <h2>{airport.name}</h2>
+              <h3>{airport.name}</h3>
               <span className="acc-say">{airport.code} · {airport.lounges.length} salon</span>
               <span className="acc-ok" aria-hidden="true" />
             </summary>

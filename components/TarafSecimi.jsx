@@ -29,7 +29,10 @@ const TARAF = {
     etiket: "Kartım var",
     baslik: BOLUM.host.h2,
     kartlar: [HOST_WHY[0], HOST_WHY[1], HOST_WHY[3]],
-    ekran: SECTIONS[1],
+    // v0.69.2 (Gökberk) — host panosu yerine EŞLEŞME ANI: kemerin altında
+    // iki koltuk; başlığın "yanındaki koltuk" cümlesinin görüntüsü.
+    ekran: { shot: "/screens/ss-eslesti.jpg", shotW: 480, shotH: 1039,
+             shotAlt: "LoungeLink eşleşme ekranı: Eşleştiniz — Deniz K. seni salona alıyor, TAV Primeclass" },
     derin: { href: "/ayricaliklar", label: "Ağırlayınca ne kazanırsın" },
   },
   misafir: {

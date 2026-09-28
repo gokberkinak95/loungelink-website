@@ -2723,3 +2723,61 @@ section[id], .capa, [id="an"], [id="liste"] { scroll-margin-top: 84px; }
 .acc > summary:focus-visible { outline: 1px solid var(--gold); outline-offset: 2px; }
 .acc-ic { padding: 4px 0 22px; }
 @media (prefers-reduced-motion: reduce) { .acc-ok::before, .acc-ok::after { transition: none; } }
+
+/* ════════════════════════════════════════════════════════════════
+   v0.69.2 · Gökberk'in canlı site notları (28 Eylül)
+   ════════════════════════════════════════════════════════════════ */
+/* 🔴 MENÜ ÇİZGİSİ KELİMENİN ÜSTÜNDEN GEÇİYORDU. 1920 px ekranda bile adlar
+   iki satıra kırılıyordu ("NASIL / ÇALIŞIR"): satır .wrap'in dar ölçüsüne
+   sıkışmıştı. Alt çizgi iki satırın ORTASINA düşüp üstü çizili gibi okunuyordu.
+   Artık adlar tek satır, başlık satırı daha geniş. */
+.lx-row.wrap { max-width: 1320px; }
+.lx-nav { gap: 28px; }
+.lx-nav a { white-space: nowrap; letter-spacing: .16em; }
+.lx-nav a::after { bottom: 10px; }
+
+/* 🔴 GÜVEN: kalkan ve ekran şeridi yan yana, eşit iki sütun (bento yok). */
+.guven-ikili { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; align-items: center; margin: 30px 0 10px; }
+.guven-ikili .guven-sahne { margin: 0; max-width: none; }
+.guven-ikili .guven-ekran { margin: 0; justify-content: center; gap: 16px; flex-wrap: nowrap; }
+.guven-ikili .guven-ekran .shot { width: 30%; max-width: 168px; }
+@media (max-width: 860px) {
+  .guven-ikili { grid-template-columns: 1fr; gap: 22px; }
+  .guven-ikili .guven-ekran .shot { width: 30%; max-width: 150px; }
+}
+
+/* ── v0.69.2 · kapsam dizini (/rehber) + /kartlar başı ─────────── */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.sayfa-bas { padding-top: 56px; padding-bottom: 8px; }
+.sayfa-duraklar { display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: 22px; }
+.sayfa-duraklar a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px;
+  border: 1px solid var(--line); color: var(--ink); font-size: 13.5px; transition: border-color .35s var(--ease-lux), color .35s var(--ease-lux); }
+.sayfa-duraklar a:hover { border-color: var(--hair-gold); color: var(--gold); }
+.dz-dunya { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px 28px;
+  margin-top: 26px; padding: 22px 24px; border-radius: 16px; background: var(--kart-zemin); border: 1px solid var(--kart-kenar); }
+.dz-dunya b { display: block; font-family: var(--serif); font-size: 21px; font-weight: 500; color: var(--ink); }
+.dz-dunya p { margin-top: 6px; font-size: 14.5px; line-height: 1.6; color: var(--body); max-width: 60ch; }
+.dz-dunya .beat { margin-top: 0; }
+
+.dz-sayilar { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 22px; }
+.dz-sayilar div { padding: 16px 18px; border-radius: 14px; background: var(--kart-zemin); border: 1px solid var(--kart-kenar); }
+.dz-sayilar b { display: block; font-family: var(--serif); font-size: clamp(28px, 4vw, 38px); font-weight: 400; color: var(--ink); line-height: 1; }
+.dz-sayilar span { display: block; margin-top: 6px; font-size: 11px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.dz-sekme { margin-bottom: 18px; }
+.dz-not { font-size: 14.5px; line-height: 1.65; color: var(--body); margin: 0 0 16px; max-width: 64ch; }
+.dz-alt { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+.dz-salon { list-style: none; margin: 0; padding: 0; }
+.dz-salon li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; padding: 9px 0; border-top: 1px solid var(--hair); }
+.dz-salon li b { font-weight: 500; color: var(--ink); font-size: 14.5px; }
+.dz-hava + .dz-hava { margin-top: 18px; }
+.dz-hava-bas { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin-bottom: 4px; }
+.dz-hava-bas b { font-family: var(--serif); font-size: 18px; font-weight: 500; color: var(--ink); }
+.dz-hava-bas span { font-size: 12.5px; color: var(--muted); }
+.dz-ara { display: block; margin-bottom: 14px; }
+.dz-ara input { width: 100%; min-height: 50px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line);
+  background: rgba(244,239,230,.03); color: var(--ink); font: inherit; font-size: 15px; }
+.dz-ara input::placeholder { color: var(--muted); }
+.dz-ara input:focus { outline: none; border-color: var(--hair-gold); box-shadow: 0 0 0 3px rgba(201,182,147,.12); }
+.dz-sonuc { font-size: 13px; color: var(--muted); margin: -4px 0 10px; }
+.dz-hepsi { margin-top: 20px; }
+@media (max-width: 560px) { .dz-sayilar { gap: 8px; } .dz-sayilar div { padding: 12px; } }

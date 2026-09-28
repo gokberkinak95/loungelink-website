@@ -220,12 +220,16 @@ export default function Home() {
           <div className="eyebrow">{BOLUM.guven.eyebrow}</div>
           <p className="statement">Kartında bir kişilik yer var.<br />+1'in kim olacak? Onu sen seçersin, biz doğrularız.</p>
           <h2>{BOLUM.guven.h2}</h2>
-          <GuvenKalkan />
-          {/* gerçek ekran şeridi (güven) — eski "neden" bölümünden */}
-          <div className="shots shots-sm guven-ekran">
-            {SHOTS_TRUST.map((p) => (
-              <img key={p.src} src={p.src} alt={p.alt} className="shot" width={p.w} height={p.h} loading="lazy" />
-            ))}
+          {/* v0.69.2 — kalkan ve gerçek ekran şeridi YAN YANA (Gökberk: "kayma var").
+              Önce ikisi alt alta ayrı bloklardı; şerit sağa kayıp kalkanın
+              altında boşlukta duruyordu. Eşit iki sütun, dikeyde ortalı. */}
+          <div className="guven-ikili">
+            <GuvenKalkan />
+            <div className="shots shots-sm guven-ekran">
+              {SHOTS_TRUST.map((p) => (
+                <img key={p.src} src={p.src} alt={p.alt} className="shot" width={p.w} height={p.h} loading="lazy" />
+              ))}
+            </div>
           </div>
           <div className="prog-grid trust-grid trust-3">
             {[TRUST[0], TRUST[3], TRUST[4]].map((c, i) => (
@@ -252,7 +256,7 @@ export default function Home() {
             Ayda iki kişi ağırlayan host, o ay Sık Uçan ayrıcalıklarını ücretsiz
             kullanır. Beta boyunca tüm planlar ücretsiz.
           </p>
-          <PlanKartlari />
+          <PlanKartlari ozet />
           <a className="beat" href="/ayricaliklar#plan">Planların ve kredinin ayrıntısı <span>→</span></a>
         </div>
       </section>

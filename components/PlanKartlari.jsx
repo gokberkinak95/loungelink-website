@@ -3,7 +3,10 @@
 // Ana sayfada ve /ayricaliklar'da AYNI kartlar. Tek kaynak: fiyat
 // değişince iki yerde ayrışmasın (v0.17'nin "beş kopya başlık" dersi).
 // ============================================================
-export default function PlanKartlari() {
+// v0.69.2 (Gökberk: "ana sayfadakini sayfada birebir tekrar etmeye gerek var mı?")
+// `ozet`: ana sayfada yalnız ad, fiyat ve ilk İKİ madde — vitrin. Tam liste
+// /ayricaliklar'da. Veri yine tek yerde.
+export default function PlanKartlari({ ozet = false }) {
   return (
     <div className="plan-grid">
       {[
@@ -32,7 +35,7 @@ export default function PlanKartlari() {
             {p2.fiyat !== "Ücretsiz" && <span> / ay</span>}
           </div>
           {p2.yil && <div className="plan-year">{p2.yil}</div>}
-          <ul>{p2.haklar.map(h => <li key={h}>{h}</li>)}</ul>
+          <ul>{(ozet ? p2.haklar.slice(0, 2) : p2.haklar).map(h => <li key={h}>{h}</li>)}</ul>
         </div>
       ))}
     </div>

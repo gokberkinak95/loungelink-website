@@ -1,6 +1,7 @@
 import { AIRPORTS, CARDS, ENTRIES, CARRIER_RULE, slugOf } from "../../lib/guide";
 import SiteHeader from "../../components/SiteHeader";
-import Coverage from "../../components/Coverage";
+import KapsamDizini from "../../components/KapsamDizini";
+import { LOUNGE_COUNTS } from "../../lib/lounges-data";
 
 export const metadata = {
   title: "Salon Rehberi — hangi kartla nereye girebilirsin? | LoungeLink",
@@ -54,8 +55,14 @@ export default function GuideIndex() {
             "nereye" sorusunun cevabı olan SALON LİSTESİ hiç yoktu.
             Kapsam artık burada, kural kartlarından ÖNCE — çünkü ziyaretçi
             önce kendi havalimanını arıyor. */}
-        <div style={{ marginTop: 34 }}>
-          <Coverage />
+        {/* 🔴 v0.69.2 (Gökberk: "yalnız yurt içini kapsamadığımızı göstermeliyiz")
+            Harita + Türkiye listesi ana sayfada (vitrin). Burası TAM DİZİN:
+            Türkiye ve yurt dışı iki sekme, yurt dışında arama. */}
+        <h2 style={{ fontSize: "clamp(24px,3.4vw,32px)", marginTop: 40 }}>
+          Türkiye&apos;den dünyaya: {LOUNGE_COUNTS.countries} ülkede {LOUNGE_COUNTS.lounges} salon.
+        </h2>
+        <div style={{ marginTop: 20 }}>
+          <KapsamDizini />
         </div>
 
         {/* 🔴 v0.20 — SALON LİSTESİ SAYFALARINA GİDEN TEK YOL.
@@ -66,7 +73,10 @@ export default function GuideIndex() {
           <a href="/kartlar">Kart kart lounge listesi</a>
         </p>
 
-        <h2 style={{ fontSize: 24, marginTop: 46, marginBottom: 14 }}>Kart kart kural sayfaları</h2>
+        <h2 style={{ fontSize: 24, marginTop: 46 }}>Kart kart kural sayfaları</h2>
+        <p className="note" style={{ marginTop: 8, marginBottom: 14 }}>
+          Türkiye&apos;deki {LOUNGE_COUNTS.trAirports} havalimanı için, kart kart: misafirini götürebilir misin?
+        </p>
         {/* 🔴 v0.69.1 (Gökberk) — HEPSİ AÇIKKEN SAYFA ÇOK UZUYORDU.
             Her havalimanı artık başlığına bağlı açılır; ziyaretçi kendi
             havalimanını açar. <details>: bağlantılar HTML'de durur, arama

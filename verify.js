@@ -83,7 +83,9 @@ if (!PY) {
 
 for (const [dosya, ne] of PY_ADIMLARI) {
   const parca = dosya.split(" ");
-  const r = spawnSync(PY, parca, { stdio: "inherit" });
+  // 28 Eylül — Git Bash/PowerShell farkı: PYTHONIOENCODING yoksa Windows borusu cp1252,
+  // Türkçe basan 6 Python denetimi düşüyordu ("6 kırmızı"). Her kabukta aynı sonuç.
+  const r = spawnSync(PY, parca, { stdio: "inherit", env: { ...process.env, PYTHONIOENCODING: "utf-8" } });
   if (r.status !== 0) { kirmizi++; console.log(`  ↑ ${parca[0]} — ${ne}`); }
 }
 

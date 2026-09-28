@@ -810,12 +810,17 @@ if (fs.existsSync(OUT)) {
         console.log(`  ✗ ana sayfada salon sayısı (${mod.LOUNGE_COUNTS.lounges}) geçmiyor — kapsam bölümü boş dönüyor olabilir`);
         bad++;
       }
-      // 🔴 v0.69 — kapsam listesi ana sayfadan /rehber'e taşındı (orada zaten
-      // vardı). Denetim SİLİNMEDİ: listenin yeni evinde aranıyor.
+      // 🔴 v0.69.2 — kapsam vitrini (harita + liste) ANA SAYFAYA döndü;
+      // /rehber'de yerine tam dizin (Türkiye + yurt dışı) var. İkisi de aranır.
+      if (!/class="cover-item"/.test(html)) {
+        console.log("  ✗ ana sayfada kapsam listesi (cover-item) yok — havalimanları basılmamış");
+        bad++;
+      }
       const rehberHtml = path.join(ROOT, ".next/server/app/rehber.html");
-      const kapsamHtml = fs.existsSync(rehberHtml) ? fs.readFileSync(rehberHtml, "utf8") : "";
-      if (!/class="cover-item"/.test(kapsamHtml)) {
-        console.log("  ✗ /rehber'de kapsam listesi (cover-item) yok — havalimanları basılmamış");
+      const dizinHtml = fs.existsSync(rehberHtml) ? fs.readFileSync(rehberHtml, "utf8") : "";
+      // Yurt dışı paneli HTML'de olmalı (gizli sekme de basılır) — Heathrow örnek.
+      if (!/id="dz-panel-yd"/.test(dizinHtml) || !/Heathrow/.test(dizinHtml)) {
+        console.log("  ✗ /rehber'de yurt dışı dizini yok — dünya kapsamı basılmamış");
         bad++;
       }
     }
