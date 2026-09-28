@@ -14,6 +14,12 @@ import WalletCalc from "../components/WalletCalc";
 import HostEarn from "../components/HostEarn";
 import HostStories from "../components/HostStories";
 import KurucuSayac from "../components/KurucuSayac";
+// v0.68 — hareket katmanı (Gökberk onayı · W1–W9). Yeni kütüphane yok: SVG + CSS.
+import SahneCanlandir from "../components/SahneCanlandir";
+import HeroIz from "../components/HeroIz";
+import RotaAkis from "../components/RotaAkis";
+import GuvenKalkan from "../components/GuvenKalkan";
+import BosKoltuk from "../components/BosKoltuk";
 
 // ============================================================
 // Ana sayfa
@@ -43,6 +49,7 @@ function Hikaye({ s, rev }) {
 export default function Home() {
   return (
     <>
+      <SahneCanlandir />
       {/* Sayfa boyunca süren atmosfer — sabit katman, scroll eden
           kapsayıcıya konsa her karede yeniden boyanırdı. */}
       <div className="aurora" aria-hidden="true" />
@@ -94,6 +101,7 @@ export default function Home() {
         <div className="hero-hale" aria-hidden="true" />
         <div className="hero-isik" aria-hidden="true" />
         <div className="hero-perde" aria-hidden="true" />
+        <HeroIz />
         <div className="hero-orta rise">
           <p className="eyebrow hero-dugum">{SITE.heroEyebrow}</p>
           <h1>{SITE.heroLead}<br /><em>{SITE.heroEm}</em></h1>
@@ -237,14 +245,17 @@ export default function Home() {
         <div className="wrap">
           <div className="eyebrow">{BOLUM.akis.eyebrow}</div>
           <h2>{BOLUM.akis.h2}</h2>
-          <div className="flow">
-            {FLOW.map((f) => (
-              <div className="flow-step" key={f.n}>
-                <div className="flow-n">{f.n}</div>
-                <h3>{f.t}</h3>
-                <p>{f.d}</p>
-              </div>
-            ))}
+          <div className="rota-kap canli">
+            <RotaAkis />
+            <div className="flow">
+              {FLOW.map((f) => (
+                <div className="flow-step" key={f.n}>
+                  <div className="flow-n">{f.n}</div>
+                  <h3>{f.t}</h3>
+                  <p>{f.d}</p>
+                </div>
+              ))}
+            </div>
           </div>
         
           {/* v0.9 — §3 ritim: bölüm DAVET vuruşuyla kapanır. Okuyucu bilgiyle bırakılırsa akış durur; her bölüm bir sonraki adımı işaret etmeli. */}
@@ -254,13 +265,15 @@ export default function Home() {
           <div id="an" className="birlesik-alt birlesik-dar">
             <div className="eyebrow">Sohbet</div>
           <h2>Kalan tek iş, birbirinizi bulmak.</h2>
-          <div className="an-sohbet">
+          {/* v0.68 · W6 — balonlar sırayla gelir, sonunda karşı taraf yazıyor */}
+          <div className="an-sohbet canli">
             {SAHNE.map((m, i) => (
-              <div key={i} className={"an-bal" + (m.kim === "sen" ? " ben" : "")}>
+              <div key={i} className={"an-bal" + (m.kim === "sen" ? " ben" : "")} style={{ "--b": i }}>
                 <p>{m.m}</p>
                 <time>{m.saat}</time>
               </div>
             ))}
+            <div className="an-yaziyor" aria-hidden="true"><i /><i /><i /></div>
           </div>
           <p className="an-not">
             Salon, kapı ve kalkışa kalan süre sohbetin üstünde donmuş durur —
@@ -319,6 +332,7 @@ export default function Home() {
               doğrulama bizim). */}
           <p className="statement">Kartında bir kişilik yer var.<br />+1'in kim olacak? Onu sen seçersin, biz doğrularız.</p>
           <h2>{BOLUM.guven.h2}</h2>
+          <GuvenKalkan />
           <div className="prog-grid trust-grid">
             {/* v0.8 — LS kart grameri: sessiz ikon çipi + soru başlığı +
                 somut ayrıntılı gövde. Çip tek renk ve düşük kontrast;
@@ -376,6 +390,7 @@ export default function Home() {
             her kişi, hakkın <i>olmayan</i> bir salonda sana bir kez misafir
             olma hakkı bırakıyor.
           </p>
+          <BosKoltuk />
 
           <div className="host-grid">
             {HOST_WHY.map((c, i) => (

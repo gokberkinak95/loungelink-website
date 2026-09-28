@@ -121,7 +121,7 @@ export default function WalletCalc() {
   const deger = kalan != null && kart.ucret ? kalan * kart.ucret : null;
 
   return (
-    <div className="wcalc">
+    <div className="wcalc isikli">
       <div className="wcalc-head">
         {/* 🔴 20 AĞUSTOS — ÜST ETİKET İLE BAŞLIK AYNI ŞEYİ SÖYLÜYORDU.
             "HAKKINI HESAPLA" + "Hakkın ne ediyor?" arka arkaya iki kez
@@ -163,6 +163,22 @@ export default function WalletCalc() {
             />
             <b>{kullanilan} / {kart.hak}</b>
           </label>
+        )}
+
+        {/* 🔴 v0.68 · W3 (Gökberk onayı) — SÖNEN HAKLAR. Dolu jeton = kullandığın,
+            boş halka = kullanmadığın. Yıl sonuna gelince boş halkalar birer birer
+            söner. Sayılar hesaplayıcının KENDİ sayıları (kart.hak · kullanilan);
+            hak sayısı yayınlanmayan kartta çizim yok — uydurma sayı yok. */}
+        {kart.hak != null && kart.hak > 0 && (
+          <div className="wjeton canli" aria-hidden="true">
+            <div className="wjeton-dizi">
+              {Array.from({ length: kart.hak }).map((_, i) => (
+                <span key={i} className={i < kullanilan ? "dolu" : "bos"}
+                      style={{ "--g": `${(i - kullanilan) * 0.15}s` }} />
+              ))}
+            </div>
+            <div className="wjeton-yil"><span>OCA</span><span>31 ARA</span></div>
+          </div>
         )}
 
         {/* 🔴 KAYIP ÇERÇEVESİ, ama YALNIZ DOĞRUYSA. Sayı bilinmiyorsa

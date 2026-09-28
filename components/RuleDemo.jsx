@@ -56,6 +56,17 @@ const V = {
   no:   { c: "var(--muted)", bg: "var(--bgAlt)",        b: "var(--line)",         i: "×" },
 };
 
+// Şart işareti — çizilerek gelir (pathLength=1 → kesik her boyda tamamlanır)
+function Isaret({ v }) {
+  return (
+    <svg className={"demo-isaret " + v} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      {v === "yes"
+        ? <path pathLength="1" d="M4 12.5 L9.5 18 L20 6.5" />
+        : <path pathLength="1" d="M5 12 L19 12" />}
+    </svg>
+  );
+}
+
 export default function RuleDemo() {
   const [card, setCard] = useState(CARDS[0]);
   const [tk, setTk] = useState(true);
@@ -63,7 +74,7 @@ export default function RuleDemo() {
   const v = V[r.v];
 
   return (
-    <div className="demo">
+    <div className="demo isikli">
       <div className="demo-head">
         <span className="demo-tag">CANLI</span>
         Kartına göre cevap veren kural motoru
@@ -83,13 +94,33 @@ export default function RuleDemo() {
         <button onClick={() => setTk(false)} className={"pill" + (!tk ? " on" : "")}>Star Alliance üyesi başka</button>
       </div>
 
-      {/* Cevap: serif — çünkü burada konuşan BİZ değil, KURAL. */}
-      <div className="demo-out" style={{ background: v.bg, borderColor: v.b }}>
+      {/* Cevap: serif — çünkü burada konuşan BİZ değil, KURAL.
+          🔴 v0.68 · W2 (Gökberk onayı) — motor artık ŞART ŞART konuşuyor:
+          kart → sefer → misafir hakkı sırayla onaylanır, hak varsa
+          uygulamadaki "Onaylı" damgasının aynısı basılır. `key` her seçimde
+          değişir: sahne baştan oynar. Veri aynı veri; yeni iddia yok. */}
+      <div className="demo-out demo-sahne" key={card.k + (tk ? "-tk" : "-sa")}
+           style={{ background: v.bg, borderColor: v.b }}>
         <div className="demo-out-code">
           <span className="mono">IST</span> · İstanbul Havalimanı
         </div>
-        <div className="demo-out-verdict" style={{ color: v.c }}>
-          <span aria-hidden="true">{v.i}</span> {r.t}
+        <ol className="demo-sart" aria-label="Kural motorunun baktığı şartlar">
+          <li style={{ "--s": 0 }}><span className="demo-sart-m"><small>Kart</small><b>{card.label}</b></span><Isaret v="yes" /></li>
+          <li style={{ "--s": 1 }}><span className="demo-sart-m"><small>Sefer</small><b>{tk ? "Türk Hava Yolları" : "Star Alliance üyesi başka havayolu"}</b></span><Isaret v="yes" /></li>
+          <li style={{ "--s": 2 }}><span className="demo-sart-m"><small>Misafir hakkı</small><b>{r.v === "yes" ? "Var" : "Ücretsiz misafir yok"}</b></span><Isaret v={r.v} /></li>
+        </ol>
+
+        <div className="demo-karar">
+          <div className="demo-out-verdict" style={{ color: v.c }}>
+            <span aria-hidden="true">{v.i}</span> {r.t}
+          </div>
+          {r.v === "yes" && (
+            <div className="demo-muhur" aria-hidden="true">
+              {/* Mühür bir ÇİZİM (uygulamadaki OnayDamgasi'nin karşılığı), kart çerçevesi değil */}
+              <svg viewBox="0 0 80 80" focusable="false"><circle cx="40" cy="40" r="38.5" /></svg>
+              <span>ONAYLI<em>MİSAFİR HAKKI</em></span>
+            </div>
+          )}
         </div>
         <div className="demo-out-detail">{r.d}</div>
       </div>

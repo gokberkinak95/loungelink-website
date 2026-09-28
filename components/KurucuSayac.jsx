@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { kurucuCember } from "../lib/supabase";
+import KurucuCember from "./KurucuCember";
 
 // ============================================================
 // KURUCU ÇEMBER SAYACI — canlı sosyal kanıt, uydurmadan
@@ -51,7 +52,11 @@ export default function KurucuSayac() {
         <b>{c.dolan}</b>
         <span>/ {c.kontenjan} kurucu host</span>
       </div>
-      <div className="kcember-bar" aria-hidden="true">
+      {/* 🔴 v0.68 · W9 (Gökberk onayı) — çubuk yerine KURUCU ÇEMBER:
+          kontenjan kadar nokta; dolanlar altın, sıradaki nabız atıyor.
+          Sayılar yine yalnız `kurucu_cember()`ten — burada sabit yok. */}
+      <KurucuCember dolan={c.dolan} kontenjan={c.kontenjan} kalan={c.kalan} />
+      <div className="kcember-bar" aria-hidden="true" hidden>
         <span style={{ width: `${yuzde}%` }} />
       </div>
       <p className="kcember-alt">

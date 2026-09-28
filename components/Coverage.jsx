@@ -1,4 +1,5 @@
 import { TR_AIRPORTS, ABROAD_AIRPORTS, LOUNGE_COUNTS, splitScope } from "../lib/lounges-data";
+import KapsamHaritasi from "./KapsamHaritasi";
 
 // ============================================================
 // KAPSAM — "Kartınla nereye girebilirsin?"
@@ -56,11 +57,14 @@ export default function Coverage({ limit = 12 }) {
         olduğunu gör — kartının orada ne verdiğini kural motoru söyler.
       </p>
 
+      {/* v0.68 · W5 — liste ile karşılıklı vurgulanan takımyıldız haritası */}
+      <KapsamHaritasi havalimanlari={tr.map((a) => ({ code: a.code, n: a.lounges.length }))} />
+
       <div className="cover-list">
         {tr.map((a) => {
           const s = splitScope(a);
           return (
-            <details key={a.code} className="cover-item">
+            <details key={a.code} className="cover-item" data-kod={a.code}>
               <summary>
                 <span className="mono cover-code">{a.code}</span>
                 <span className="cover-name">{a.name}</span>
