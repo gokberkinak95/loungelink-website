@@ -1,6 +1,6 @@
 {
   "_not": "Sitedeki ekran görüntülerinin HANGİ app sürümünden ve NASIL üretildiği. ekran_goruntusu_check.py bunu rnapp/app.json ile karşılaştırır ve `tur` alanını okur.",
-  "app_surumu": "6.2.2",
+  "app_surumu": "6.2.3",
   "alindi": "2026-09-29",
   "tur": "render",
   "uretici": "rnapp/web_sahne/cek.py (gercek React agaci + gercek veri, 1170x2532 Chromium)",
