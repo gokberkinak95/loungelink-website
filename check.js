@@ -1058,6 +1058,31 @@ try {
   console.log("  ⚠ app_paleti.py çalıştırılamadı: " + e.message);
 }
 
+// 🔴 29 EYLÜL — SÜRÜM ETİKETİ package.json'I GEÇEMEZ.
+// 0.69.1–0.69.3 yalnız yorumlarda ve commit'lerde adlandırıldı; package.json
+// 0.69.0'da kaldı (CLAUDE.md: "sürüm artırırken package.json + lock").
+// Kodda anılan en yüksek "v0.NN.N", package.json sürümünden büyükse kırmızı;
+// package-lock kök sürümü de package.json ile aynı olmalı.
+try {
+  const pj = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8"));
+  const lk = JSON.parse(fs.readFileSync(path.join(ROOT, "package-lock.json"), "utf8"));
+  const sayi = (v) => String(v).split(".").map(Number);
+  const buyuk = (a, b) => { for (let i = 0; i < 3; i++) { if ((a[i] || 0) !== (b[i] || 0)) return (a[i] || 0) > (b[i] || 0); } return false; };
+  let enYuksek = null, nerede = "";
+  for (const f of files) {
+    if (!/\.(css|jsx?|tsx?)$/.test(f)) continue;
+    const m = fs.readFileSync(f, "utf8").match(/\bv(0\.\d+\.\d+)\b/g) || [];
+    for (const x of m) { const v = sayi(x.slice(1)); if (!enYuksek || buyuk(v, enYuksek)) { enYuksek = v; nerede = path.relative(ROOT, f); } }
+  }
+  const pv = sayi(pj.version);
+  if (enYuksek && buyuk(enYuksek, pv)) {
+    console.log(`  ✗ SÜRÜM: kodda v${enYuksek.join(".")} anılıyor (${nerede}) ama package.json ${pj.version}`);
+    bad++;
+  } else console.log(`  ✓ sürüm etiketi package.json ile tutarlı (${pj.version})`);
+  const lkv = lk.version || (lk.packages && lk.packages[""] && lk.packages[""].version);
+  if (lkv !== pj.version) { console.log(`  ✗ SÜRÜM: package-lock ${lkv} ≠ package.json ${pj.version}`); bad++; }
+} catch (e) { console.log("  ⚠ sürüm denetimi okunamadı: " + e.message); }
+
 console.log("=".repeat(60));
 if (bad === 0) console.log(`✓ Site denetimi temiz — ${files.length} dosya, ${routes.size} sayfa`);
 else console.log(`✗ ${bad} sorun bulundu.`);
