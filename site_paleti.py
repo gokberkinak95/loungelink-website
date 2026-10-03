@@ -244,6 +244,10 @@ def denetle(yaz=False):
         kotu += not ok
         print("    %s %-11s %s  en kötü %5.2f:1" % ("✓" if ok else "✗", css, K[tok], o))
     g = open(CSS, encoding="utf-8").read()
+    # Yalnız ÜRETİLEN blok karşılaştırılır: v7 gece panelleri token'ları yerel
+    # olarak (seçici içinde) yeniden tanımlıyor; o tanımlar sapma değil.
+    if BAS in g and SON in g:
+        g = g[g.index(BAS):g.index(SON)]
     var = dict(re.findall(r"(--\w+):\s*(#[0-9A-Fa-f]{3,8})", g))
     sapma = [(c, var.get(c, "(yok)"), K[t]) for c, t, _ in ESLEME
              if t in K and var.get(c, "").upper() != K[t].upper()]

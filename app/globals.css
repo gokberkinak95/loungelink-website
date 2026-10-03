@@ -3070,3 +3070,72 @@ h1 em, h2 em { color: var(--goldText); }
 footer { background: var(--bgAlt); color: var(--muted); }
 footer a { color: var(--goldText); }
 .legal a { color: var(--goldText); }
+
+/* ── v7 · 2. tur (Gökberk, 4 Ekim 2026) ───────────────────────────────────────
+   1) Hareket sahneleri (W5 kapsam takımyıldızı · W7 güven kalkanı · W8 boş
+      koltuk) düz beyaz kartta "basit" duruyordu ve imleç ışığı beyazda
+      görünmüyordu. App'te takımyıldız (K8) GECE KARTINDA durur: aynı dil.
+      Panel içinde token'lar yerel olarak gece değerlerine döner; SVG'ler
+      (var(--ink) · var(--gold) · var(--goldText)) kendiliğinden fildişi ve
+      şampanya çizilir — bileşenlere dokunmadan, koyu temadaki hâlleriyle.
+   2) Kahraman uçağı (W1) var(--ink) ile çiziliyordu: v7'de lacivert, gece
+      perdesinde kayboluyordu. Kahramanda yerel fildişi + şampanya.
+   3) Telefonda fotoğraf kırpımı pencerenin üst çerçevesiyle perdesini iç içe
+      iki kemer gibi gösteriyordu: telefonda yalnız pencere açıklığı.
+   4) Kartlar telefonda zeminden ayrışmıyordu: gölge katmanlı + 1px halka
+      (box-shadow ile; mührün "çerçeve yok" kuralı `border` içindir).
+   ──────────────────────────────────────────────────────────────────────── */
+:root {
+  --kart-golge: 0 1px 2px rgba(13,27,42,.05), 0 10px 26px -8px rgba(13,27,42,.12), 0 0 0 1px rgba(13,27,42,.05);
+  --kart-golge-yuksek: 0 2px 4px rgba(13,27,42,.05), 0 18px 40px -12px rgba(13,27,42,.18), 0 0 0 1px rgba(13,27,42,.05);
+  --yildiz-tozu:
+    radial-gradient(1.2px 1.2px at 12% 18%, rgba(255,255,255,.55), transparent 60%),
+    radial-gradient(1px 1px at 28% 64%, rgba(255,255,255,.35), transparent 60%),
+    radial-gradient(1.4px 1.4px at 46% 30%, rgba(255,255,255,.45), transparent 60%),
+    radial-gradient(1px 1px at 63% 78%, rgba(255,255,255,.30), transparent 60%),
+    radial-gradient(1.3px 1.3px at 78% 22%, rgba(255,255,255,.50), transparent 60%),
+    radial-gradient(1px 1px at 88% 58%, rgba(255,255,255,.32), transparent 60%),
+    radial-gradient(1.1px 1.1px at 6% 84%, rgba(255,255,255,.28), transparent 60%);
+}
+
+/* (1) Gece panelleri */
+.kapsam-harita, .guven-sahne, .host-koltuk {
+  --ink: #F9F8F6; --body: rgba(249,248,246,.86); --muted: rgba(249,248,246,.62); --dim: rgba(249,248,246,.58);
+  --gold: #D4C3A3; --goldText: #E6DAC4; --bgAlt: #2A3F66; --surface: transparent;
+  color: var(--ink);
+  background:
+    var(--yildiz-tozu),
+    radial-gradient(90% 70% at 18% 0%, rgba(159,179,203,.14), transparent 62%),
+    radial-gradient(80% 60% at 100% 100%, rgba(212,195,163,.10), transparent 60%),
+    linear-gradient(180deg, #1A2B4C 0%, #22365C 70%, #2A3F66 100%);
+  box-shadow: 0 22px 48px -22px rgba(13,27,42,.55), inset 0 1px 0 rgba(255,255,255,.10);
+}
+.kapsam-harita .kh-yay { stroke: rgba(212,195,163,.55); }
+.kapsam-harita .kh-yay.on { stroke: #F9F8F6; }
+.host-koltuk .hk-zemin { stroke: rgba(249,248,246,.16); }
+.host-koltuk .hk-sen { fill: rgba(249,248,246,.55); }
+.guven-sahne .gk-satir text { fill: #F9F8F6; }
+/* İmleç ışığı: gece panelinde şampanya el feneri (mühür tavanı %15) */
+.kapsam-harita.isikli::after, .guven-sahne.isikli::after, .host-koltuk.isikli::after {
+  background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgba(230,218,196,.15), transparent 62%);
+}
+/* Beyaz kartlardaki imleç ışığı (kural demosu · hak hesaplayıcı): şafak tonu */
+.demo.isikli::after, .wcalc.isikli::after {
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(212,195,163,.15), transparent 60%);
+}
+
+/* (2) Kahraman uçağı ve izi */
+.hero-sahne .hero-iz { --ink: #F9F8F6; --goldText: #E6DAC4; }
+.hero-sahne .hero-iz-kanat { filter: drop-shadow(0 2px 6px rgba(13,27,42,.35)); }
+
+/* (3) Telefon kadrajı: yalnız pencere AÇIKLIĞI — gece gökyüzü → şafak → bulutlar
+   (dar ekranda çerçeve ve yarı inik perdenin kenarları iç içe kemer gibi
+   okunuyordu; 190/205/225/240% denendi, kemersiz tek kadraj 320% · 46%).
+   `inset: -6%` kalır: nefes animasyonunun kayması üst kenarı açmasın. */
+@media (max-width: 760px) {
+  .hero-foto { background-size: 320% auto; background-position: 50% 46%; }
+}
+
+/* Hak hesaplayıcı (W3) seçili kart çipi: sitenin seçim dili şampanya sikke (pill.on ile aynı). */
+.wchip.on { background: var(--sampanya-gradyan); color: var(--onGold); font-weight: 600;
+  box-shadow: 0 4px 12px rgba(138,114,71,.20), inset 0 1px 0 rgba(255,255,255,.55); }
