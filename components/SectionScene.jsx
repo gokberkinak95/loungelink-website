@@ -20,6 +20,14 @@
 // ============================================================
 let __sceneSeq = 0;
 
+// 🔴 3 EKİM 2026 · v7 AVIATION LIGHT — GEOMETRİ AYNI, MÜREKKEP YENİ.
+// Sahneler obsidyen zemin için şampanya %10–45 çiziliyordu; fildişi tuvalde
+// şampanya neredeyse görünmez. Gövdedeki sahneler artık BRONZ çizgi + GECE
+// mavisi halka (app'in v7 yapısal renkleri); ufuk (kapanış) gece bandında
+// durduğu için şampanya/şafak kalır. Değerler app V7'den: gold #8A7247 ·
+// gece #1A2B4C · goldBtn #D4C3A3 · goldBtnUst #E6DAC4.
+const BRONZ = "#8A7247", GECE = "#1A2B4C", SAMPANYA = "#D4C3A3", SAFAK = "#E6DAC4";
+
 export default function SectionScene({ kind = "wing", flip = false, id }) {
   // Her örnek kendi gradyan kimliğini taşır; aynı sahne iki kez
   // kullanılsa da gradyanlar karışmaz.
@@ -36,9 +44,9 @@ export default function SectionScene({ kind = "wing", flip = false, id }) {
       <svg {...common} viewBox="0 0 1200 700">
         <defs>
           <linearGradient id={`ct-${uid}`} x1="0" y1="1" x2="1" y2="0">
-            <stop offset="0%" stopColor="#C9B693" stopOpacity="0" />
-            <stop offset="55%" stopColor="#C9B693" stopOpacity=".55" />
-            <stop offset="100%" stopColor="#E4D6BC" stopOpacity=".9" />
+            <stop offset="0%" stopColor={BRONZ} stopOpacity="0" />
+            <stop offset="55%" stopColor={BRONZ} stopOpacity=".32" />
+            <stop offset="100%" stopColor={SAMPANYA} stopOpacity=".75" />
           </linearGradient>
         </defs>
         {[0, 1, 2].map((i) => (
@@ -59,8 +67,8 @@ export default function SectionScene({ kind = "wing", flip = false, id }) {
     return (
       <svg {...common} viewBox="0 0 1200 700">
         <path d="M596 210 L150 700 M604 210 L1050 700" fill="none"
-              stroke="#C9B693" strokeOpacity=".16" strokeWidth="1" />
-        <path d="M600 230 L600 700" fill="none" stroke="#C9B693"
+              stroke={BRONZ} strokeOpacity=".16" strokeWidth="1" />
+        <path d="M600 230 L600 700" fill="none" stroke={BRONZ}
               strokeOpacity=".10" strokeWidth="1" strokeDasharray="10 18" />
       </svg>
     );
@@ -72,11 +80,11 @@ export default function SectionScene({ kind = "wing", flip = false, id }) {
       <svg {...common} viewBox="0 0 1200 700">
         {[120, 220, 330, 450, 580].map((r, i) => (
           <circle key={r} cx="980" cy="350" r={r} fill="none"
-                  stroke="#6E6A72" strokeOpacity={0.30 - i * 0.045} strokeWidth="1.5" />
+                  stroke={GECE} strokeOpacity={0.12 - i * 0.018} strokeWidth="1.5" />
         ))}
         {[170, 290, 400].map((r, i) => (
           <circle key={"g" + r} cx="980" cy="350" r={r} fill="none"
-                  stroke="#C9B693" strokeOpacity={0.26 - i * 0.06} strokeWidth="1" />
+                  stroke={BRONZ} strokeOpacity={0.24 - i * 0.06} strokeWidth="1" />
         ))}
       </svg>
     );
@@ -88,13 +96,13 @@ export default function SectionScene({ kind = "wing", flip = false, id }) {
       <svg {...common} viewBox="0 0 1200 700">
         <defs>
           <linearGradient id={`hz-${uid}`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#C9B693" stopOpacity="0" />
-            <stop offset="80%" stopColor="#C9B693" stopOpacity=".30" />
+            <stop offset="0%" stopColor={SAMPANYA} stopOpacity="0" />
+            <stop offset="80%" stopColor={SAMPANYA} stopOpacity=".30" />
             <stop offset="100%" stopColor="var(--goldDeep)" stopOpacity=".45" />
           </linearGradient>
         </defs>
         <rect x="0" y="380" width="1200" height="320" fill={`url(#hz-${uid})`} />
-        <line x1="0" y1="470" x2="1200" y2="470" stroke="#E4D6BC" strokeOpacity=".45" strokeWidth="1.5" />
+        <line x1="0" y1="470" x2="1200" y2="470" stroke={SAFAK} strokeOpacity=".55" strokeWidth="1.5" />
       </svg>
     );
   }
@@ -104,16 +112,16 @@ export default function SectionScene({ kind = "wing", flip = false, id }) {
     <svg {...common} viewBox="0 0 1200 700">
       <defs>
         <linearGradient id={`wg-${uid}`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#C9B693" stopOpacity=".34" />
-          <stop offset="60%" stopColor="#C9B693" stopOpacity=".12" />
-          <stop offset="100%" stopColor="#6E6A72" stopOpacity=".10" />
+          <stop offset="0%" stopColor={BRONZ} stopOpacity=".16" />
+          <stop offset="60%" stopColor={BRONZ} stopOpacity=".06" />
+          <stop offset="100%" stopColor={GECE} stopOpacity=".05" />
         </linearGradient>
       </defs>
       <path d="M1260 -80 C 900 120, 520 330, 60 760 C 520 380, 880 190, 1300 30 Z" fill={`url(#wg-${uid})`} />
       <path d="M1300 90 C 980 250, 700 420, 340 780 C 700 480, 940 330, 1320 190 Z"
             fill={`url(#wg-${uid})`} opacity=".55" />
       <path d="M1280 -60 C 920 140, 540 350, 80 780" fill="none"
-            stroke="#C9B693" strokeOpacity=".38" strokeWidth="1.6" />
+            stroke={BRONZ} strokeOpacity=".24" strokeWidth="1.6" />
     </svg>
   );
 }

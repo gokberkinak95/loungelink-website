@@ -42,7 +42,6 @@ import shutil
 import sys
 from datetime import date
 
-import cairosvg
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
@@ -97,6 +96,7 @@ def alan_adi():
 
 
 def kemer(boy):
+    import cairosvg          # yalnız eski (koyu) kart için; v7 kartı PNG kanat kullanır
     import build_kemer as K
     P = np.load(K.IZ)
     svg = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" '
@@ -130,15 +130,45 @@ def sar(d, metin, font, gen):
     return cik
 
 
+# ══════════════════════════════════════════════════════════════════
+# 🔴 3 EKİM 2026 · v7 — KART APP'İN AÇILIŞIYLA AYNI SAHNEYİ KURUYOR.
+# Pencere fotoğrafı (bant.jpg) + gece→şafak perdesi (app v7_acilis_perde
+# durakları), açılış kanadı (app mark-kanat.png — cairosvg gerekmez),
+# fildişi başlık, şampanya alan adı; sağda v7 ana ekran.
+# ══════════════════════════════════════════════════════════════════
+GECE = (26, 43, 76)
+SAFAK = (230, 235, 240)
+SAMP = (212, 195, 163)
+IVORY = (249, 248, 246)
+
+
+def v7_zemin():
+    foto = Image.open(os.path.join(SITE, "public", "bant.jpg")).convert("RGB")
+    o = max(W / foto.width, H / foto.height)
+    foto = foto.resize((int(foto.width * o) + 1, int(foto.height * o) + 1), Image.LANCZOS)
+    x0 = (foto.width - W) // 2; y0 = int((foto.height - H) * 0.42)
+    a = np.asarray(foto.crop((x0, y0, x0 + W, y0 + H)), float)
+    y, x = np.mgrid[0:H, 0:W]
+    # dikey: üstte gece %86 → altta şafak %30; yatay: metin tarafı (sol) koyulaşır
+    dik = np.clip(0.86 - (y / H) * 0.40, 0.30, 0.86)
+    yat = np.clip(1.0 - (x / W) * 0.55, 0.45, 1.0)
+    k = np.clip(dik * (0.70 + 0.30 * yat), 0, 0.92)[..., None]
+    renk = np.array(GECE, float)[None, None, :] * (1 - (y / H)[..., None] * 0.25) + \
+           np.array(SAFAK, float)[None, None, :] * ((y / H)[..., None] * 0.25)
+    a = a * (1 - k) + renk * k
+    return Image.fromarray(a.clip(0, 255).astype(np.uint8))
+
+
 def uret():
-    im = kadife(Image.new("RGB", (W, H), OBS))
+    im = v7_zemin()
     d = ImageDraw.Draw(im)
 
-    # ── marka satırı ──
-    k = kemer(92)
-    im.paste(k, (72, 64), k)
+    # ── marka satırı: app'in açılış kanadı (onaylı ton) ──
+    kn = Image.open(os.path.join(APP, "assets", "mark-kanat.png")).convert("RGBA")
+    kn = kn.resize((96, int(96 * kn.height / kn.width)), Image.LANCZOS)
+    im.paste(kn, (72, 86), kn)
     fs = ImageFont.truetype(SANS, 25)
-    d.text((72 + 92 + 22, 64 + 32), "L O U N G E L I N K", font=fs, fill=IVORY)
+    d.text((72 + 96 + 20, 64 + 32), "L O U N G E L I N K", font=fs, fill=IVORY)
 
     # ── vaat cümlesi (sitenin kendi metni) ──
     f1 = ImageFont.truetype(SERIF, 66)
@@ -164,7 +194,7 @@ def uret():
         x = W - t.width - 74
         golge = Image.new("RGBA", (t.width + 40, t.height + 40), (0, 0, 0, 0))
         ImageDraw.Draw(golge).rounded_rectangle([20, 24, t.width + 20, t.height + 32],
-                                                radius=40, fill=(0, 0, 0, 150))
+                                                radius=40, fill=(13, 27, 42, 120))
         im.paste(Image.alpha_composite(
             Image.new("RGBA", golge.size, (0, 0, 0, 0)), golge).convert("RGB"),
             (x - 20, 74), golge)
@@ -173,15 +203,15 @@ def uret():
         print("  ⚠ 11_ana_misafir.png yok — kart telefonsuz çizildi.")
 
     # ── 1px kılcal ışık: üst kenar ──
-    d.line([(0, 0), (W, 0)], fill=(244, 239, 230), width=1)
     return im
 
 
 def main():
     im = uret()
     if "--uygula" not in sys.argv:
-        im.save("/tmp/og_onizleme.jpg", quality=90, optimize=True)
-        print("  · ÖNİZLEME: /tmp/og_onizleme.jpg  (public/ DEĞİŞMEDİ)")
+        yol = os.path.join(os.environ.get("TEMP", "/tmp"), "og_onizleme.jpg")
+        im.save(yol, quality=90, optimize=True)
+        print("  · ÖNİZLEME: %s  (public/ DEĞİŞMEDİ)" % yol)
         return 0
     hedef = os.path.join(SITE, "public", "og.jpg")
     ars = os.path.join(SITE, "public", "arsiv_gorsel")

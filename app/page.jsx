@@ -51,14 +51,14 @@ export default function Home() {
       <svg className="wing-bg" viewBox="0 0 800 1000" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
         <defs>
           <linearGradient id="wg" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#C9B693" stopOpacity="0.16" />
-            <stop offset="55%" stopColor="#C9B693" stopOpacity="0.06" />
-            <stop offset="100%" stopColor="#6E6A72" stopOpacity="0.05" />
+            <stop offset="0%" stopColor="#8A7247" stopOpacity="0.10" />
+            <stop offset="55%" stopColor="#8A7247" stopOpacity="0.04" />
+            <stop offset="100%" stopColor="#1A2B4C" stopOpacity="0.04" />
           </linearGradient>
         </defs>
         <path d="M820 -60 C560 180, 300 430, 40 900 C300 520, 520 260, 860 60 Z" fill="url(#wg)" />
         <path d="M880 120 C660 320, 460 540, 250 980 C470 620, 660 400, 900 240 Z" fill="url(#wg)" opacity="0.7" />
-        <path d="M840 -40 C580 200, 320 450, 60 920" fill="none" stroke="#C9B693" strokeOpacity="0.22" strokeWidth="1.5" />
+        <path d="M840 -40 C580 200, 320 450, 60 920" fill="none" stroke="#8A7247" strokeOpacity="0.16" strokeWidth="1.5" />
       </svg>
       <div className="grain-fixed" aria-hidden="true" />
       {/* v0.17 — başlık çubuğu ortak bileşende. Beş dosyada beş kopya

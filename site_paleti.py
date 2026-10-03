@@ -45,8 +45,23 @@ from tema_oku import palet                                          # noqa: E402
 
 CSS = os.path.join(KOK, "app", "globals.css")
 FOTO = os.path.join(KOK, "public", "bant.jpg")
-BAS = "  /* <<< SITE-GECE — site_paleti.py yazar, ELLE DÜZENLEME */"
-SON = "  /* SITE-GECE >>> */"
+BAS = "  /* <<< SITE-V7 — site_paleti.py yazar, ELLE DÜZENLEME */"
+SON = "  /* SITE-V7 >>> */"
+# Eski (koyu) bloğun işaretleri: ilk v7 koşusunda o blok bulunup yerine yazılır.
+ESKI_BAS = "  /* <<< SITE-GECE — site_paleti.py yazar, ELLE DÜZENLEME */"
+ESKI_SON = "  /* SITE-GECE >>> */"
+
+# ══════════════════════════════════════════════════════════════════
+# 🔴 3 EKİM 2026 · v7 AVIATION LIGHT — KAYNAK KOYU'DAN V7'YE GEÇTİ.
+# App 6.3.0 v7 temasına geçti (gece → şafak → fildişi). Site de aynı
+# kaynaktan türüyor: `tema_oku.palet("V7")`. Fotoğraf artık yalnız
+# kahramanda (gece perdesiyle); sayfanın gövdesi fildişi tuval. Bu
+# yüzden mürekkepler fotoğrafa karşı DEĞİL, gövdenin üç gerçek
+# zeminine karşı ölçülüyor: tuval (bg), blok (surfaceAlt) ve beyaz
+# kart (card). En kötüsü raporlanır — yöntem aynı, zemin kümesi yeni.
+# ══════════════════════════════════════════════════════════════════
+def kaynak():
+    return dict(palet("V7"))
 
 # 🔴 PERDE İKİ KEZ AYARLANDI VE İKİNCİSİ ÖLÇÜMLE GELDİ.
 # %82 ile başladım: bütün mürekkepler rahat geçiyordu ama ÇİZİLİNCE
@@ -107,17 +122,17 @@ ESIK = 4.5
 # olurdu — ve denetim "sitede yok" diye kırmızı yanardı.
 ESLEME = [
     ("--bg",       "bg",       "zemin"),
-    ("--bgAlt",    "surface",  "zemin"),
+    ("--bgAlt",    "surfaceAlt", "zemin"),   # v7: blok zemini (#F1EFEB)
     ("--ink",      "ink",      "metin"),
     ("--body",     "body",     "metin"),
     ("--muted",    "mutedAA",  "metin"),
     ("--dim",      "dimAA",    "metin"),
-    ("--gold",     "gold",     "metin"),
+    ("--gold",     "gold",     "yapi"),    # v7: yapısal şampanya-bronz (çizgi, nokta, ikon); METİN altını --goldText (app ile aynı ayrım)
     ("--goldText", "goldText", "metin"),
-    ("--goldDeep", "goldBtn",  "zemin"),   # üstüne BEYAZ yazılır
+    ("--goldDeep", "goldBtn",  "zemin"),   # üstüne --onGold (lacivert) yazılır
     ("--teal",     "teal",     "metin"),
     ("--green",    "green",    "metin"),
-    ("--amber",    "amber",    "metin"),
+    ("--amber",    "amberInk", "metin"),   # v7: app metin amberi (#A65A22 yalnız rozet zemininde)
 ]
 
 
@@ -158,8 +173,8 @@ def foto_zeminleri(perde_rgb, opaklik):
 
 
 def olc(K):
-    """Her mürekkebin fotoğraf üstündeki EN KÖTÜ oranı."""
-    zeminler = foto_zeminleri(hx(K["bg"]), PERDE)
+    """Her mürekkebin gövde zeminleri (tuval · blok · kart) üstündeki EN KÖTÜ oranı."""
+    zeminler = [hx(K[z]) for z in ("bg", "surfaceAlt", "card") if K.get(z)]
     sonuc = {}
     for css, tok, rol in ESLEME:
         if rol != "metin" or tok not in K:
@@ -172,22 +187,21 @@ def olc(K):
     return sonuc, bool(zeminler)
 
 
-ONGOLD = "#171009"   # app KOYU.onGold · tasarım .btn-altin
+ONGOLD = "#0D1B2A"   # app V7.onGold — şampanya zemin üstünde lacivert mürekkep
 
 
 def blok(K, en_kotu):
     s = [BAS,
-         "  /* Sitenin gece paleti app'in KOYU temasından TÜRETİLDİ —",
-         "     tek kaynak: rnapp/src/theme.js. Yanlarındaki oranlar",
-         "     FOTOĞRAFIN EN KÖTÜ PİKSELİNDE, %d%% perde altında ölçüldü;" % round(PERDE * 100),
-         "     ortalama değil. */"]
+         "  /* Sitenin paleti app'in V7 (Aviation Light) temasından TÜRETİLDİ —",
+         "     tek kaynak: rnapp/src/theme.js. Yanlarındaki oranlar gövdenin",
+         "     üç zemininin (tuval · blok · beyaz kart) EN KÖTÜSÜNE karşı ölçüldü. */"]
     for css, tok, rol in ESLEME:
         v = K.get(tok)
         if not v:
             continue
         not_ = ""
         if rol == "metin":
-            not_ = "   /* fotoğrafta en kötü %.2f:1 */" % en_kotu.get(css, 0)
+            not_ = "   /* zeminlerde en kötü %.2f:1 */" % en_kotu.get(css, 0)
         elif css == "--goldDeep":
             # 🔴 30 Ağu · v0.44 — BU SATIR BİR ÖLÇÜMDÜ VE BEN OKUMADIM.
             # "üstüne beyaz: 1.54:1" yazıyordu; sitede altın zeminli her
@@ -200,32 +214,27 @@ def blok(K, en_kotu):
             # Artık mürekkebi de yazıyor ve o mürekkeple ölçüyor.
             not_ = "   /* zemin — üstündeki --onGold ile: %.2f:1 */" % oranp(hx(ONGOLD), hx(v))
         s.append("  %s: %s;%s" % (css, v, not_))
-    # Tasarımın `.btn-altin{color:#171009}` mürekkebi. App'te `KOYU.onGold`.
+    # Şampanya zeminin mürekkebi. App'te `V7.onGold` (lacivert).
     s.append("  --onGold: %s;" % ONGOLD)
-    s.append("  --line: rgba(244, 239, 232, 0.12);")
-    s.append("  --warmLine: %s;" % K.get("warmLine", "rgba(216,179,106,0.22)"))
-    s.append("  --goldSoft: rgba(216, 179, 106, 0.14);")
-    s.append("  /* Cam yüzey: fotoğrafın üstünde duran kart. Opak değil ki")
-    s.append("     arkadaki görüntü yaşasın, ama metni taşıyacak kadar koyu. */")
-    s.append("  --card: rgba(22, 19, 16, 0.55);")
-    s.append("  --cardLine: rgba(244, 239, 232, 0.10);")
-    s.append("  --perde: %.2f;" % PERDE)
+    s.append("  --line: rgba(13, 27, 42, 0.08);   /* app V7_CIZGI ailesi */")
+    s.append("  --warmLine: rgba(13, 27, 42, 0.10);")
+    s.append("  --goldSoft: rgba(212, 195, 163, 0.28);   /* app sampanyaTint */")
+    s.append("  /* Kart: beyaz yüzey + lacivert gölge (app kartıyla aynı). */")
+    s.append("  --card: %s;" % K.get("card", "#FFFFFF"))
+    s.append("  --cardLine: transparent;")
+    s.append("  --gece: %s;   /* kahraman ve kapanış gecesi */" % K.get("gece", "#1A2B4C"))
+    s.append("  --perde: 1;   /* gövdede fotoğraf yok: tuval tam opak */")
     s.append(SON)
     return "\n".join(s)
 
 
 def denetle(yaz=False):
-    K = dict(palet("C"))
-    K.update(palet("KOYU"))
-    en_kotu, foto_var = olc(K)
+    K = kaynak()
+    en_kotu, _ = olc(K)
     print("=" * 76)
-    print("SİTE GECE PALETİ — app'ten türetildi, fotoğrafın EN KÖTÜ noktasında ölçüldü")
+    print("SİTE PALETİ (v7) — app'ten türetildi, gövde zeminlerinin EN KÖTÜSÜNDE ölçüldü")
     print("=" * 76)
-    if not foto_var:
-        print("  ⚠ %s okunamadı — ölçüm DÜZ ZEMİNDE yapıldı." % os.path.basename(FOTO))
-        print("    Bunu söylemek önemli: fotoğraf üstündeki gerçek en kötü nokta")
-        print("    bundan daha kötü olabilir.")
-    print("  perde: %%%d (KOYU.bg üzerine)" % round(PERDE * 100))
+    print("  zeminler: tuval %s · blok %s · kart %s" % (K.get("bg"), K.get("surfaceAlt"), K.get("card")))
     kotu = 0
     for css, tok, rol in ESLEME:
         if rol != "metin" or tok not in K or css == "--dim":
@@ -244,20 +253,23 @@ def denetle(yaz=False):
     if kotu or sapma:
         print("\n🔴 `python site_paleti.py` çalıştır (türetir ve yazar).")
         return 1
-    print("\n✓ Site paleti app ile tek kaynaktan; her mürekkep fotoğrafın")
-    print("  en kötü noktasında bile AA geçiyor.")
+    print("\n✓ Site paleti app ile tek kaynaktan (V7); her mürekkep gövdenin")
+    print("  en kötü zemininde bile AA geçiyor.")
     return 0
 
 
 def main():
     if "--denetle" in sys.argv:
         return denetle()
-    K = dict(palet("C"))
-    K.update(palet("KOYU"))
+    K = kaynak()
     en_kotu, _ = olc(K)
     g = open(CSS, encoding="utf-8").read()
     yeni = blok(K, en_kotu)
-    if BAS in g:
+    if BAS not in g and ESKI_BAS in g:
+        a = g.index(ESKI_BAS)
+        b = g.index(ESKI_SON, a) + len(ESKI_SON)
+        g = g[:a] + yeni + g[b:]
+    elif BAS in g:
         a = g.index(BAS)
         b = g.index(SON, a) + len(SON)
         g = g[:a] + yeni + g[b:]
@@ -295,7 +307,7 @@ def main():
     os.makedirs(ye, exist_ok=True)
     shutil.copy2(CSS, os.path.join(ye, "globals.css"))
     open(CSS, "w", encoding="utf-8").write(g)
-    print("✓ globals.css — gece paleti app'ten türetildi (yedek: %s)\n" % ye)
+    print("✓ globals.css — v7 paleti app'ten türetildi (yedek: %s)\n" % ye)
     return denetle()
 
 

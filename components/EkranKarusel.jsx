@@ -216,8 +216,10 @@ export default function EkranKarusel({ shots, caption }) {
                 transform:
                   `translate3d(calc(-50% + ${kaydir}%), ${Math.abs(d) * 14}px, ${-Math.abs(d) * 150}px)` +
                   ` rotateY(${d * -21}deg) scale(${1 - Math.abs(d) * 0.13})`,
-                opacity: gorunurMu ? (merkez ? 1 : 0.9 - Math.abs(d) * 0.2) : 0,
-                filter: merkez ? "none" : `brightness(${1 - Math.abs(d) * 0.22})`,
+                opacity: gorunurMu ? (merkez ? 1 : 0.94 - Math.abs(d) * 0.2) : 0,
+                // v7 (3 Ekim): fildişi zeminde karartma kirli gri okunuyordu; derinlik
+                // artık hafif doygunluk düşüşü + saydamlıkla (kart zemine doğru sisleniyor).
+                filter: merkez ? "none" : `saturate(${1 - Math.abs(d) * 0.18}) contrast(${1 - Math.abs(d) * 0.06})`,
                 zIndex: 10 - Math.abs(d),
                 pointerEvents: gorunurMu ? "auto" : "none",
                 // Sürükleme sırasında geçişi kapat: yoksa her kare

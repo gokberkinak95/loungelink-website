@@ -78,33 +78,32 @@
      v0.7'den beri tam olarak bu oluyordu.
      Oranlar #F8F6F1 zemine göre: appInk 14.5 · appBody 8.9 · appMuted 7.0 */
 
-  /* <<< SITE-GECE — site_paleti.py yazar, ELLE DÜZENLEME */
-  /* Sitenin gece paleti app'in KOYU temasından TÜRETİLDİ —
-     tek kaynak: rnapp/src/theme.js. Yanlarındaki oranlar
-     FOTOĞRAFIN EN KÖTÜ PİKSELİNDE, 84% perde altında ölçüldü;
-     ortalama değil. */
-  --bg: #0B0A0B;
-  --bgAlt: #141211;
-  --ink: #F4EFE6;   /* fotoğrafta en kötü 12.05:1 */
-  --body: #D8D0C4;   /* fotoğrafta en kötü 9.03:1 */
-  --muted: #A99D8C;   /* fotoğrafta en kötü 5.19:1 */
-  --dim: #8E8373;   /* fotoğrafta en kötü 3.71:1 */
-  --gold: #C9B693;   /* fotoğrafta en kötü 6.96:1 */
-  --goldText: #D6C3A0;   /* fotoğrafta en kötü 8.00:1 */
-  --goldDeep: #D9C8A6;   /* zemin — üstündeki --onGold ile: 11.45:1 */
-  --teal: #9DBBA6;   /* fotoğrafta en kötü 6.63:1 */
-  --green: #EDE7DB;   /* fotoğrafta en kötü 11.21:1 */
-  --amber: #D9A45E;   /* fotoğrafta en kötü 6.19:1 */
-  --onGold: #171009;
-  --line: rgba(244, 239, 232, 0.12);
-  --warmLine: #382F20;
-  --goldSoft: rgba(201,182,147, 0.14);
-  /* Cam yüzey: fotoğrafın üstünde duran kart. Opak değil ki
-     arkadaki görüntü yaşasın, ama metni taşıyacak kadar koyu. */
-  --card: rgba(22, 19, 16, 0.55);
-  --cardLine: rgba(244, 239, 232, 0.10);
-  --perde: 0.84;
-  /* SITE-GECE >>> */
+  /* <<< SITE-V7 — site_paleti.py yazar, ELLE DÜZENLEME */
+  /* Sitenin paleti app'in V7 (Aviation Light) temasından TÜRETİLDİ —
+     tek kaynak: rnapp/src/theme.js. Yanlarındaki oranlar gövdenin
+     üç zemininin (tuval · blok · beyaz kart) EN KÖTÜSÜNE karşı ölçüldü. */
+  --bg: #F9F8F6;
+  --bgAlt: #F1EFEB;
+  --ink: #0D1B2A;   /* zeminlerde en kötü 15.15:1 */
+  --body: #2E3D52;   /* zeminlerde en kötü 9.60:1 */
+  --muted: #55647A;   /* zeminlerde en kötü 5.24:1 */
+  --dim: #66748A;   /* zeminlerde en kötü 4.13:1 */
+  --gold: #8A7247;
+  --goldText: #7A6440;   /* zeminlerde en kötü 4.91:1 */
+  --goldDeep: #D4C3A3;   /* zemin — üstündeki --onGold ile: 10.05:1 */
+  --teal: #2F6B5F;   /* zeminlerde en kötü 5.40:1 */
+  --green: #2E6A4F;   /* zeminlerde en kötü 5.56:1 */
+  --amber: #9A521F;   /* zeminlerde en kötü 5.08:1 */
+  --onGold: #0D1B2A;
+  --line: rgba(13, 27, 42, 0.08);   /* app V7_CIZGI ailesi */
+  --warmLine: rgba(13, 27, 42, 0.10);
+  --goldSoft: rgba(212, 195, 163, 0.28);   /* app sampanyaTint */
+  /* Kart: beyaz yüzey + lacivert gölge (app kartıyla aynı). */
+  --card: #FFFFFF;
+  --cardLine: transparent;
+  --gece: #1A2B4C;   /* kahraman ve kapanış gecesi */
+  --perde: 1;   /* gövdede fotoğraf yok: tuval tam opak */
+  /* SITE-V7 >>> */
 
   /* ══════════════════════════════════════════════════════════════
      🔴 13 EYLÜL — BU İKİ TOKEN'I KENDİ ELİMLE DÜŞÜRDÜM.
@@ -118,9 +117,12 @@
      🆕 SINIF: "ÜRETİLEN BİR BLOĞUN İÇİNE ELLE YAZILAN HER SATIR,
      ÜRETECİN BİR SONRAKİ KOŞUSUNDA SESSİZCE SİLİNİR."
      ══════════════════════════════════════════════════════════════ */
-  --kart-zemin: linear-gradient(180deg, rgba(60,50,37,.42), rgba(20,18,17,.72));
-  --kart-kenar: transparent;   /* v5.9.0 · çerçeve yok, parlama var */
-  --parlama: rgba(244,239,230,0.035);
+  /* v7 (3 Ekim 2026): kart beyaz yüzey; derinlik gölgeden (app ELEV.card: lacivert %6 · 16 · y6). */
+  --kart-zemin: #FFFFFF;
+  --kart-kenar: transparent;
+  --parlama: rgba(255,255,255,0.9);   /* üst ışık kenarı */
+  --kart-golge: 0 6px 16px rgba(13,27,42,0.06);
+  --kart-golge-yuksek: 0 10px 28px rgba(13,27,42,0.10);
 
   /* ══════════════════════════════════════════════════════════════
      🔴 13 EYLÜL · v2 — MARKA KARARI KATMANI (üreteçten SONRA)
@@ -139,11 +141,15 @@
        --fil #EDE7DB  11.21:1   (üretecin --green'i; adı netleşsin diye)
        --kil #B0A296   4.84:1
      ══════════════════════════════════════════════════════════════ */
-  --fil: #EDE7DB;   /* olumlu durum — "misafir ücretsiz" */
-  --kil: #B0A296;   /* sınır/olumsuz — "yalnız kendin girersin" */
-  --teal: var(--fil);    /* fintech teal'i öldürüldü */
-  --green: var(--fil);   /* fintech yeşili öldürüldü */
-  --amber: var(--kil);   /* fintech amberi öldürüldü */
+  /* v7 (3 Ekim 2026): durum mürekkepleri app'in v7 rozet mürekkepleri — doygun
+     "fintech" tonları değil, derin ve sessiz: yeşil #2E6A4F · amber #9A521F
+     (üretilen bloktan gelir). Karar katmanı yalnız takma adları tutar. */
+  --fil: var(--green);   /* olumlu durum — "misafir ücretsiz" */
+  --kil: var(--amber);   /* sınır — "yalnız kendin girersin" */
+  /* Metin altını: sitede --gold hem çizgi hem METİN olarak kullanılıyor; app'te
+     metin altını bronz (goldText 4.91:1), yapısal altın 3.99:1. Okunurluk için
+     site altını bronza bağlanır (görsel fark ~1 ton). */
+  --gold: var(--goldText);
 
   /* ════════════════════════════════════════════════════════════
      🔴 30 AĞUSTOS · v0.44 — AÇIK "APP MAKETİ" PALETİ KALDIRILDI.
@@ -2797,3 +2803,270 @@ section[id], .capa, [id="an"], [id="liste"] { scroll-margin-top: 84px; }
 .dz-kural-s { font-size: 11.5px; font-weight: 700; white-space: nowrap; }
 .dz-ok { color: var(--gold); }
 @media (max-width: 560px) { .dz-kural { flex-wrap: wrap; } .dz-kural-s { order: 3; width: 100%; white-space: normal; } }
+
+/* ════════════════════════════════════════════════════════════════════════
+   v7 · AVIATION LIGHT — SİTE KATMANI (3 Ekim 2026 · app 6.3.0 ile aynı tema)
+
+   App v7'ye geçti: bant gece mavisinden şafağa, şafaktan fildişine açılıyor;
+   gövde fildişi tuval, kartlar beyaz + lacivert gölge, eylem şampanya sikke.
+   Site aynı hikâyeyi anlatır: KAHRAMAN gece penceresi (fotoğraf yalnız
+   burada), GÖVDE fildişi gündüz, KAPANIŞ (beta) yeniden gece — kalkış ve iniş.
+
+   NEDEN AYRI KATMAN: yukarıdaki kurallar yedi turun kararlarını ve
+   ölçümlerini taşıyor; silmek geri dönüş yolunu siler. Bu katman aynı
+   seçicileri DAHA SONRA yazar ve kazanır. Renkler token'dan (SITE-V7 bloğu,
+   app V7'den türetilir); buradaki sabitler app V7 değerleridir.
+   Yapı ve hareket (K-W1…W9, karusel, sahneler, beliriş) DEĞİŞMEZ.
+   ════════════════════════════════════════════════════════════════════════ */
+:root {
+  --hair: rgba(13, 27, 42, 0.08);
+  --hair-gold: rgba(138, 114, 71, 0.30);
+  --surface: #FFFFFF;
+  --surface-2: #FFFFFF;
+  --sampanya-gradyan: linear-gradient(180deg, #E6DAC4 0%, #D4C3A3 52%, #C4AF88 100%);
+  --sikke-golge: 0 6px 18px rgba(138, 114, 71, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  --ekran-golge: 0 34px 70px -28px rgba(13, 27, 42, 0.34), 0 0 0 1px rgba(13, 27, 42, 0.05);
+  --gece-ust: #1A2B4C;
+  --gece-alt: #22365C;
+  --fildisi-yazi: #F9F8F6;
+  --fildisi-yazi-2: rgba(249, 248, 246, 0.86);
+  --sampanya: #D4C3A3;
+  --sampanya-acik: #E6DAC4;
+}
+
+/* ── Tuval: gövdede fotoğraf yok, fildişi tam opak ─────────────────────── */
+html, body { background: var(--bg); }
+body::before { display: none; animation: none; }
+body::after { background: var(--bg); opacity: 1; }
+.aurora { opacity: .55; background:
+  radial-gradient(60% 42% at 86% 6%, rgba(212,195,163,0.15), transparent 64%),
+  radial-gradient(55% 40% at 8% 52%, rgba(230,235,240,0.55), transparent 66%),
+  radial-gradient(70% 50% at 50% 104%, rgba(212,195,163,0.14), transparent 66%); }
+.grain-fixed, .grain { opacity: .035; mix-blend-mode: multiply; }
+.vignette { background: none; }
+.ghost { color: rgba(13, 27, 42, 0.035); }
+.sec-no { color: rgba(138, 114, 71, 0.55); }
+
+/* ── Tipografi ─────────────────────────────────────────────────────────── */
+h1, h2, h3 { color: var(--ink); }
+h1 em, h2 em { color: var(--goldText); }
+.eyebrow { color: var(--goldText); }
+
+/* ── Düğmeler: şampanya sikke (app Btn gold) · hayalet kıl çizgi ──────── */
+.btn, .btn-gold, .dark-band a.btn, .site-nav .btn, .site-head-seffaf .site-cta {
+  background: var(--sampanya-gradyan); color: var(--onGold) !important;
+  box-shadow: var(--sikke-golge); border: 0;
+}
+.btn:hover, .btn-gold:hover, .dark-band a.btn:hover {
+  background: linear-gradient(180deg, #EFE5D2 0%, #DCCDB0 52%, #CBB792 100%);
+}
+.dark-band a.btn, .dark-band a.btn-gold { color: var(--onGold) !important; }
+.btn-ghost { border: 1px solid rgba(13, 27, 42, 0.16); color: var(--ink); background: rgba(255,255,255,.6); }
+.btn-ghost:hover { border-color: var(--hair-gold); background: #FFFFFF; }
+.beat { color: var(--goldText) !important; border-bottom-color: var(--hair-gold); }
+
+/* ── Başlık çubuğu = app'in daralan bandı ─────────────────────────────────
+   App'te fotoğraflı bant kaydırınca GECE MAVİSİ kompakt çubuğa daralır.
+   Site aynısını yapar: kahramanın üstünde saydam, kayınca ve alt sayfalarda
+   gece camı; iki hâlde de yazı fildişi, eylem şampanya. Mobil menü açıkken
+   tam ekran fildişi sayfa (lacivert yazı). */
+.lx-head.is-alt, .lx-head.is-kaydi {
+  background: rgba(26, 43, 76, 0.92); border-bottom-color: rgba(212, 195, 163, 0.18);
+  -webkit-backdrop-filter: saturate(140%) blur(16px); backdrop-filter: saturate(140%) blur(16px);
+  box-shadow: 0 8px 24px rgba(13, 27, 42, 0.14);
+}
+.lx-head:not(.is-acik) .lx-marka b { color: var(--fildisi-yazi); }
+.lx-head:not(.is-acik) .lx-nav a { color: var(--fildisi-yazi-2); }
+.lx-head:not(.is-acik) .lx-nav a:hover,
+.lx-head:not(.is-acik) .lx-nav a[aria-current="page"] { color: #FFFFFF; }
+.lx-head:not(.is-acik) .lx-nav a::after { background: var(--sampanya); }
+.lx-head:not(.is-acik) .lx-cta { color: var(--sampanya-acik); border-color: rgba(230, 218, 196, 0.55); }
+.lx-head:not(.is-acik) .lx-cta:hover { background: var(--sampanya-gradyan); color: var(--onGold); border-color: var(--sampanya); }
+.lx-head:not(.is-acik) .lx-burger span { background: var(--fildisi-yazi); }
+.lx-head.is-acik, .lx-menu { background: var(--bg); }
+.lx-head.is-acik .lx-marka b { color: var(--ink); }
+.lx-head.is-acik .lx-burger span { background: var(--ink); }
+.lx-menu nav a { color: var(--ink); border-bottom-color: var(--hair); }
+.lx-menu nav a[aria-current="page"] { color: var(--goldText); }
+
+/* ── Kahraman: gece penceresi → şafak → fildişi (app bandıyla aynı) ───── */
+.hero-foto { display: block; position: absolute; inset: -6%; z-index: 0;
+  background: url("/bant.jpg") center 42% / cover no-repeat; filter: saturate(0.9);
+  animation: nefes 18s ease-in-out infinite alternate; will-change: transform; }
+.hero-perde { background:
+  linear-gradient(180deg, rgba(26,43,76,.86) 0%, rgba(26,43,76,.62) 30%, rgba(34,54,92,.42) 55%,
+                  rgba(230,235,240,.30) 76%, rgba(249,248,246,.92) 93%, #F9F8F6 100%),
+  linear-gradient(180deg, rgba(26,43,76,.55) 0, rgba(26,43,76,.20) 90px, transparent 170px); }
+.hero-orta::before { background: radial-gradient(55% 62% at 50% 50%, rgba(26,43,76,.58), rgba(26,43,76,.26) 55%, transparent 78%); }
+.hero-hale { background:
+  radial-gradient(120% 92% at 82% -14%, rgba(212,195,163,0.15), transparent 60%),
+  radial-gradient(112% 88% at 8% 6%, rgba(159,179,203,0.15), transparent 60%); }
+.hero-isik { background: linear-gradient(105deg, transparent 40%, rgba(230,218,196,.14) 50%, transparent 60%);
+  background-size: 260% 100%; }
+.hero-sahne h1 { color: #FFFFFF; }
+.hero-sahne h1 em { color: var(--sampanya-acik); }
+.hero-dugum { color: var(--sampanya) !important; }
+.hero-sahne .lead { color: var(--fildisi-yazi-2); }
+.hero-sahne .btn-ghost { color: var(--fildisi-yazi); border-color: rgba(249,248,246,.38); background: rgba(255,255,255,.08);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.hero-sahne .btn-ghost:hover { background: rgba(255,255,255,.16); border-color: rgba(249,248,246,.6); }
+/* `.hero-pos` adına rağmen kural bölümünde (fildişi gövde) duruyor. */
+.hero-pos { color: var(--body); }
+.hero-pos b { color: var(--goldText); }
+/* Kanıt kartı fotoğrafın şafak kısmında durur: beyaz cam kart, lacivert mürekkep */
+.hero-kanit { background: rgba(255,255,255,.86); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  box-shadow: 0 18px 44px -18px rgba(13,27,42,.30), inset 0 1px 0 rgba(255,255,255,.95); }
+.hero-kanit:hover { box-shadow: 0 22px 50px -18px rgba(13,27,42,.34), inset 0 0 0 1px var(--hair-gold); }
+.kanit-yer { color: var(--muted); }
+.kanit-satir small { color: var(--muted); }
+.kanit-bas { color: var(--goldText); }
+.roz-ok { color: var(--green); border-color: rgba(46,106,79,.30); background: rgba(46,106,79,.06); }
+.roz-uc { color: var(--goldText); border-color: rgba(138,114,71,.32); background: rgba(212,195,163,.18); }
+.roz-kendin { color: var(--amber); border-color: rgba(166,90,34,.30); background: rgba(166,90,34,.05); }
+
+/* ── Bölümler: fildişi; .alt bölümlerde şafak sisi (app'in bant altı) ─── */
+.dark-band { color: var(--ink); }
+.dark-band h1, .dark-band h2, .dark-band h3 { color: var(--ink); }
+.dark-band .lead, .dark-band p { color: var(--body); }
+.dark-band .eyebrow { color: var(--goldText); }
+.dark-band a { color: var(--goldText); }
+.section.dark-band.alt { background: linear-gradient(180deg, rgba(230,235,240,.55) 0%, rgba(241,239,235,.45) 60%, rgba(249,248,246,0) 100%); }
+.section.dark-band::after, .section.dark-band.alt::after { background: none; }
+.section.dark-band::before { background: linear-gradient(90deg, transparent, rgba(138,114,71,0.22), transparent); }
+.host-band { background: linear-gradient(180deg, rgba(241,239,235,.7) 0%, rgba(249,248,246,0) 100%); }
+.statement { color: var(--ink); }
+.wing-rule::after { background: linear-gradient(90deg, transparent, rgba(138,114,71,0.30), transparent); }
+.wing-rule::before { box-shadow: 0 0 14px rgba(212,195,163,0.15); }
+.dark-band .tear { border-color: var(--hair); }
+
+/* ── Kartlar: beyaz yüzey, lacivert %6 gölge, üst ışık kenarı ─────────── */
+.stat, .flow-step, .prog-card, .demo, .card, .trust-card, .host-card, .plan-card, .guide-card,
+.dark-band .card, .dark-band .prog-card, .dark-band .flow-step, .dark-band .trust-card,
+.section:not(.dark-band) .card, .section:not(.dark-band) .prog-card, .section:not(.dark-band) .guide-card,
+.wcalc, .hearn {
+  background: #FFFFFF; border-color: transparent;
+  box-shadow: var(--kart-golge), inset 0 1px 0 var(--parlama);
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+.demo, .wcalc, .hearn { background: #FFFFFF; box-shadow: var(--kart-golge-yuksek), inset 0 1px 0 var(--parlama); }
+.dark-band .faq-item, .section:not(.dark-band) .faq-item { background: transparent; box-shadow: none; border-bottom: 1px solid var(--hair); color: var(--body); }
+.dark-band .card h3, .dark-band .prog-card h3, .dark-band .flow-step h3, .dark-band .trust-card h3,
+.section:not(.dark-band) .box h3, .section:not(.dark-band) .card h3, .section:not(.dark-band) .guide-card h3,
+.host-card h3, .plan-card h3 { color: var(--ink); }
+.dark-band .card p, .dark-band .prog-card p, .dark-band .flow-step p, .dark-band .trust-card p,
+.host-card p, .flow-step p, .prog-card p { color: var(--muted); }
+.section:not(.dark-band) .prog-card, .section:not(.dark-band) .guide-card { color: var(--body); }
+.dark-band .tag, .dark-band .pill { border-color: var(--hair-gold); color: var(--goldText); }
+.chip-ico { background: rgba(212,195,163,.22); color: var(--goldText); }
+.prog-tag { background: rgba(212,195,163,.28); color: var(--goldText); }
+.guide-list .g-row, .g-row { background: #FFFFFF !important; border-color: transparent !important;
+  box-shadow: var(--kart-golge) !important; }
+.g-row b, .g-row strong { color: var(--ink) !important; }
+.isikli::after { background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(212,195,163,.15), transparent 60%); }
+
+/* ── Kural demosu (kahramanın altındaki canlı matris) ──────────────────── */
+.pill { background: var(--bgAlt); color: var(--body); border-color: transparent; }
+.pill:hover { border-color: var(--hair-gold); background: #FFFFFF; }
+.pill.on, .dark-band .pill.on, .dark-band .pill[aria-pressed="true"] {
+  background: var(--sampanya-gradyan); border-color: transparent; color: var(--onGold) !important;
+  box-shadow: 0 4px 12px rgba(138,114,71,.20), inset 0 1px 0 rgba(255,255,255,.55);
+}
+.demo-tag { background: var(--sampanya-gradyan); color: var(--onGold); }
+.demo-out { background: #FFFFFF; }
+
+/* ── Ekran görüntüleri: beyaz yerine lacivert gölge, çerçeve yok ──────── */
+.shot, .karusel-kart img, .shot-tilt img, .dark-band .shot-tilt img, .shelf-item img {
+  border-color: transparent; background: var(--bgAlt); box-shadow: var(--ekran-golge);
+}
+.karusel[data-hazir] .karusel-kart.etkin img {
+  border-color: transparent;
+  box-shadow: 0 44px 90px -30px rgba(13,27,42,.40), 0 0 0 1px rgba(138,114,71,.22);
+}
+.karusel[data-hazir] .karusel-kart.tiklanir:hover img {
+  border-color: transparent; filter: brightness(1.04);
+  box-shadow: 0 38px 80px -30px rgba(13,27,42,.38), 0 0 0 1px rgba(138,114,71,.18);
+}
+.karusel-kart figcaption, .shelf-item figcaption, .hero-stats span { color: var(--muted); }
+.shelf-cap { color: var(--muted); }
+.karusel-soz { color: var(--body); }
+.karusel-ok { background: #FFFFFF; border: 1px solid var(--hair-gold); color: var(--goldText);
+  box-shadow: 0 4px 12px rgba(13,27,42,.06); }
+.karusel-ok:hover { background: rgba(212,195,163,.22); }
+.karusel-nokta button::before { background: rgba(13,27,42,.14); }
+.karusel-nokta button.etkin::before { background: var(--goldText); }
+.shelf::-webkit-scrollbar-thumb { background: rgba(138,114,71,.45); }
+.shelf { scrollbar-color: rgba(138,114,71,.45) transparent; }
+.phone-glare { background: linear-gradient(122deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 34%, rgba(255,255,255,0) 100%); }
+
+/* ── Rota akışı · sohbet · kapsam · halkalar (hareket bileşenleri) ─────── */
+.rota-cizgi { stroke: rgba(13,27,42,.20); }
+.rota-dur { fill: #FFFFFF; stroke: rgba(13,27,42,.18); }
+@keyframes rotaDur { 0%, 5% { fill: #FFFFFF; stroke: rgba(13,27,42,.18); }
+  10%, 30% { fill: var(--sampanya); stroke: var(--goldText); }
+  40%, 100% { fill: #FFFFFF; stroke: rgba(13,27,42,.18); } }
+.rota-kap::before { border-left-color: rgba(13,27,42,.20); }
+.an-bal { background: #FFFFFF; box-shadow: var(--kart-golge); color: var(--body); }
+.an-bal.ben { background: #EFE6D6; box-shadow: none; }
+.an-yaziyor { background: #FFFFFF; box-shadow: var(--kart-golge); }
+.cover-item.vurgu { background: rgba(212,195,163,.16); }
+.hk-zemin { stroke: rgba(13,27,42,.10); }
+.kcember-halka .bos { fill: rgba(13,27,42,.12); }
+.kcember-bar { background: rgba(13,27,42,.08); }
+.dark-band .cover-code { color: var(--goldText); }
+.dark-band .cover-name, .dark-band .cover-group li b { color: var(--ink); }
+.dark-band .cover-n, .dark-band .cover-tag, .dark-band .cover-term, .dark-band .cover-group li { color: var(--muted); }
+.dark-band .cover-group-t { color: var(--goldText); }
+
+/* ── Seçim / taraf / arama / form ──────────────────────────────────────── */
+.taraf-sec { background: rgba(255,255,255,.6); border-color: var(--hair); box-shadow: 0 6px 16px rgba(13,27,42,.06); }
+.taraf-sec button.on { background: var(--sampanya-gradyan); color: var(--onGold);
+  box-shadow: 0 4px 12px rgba(138,114,71,.20), inset 0 1px 0 rgba(255,255,255,.55); }
+.dz-ara input { background: #FFFFFF; border-color: transparent; box-shadow: 0 6px 16px rgba(13,27,42,.06); }
+.dz-ara input:focus { box-shadow: 0 0 0 3px rgba(226,135,67,.12), 0 6px 16px rgba(13,27,42,.06); border-color: transparent; }
+.wl input[type="email"], .dark-band .wl input[type="email"] { background: #FFFFFF; color: var(--ink);
+  box-shadow: 0 6px 16px rgba(13,27,42,.06); }
+.wl input[type="email"]:focus, .wl input[type="email"]:focus-visible { background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(226,135,67,.12), 0 6px 16px rgba(13,27,42,.06); }
+.wl-role, .dark-band .wl-role { background: #FFFFFF; box-shadow: 0 4px 12px rgba(13,27,42,.05); color: var(--body); }
+.wl-role:has(input:checked), .dark-band .wl-role:has(input:checked) { background: #EFE6D6; box-shadow: inset 0 0 0 1px rgba(138,114,71,.30); }
+.dark-band .wl label, .dark-band .wl-kvkk, .dark-band .wl-role-alt { color: var(--muted); }
+.wl input[type="radio"], .wl input[type="checkbox"] { border-color: rgba(13,27,42,.30); }
+.wl-err, .dark-band .wl-err { background: rgba(178,69,58,.06); border-color: rgba(178,69,58,.25); color: var(--ink); }
+.dark-band .wl-ok { background: #FFFFFF; border-color: transparent; box-shadow: var(--kart-golge); }
+.dark-band .wl-ok b { color: var(--ink); }
+.dark-band .beta-list li { color: var(--body); }
+.qa, .host-qa { border-color: var(--hair); }
+.qa b { color: var(--ink); }
+.qa span { color: var(--muted); }
+.plan-card.on { background: #FFFFFF !important; box-shadow: var(--kart-golge-yuksek), inset 0 0 0 1.5px rgba(138,114,71,.45); }
+.plan-price { color: var(--goldText); }
+.plan-price span, .plan-card li { color: var(--muted); }
+.hearn-rw.on { background: #EFE6D6; }
+.cover-tag, .carrier-rule, .wchip, .hearn-rw, .hearn-tier, .wcalc-offer { background: var(--bgAlt); }
+
+/* ── KAPANIŞ GECESİ: beta bölümü app'in takımyıldız kartı gibi ────────── */
+#beta.section.dark-band { background: linear-gradient(180deg, var(--gece-ust) 0%, var(--gece-alt) 70%, #2A3F66 100%);
+  color: var(--fildisi-yazi); }
+#beta.section.dark-band::before { background: linear-gradient(90deg, transparent, rgba(212,195,163,0.15), transparent); }
+#beta h2, #beta h3 { color: #FFFFFF; }
+#beta h2 em { color: var(--sampanya-acik); }
+#beta p, #beta .lead, #beta .note, #beta .beta-list li { color: var(--fildisi-yazi-2); }
+#beta .eyebrow { color: var(--sampanya); }
+#beta a:not(.btn):not(.btn-gold) { color: var(--sampanya-acik); }
+#beta .wl label, #beta .wl-kvkk, #beta .wl-role-alt { color: rgba(249,248,246,.78); }
+/* Form yüzeyleri ufuk çizgisini ÖRTECEK kadar opak (yarı saydamda çizgi radyo kartlarını kesiyordu). */
+#beta .wl input[type="email"] { background: #2C4169; color: #FFFFFF; box-shadow: inset 0 0 0 1px rgba(249,248,246,.20); }
+#beta .wl input[type="email"]::placeholder { color: rgba(249,248,246,.55); }
+#beta .wl-role { background: #2A3F66; box-shadow: inset 0 0 0 1px rgba(249,248,246,.16); color: var(--fildisi-yazi); }
+#beta .wl-role:has(input:checked) { background: #3B4A63; box-shadow: inset 0 0 0 1px rgba(212,195,163,.15); }
+#beta .wl input[type="radio"], #beta .wl input[type="checkbox"] { border-color: rgba(249,248,246,.45); }
+#beta .wl-ok { background: rgba(255,255,255,.08); box-shadow: inset 0 0 0 1px rgba(249,248,246,.16); }
+#beta .wl-ok b { color: #FFFFFF; }
+#beta .wl-err { background: rgba(255,255,255,.08); color: #FFFFFF; border-color: rgba(212,195,163,.4); }
+#beta .stat, #beta .kcember, #beta .card { background: rgba(255,255,255,.08); box-shadow: inset 0 1px 0 rgba(255,255,255,.12); }
+#beta .kcember-bar { background: rgba(249,248,246,.16); }
+
+/* ── Alt bilgi: blok zemin, bronz bağlantı ─────────────────────────────── */
+footer { background: var(--bgAlt); color: var(--muted); }
+footer a { color: var(--goldText); }
+.legal a { color: var(--goldText); }

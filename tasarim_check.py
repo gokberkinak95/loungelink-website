@@ -88,9 +88,12 @@ for m in re.finditer(r"([^{}]+)\{([^}]*)\}", css):
 if "--parlama" not in css:
     bulgu.append(("2 · parlama", "globals.css", "--parlama yok",
                   "Çerçeveyi silip yerine bir şey koymazsan derinlik de gider."))
-if "rgba(244,239,230,0.035)" not in css:
+# 3 Ekim 2026 · v7: parlama app'in kart üst ışığı (V7.kartIsik %90 beyaz) —
+# fildişi zeminde beyaz kartın tepesindeki 1px ışık. Koyu brifin değeri
+# (%3.5 fildişi) karanlık kart içindi.
+if "--parlama: rgba(255,255,255,0.9)" not in css and "rgba(244,239,230,0.035)" not in css:
     bulgu.append(("2 · parlama", "globals.css", "brief'in değeri yok",
-                  "Parlama 1px rgba(244,239,230,0.035) olmalı."))
+                  "Parlama: v7'de --parlama: rgba(255,255,255,0.9) (app kartIsik)."))
 
 # ── 3 · IŞIK ≤ %15 (yalnız AÇIK renkler) ─────────────────────────────
 # 🔴 İLK SÜRÜM SATIR BAZLIYDI VE KAÇIRDI. `box-shadow`u iki satıra
@@ -124,7 +127,12 @@ for yol in [CSS] + sorted(glob.glob(os.path.join(KOK, "components", "*.jsx"))) \
             continue
         for m in IK.finditer(bildirim):
             r, g, b, a = int(m.group(1)), int(m.group(2)), int(m.group(3)), float(m.group(4))
-            if lum(r, g, b) > 0.25 and a > 0.15:
+            # 3 Ekim 2026 · v7: fildişi sayfada NÖTR açık değerler (beyaz, fildişi,
+            # sis — kanallar arası fark < 24) ışık değil YÜZEY: cam kart, şafak
+            # sisi, üst ışık kenarı. Renkli olanlar (şampanya, gök) parıltıdır
+            # ve %15 tavanı onlar için aynen geçerli.
+            notr = max(r, g, b) - min(r, g, b) < 24
+            if lum(r, g, b) > 0.25 and a > 0.15 and not notr:
                 bulgu.append(("3 · ışık", f"{os.path.basename(yol)}:{satir_no}", m.group(0),
                               f"Açık renkli ışık α={a:.2f} — tavan %15."))
 

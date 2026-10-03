@@ -54,6 +54,11 @@ TAVAN = 0
 
 MARKA_HUE = 86.0
 SICAK_ALT, SICAK_UST = 45.0, 120.0
+# 3 Ekim 2026 · v7 Aviation Light: markanın İKİNCİ kutbu gece mavisi #1A2B4C
+# (app V7.gece; LCh hue ~275–282, rnapp gorsel_palet ölçümü). Kahraman ve
+# paylaşım kartı app'in açılış sahnesini (gece penceresi) taşıdığı için bu
+# bant da marka bandıdır. Kroma tavanı (28) iki bantta da aynen geçerli.
+GECE_ALT, GECE_UST = 255.0, 295.0
 KROMA_TAVAN = 28.0
 NOTR_ESIK = 8.0
 
@@ -137,8 +142,8 @@ def main():
         kusur = []
         if p95 > KROMA_TAVAN:
             kusur.append("kroma %.1f > %.1f" % (p95, KROMA_TAVAN))
-        if hs is not None and not (SICAK_ALT <= hs <= SICAK_UST):
-            kusur.append("hue %.0f° sıcak bandın dışında" % hs)
+        if hs is not None and not (SICAK_ALT <= hs <= SICAK_UST) and not (GECE_ALT <= hs <= GECE_UST):
+            kusur.append("hue %.0f° marka bantlarının (sıcak 45-120° · gece 255-295°) dışında" % hs)
         print("    %s %-16s C* p95 %5.1f · hue %-5s %s"
               % ("✗" if kusur else "✓", ad, p95,
                  ("%.0f°" % hs) if hs else "—", " · ".join(kusur)))

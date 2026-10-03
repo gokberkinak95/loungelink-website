@@ -107,13 +107,28 @@ bulgu = []
 # altında `var(--fil)`/`var(--kil)`e bağlıyor. Yani literal dosyada
 # duruyor ama ekranda ASLA çizilmiyor. Nöbetçi bunu VARSAYMIYOR:
 # karar katmanının gerçekten orada olduğunu aşağıda DOĞRULUYOR.
-KARAR_SART = ("--teal: var(--fil)", "--green: var(--fil)", "--amber: var(--kil)")
+# ══════════════════════════════════════════════════════════════════
+# 🔴 3 EKİM 2026 · v7 — APP'İN ONAYLI DURUM MÜREKKEPLERİ AİLEDEN MUAF.
+# Brief (13 Eylül) "fintech yeşil/sarılarını öldür" diyordu ve o gün app
+# de obsidyendi. App 6.3.0 v7'ye geçti (Gökberk onayı, 2 Ekim): rozetlerde
+# DERİN yeşil #2E6A4F ve amber #A65A22/#9A521F, %6–8 tintle — doygun bir
+# "ödül yeşili" değil, mürekkep. Site app'le aynı rozeti çizmek zorunda.
+# Muafiyet LİSTE DEĞİL, KAYNAK: app V7 paletinin kendisi (tema_oku). V7'de
+# olmayan her ton aile denetiminden geçmeye devam eder.
+# ══════════════════════════════════════════════════════════════════
+try:
+    sys.path.insert(0, os.path.join(os.path.dirname(KOK), "rnapp"))
+    from tema_oku import palet as _palet
+    V7_ONAYLI = {v.upper() for v in _palet("V7").values() if isinstance(v, str) and v.startswith("#")}
+except Exception as e:  # app kaynağı yoksa muafiyet de yok — sessizce geçmez
+    print("  ⚠ app V7 paleti okunamadı (%s) — muafiyet uygulanmıyor" % e)
+    V7_ONAYLI = set()
+KARAR_SART = ("--fil: var(--green)", "--kil: var(--amber)")
 css_ham = open(os.path.join(KOK, "app", "globals.css"), encoding="utf-8").read()
 for sart in KARAR_SART:
     if sart not in css_ham:
         bulgu.append(("app/globals.css", 0, "karar katmanı eksik", sart,
-                      "Üretilen palet bu token'ı fintech tonunda yazıyor; "
-                      "karar katmanı onu nötrlemezse ekranda çizilir."))
+                        "v7 karar katmanı durum takma adlarını app mürekkeplerine bağlamalı."))
 
 for desen in ("app/**/*.css", "app/**/*.jsx", "components/**/*.jsx", "lib/**/*.js"):
     for yol in glob.glob(os.path.join(KOK, desen), recursive=True):
@@ -133,6 +148,8 @@ for desen in ("app/**/*.css", "app/**/*.jsx", "components/**/*.jsx", "lib/**/*.j
             adaylar += ["#%02X%02X%02X" % (int(m.group(1)), int(m.group(2)), int(m.group(3)))
                         for m in RGBA.finditer(satir)]
             for hx in adaylar:
+                if hx.upper() in V7_ONAYLI:
+                    continue
                 r = ton_ailesi(hx)
                 if r:
                     ad, neden, H, S = r
@@ -152,9 +169,9 @@ if len(bulgu) > 14:
 if len(bulgu) > TAVAN:
     print("\n✗ ÖLDÜRÜLEN RENK AİLESİ GERİ GELMİŞ.")
     print("  Doğru karşılıklar:")
-    print("    olumlu durum  → var(--fil)  #EDE6DA")
-    print("    olumsuz/sınır → var(--kil)  #B0A296")
-    print("    marka altını  → var(--gold) #C9B693  (mat şampanya)")
+    print("    olumlu durum  → var(--fil)  (app V7 green #2E6A4F)")
+    print("    olumsuz/sınır → var(--kil)  (app V7 amberInk #9A521F)")
+    print("    marka altını  → var(--gold) (bronz #7A6440) · zemin var(--goldDeep) #D4C3A3")
     print("  Bir renk ÜÇ yerde yaşayabilir: token · stil kuralı · bileşen içi stil.")
     sys.exit(1)
 print("✓ fintech yeşili/teal/amber yok · pirinç altın yok")

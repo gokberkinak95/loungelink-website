@@ -66,6 +66,12 @@ const PALETTE = new Set([
   // sahne ve marka varlıklarında kalan sabitler
   "#F4D79A", "#7C6A4A", "#FFF3D2", "#F3EFE6", "#F7F3EA", "#C9C3B4",
   "#A79F8E", "#B9B2A2", "#8E8878", "#CBA44A", "#A9822F", "#14100A",
+  // ── 3 EKİM 2026 · v7 AVIATION LIGHT ───────────────────────────────
+  // App 6.3.0'ın V7 paleti (rnapp/src/theme.js · tema_oku.palet("V7")).
+  // Sahne SVG'leri (SectionScene, sayfa kanadı) bu değerleri kullanıyor:
+  // bronz #8A7247 · gece #1A2B4C · şampanya #D4C3A3 · şafak #E6DAC4 ·
+  // tuval #F9F8F6 · mürekkep #0D1B2A · blok #F1EFEB.
+  "#8A7247", "#1A2B4C", "#D4C3A3", "#E6DAC4", "#F9F8F6", "#0D1B2A", "#F1EFEB",
 ]);
 
 function walk(dir, out = []) {
@@ -195,26 +201,22 @@ for (const f of files) {
   }
 }
 
-// --- 1b) v0.26 · AÇIK YÜZEY SIZINTISI ---
-// 🔴 BU DENETİMİN VARLIK SEBEBİ, ÜÇ KEZ TEKRARLANAN AYNI KUSUR:
-// sayfa zemini gece, ama bir bileşen kendine BEYAZ zemin veriyor ve
-// üstündeki metin site paletinden (açık) geliyor. Sonuç 1.28:1 —
-// yani metin ekranda yok. 19 Ağustos ölçümünde /kartlar'daki 144
-// rozet tam olarak böyle görünmezdi.
-//
-// Kural: app maketi (Screens.jsx) DIŞINDA hiçbir dosya açık yüzey
-// token'ı (--app*) ya da beyaza yakın bir zemin literali kullanamaz.
-// Maket app'i temsil ettiği için istisna — ve tek istisna.
+// --- 1b) YÜZEY SIZINTISI (v0.26 → 3 Ekim 2026 v7'de YÖN DEĞİŞTİRDİ) ---
+// 🔴 v0.26'da sayfa geceydi ve kusur "bileşen kendine BEYAZ zemin veriyor,
+// üstündeki açık metin okunmuyor"du (19 Ağustos: /kartlar'da 144 görünmez
+// rozet). v7'de sayfa FİLDİŞİ: aynı kusur artık ters yönden gelir — bir
+// bileşen kendine eski GECE zeminini (obsidyen) verirse üstündeki lacivert
+// metin kaybolur. Kapı aynı sınıfı korur, yalnız yön değişti.
+// Bilinçli gece yüzeyleri (kahraman, kapanış, başlık çubuğu) CSS'te ve
+// token'la (--gece) çiziliyor; bileşen dosyasında sabit gece zemini yasak.
 {
-  const MAKET = ["components/Screens.jsx", "components\\Screens.jsx"];
-  const acikZemin = /background\s*:\s*["']?\s*(#(?:FFF|FFFFFF|F8F6F1|F0EDE6|fff|ffffff)\b|var\(--app)/g;
+  const geceZemin = /background\s*:\s*["']?\s*(#(?:0B0A0B|0B0A0D|121017|161310|141211|070B16)\b|rgba\(\s*(?:11\s*,\s*10\s*,\s*11|22\s*,\s*19\s*,\s*16|16\s*,\s*14\s*,\s*18)\s*,)/gi;
   for (const f of files) {
     if (f.endsWith("globals.css")) continue;           // token tanımının kendisi
-    if (MAKET.some((m) => f.endsWith(m))) continue;    // app maketi — bilinçli istisna
     const src = fs.readFileSync(f, "utf8");
-    for (const m of src.matchAll(acikZemin)) {
-      console.log(`  ✗ ${f}: gece sayfasında AÇIK zemin (${m[1]}) — üstündeki metin site` +
-                  ` paletinden gelir ve okunmaz. Cam yüzey için var(--card) kullan.`);
+    for (const m of src.matchAll(geceZemin)) {
+      console.log(`  ✗ ${f}: fildişi sayfada eski GECE zemini (${m[1]}) — üstündeki metin` +
+                  ` lacivert ve okunmaz. Kart için var(--card), gece yüzeyi için var(--gece) kullan.`);
       bad++;
     }
   }
@@ -364,11 +366,14 @@ if (fs.existsSync(OUT)) {
   // HTML'de bir sınıf arayarak ölçülemez; kaynağın kendisine bakılır.
   {
     const css = fs.readFileSync(path.join(__dirname, "app", "globals.css"), "utf8");
-    const zemin = /body::before[\s\S]{0,400}?url\("\/bant\.jpg"\)/.test(css);
+    // 3 Ekim 2026 · v7: fotoğraf artık yalnız KAHRAMANDA (app'in bandı gibi);
+    // gövde fildişi tuval. Kapı fotoğrafın kahramanda yaşadığını ve tuvalin
+    // --perde token'ından geldiğini ölçer.
+    const zemin = /\.hero-foto\s*\{[^}]*display:\s*block[^}]*url\("\/bant\.jpg"\)/.test(css);
     const perde = /body::after[\s\S]{0,400}?var\(--perde/.test(css);
-    if (!zemin) { console.log("  ✗ globals.css: body::before fotoğraf zemini yok"); bad++; }
-    if (!perde) { console.log("  ✗ globals.css: body::after perdesi --perde token'ından gelmiyor"); bad++; }
-    if (zemin && perde) console.log("  ✓ fotoğraf zemini + perde CSS'te canlı (app ile aynı bant.jpg)");
+    if (!zemin) { console.log("  ✗ globals.css: kahraman fotoğrafı (.hero-foto · bant.jpg) çizilmiyor"); bad++; }
+    if (!perde) { console.log("  ✗ globals.css: body::after tuvali --perde token'ından gelmiyor"); bad++; }
+    if (zemin && perde) console.log("  ✓ kahraman fotoğrafı + tuval CSS'te canlı (app ile aynı bant.jpg)");
   }
   // 🔴 SINIF ADI ARAMAK, GALERİNİN DOLU OLDUĞUNU KANITLAMAZ.
   // `EkranKarusel` bir istemci bileşeni; JS'i çalışmasa bile SUNUCUDA

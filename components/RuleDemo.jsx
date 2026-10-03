@@ -48,8 +48,9 @@ const CARDS = [
 ];
 
 const V = {
-  yes:  { c: "var(--green)", bg: "rgba(237,230,218,.06)", b: "rgba(237,230,218,.26)", i: "✓" },
-  self: { c: "var(--amber)", bg: "rgba(160,143,115,.09)", b: "rgba(160,143,115,.35)", i: "—" },
+  // v7 (3 Ekim): app rozetleriyle ayni - durum murekkebi + ayni rengin hafif tinti (V7.badge).
+  yes:  { c: "var(--green)", bg: "rgba(46,106,79,.08)",  b: "rgba(46,106,79,.22)",  i: "✓" },
+  self: { c: "var(--amber)", bg: "rgba(166,90,34,.07)",  b: "rgba(166,90,34,.22)",  i: "—" },
   // "no" tonu artık yalnız GERÇEK bir engel için ayrılmıştır (örn.
   // charter uçuş). Bilinmezlik ya da "başka salonda geçerli" durumu
   // engel değildir; onlar "self" tonuyla anlatılır.
