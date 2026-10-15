@@ -97,7 +97,7 @@ export default function Ayricaliklar() {
               ya da kapıda alınmazsan kredin geri döner. Ürünün cümlesi değişmedi:
               kullanmadığın hakkı, hakkın olmayan yerde misafir olma hakkına çevirmek.
             </p>
-            <p className="note">Beta boyunca tüm <b>planlar</b> ücretsiz; kredi paketleri ücretlidir.</p>
+            <p className="note"><b>Yolcu</b> planı ücretsiz; <b>Sık Uçan</b> ve <b>Kâhya</b> aylık ya da yıllık abonelikle, kredi paketleri tek seferlik satın alınır. Fiyatlar uygulamada App Store ve Google Play fiyatıyla görünür.</p>
             <OlayLink ad="host_ol" ozellik={{ yer: "ayricaliklar" }}
                       className="btn-gold" href="/#beta">{SITE.betaCta}</OlayLink>
           </div>

@@ -256,7 +256,7 @@ export default function Home() {
           <h2>{BOLUM.plan.h2}</h2>
           <p className="lead" style={{ maxWidth: "52ch" }}>
             Ayda iki kişi ağırlayan host, o ay Sık Uçan ayrıcalıklarını ücretsiz
-            kullanır. Beta boyunca tüm planlar ücretsiz.
+            kullanır. Yolcu planı ücretsiz; Sık Uçan ve Kâhya aylık ya da yıllık abonelikle.
           </p>
           <PlanKartlari ozet />
           <a className="beat" href="/ayricaliklar#plan">Planların ve kredinin ayrıntısı <span>→</span></a>
@@ -272,7 +272,7 @@ export default function Home() {
       <section className="section dark-band" id="beta" style={{ textAlign: "center" }}>
         <SectionScene kind="horizon" />
         <div className="wrap" style={{ maxWidth: 620 }}>
-          <div className="eyebrow">Kapalı beta</div>
+          <div className="eyebrow">Erken erişim</div>
           <h2>{SITE.closing} <em>{SITE.closingEm}</em></h2>
           {/* 🔴 v0.17 — SİTENİN DÖNÜŞÜM NOKTASINDA AYNI CÜMLE İKİ KEZ
               yazılıydı ("Kurucu Host rozeti kalıcıdır" iki paragrafta).
@@ -286,7 +286,6 @@ export default function Home() {
             <li>İlanların keşifte önce görünür</li>
             <li>Kurucu Host rozeti profilinde kalıcı durur — sonradan alınamaz</li>
             <li>Yeni özellikleri ilk sen denersin, yönünü sen söylersin</li>
-            <li>Beta boyunca kredi sınırı yok</li>
           </ul>
 
           {/* 🔴 v0.29 — CANLI SAYAÇ.
@@ -308,7 +307,7 @@ export default function Home() {
           {/* v0.69 — dört ayrı çağrı cümlesi ("Kurucu çembere katıl",
               "Beta listesine katıl", "Listeye yazıl"…) tek cümlede birleşti. */}
           <h3 className="beta-form-t">{SITE.betaCta}</h3>
-          <p style={{ marginTop: 8 }}>İlk 100 host beta&apos;yı birlikte kuruyor.</p>
+          <p style={{ marginTop: 8 }}>İlk 100 host LoungeLink&apos;i birlikte kuruyor. Yayına çıktığımız gün ilk sen haber alırsın.</p>
           <WaitlistForm />
         </div>
       </section>

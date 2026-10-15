@@ -1,5 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
+import { SITE } from "../lib/content";
 
 // ============================================================
 // 🔴 GİRİŞ KAPISI — "HAKKIN NE EDİYOR?"
@@ -238,7 +239,7 @@ export default function WalletCalc() {
           Birini ağırladığında kredi kazanırsın; o krediyle hakkın olmayan bir
           salonda sen misafir olursun.
         </span>
-        <a href="/#beta" className="btn-gold">Beta'ya katıl</a>
+        <a href="/#beta" className="btn-gold">{SITE.betaCta}</a>
       </div>
 
       <p className="wcalc-src">

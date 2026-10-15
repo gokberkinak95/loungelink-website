@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { SITE } from "../lib/content";
 
 // ============================================================
 // SiteHeader — TEK marka işareti, TEK başlık çubuğu
@@ -34,7 +35,7 @@ const NAV = [
   { href: "/sss", label: "SSS", yol: /^\/sss/ },
 ];
 
-const CTA = "Beta'ya katıl";
+const CTA = SITE.betaCta;
 
 // `seffaf`: ana sayfada çubuk kahraman sahnesinin ÜSTÜNE biner ve
 // ilk kaydırmaya kadar zeminsizdir. Alt sayfalarda baştan cam zemin.

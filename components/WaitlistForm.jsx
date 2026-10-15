@@ -117,7 +117,7 @@ export default function WaitlistForm() {
                onChange={(e) => setKvkk(e.target.checked)} />
         <span>
           <a href="/aydinlatma">Aydınlatma metnini</a> okudum; e-posta adresimin
-          beta daveti için işlenmesini kabul ediyorum.
+          yayın duyurusu ve erken erişim daveti için işlenmesini kabul ediyorum.
         </span>
       </label>
 
@@ -125,12 +125,12 @@ export default function WaitlistForm() {
 
       <button type="submit" className="btn" disabled={durum === "gonderiliyor"}>
         {/* v0.69 — sitenin tek çağrı cümlesi */}
-        {durum === "gonderiliyor" ? "Gönderiliyor…" : "Beta'ya katıl"}
+        {durum === "gonderiliyor" ? "Gönderiliyor…" : SITE.betaCta}
       </button>
 
       <p className="wl-fine">
         Sıra sana geldiğinde yazacağız. Spam yok, haftada birden fazla e-posta yok.
-        {" "}Form çalışmazsa <a href={`mailto:${SITE.email}?subject=Beta%20listesi`}
+        {" "}Form çalışmazsa <a href={`mailto:${SITE.email}?subject=Erken%20eri%C5%9Fim`}
           style={{ textDecoration: "underline" }}>{SITE.email}</a> hep açık.
       </p>
     </form>
