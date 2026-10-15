@@ -26,8 +26,13 @@ export default function DeleteAccount() {
 
         <h2 style={{ fontSize: 20, marginTop: 30 }}>Uygulamadan (en hızlı)</h2>
         <p style={{ marginTop: 8 }}>
-          Profil → Ayarlar → Hesabı Sil. Onayladıktan sonra hesabınız ve kişisel
-          verileriniz silinir.
+          Profil → Ayarlar → Hesabı Sil. Onayladığınız anda hesabınız kapanır. 14 gün
+          içinde vazgeçerseniz destek@loungelink.co adresine yazarak geri açtırabilirsiniz;
+          14 günün sonunda kişisel verileriniz kalıcı olarak silinir.
+        </p>
+        <p style={{ marginTop: 8 }}>
+          App Store veya Google Play üzerinden bir aboneliğiniz varsa, önce mağazanın
+          abonelik ayarlarından iptal edin — hesabı silmek mağaza aboneliğini durdurmaz.
         </p>
 
         <h2 style={{ fontSize: 20, marginTop: 30 }}>Uygulamaya giremiyorsanız</h2>
