@@ -2750,6 +2750,9 @@ section[id], .capa, [id="an"], [id="liste"] { scroll-margin-top: 84px; }
 @media (max-width: 860px) {
   .guven-ikili { grid-template-columns: 1fr; gap: 22px; }
   .guven-ikili .guven-ekran .shot { width: 30%; max-width: 150px; }
+  /* 17 Ekim (Gökberk, telefon ekran görüntüsü): ortadaki ekran 28px yukarı kalkık; tek sütunda
+     üstündeki kalkan kartının İÇİNE giriyordu. Kalkış payı kadar üst boşluk. */
+  .guven-ikili .guven-ekran { padding-top: 34px; gap: 12px; }
 }
 
 /* ── v0.69.2 · kapsam dizini (/rehber) + /kartlar başı ─────────── */
@@ -2786,7 +2789,7 @@ section[id], .capa, [id="an"], [id="liste"] { scroll-margin-top: 84px; }
 .dz-ara input:focus { outline: none; border-color: var(--hair-gold); box-shadow: 0 0 0 3px rgba(201,182,147,.12); }
 .dz-sonuc { font-size: 13px; color: var(--muted); margin: -4px 0 10px; }
 .dz-hepsi { margin-top: 20px; }
-@media (max-width: 560px) { .dz-sayilar { gap: 8px; } .dz-sayilar div { padding: 12px; } }
+@media (max-width: 560px) { .dz-sayilar { gap: 8px; } .dz-sayilar div { padding: 12px 10px; } .dz-sayilar span { font-size: 10px; letter-spacing: .08em; overflow-wrap: anywhere; } }
 
 /* ── v0.69.3 · Salon rehberi: havalimanı içinde salonlar + kartlar + kurallar ── */
 .dz-ek-bas, .dz-ek h4 { margin: 18px 0 8px; font-size: 11px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--goldText); }
@@ -3139,3 +3142,7 @@ footer a { color: var(--goldText); }
 /* Hak hesaplayıcı (W3) seçili kart çipi: sitenin seçim dili şampanya sikke (pill.on ile aynı). */
 .wchip.on { background: var(--sampanya-gradyan); color: var(--onGold); font-weight: 600;
   box-shadow: 0 4px 12px rgba(138,114,71,.20), inset 0 1px 0 rgba(255,255,255,.55); }
+
+/* 17 Ekim — mobil güvence: dekoratif sabit katmanlar (kanat izi vb.) iOS Safari'de sayfayı
+   yana kaydırmasın. `clip`, `hidden`ın aksine sticky başlığı bozmaz. */
+html, body { overflow-x: clip; }
