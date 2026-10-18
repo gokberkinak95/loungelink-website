@@ -258,7 +258,7 @@ export default function Home() {
             Ayda iki kişi ağırlayan host, o ay Sık Uçan ayrıcalıklarını ücretsiz
             kullanır. Yolcu planı ücretsiz; Sık Uçan ve Kâhya aylık ya da yıllık abonelikle.
           </p>
-          <PlanKartlari ozet />
+          <PlanKartlari />
           <a className="beat" href="/ayricaliklar#plan">Planların ve kredinin ayrıntısı <span>→</span></a>
         </div>
       </section>

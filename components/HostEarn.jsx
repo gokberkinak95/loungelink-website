@@ -78,7 +78,7 @@ const ODULLER = [
   { ad: "İlan öne çıkarma · 3 gün", alt: "Keşifte en üstte", puan: 750 },
   { ad: "Amazon hediye kartı ₺500", alt: "Dijital kod", puan: 1000 },
   { ad: "Airalo eSIM 3 GB", alt: "Küresel veri", puan: 1500 },
-  { ad: "Sık Uçan planı · 1 ay", alt: "Aylık 6 kredi", puan: 2000 },
+  { ad: "Sık Uçan planı · 1 ay", alt: "Aylık 3 kredi", puan: 2000 },
   { ad: "Marriott Bonvoy 20 $ kredi", alt: "Bonvoy otelleri", puan: 2500 },
   { ad: "Booking.com 25 $ kredi", alt: "Her konaklama", puan: 3000 },
   { ad: "Türk Hava Yolları 1000 mil", alt: "Miles&Smiles", puan: 5000 },

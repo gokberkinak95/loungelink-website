@@ -3146,3 +3146,12 @@ footer a { color: var(--goldText); }
 /* 17 Ekim — mobil güvence: dekoratif sabit katmanlar (kanat izi vb.) iOS Safari'de sayfayı
    yana kaydırmasın. `clip`, `hidden`ın aksine sticky başlığı bozmaz. */
 html, body { overflow-x: clip; }
+
+/* 18 Ekim — plan kartı: planın asıl karşılığı (ayda kaç giriş, giriş başına maliyet) + dip notu */
+.plan-giris { margin-top: 16px; padding: 12px 14px; border-radius: 12px; background: rgba(201,182,147,.12);
+  display: flex; flex-direction: column; gap: 2px; }
+.plan-giris b { font-family: var(--serif); font-weight: 500; font-size: 21px; line-height: 1.2; color: var(--ink); font-variant-numeric: lining-nums; }
+.plan-giris span { font-size: 13px; color: var(--goldText); font-variant-numeric: tabular-nums; }
+.plan-dip { margin: 18px 0 0; max-width: 68ch; font-size: 13.5px; line-height: 1.6; color: var(--muted); }
+.plan-dip b { color: var(--ink); font-weight: 600; }
+.cta-ayrik { margin-top: 32px; }

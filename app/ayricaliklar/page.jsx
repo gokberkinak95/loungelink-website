@@ -91,15 +91,18 @@ export default function Ayricaliklar() {
                 O yüzden burada satılmadığını söylemek değil, SATILAN ŞEYİN NE
                 OLDUĞUNU söylemek gerekiyor. */}
             <p className="note" style={{ marginTop: 24, maxWidth: "60ch" }}>
-              Krediye dört yoldan sahip olursun: kayıt hediyesi, planının aylık payı,
+              Krediye dört yoldan sahip olursun: kayıtta 1 kredi, planının aylık payı (bir sonraki aya devretmez),
               <b> ağırlama</b> ve kredi paketi. Satın aldığın şey <b>giriş değil</b>,
               bir host'a istek gönderme hakkı — host reddederse, kimse yanıtlamazsa
               ya da kapıda alınmazsan kredin geri döner. Ürünün cümlesi değişmedi:
               kullanmadığın hakkı, hakkın olmayan yerde misafir olma hakkına çevirmek.
             </p>
             <p className="note"><b>Yolcu</b> planı ücretsiz; <b>Sık Uçan</b> ve <b>Kâhya</b> aylık ya da yıllık abonelikle, kredi paketleri tek seferlik satın alınır. Fiyatlar uygulamada App Store ve Google Play fiyatıyla görünür.</p>
-            <OlayLink ad="host_ol" ozellik={{ yer: "ayricaliklar" }}
-                      className="btn-gold" href="/#beta">{SITE.betaCta}</OlayLink>
+            {/* 18 Ekim (Gökberk: "erken erişime katıl butonu üstteki metne çok bitişik") */}
+            <div className="cta-ayrik">
+              <OlayLink ad="host_ol" ozellik={{ yer: "ayricaliklar" }}
+                        className="btn-gold" href="/#beta">{SITE.betaCta}</OlayLink>
+            </div>
           </div>
         </section>
       </main>
