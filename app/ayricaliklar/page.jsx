@@ -20,7 +20,7 @@ import { BOLUM, SECTIONS, HOST_WHY, HOST_RISK, SITE } from "../../lib/content";
 export const metadata = {
   title: "Ayrıcalıklar ve üyelik — ağırlayınca ne kazanırsın | LoungeLink",
   description:
-    "Kartındaki kullanılmayan misafir hakkını paylaş: her ağırlama 1 kredi ve 500 LoungePuan. " +
+    "Kartındaki kullanılmayan misafir hakkını paylaş: her buluşma planına göre 100, 250 ya da 500 LoungePuan, ücretli planda her ağırlama 1 kredi. " +
     "Basamaklar, mağaza, abonelik ve host'un aklındaki sorular.",
   alternates: { canonical: "/ayricaliklar" },
 };
@@ -78,8 +78,8 @@ export default function Ayricaliklar() {
             <div className="eyebrow">{BOLUM.plan.eyebrow}</div>
             <h2>{BOLUM.plan.h2}</h2>
             <p className="lead" style={{ maxWidth: "52ch" }}>
-              Ayda iki kişi ağırlayan host, o ay Sık Uçan ayrıcalıklarını ücretsiz
-              kullanır. Abonelik bir maliyet değil, ağırlamadığın aylarda devreye
+              30 gün içinde 3 kişi ağırlayan host&apos;a Sık Uçan 1 ay ücretsiz açılır.
+              Abonelik bir maliyet değil, ağırlamadığın aylarda devreye
               giren bir seçenek.
             </p>
 
@@ -92,12 +92,12 @@ export default function Ayricaliklar() {
                 OLDUĞUNU söylemek gerekiyor. */}
             <p className="note" style={{ marginTop: 24, maxWidth: "60ch" }}>
               Krediye dört yoldan sahip olursun: kayıtta 1 kredi, planının aylık payı (bir sonraki aya devretmez),
-              <b> ağırlama</b> ve kredi paketi. Satın aldığın şey <b>giriş değil</b>,
+              <b> ağırlama</b> (Sık Uçan ve Jetset&apos;te her ağırlama 1 kredi, Yolcu&apos;da ilk ağırlama 1 kredi) ve kredi paketi. Satın aldığın şey <b>giriş değil</b>,
               bir host'a istek gönderme hakkı — host reddederse, kimse yanıtlamazsa
               ya da kapıda alınmazsan kredin geri döner. Ürünün cümlesi değişmedi:
               kullanmadığın hakkı, hakkın olmayan yerde misafir olma hakkına çevirmek.
             </p>
-            <p className="note"><b>Yolcu</b> planı ücretsiz; <b>Sık Uçan</b> ve <b>Kâhya</b> aylık ya da yıllık abonelikle, kredi paketleri tek seferlik satın alınır. Fiyatlar uygulamada App Store ve Google Play fiyatıyla görünür.</p>
+            <p className="note"><b>Yolcu</b> planı ücretsiz; <b>Sık Uçan</b> ve <b>Jetset</b> aylık ya da yıllık abonelikle, kredi paketleri tek seferlik satın alınır. Fiyatlar uygulamada App Store ve Google Play fiyatıyla görünür.</p>
             {/* 18 Ekim (Gökberk: "erken erişime katıl butonu üstteki metne çok bitişik") */}
             <div className="cta-ayrik">
               <OlayLink ad="host_ol" ozellik={{ yer: "ayricaliklar" }}

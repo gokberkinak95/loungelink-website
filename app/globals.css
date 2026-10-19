@@ -1587,6 +1587,7 @@ a { color: inherit; }
    🆕 SINIF: "YASAKLI RENKLERİ LİSTEYLE KOVALARSAN, LİSTEDE OLMAYAN HER
    TON SERBEST KALIR — AİLEYİ TANIMLA, ÜYELERİ DEĞİL." */
 .plan-year { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.plan-kurulus { display: inline-block; margin-top: 8px; padding: 3px 10px; border-radius: 999px; background: var(--goldSoft); color: var(--goldText); font-size: 12px; font-weight: 600; letter-spacing: .02em; }
 .plan-card ul { list-style: none; padding: 0; margin: 16px 0 0; }
 .plan-card li { font-size: 14px; line-height: 1.6; color: #C9C3B4; padding-left: 18px; position: relative; }
 .plan-card li::before { content: "✓"; position: absolute; left: 0; color: var(--gold); }
@@ -1634,6 +1635,9 @@ a { color: inherit; }
 .hearn-cur-card p b { display: inline; font-size: inherit; }
 @media (max-width: 720px) { .hearn-cur { grid-template-columns: 1fr; } }
 
+.hearn-plan { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 10px; }
+.hearn-plan-b { min-height: 44px; padding: 0 16px; border-radius: 999px; border: 0; background: var(--line); color: var(--body); font: inherit; font-size: 14px; cursor: pointer; }
+.hearn-plan-b.on { background: var(--goldSoft); color: var(--ink); font-weight: 600; }
 .hearn-slider { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 4px 0 18px; }
 .hearn-slider span { font-size: 13px; color: var(--body); }
 .hearn-slider input { flex: 1; min-width: 160px; accent-color: var(--gold); height: 44px; }

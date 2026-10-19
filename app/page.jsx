@@ -255,8 +255,9 @@ export default function Home() {
           <div className="eyebrow">{BOLUM.plan.eyebrow}</div>
           <h2>{BOLUM.plan.h2}</h2>
           <p className="lead" style={{ maxWidth: "52ch" }}>
-            Ayda iki kişi ağırlayan host, o ay Sık Uçan ayrıcalıklarını ücretsiz
-            kullanır. Yolcu planı ücretsiz; Sık Uçan ve Kâhya aylık ya da yıllık abonelikle.
+            Her buluşma planına göre 100, 250 ya da 500 LoungePuan; 30 günde 3 kişi ağırlayan
+            host&apos;a Sık Uçan 1 ay bizden. Yolcu planı ücretsiz; Sık Uçan ve Jetset aylık ya da
+            yıllık abonelikle.
           </p>
           <PlanKartlari />
           <a className="beat" href="/ayricaliklar#plan">Planların ve kredinin ayrıntısı <span>→</span></a>

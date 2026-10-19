@@ -1,3 +1,4 @@
+"use client";
 // ============================================================
 // PLAN KARTLARI — abonelik üç kartı   (v0.69.1 · 28 Eylül)
 // Ana sayfada ve /ayricaliklar'da AYNI kartlar. Tek kaynak: fiyat
@@ -8,31 +9,54 @@
 // planın asıl karşılığı (ayda kaç lounge girişi, giriş başına maliyet), altında uygulamanın plan
 // kataloğuyla BİREBİR avantajlar. Altta paket fiyatları ve devretmeme kuralı.
 // Fiyatlar mağazaya girilen fiyatlar (magaza_rehberi 6d).
+//
+// 19 Ekim (SQL 337) — üst plan adı Jetset; buluşma başına puan plana göre (100/250/500);
+// ağırlama kredisi Yolcu'da yalnız ilk ağırlamada; host premium satırları; kuruluş fiyatı
+// rozeti. Rozet KURULUS_BITIS gününden sonra kendiliğinden kalkar (beta_settings.kurulus_fiyat_bitis).
+import { useEffect, useState } from "react";
+
+const KURULUS_BITIS = "2027-03-31";
+const KURULUS_YAZI = "31 Mart 2027";
+
 const PLANLAR = [
   { ad: "Yolcu", fiyat: "Ücretsiz", yil: null,
     bas: "Kayıtta 1 kredi", alt: "İlk lounge girişin bizden",
-    haklar: ["Aynı anda 1 açık istek",
+    haklar: ["Bir seferde 1 host'a başvuru",
              "Haftada 3 bağlantı isteği",
-             "Ağırlayarak kredi kazan: her ağırlama 1 kredi",
+             "Her buluşmada 100 LoungePuan",
+             "Host isen: ilk ağırlamanda 1 kredi; 30 günde 3 ağırlamada Sık Uçan 1 ay bizden",
              "Kural motoru, sohbet ve güvenlik araçları"] },
-  { ad: "Sık Uçan", fiyat: "₺99,99", yil: "₺899,99 / yıl · %25 indirim", one: true,
+  { ad: "Sık Uçan", fiyat: "₺99,99", yil: "₺899,99 / yıl · %25 indirim", one: true, ucretli: true,
     bas: "Ayda 3 lounge girişi", alt: "giriş başına ≈ ₺33,3",
-    haklar: ["Aynı anda 3 host'a istek: kabul şansın katlanır",
+    haklar: ["Aynı anda 3 host'a başvur: kabul şansın artar",
              "Haftada 15 bağlantı isteği",
-             "Ayda 3 ilan öne çıkarma",
+             "Her buluşmada 250 LoungePuan",
+             "Host isen: her ağırlamada 1 kredi",
+             "Host isen: ilanını kaç kişinin gördüğünü gör, yalnız kimliği doğrulanmış misafir kabul et",
+             "Ayda 3 ilan öne çıkarma: daha çok misafir",
              "Haftalık kaçırılan fırsat bildirimi",
              "Kart hakkı dolma uyarısı: 90 · 30 · 7 gün önce"] },
-  { ad: "Kâhya", fiyat: "₺199,99", yil: "₺1.799,99 / yıl · %25 indirim",
+  { ad: "Jetset", fiyat: "₺199,99", yil: "₺1.799,99 / yıl · %25 indirim", ucretli: true,
     bas: "Ayda 7 lounge girişi", alt: "giriş başına ≈ ₺28,6",
-    haklar: ["Aynı anda 6 host'a istek",
+    haklar: ["Aynı anda 6 host'a başvur",
              "Sınırsız bağlantı isteği",
-             "Ayda 8 ilan öne çıkarma",
+             "Her buluşmada 500 LoungePuan",
+             "Host isen: her ağırlamada 1 kredi",
+             "Host isen: ilanını kaç kişinin gördüğünü gör, yalnız kimliği doğrulanmış misafir kabul et",
+             "Ayda 8 ilan öne çıkarma: daha çok misafir",
              "Anlık kaçırılan fırsat bildirimi",
              "Kart hakkı dolma uyarısı: 90 · 30 · 7 gün önce",
              "Öncelikli destek"] },
 ];
 
+// Sunucuda derlenen sayfa eski kalabilir; rozeti tarayıcıda yeniden tartıyoruz.
+function kurulusSuruyor() {
+  return new Date() <= new Date(KURULUS_BITIS + "T23:59:59+03:00");
+}
+
 export default function PlanKartlari() {
+  const [kurulus, setKurulus] = useState(kurulusSuruyor());
+  useEffect(() => { setKurulus(kurulusSuruyor()); }, []);
   return (
     <>
       <div className="plan-grid">
@@ -44,6 +68,7 @@ export default function PlanKartlari() {
               {p2.fiyat !== "Ücretsiz" && <span> / ay</span>}
             </div>
             {p2.yil && <div className="plan-year">{p2.yil}</div>}
+            {p2.ucretli && kurulus && <div className="plan-kurulus">Kuruluş fiyatı</div>}
             <div className="plan-giris">
               <b>{p2.bas}</b>
               <span>{p2.alt}</span>
@@ -52,9 +77,17 @@ export default function PlanKartlari() {
           </div>
         ))}
       </div>
+      {kurulus && (
+        <p className="plan-dip">
+          <b>Kuruluş fiyatı:</b> {KURULUS_YAZI} tarihine kadar abone olanlar, abonelikleri
+          kesintisiz sürdükçe bu fiyattan yenilenir.
+        </p>
+      )}
       <p className="plan-dip">
         Kredi yalnız buluşma gerçekleşirse harcanır: host reddederse, yanıt gelmezse ya da kapıda
-        alınmazsan iade edilir. Aylık plan kredisi bir sonraki aya devretmez. Tek seferlik paketler:
+        alınmazsan iade edilir. Aynı uçuş için birden fazla host&apos;a başvurduysan biri kabul
+        edince diğer başvuruların kendiliğinden geri çekilir ve kredileri iade edilir. Aylık plan
+        kredisi bir sonraki aya devretmez. Tek seferlik paketler:
         <b> 1 kredi ₺79,99 · 3 kredi ₺199,99 · 5 kredi ₺299,99</b>; paket ve ağırlama kredisi süresizdir.
       </p>
     </>

@@ -40,12 +40,20 @@ import { useMemo, useState } from "react";
 // host'a "misafir isteği hakkı" ödemek iki rolü tek para biriminde
 // karıştırıyordu. 1:1 oran ürünün cümlesini de netleştiriyor —
 // "bir kez ağırla, bir kez misafir ol": açtığın kapı sana BİR kapı açar.
-const KREDI_BASINA_AGIRLAMA = 1;
+// 🔴 19 EKİM (SQL 337 · Gökberk: "herkes kendi planına göre kazanacak"):
+// puan ve ağırlama kredisi artık PLANA bağlı — plan_catalog.agirlama_puani /
+// agirlama_kredisi. Host da misafir de KENDİ planının puanını alır. Yolcu'da
+// ağırlama kredisi yalnız ilk ağırlamada bir kez verilir; 30 gün içinde 3 kişi
+// ağırlayan Yolcu'ya Sık Uçan 30 gün açılır (beta_settings.host_free_upgrade_sessions).
+const PLAN_KAZANC = [
+  { id: "yolcu", ad: "Yolcu", puan: 100, kredi: 0, ilkKredi: 1 },
+  { id: "sik_ucan", ad: "Sık Uçan", puan: 250, kredi: 1, ilkKredi: 0 },
+  { id: "jetset", ad: "Jetset", puan: 500, kredi: 1, ilkKredi: 0 },
+];
 // SQL 007_request_engine.sql:52 · reason='request_hold', delta=-1
 const ISTEK_MALIYETI = 1;
-// rnapp/src/i18n.js:677 · earnSessionD
-const PUAN_HOST = 500;
-const PUAN_MISAFIR = 200;
+// SQL 337 · host_free_upgrade_sessions
+const HEDIYE_ESIK = 3;
 
 // ============================================================
 // 🔴 23 AĞUSTOS — BU LİSTE İKİ AYRI ŞEKİLDE YALAN SÖYLÜYORDU
@@ -72,16 +80,17 @@ const PUAN_MISAFIR = 200;
 // imzalandığında adı buraya yazılır — önce değil.
 // `check.js` bu dosyada marka adı geçmesini engelliyor.
 // ============================================================
+// 19 Ekim · SQL 337 ödül fiyatları (rewards.cost_points).
 const ODULLER = [
-  { ad: "Havalimanı kahvesi", alt: "Ortak kafelerde", puan: 500 },
-  { ad: "+2 misafir isteği kredisi", alt: "Hemen hesabına", puan: 500 },
+  { ad: "Havalimanı kahvesi", alt: "Ortak kafelerde", puan: 300 },
   { ad: "İlan öne çıkarma · 3 gün", alt: "Keşifte en üstte", puan: 750 },
-  { ad: "Amazon hediye kartı ₺500", alt: "Dijital kod", puan: 1000 },
+  { ad: "+2 misafir isteği kredisi", alt: "Hemen hesabına", puan: 800 },
   { ad: "Airalo eSIM 3 GB", alt: "Küresel veri", puan: 1500 },
+  { ad: "Amazon hediye kartı ₺500", alt: "Dijital kod", puan: 2000 },
   { ad: "Sık Uçan planı · 1 ay", alt: "Aylık 3 kredi", puan: 2000 },
-  { ad: "Marriott Bonvoy 20 $ kredi", alt: "Bonvoy otelleri", puan: 2500 },
-  { ad: "Booking.com 25 $ kredi", alt: "Her konaklama", puan: 3000 },
-  { ad: "Türk Hava Yolları 1000 mil", alt: "Miles&Smiles", puan: 5000 },
+  { ad: "Marriott Bonvoy 20 $ kredi", alt: "Bonvoy otelleri", puan: 3500 },
+  { ad: "Booking.com 25 $ kredi", alt: "Her konaklama", puan: 4500 },
+  { ad: "Türk Hava Yolları 1000 mil", alt: "Miles&Smiles", puan: 8000 },
 ];
 
 // ⚠️ MARKA ADI GEÇEN SATIRLAR ÖRNEKTİR — imzalanmış bir ortaklık yok.
@@ -99,25 +108,27 @@ const ORNEK_NOTU =
 const BASAMAK = [
   { ad: "Yolcu", n: 0, s: "Başlangıç" },
   { ad: "Ev Sahibi", n: 1, s: "Keşifte öne geçiyorsun" },
-  { ad: "Kâhya", n: 5, s: "Belirgin öncelik · her ilanın 24 saat öne çıkıyor" },
+  { ad: "Kaptan", n: 5, s: "Belirgin öncelik · her ilanın 24 saat öne çıkıyor" },
   { ad: "Konsiyerj", n: 15, s: "En üst sıralama · kendi isteklerin kredi harcamıyor" },
 ];
 
 export default function HostEarn() {
   const [n, setN] = useState(4);
+  const [planId, setPlanId] = useState("sik_ucan");
+  const plan = PLAN_KAZANC.find((p) => p.id === planId) || PLAN_KAZANC[0];
 
-  const { kredi, puan, acilan, sonraki } = useMemo(() => {
-    const kredi = n * KREDI_BASINA_AGIRLAMA;
-    const puan = n * PUAN_HOST;
-    const acilan = ODULLER.filter((o) => o.puan <= puan);
+  const { kredi, puan, sonraki } = useMemo(() => {
+    // Yolcu: yalnız ilk ağırlama 1 kredi. Ücretli plan: her ağırlama 1 kredi.
+    const kredi = plan.kredi > 0 ? n * plan.kredi : Math.min(n, 1) * plan.ilkKredi;
+    const puan = n * plan.puan;
     const sonraki = ODULLER.find((o) => o.puan > puan) || null;
-    return { kredi, puan, acilan, sonraki };
-  }, [n]);
+    return { kredi, puan, sonraki };
+  }, [n, plan]);
 
   // Bir sonraki ödüle kaç ağırlama kaldı — "az kaldı" duygusu ancak
   // GERÇEKSE işe yarar; uydurma bir sayaç güveni bitirir.
   const kalanAgirlama = sonraki
-    ? Math.ceil((sonraki.puan - puan) / PUAN_HOST)
+    ? Math.ceil((sonraki.puan - puan) / plan.puan)
     : 0;
 
   return (
@@ -130,9 +141,9 @@ export default function HostEarn() {
             gereken tek şart bu: ürünün gerçekten yaptığı şeyi söylemesi. */}
         <p className="hearn-motto">Açtığın kapı, sana bir kapı açar.</p>
         <p className="hearn-sub">
-          Ağırlamak tek yönlü bir iyilik değil. Her tamamlanan oturum sana iki
-          şey bırakıyor: kendi seyahatinde kullanacağın <b>kredi</b>, ve
-          mağazada harcayacağın <b>LoungePuan</b>.
+          Ağırlamak tek yönlü bir iyilik değil. Her tamamlanan oturum sana
+          mağazada harcayacağın <b>LoungePuan</b> bırakıyor; Sık Uçan ve
+          Jetset&apos;te üstüne kendi seyahatinde kullanacağın bir <b>kredi</b>.
         </p>
       </div>
 
@@ -144,27 +155,42 @@ export default function HostEarn() {
         <div className="hearn-cur-card">
           <span className="idx" aria-hidden="true">01</span>
           <b>Kredi</b>
-          <em>1 ağırlama = {KREDI_BASINA_AGIRLAMA} kredi</em>
+          <em>Sık Uçan ve Jetset: 1 ağırlama = 1 kredi</em>
           <p>
             Bir misafir isteği {ISTEK_MALIYETI} kredi tutuyor. Yani bir kez
             ağırladığında, hakkın <i>olmayan</i> bir salonda bir kez sen misafir
             olabilirsin — İstanbul&apos;da paylaştığın koltuk, Bangkok&apos;ta
-            sana kapı açıyor.
+            sana kapı açıyor. Ücretsiz Yolcu planında ilk ağırlaman 1 kredi;
+            30 gün içinde {HEDIYE_ESIK} kişi ağırlarsan Sık Uçan 1 ay bizden.
           </p>
         </div>
         <div className="hearn-cur-card">
           <span className="idx" aria-hidden="true">02</span>
           <b>LoungePuan</b>
-          <em>1 ağırlama = {PUAN_HOST} puan</em>
+          <em>Her buluşma: {PLAN_KAZANC.map((p) => p.puan).join(" · ")} puan</em>
           <p>
-            Mağazada eSIM, seyahat sigortası, otel kredisi ve mile dönüşüyor.
-            Misafir tarafı da kazanıyor ({PUAN_MISAFIR}) — ama ağırlayan
-            {" "}<b>iki buçuk katını</b> alıyor. Arzın karşılığı arzda.
+            Mağazada eSIM, otel kredisi, hediye kartı ve mile dönüşüyor.
+            Host da misafir de <b>kendi planına göre</b> kazanıyor:
+            {" "}{PLAN_KAZANC.map((p) => `${p.ad} ${p.puan}`).join(", ")}.
           </p>
         </div>
       </div>
 
-      {/* HESAP — soyut bir vaat değil, kendi sayısı. */}
+      {/* HESAP — soyut bir vaat değil, kendi sayısı; planına göre. */}
+      <div className="hearn-plan" role="radiogroup" aria-label="Plan">
+        {PLAN_KAZANC.map((p) => (
+          <button
+            type="button"
+            key={p.id}
+            role="radio"
+            aria-checked={p.id === planId}
+            className={"hearn-plan-b" + (p.id === planId ? " on" : "")}
+            onClick={() => setPlanId(p.id)}
+          >
+            {p.ad}
+          </button>
+        ))}
+      </div>
       <label className="hearn-slider">
         <span>Yılda kaç kez ağırlarsın?</span>
         <input
@@ -181,11 +207,14 @@ export default function HostEarn() {
       <div className="hearn-out">
         <div className="hearn-num">
           <b>{kredi}</b>
-          <span>kredi · {kredi} misafir isteği hakkı</span>
+          <span>
+            kredi · {kredi} misafir isteği hakkı
+            {plan.kredi === 0 ? " · Yolcu'da yalnız ilk ağırlama" : ""}
+          </span>
         </div>
         <div className="hearn-num">
           <b>{puan.toLocaleString("tr-TR")}</b>
-          <span>LoungePuan</span>
+          <span>LoungePuan · ağırlama başına {plan.puan}</span>
         </div>
       </div>
 
@@ -240,7 +269,7 @@ export default function HostEarn() {
       <div className="hearn-fine">
         <p>
           <b>Kredi basmanın üç kapısı var.</b> Oturum başına bir kez ödenir,
-          günlük tavan {KREDI_BASINA_AGIRLAMA * 3} kredi, ve aynı iki kişi 30
+          günlük tavan 3 kredi, ve aynı iki kişi 30
           günde 3&apos;ten fazla oturum yaparsa kredi üretilmez. Birbirini
           sırayla &quot;ağırlayan&quot; iki arkadaş bu ürünün en bariz
           sömürüsü — motor onu tanıyor.
