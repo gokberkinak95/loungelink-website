@@ -108,8 +108,7 @@ const ORNEK_NOTU =
 const BASAMAK = [
   { ad: "Yolcu", n: 0, s: "Başlangıç" },
   { ad: "Ev Sahibi", n: 1, s: "Keşifte öne geçiyorsun" },
-  { ad: "Kaptan", n: 5, s: "Belirgin öncelik · her ilanın 24 saat öne çıkıyor" },
-  { ad: "Konsiyerj", n: 15, s: "En üst sıralama · kendi isteklerin kredi harcamıyor" },
+  { ad: "Kaptan", n: 5, s: "En üst basamak · belirgin öncelik · her ilanın 24 saat öne çıkıyor" },
 ];
 
 export default function HostEarn() {

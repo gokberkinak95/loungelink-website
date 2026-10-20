@@ -1726,10 +1726,9 @@ a { color: inherit; }
    (SQL 206 `host_tiers`). Kilitli basamak soluk DEĞİL, sakin: opacity
    düşürmek kontrast oranını da düşürür ve AA eşiğini kırar. */
 .hearn-tiers {
-  margin-top: 22px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+  margin-top: 22px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
 }
-@media (max-width: 860px) { .hearn-tiers { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 480px) { .hearn-tiers { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .hearn-tiers { grid-template-columns: 1fr; } }
 .hearn-tier {
   /* v5.9.0 · çerçeve kaldırıldı, derinlik üst parlamada */ border-radius: 12px; padding: 12px 14px; min-height: 44px;
 }
