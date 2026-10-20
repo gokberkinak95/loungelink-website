@@ -996,8 +996,12 @@ if (fs.existsSync(OUT)) {
     eksik.push(`COMPANY = "${company}" — bu bir marka adi, TICARET UNVANI ya da GERCEK KISI adi degil (KVKK m.10 kimlik ister)`);
   if (!/\d/.test(address))
     eksik.push(`ADDRESS = "${address}" — kat/no/ilce/posta kodu yok, teblig edilebilir bir adres degil`);
-  if (!/MERSIS|MERSİS/i.test(srcAktif)) eksik.push("MERSIS numarasi metinlerde HIC gecmiyor");
-  if (!/KEP/i.test(srcAktif)) eksik.push("KEP adresi metinlerde HIC gecmiyor");
+  // 20 Ekim (Gökberk: "bireysel hesap olacağım") — veri sorumlusu GERÇEK KİŞİ: MERSİS ve KEP şirket
+  // kimlikleridir, gerçek kişide aranmaz. Şirket kurulursa metin "gerçek kişi" demeyi bırakır ve
+  // bu iki kontrol kendiliğinden geri gelir.
+  const gercekKisi = /gerçek kişi|gercek kisi/i.test(srcAktif);
+  if (!gercekKisi && !/MERSIS|MERSİS/i.test(srcAktif)) eksik.push("MERSIS numarasi metinlerde HIC gecmiyor");
+  if (!gercekKisi && !/KEP/i.test(srcAktif)) eksik.push("KEP adresi metinlerde HIC gecmiyor");
   const siteMail = (fs.readFileSync(path.join(ROOT, "lib", "content.js"), "utf8")
                       .match(/email:\s*"([^"]+)"/) || [])[1] || "";
   const alan = (m) => (m.split("@")[1] || "").toLowerCase();

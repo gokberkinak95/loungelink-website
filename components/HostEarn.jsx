@@ -85,12 +85,12 @@ const ODULLER = [
   { ad: "Havalimanı kahvesi", alt: "Ortak kafelerde", puan: 300 },
   { ad: "İlan öne çıkarma · 3 gün", alt: "Keşifte en üstte", puan: 750 },
   { ad: "+2 misafir isteği kredisi", alt: "Hemen hesabına", puan: 800 },
-  { ad: "Airalo eSIM 3 GB", alt: "Küresel veri", puan: 1500 },
-  { ad: "Amazon hediye kartı ₺500", alt: "Dijital kod", puan: 2000 },
+  { ad: "Yurt dışı eSIM · 3 GB", alt: "Küresel veri", puan: 1500 },
+  { ad: "₺500 alışveriş hediye kartı", alt: "Dijital kod", puan: 2000 },
   { ad: "Sık Uçan planı · 1 ay", alt: "Aylık 3 kredi", puan: 2000 },
-  { ad: "Marriott Bonvoy 20 $ kredi", alt: "Bonvoy otelleri", puan: 3500 },
-  { ad: "Booking.com 25 $ kredi", alt: "Her konaklama", puan: 4500 },
-  { ad: "Türk Hava Yolları 1000 mil", alt: "Miles&Smiles", puan: 8000 },
+  { ad: "Otel kredisi · 20 $", alt: "Seçili otel zincirlerinde", puan: 3500 },
+  { ad: "Konaklama kredisi · 25 $", alt: "Rezervasyon sitesinde", puan: 4500 },
+  { ad: "1000 havayolu mili", alt: "Mil programı hesabına", puan: 8000 },
 ];
 
 // ⚠️ MARKA ADI GEÇEN SATIRLAR ÖRNEKTİR — imzalanmış bir ortaklık yok.
