@@ -88,7 +88,13 @@ export default function SiteHeader({ children, seffaf = false }) {
     );
   });
 
+  // 20 Ekim (Gökberk: "anlık olarak yine kesik açıyor, sonra düzeliyor") — menü artık <header>'ın
+  // DIŞINDA (kardeş). İçerideyken çubuğun cam efekti (backdrop-filter, 0.45 sn geçişle kalkıyordu)
+  // menünün kapsayıcısı oluyor, açılışın ilk anında menü çubuk yüksekliğine hapsoluyordu.
+  // Dışarıda çubuğun hiçbir efekti menüyü etkileyemez. Çubuk (z 50) menünün (z 49) üstünde:
+  // logo ve ✕ menü açıkken de görünür.
   return (
+    <>
     <header className={sinif}>
       <div className="wrap lx-row">
         <a href="/" className="lx-marka" aria-label="LoungeLink ana sayfa">
@@ -106,12 +112,13 @@ export default function SiteHeader({ children, seffaf = false }) {
           <span /><span />
         </button>
       </div>
-
-      {/* Telefon menüsü — serif, büyük, sessiz. Çağrı en altta, tek. */}
-      <div id="lx-menu" className="lx-menu" hidden={!acik}>
-        <nav aria-label="Menü">{baglantilar}</nav>
-        <a href="/#beta" className="btn-gold lx-menu-cta" onClick={(e) => git(e, "/#beta")}>{CTA}</a>
-      </div>
     </header>
+
+    {/* Telefon menüsü — serif, büyük, sessiz. Çağrı en altta, tek. */}
+    <div id="lx-menu" className="lx-menu" hidden={!acik}>
+      <nav aria-label="Menü">{baglantilar}</nav>
+      <a href="/#beta" className="btn-gold lx-menu-cta" onClick={(e) => git(e, "/#beta")}>{CTA}</a>
+    </div>
+    </>
   );
 }

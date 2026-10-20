@@ -2598,7 +2598,7 @@ h2 { margin-bottom: 22px; }
 
 /* ── Başlık: yapışkan, kaydırınca cam + incelir ─────────────── */
 .lx-head { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid transparent;
-  transition: background .45s var(--ease-lux), border-color .45s var(--ease-lux), backdrop-filter .45s var(--ease-lux); }
+  transition: background .45s var(--ease-lux), border-color .45s var(--ease-lux); }
 .lx-head.is-seffaf { position: fixed; left: 0; right: 0; }
 .lx-head.is-alt, .lx-head.is-kaydi { background: rgba(11,10,11,.74); border-bottom-color: var(--line);
   -webkit-backdrop-filter: saturate(140%) blur(16px); backdrop-filter: saturate(140%) blur(16px); }
@@ -2634,7 +2634,7 @@ h2 { margin-bottom: 22px; }
 .is-acik .lx-burger span:first-child { top: 22px; transform: rotate(45deg); }
 .is-acik .lx-burger span:last-child { top: 22px; left: 11px; transform: rotate(-45deg); }
 
-.lx-menu { position: fixed; inset: 0; z-index: 1; display: flex; flex-direction: column; justify-content: space-between;
+.lx-menu { position: fixed; inset: 0; z-index: 49; display: flex; flex-direction: column; justify-content: space-between;
   gap: 28px; padding: 104px 24px max(32px, env(safe-area-inset-bottom)); background: var(--bg); overflow-y: auto;
   animation: sartGel .4s var(--ease-lux) both; }
 .lx-menu[hidden] { display: none; }
@@ -3168,3 +3168,14 @@ html, body { overflow-x: clip; }
 .lx-head.is-acik, .lx-head.is-acik.is-kaydi, .lx-head.is-acik.is-alt {
   -webkit-backdrop-filter: none; backdrop-filter: none; filter: none; transform: none;
 }
+
+/* 20 Ekim · ikinci tur — açılışın İLK KARESİ (30 ms) ölçüldü: menü zemini saydamdan opağa
+   açılırken arkadaki sayfa yazıları menünün içinden okunuyordu ve çubuk rengi geçişteydi
+   (gri). Zemin ilk karede TAM OPAK; yalnız içerik (bağlantılar + çağrı) süzülerek gelir.
+   Çubuk menü açılınca rengini geçişsiz değiştirir. */
+.lx-menu { animation: none; opacity: 1; }
+.lx-menu > * { animation: sartGel .4s var(--ease-lux) both; }
+.lx-head.is-acik { transition: none; }
+@media (prefers-reduced-motion: reduce) { .lx-menu > * { animation: none; } }
+/* Dokunmatik ekranda menü düğmesinde mavi dokunma vurgusu çıkıyordu (ölçüldü: 0 ms karesi). */
+.lx-burger { -webkit-tap-highlight-color: transparent; }
