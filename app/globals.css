@@ -3158,3 +3158,13 @@ html, body { overflow-x: clip; }
 .plan-dip { margin: 18px 0 0; max-width: 68ch; font-size: 13.5px; line-height: 1.6; color: var(--muted); }
 .plan-dip b { color: var(--ink); font-weight: 600; }
 .cta-ayrik { margin-top: 32px; }
+
+/* 20 Ekim (Gökberk: "hamburger menüyü kullandıktan sonra tekrar açınca hatalı görünüm") —
+   ÖLÇÜLDÜ: kaydırılmış sayfada çubuk cam zemin alıyor (`backdrop-filter`). backdrop-filter,
+   position:fixed çocuğun kapsayıcısını çubuğun KENDİSİ yapar: tam ekran menü 956 px yerine
+   136 px'e hapsoluyordu. 2708'deki "is-acik → none" kuralı, 2879'daki is-kaydi/is-alt kuralı
+   ONDAN SONRA geldiği için eziliyordu. Menü açıkken cam her durumda kapalı (sayfa sonunda,
+   daha belirgin seçici). */
+.lx-head.is-acik, .lx-head.is-acik.is-kaydi, .lx-head.is-acik.is-alt {
+  -webkit-backdrop-filter: none; backdrop-filter: none; filter: none; transform: none;
+}

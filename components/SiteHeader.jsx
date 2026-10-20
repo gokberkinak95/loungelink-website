@@ -60,6 +60,23 @@ export default function SiteHeader({ children, seffaf = false }) {
     return () => window.removeEventListener("keydown", tus);
   }, [acik]);
 
+  // 20 Ekim (Gökberk: "hamburger menüyü kullandıktan sonra tekrar açınca hatalı") — ÖLÇÜLDÜ:
+  // menü açıkken sayfa kilitli (html.menu-acik { overflow:hidden }). Aynı sayfadaki "/#akis"
+  // bağlantısına basınca tarayıcı kaydırmayı kilit KALKMADAN deniyor ve bazen hiç kaydırmıyordu
+  // (y=0 kaldı). Aynı sayfadaki çapalarda önce menüyü kapatıp kilidi kaldırıyor, SONRA kaydırıyoruz.
+  // Başka sayfaya giden bağlantı normal gezinir.
+  const git = (e, href) => {
+    setAcik(false);
+    if (!href || !href.startsWith("/#") || window.location.pathname !== "/") return;
+    const hedef = document.getElementById(href.slice(2));
+    if (!hedef) return;
+    e.preventDefault();
+    document.documentElement.classList.remove("menu-acik");
+    // rAF değil zamanlayıcı: çizim duraklatılmış sekmede de (arka plan, düşük güç) kaydırma olur.
+    if (window.location.hash !== href.slice(1)) window.history.pushState(null, "", href);
+    setTimeout(() => hedef.scrollIntoView({ behavior: "smooth", block: "start" }), 0);
+  };
+
   const sinif = ["lx-head", seffaf ? "is-seffaf" : "is-alt", kaydi ? "is-kaydi" : "", acik ? "is-acik" : ""]
     .filter(Boolean).join(" ");
 
@@ -67,7 +84,7 @@ export default function SiteHeader({ children, seffaf = false }) {
     const aktif = n.yol ? n.yol.test(yol) : false;
     return (
       <a key={n.href} href={n.href} aria-current={aktif ? "page" : undefined}
-         onClick={() => setAcik(false)}>{n.label}</a>
+         onClick={(e) => git(e, n.href)}>{n.label}</a>
     );
   });
 
@@ -93,7 +110,7 @@ export default function SiteHeader({ children, seffaf = false }) {
       {/* Telefon menüsü — serif, büyük, sessiz. Çağrı en altta, tek. */}
       <div id="lx-menu" className="lx-menu" hidden={!acik}>
         <nav aria-label="Menü">{baglantilar}</nav>
-        <a href="/#beta" className="btn-gold lx-menu-cta" onClick={() => setAcik(false)}>{CTA}</a>
+        <a href="/#beta" className="btn-gold lx-menu-cta" onClick={(e) => git(e, "/#beta")}>{CTA}</a>
       </div>
     </header>
   );
