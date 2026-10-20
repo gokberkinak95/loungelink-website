@@ -14,6 +14,7 @@
 // ağırlama kredisi Yolcu'da yalnız ilk ağırlamada; host premium satırları; kuruluş fiyatı
 // rozeti. Rozet KURULUS_BITIS gününden sonra kendiliğinden kalkar (beta_settings.kurulus_fiyat_bitis).
 import { useEffect, useState } from "react";
+import { planOdulIndirimleri } from "../lib/supabase";
 
 const KURULUS_BITIS = "2027-03-31";
 const KURULUS_YAZI = "31 Mart 2027";
@@ -26,7 +27,7 @@ const PLANLAR = [
              "Her buluşmada 100 LoungePuan",
              "Host isen: ilk ağırlamanda 1 kredi; 30 günde 3 ağırlamada Sık Uçan 1 ay bizden",
              "Kural motoru, sohbet ve güvenlik araçları"] },
-  { ad: "Sık Uçan", fiyat: "₺99,99", yil: "₺899,99 / yıl · %25 indirim", one: true, ucretli: true,
+  { ad: "Sık Uçan", kod: "sik_ucan", fiyat: "₺99,99", yil: "₺899,99 / yıl · %25 indirim", one: true, ucretli: true,
     bas: "Ayda 3 lounge girişi", alt: "giriş başına ≈ ₺33,3",
     haklar: ["Aynı anda 3 host'a başvur: kabul şansın artar",
              "Haftada 15 bağlantı isteği",
@@ -36,7 +37,7 @@ const PLANLAR = [
              "Ayda 3 ilan öne çıkarma: daha çok misafir",
              "Haftalık kaçırılan fırsat bildirimi",
              "Kart hakkı dolma uyarısı: 90 · 30 · 7 gün önce"] },
-  { ad: "Jetset", fiyat: "₺199,99", yil: "₺1.799,99 / yıl · %25 indirim", ucretli: true,
+  { ad: "Jetset", kod: "kahya", fiyat: "₺199,99", yil: "₺1.799,99 / yıl · %25 indirim", ucretli: true,
     bas: "Ayda 7 lounge girişi", alt: "giriş başına ≈ ₺28,6",
     haklar: ["Aynı anda 6 host'a başvur",
              "Sınırsız bağlantı isteği",
@@ -56,7 +57,14 @@ function kurulusSuruyor() {
 
 export default function PlanKartlari() {
   const [kurulus, setKurulus] = useState(kurulusSuruyor());
-  useEffect(() => { setKurulus(kurulusSuruyor()); }, []);
+  // 20 Ekim (SQL 338) — ödül indirimi canlı okunur; oran 0 ya da cevap yoksa satır çizilmez.
+  const [indirim, setIndirim] = useState(null);
+  useEffect(() => {
+    setKurulus(kurulusSuruyor());
+    let iptal = false;
+    planOdulIndirimleri().then((m) => { if (!iptal) setIndirim(m); });
+    return () => { iptal = true; };
+  }, []);
   return (
     <>
       <div className="plan-grid">
@@ -73,7 +81,11 @@ export default function PlanKartlari() {
               <b>{p2.bas}</b>
               <span>{p2.alt}</span>
             </div>
-            <ul>{p2.haklar.map(h => <li key={h}>{h}</li>)}</ul>
+            <ul>
+              {p2.haklar.map(h => <li key={h}>{h}</li>)}
+              {p2.ucretli && indirim && indirim[p2.kod] > 0 && <li>Ödüllerde %{indirim[p2.kod]} indirim</li>}
+              {p2.ucretli && <li>Yeni ödüllere erken erişim</li>}
+            </ul>
           </div>
         ))}
       </div>
