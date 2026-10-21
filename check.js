@@ -994,8 +994,13 @@ if (fs.existsSync(OUT)) {
   const eksik = [];
   if (/^loungelink$/i.test(company.trim()))
     eksik.push(`COMPANY = "${company}" — bu bir marka adi, TICARET UNVANI ya da GERCEK KISI adi degil (KVKK m.10 kimlik ister)`);
-  if (!/\d/.test(address))
+  // 21 Ekim — gerçek kişi adresini yayınlamayabilir; o zaman posta adresinin İSTEK ÜZERİNE bildirildiği
+  // metinde yazılı olmalı (yazılı başvuru kanalı kapanmasın). İkisi de yoksa uyarı.
+  const adresIstekle = /posta adresimizi/i.test(srcAktif);
+  if (address && !/\d/.test(address))
     eksik.push(`ADDRESS = "${address}" — kat/no/ilce/posta kodu yok, teblig edilebilir bir adres degil`);
+  if (!address && !adresIstekle)
+    eksik.push("Adres yok ve metinde posta adresinin istek uzerine bildirildigi yazmiyor (yazili basvuru kanali kapali)");
   // 20 Ekim (Gökberk: "bireysel hesap olacağım") — veri sorumlusu GERÇEK KİŞİ: MERSİS ve KEP şirket
   // kimlikleridir, gerçek kişide aranmaz. Şirket kurulursa metin "gerçek kişi" demeyi bırakır ve
   // bu iki kontrol kendiliğinden geri gelir.
