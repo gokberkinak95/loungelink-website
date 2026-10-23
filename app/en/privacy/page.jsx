@@ -10,7 +10,7 @@ const TOPLANAN = [
   ["Verification", "Phone number, email confirmation. Used to make the other person a known person."],
   ["Profile", "Photo, profession, bio, languages, travel style. You choose what is visible."],
   ["Gender", "Only to operate women's safety mode. Declared once."],
-  ["Travel", "Flight number, airport, date, time window. Used to match you and to check the lounge rule."],
+  ["Travel", "Flight number, airport, date, time window. Used to match you and to check the lounge rule. If you tap \"Airport I'm at\", your approximate location is read once on your device to find the nearest airport; it is never sent to us or stored."],
   ["Chat", "Messages between matched people. Contact and payment details are automatically hidden."],
   ["Reputation", "Sessions, ratings, reports. This is what makes the next stranger safer."],
   ["Notifications", "Device push token. Without it, a time-bound match cannot reach you."],
