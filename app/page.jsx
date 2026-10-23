@@ -273,7 +273,7 @@ export default function Home() {
       <section className="section dark-band" id="beta" style={{ textAlign: "center" }}>
         <SectionScene kind="horizon" />
         <div className="wrap" style={{ maxWidth: 620 }}>
-          <div className="eyebrow">Erken erişim</div>
+          <div className="eyebrow">Ön kayıt</div>
           <h2>{SITE.closing} <em>{SITE.closingEm}</em></h2>
           {/* 🔴 v0.17 — SİTENİN DÖNÜŞÜM NOKTASINDA AYNI CÜMLE İKİ KEZ
               yazılıydı ("Kurucu Host rozeti kalıcıdır" iki paragrafta).

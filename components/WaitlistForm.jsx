@@ -117,7 +117,7 @@ export default function WaitlistForm() {
                onChange={(e) => setKvkk(e.target.checked)} />
         <span>
           <a href="/aydinlatma">Aydınlatma metnini</a> okudum; e-posta adresimin
-          yayın duyurusu ve erken erişim daveti için işlenmesini kabul ediyorum.
+          yayın duyurusu ve ön kayıt bilgilendirmesi için işlenmesini kabul ediyorum.
         </span>
       </label>
 
@@ -130,7 +130,7 @@ export default function WaitlistForm() {
 
       <p className="wl-fine">
         Sıra sana geldiğinde yazacağız. Spam yok, haftada birden fazla e-posta yok.
-        {" "}Form çalışmazsa <a href={`mailto:${SITE.email}?subject=Erken%20eri%C5%9Fim`}
+        {" "}Form çalışmazsa <a href={`mailto:${SITE.email}?subject=%C3%96n%20kay%C4%B1t`}
           style={{ textDecoration: "underline" }}>{SITE.email}</a> hep açık.
       </p>
     </form>
