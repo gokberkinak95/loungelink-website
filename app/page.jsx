@@ -284,10 +284,11 @@ export default function Home() {
             Kurucu çemberdeki ilk 100 host şunu alır:
           </p>
           <ul className="beta-list">
-            <li>İlanların keşifte önce görünür</li>
+            {/* 24 Ekim — "İlanların keşifte önce görünür" kaldırıldı: rozet hiçbir sıralamada kullanılmıyor (ölçüldü). */}
             <li>Kurucu Host rozeti profilinde kalıcı durur — sonradan alınamaz</li>
             <li>Yeni özellikleri ilk sen denersin, yönünü sen söylersin</li>
           </ul>
+          <p style={{ fontSize: 13.5, opacity: .75, marginTop: 6 }}>* Rozet bir teşekkürdür; uygulamada ek bir hak ya da öncelik sağlamaz.</p>
 
           {/* 🔴 v0.29 — CANLI SAYAÇ.
               "İlk 100 host" cümlesini v0.17'den beri yazıyoruz ama
