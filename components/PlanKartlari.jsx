@@ -76,7 +76,7 @@ export default function PlanKartlari() {
               {p2.fiyat !== "Ücretsiz" && <span> / ay</span>}
             </div>
             {p2.yil && <div className="plan-year">{p2.yil}</div>}
-            {p2.ucretli && kurulus && <div className="plan-kurulus">Kuruluş fiyatı</div>}
+            {/* 25 Ekim (Gökberk) — kart rozeti kaldırıldı; alttaki açıklama kalıyor. */}
             <div className="plan-giris">
               <b>{p2.bas}</b>
               <span>{p2.alt}</span>
