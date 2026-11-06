@@ -24,7 +24,6 @@ yurtici,DLM,Dalaman Havalimanı,Dalaman,Türkiye,CIP Lounge — Dış Hat (T2),D
 yurtici,DLM,Dalaman Havalimanı,Dalaman,Türkiye,CIP Lounge — İç Hat (T2),İç Hat (T2),,domestic,TAV,107: havalimani eksik oldugu icin 099'da olusturulamamisti.
 yurtici,DLM,Dalaman Havalimanı,Dalaman,Türkiye,DLM Lounge — Terminal 2,Terminal 2,,both,—,107: havalimani eksik oldugu icin 099'da olusturulamamisti.
 yurtici,DLM,Dalaman Havalimanı,Dalaman,Türkiye,Turkish Airlines CIP Lounge,İç Hat,,domestic,THY,THY ve AJet seferlerinde M&S kart sahiplerine acik ic hat CIP salonu.
-yurtici,ESB,Ankara Esenboğa Havalimanı,Ankara,Türkiye,Anatolia Lounge,Dom. Terminal,,both,,lounges tablosundan otomatik aktarildi (086)
 yurtici,ESB,Ankara Esenboğa Havalimanı,Ankara,Türkiye,Primeclass CIP Lounge,Int. Terminal,,both,,lounges tablosundan otomatik aktarildi (086)
 yurtici,ESB,Ankara Esenboğa Havalimanı,Ankara,Türkiye,Primeclass Lounge — Dış Hat,Dış Hat,,international,TAV,
 yurtici,ESB,Ankara Esenboğa Havalimanı,Ankara,Türkiye,Primeclass Lounge — İç Hat,İç Hat,,domestic,TAV,
@@ -40,7 +39,6 @@ yurtici,IST,İstanbul Havalimanı,İstanbul,Türkiye,Turkish Airlines Lounge —
 yurtici,IST,İstanbul Havalimanı,İstanbul,Türkiye,Turkish Airlines Lounge — Dış Hat (Miles&Smiles),Dış Hat,miles_smiles,international,Turkish Airlines,"[v0.21] SQL katalogundan (lounge_venues · airport_code=IST · active) olculerek EKLENDI. Misafir hakkini tasiyan bolum burasidir. Priority Pass bu salonda GECMEZ."
 yurtici,IST,İstanbul Havalimanı,İstanbul,Türkiye,iGA Pop-up Lounge — Dış Hat,Dış Hat,,international,IGA,"[v0.21] SQL katalogundan olculerek EKLENDI. Kart agi kabulu: Priority Pass, LoungeKey, DragonPass (kaynak: saglayicilarin kendi Turkiye sayfalari, 7 Agu 2026 ekran goruntuleri)."
 yurtici,RZV,Rize-Artvin Havalimanı,Rize / Artvin,Türkiye,Turkish Airlines CIP Lounge,İç Hat,,domestic,THY,THY ve AJet seferlerinde M&S kart sahiplerine acik ic hat CIP salonu.
-yurtici,SAW,İstanbul Sabiha Gökçen Uluslararası Havalimanı,İstanbul,Türkiye,Aeroport Lounge,Dom. Terminal,,both,,lounges tablosundan otomatik aktarildi (086)
 yurtici,SAW,İstanbul Sabiha Gökçen Uluslararası Havalimanı,İstanbul,Türkiye,Kepler Club — Dış Hat,Dış Hat,,international,Kepler,"Saatlik oda satılır: tek kişilik 18 €, iki kişilik 25 €, deluxe 40 €, VIP 50 €, duş 17 € (servis ve vergi dâhil). Üyelik hakkıyla ücretsiz giriş yoktur."
 yurtici,SAW,İstanbul Sabiha Gökçen Uluslararası Havalimanı,İstanbul,Türkiye,Plaza Premium Bosphorus Lounge — Dış Hat,Dış Hat,,international,Plaza Premium,DragonPass dizininde bu isim GORULMEDI.
 yurtici,SAW,İstanbul Sabiha Gökçen Uluslararası Havalimanı,İstanbul,Türkiye,Plaza Premium Lounge — İç Hat,İç Hat,,domestic,Plaza Premium,
