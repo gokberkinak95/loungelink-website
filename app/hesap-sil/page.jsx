@@ -26,9 +26,9 @@ export default function DeleteAccount() {
 
         <h2 style={{ fontSize: 20, marginTop: 30 }}>Uygulamadan (en hızlı)</h2>
         <p style={{ marginTop: 8 }}>
-          Profil → Ayarlar → Hesabı Sil. Onayladığınız anda hesabınız kapanır. 14 gün
-          içinde vazgeçerseniz destek@loungelink.co adresine yazarak geri açtırabilirsiniz;
-          14 günün sonunda kişisel verileriniz kalıcı olarak silinir.
+          Profil → Ayarlar → Hesabı Sil. Onayladığınız anda hesabınız kapanır ve profil
+          fotoğrafınız silinir. 14 gün içinde vazgeçerseniz destek@loungelink.co adresine
+          yazarak geri açtırabilirsiniz; 14 günün sonunda hesabınız anonimleştirilir.
         </p>
         <p style={{ marginTop: 8 }}>
           App Store veya Google Play üzerinden bir aboneliğiniz varsa, önce mağazanın
@@ -54,13 +54,13 @@ export default function DeleteAccount() {
 
         <h2 style={{ fontSize: 20, marginTop: 34 }}>Ne siliniyor, ne kalıyor?</h2>
         <ul style={{ marginTop: 10, paddingLeft: 20, fontSize: 15, lineHeight: 1.8 }}>
-          <li><b>Silinir:</b> adınız, fotoğrafınız, biyografiniz, iletişim bilgileriniz, mesajlarınız, seyahatleriniz.</li>
+          <li><b>Silinir:</b> adınız, fotoğrafınız, biyografiniz, iletişim bilgileriniz, cinsiyetiniz, gelecek seyahatleriniz, bildirimleriniz ve tercihleriniz.</li>
           {/* 🔴 NE KALDIĞINI DA SÖYLÜYORUZ. "Her şey silinir" demek
               kolay ama doğru değil: yasal saklama yükümlülükleri ve
               karşı tarafın puanı gibi kalemler var. Yanlış vaat vermek
               yerine gerçeği yazmak, güvenin tek yolu. */}
-          <li><b>Anonimleştirilir:</b> geçmiş oturum kayıtları — karşı tarafın da bir geçmişi var ve o silinemez.</li>
-          <li><b>Saklanır:</b> yasal olarak tutulması zorunlu kayıtlar (işlem güvenliği, mevzuat gereği).</li>
+          <li><b>Adınız olmadan kalır:</b> karşı tarafın sohbet geçmişindeki mesajlarınız (gönderildiği tarihten 24 ay) ve geçmiş oturum kayıtları — karşı tarafın da bir geçmişi var.</li>
+          <li><b>Süresi dolana kadar saklanır:</b> şikayet kayıtları (5 yıl), satın alma kayıtları (vergi mevzuatı süresince), onay kayıtları (10 yıl) ve e-posta adresinizin geri döndürülemez özeti (5 yıl; adresin kendisi değil). Süre dolunca otomatik silinir.</li>
         </ul>
       </div>
     </>

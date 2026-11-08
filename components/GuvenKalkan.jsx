@@ -5,14 +5,14 @@
 // kesik uzunluğu (520 / 24) yolların gerçek boyundan (≈570 / 73 / 30)
 // kısaydı, çizgi hiç kapanmıyordu. Artık her yol `pathLength="1"`:
 // kesik = 1, boy ne olursa olsun çizim TAMAMLANIR.
-// Üç satır uygulamadaki üç gerçek doğrulama (e-posta · telefon · kimlik).
+// Üç satır uygulamadaki üç gerçek doğrulama (e-posta · telefon · biniş kartı; kimlik belgesi SQL 345 ile kalktı).
 // ============================================================
-const SATIR = ["E-posta doğrulandı", "Telefon doğrulandı", "Kimlik doğrulandı"];
+const SATIR = ["E-posta doğrulandı", "Telefon doğrulandı", "Biniş kartı doğrulandı"];
 
 export default function GuvenKalkan() {
   return (
     <div className="guven-sahne canli isikli" role="img"
-         aria-label="Kalkan çiziliyor, içine tik atılıyor; e-posta, telefon ve kimlik sırayla doğrulanıyor">
+         aria-label="Kalkan çiziliyor, içine tik atılıyor; e-posta, telefon ve biniş kartı sırayla doğrulanıyor">
       <svg viewBox="0 0 560 300" aria-hidden="true" focusable="false">
         <path className="gk-kalkan" pathLength="1"
               d="M 130 34 L 212 64 L 212 146 C 212 204, 172 242, 130 262 C 88 242, 48 204, 48 146 L 48 64 Z" />

@@ -11,20 +11,24 @@ export default function Page() {
       <p className="legal-lead">You can do this yourself, inside the app, without asking us.</p>
 
       <h2>In the app</h2>
-      <p><b>Profile → Settings → Delete Account.</b> You confirm once, and it is done.</p>
+      <p><b>Profile → Settings → Delete Account.</b> You confirm once: the account closes and
+        your profile photo is deleted right away. Changed your mind? Write to
+        destek@loungelink.co within 14 days. After 14 days the account is anonymised.</p>
 
       <h2>What is deleted</h2>
       <p>
-        Your profile, photo, travel records, chat messages, notifications and device
-        tokens. Your account can no longer be signed into.
+        Your name, photo, bio, contact details, gender, upcoming trips, notifications,
+        preferences and device tokens. Your account can no longer be signed into.
       </p>
 
       <h2>What is kept, and why</h2>
       <p>
-        Records we are legally required to retain — reports, disputes and financial
-        ledger entries — are kept for the period the law requires, <b>anonymised</b>:
-        the record survives, your identity does not stay attached to it. Keeping a
-        harassment report is how we protect the person who filed it.
+        Without your name: messages in the other person's chat history (24 months from
+        sending) and past session records. Until their period ends: reports (5 years),
+        purchase records (as tax law requires), consent records (10 years) and a one-way
+        hash of your email address (5 years; not the address itself). Expired records
+        are deleted automatically. Keeping a harassment report is how we protect the
+        person who filed it.
       </p>
 
       <h2>If you cannot reach the app</h2>
