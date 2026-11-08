@@ -47,7 +47,8 @@ const CSP = [
 
 module.exports = {
   reactStrictMode: true,
-  images: { formats: ["image/avif", "image/webp"] },
+  // 8 Kasım (güvenlik denetimi): next/image kullanılmıyor; açık /_next/image dönüşüm kotasını yakabiliyordu.
+  images: { unoptimized: true },
   outputFileTracingRoot: path.join(__dirname),
   async headers() {
     return [{

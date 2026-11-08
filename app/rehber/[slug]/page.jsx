@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { AIRPORTS, CARDS, ENTRIES, CARRIER_RULE, allSlugs, findEntry, slugOf } from "../../../lib/guide";
 import { SITE } from "../../../lib/content";
 import { findCardPage } from "../../../lib/card-pages";
@@ -6,6 +7,10 @@ import SiteHeader from "../../../components/SiteHeader";
 // 🔴 STATİK ÜRETİM: her kart×havalimanı için ayrı HTML dosyası.
 // Arama motoru her birini ayrı sayfa olarak görür; tek sayfada
 // gömülü içerik böyle bir görünürlük kazanamaz.
+// 🔴 8 Kasım (güvenlik denetimi): listede olmayan slug 200 + sunucuda üretim + ISR yazımı
+// yapıyordu (rastgele adreslerle sonsuz fonksiyon çağrısı). Artık yalnız bilinen sayfalar; gerisi 404.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return allSlugs().map((slug) => ({ slug }));
 }
@@ -63,7 +68,7 @@ const V = {
 export default async function GuidePage({ params }) {
   const { slug } = await params;
   const e = findEntry(slug);
-  if (!e) return <div className="wrap section">Bu sayfa bulunamadı.</div>;
+  if (!e) notFound();
   const c = CARDS[e.card], a = AIRPORTS[e.airport], v = V[e.verdict];
   const others = ENTRIES.filter((x) => x.airport === e.airport && slugOf(x) !== slug);
   // Salon listesi sayfası (iç hat) — her havalimanında iç hat salonu

@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { CARDS } from "../../../lib/guide";
 import { SITE } from "../../../lib/content";
 import {
@@ -10,6 +11,10 @@ import SiteHeader from "../../../components/SiteHeader";
 // "Elite Plus Antalya dış hat lounge" ile "Elite Plus Antalya iç hat
 // lounge" iki ayrı aramadır ve iki ayrı cevabı vardır; tek sayfada
 // gömülü içerik bu ayrımı arama motoruna hiç gösteremez.
+// 🔴 8 Kasım (güvenlik denetimi): listede olmayan slug 200 + sunucuda üretim + ISR yazımı
+// yapıyordu (rastgele adreslerle sonsuz fonksiyon çağrısı). Artık yalnız bilinen sayfalar; gerisi 404.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return allCardSlugs().map((slug) => ({ slug }));
 }
@@ -92,7 +97,7 @@ function LoungeBlock({ title, tone, line, list }) {
 export default async function CardPage({ params }) {
   const { slug } = await params;
   const p = findCardPage(slug);
-  if (!p) return <div className="wrap section">Bu sayfa bulunamadı.</div>;
+  if (!p) notFound();
 
   const c = CARDS[p.card], sc = SCOPES[p.scope], v = V[p.badge];
   const q = cardQuestion(p);
