@@ -101,7 +101,7 @@ export default function Ayricaliklar() {
             {/* 18 Ekim (Gökberk: "erken erişime katıl butonu üstteki metne çok bitişik") */}
             <div className="cta-ayrik">
               <OlayLink ad="host_ol" ozellik={{ yer: "ayricaliklar" }}
-                        className="btn-gold" href="/#beta">{SITE.betaCta}</OlayLink>
+                        className="btn-gold" href="/#indir">{SITE.indirCta}</OlayLink>
             </div>
           </div>
         </section>

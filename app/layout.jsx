@@ -1,8 +1,12 @@
 import "./globals.css";
 import Olcum from "../components/Olcum";
+import { APP_STORE_ID, APP_STORE_URL } from "../lib/magaza";
 
 export const metadata = {
   metadataBase: new URL("https://loungelink.co"),
+  // 10 Kasım — iOS yayını: Safari akıllı uygulama bandı
+  // (<meta name="apple-itunes-app" content="app-id=...">). Kimlik lib/magaza.js'ten.
+  itunes: { appId: APP_STORE_ID },
   // 🔵 26 AĞUSTOS — hreflang. Site tek dilliyken gereksizdi; `/en` bölümü
   // açılınca arama motorunun iki sürümü aynı içeriğin KOPYASI değil
   // ÇEVİRİSİ saymasını sağlayan tek işaret bu.
@@ -99,7 +103,9 @@ export default function RootLayout({ children }) {
             { "@type": "WebSite", "@id": "https://loungelink.co/#site", url: "https://loungelink.co", name: "LoungeLink",
               inLanguage: "tr", publisher: { "@id": "https://loungelink.co/#org" } },
             { "@type": "SoftwareApplication", name: "LoungeLink", applicationCategory: "TravelApplication",
-              operatingSystem: "iOS, Android", offers: { "@type": "Offer", price: "0", priceCurrency: "TRY" },
+              // 10 Kasım — yalnız iOS yayında; Android çıkınca "iOS, Android" ve Play adresi eklenir.
+              operatingSystem: "iOS", downloadUrl: APP_STORE_URL, installUrl: APP_STORE_URL,
+              offers: { "@type": "Offer", price: "0", priceCurrency: "TRY" },
               description: "Aynı havalimanında aynı saatlerde bulunan doğrulanmış yolcuları buluşturur; kartına göre hangi salona misafir götürebileceğini söyler." },
           ],
         }) }} />

@@ -240,7 +240,7 @@ export default async function CardPage({ params }) {
               : `${p.airport.city} ${sc.word} bu salonlara girme hakkı olan yolcular var ve çoğu ` +
                 `hakkını kullanmadan uçuyor. Uçuşunu gir, aynı havayolu firmasında uçan uygun host'ları gör.`}
           </p>
-          <a href="/#beta" className="btn" style={{ marginTop: 16 }}>{SITE.betaCta}</a>
+          <a href="/#indir" className="btn" style={{ marginTop: 16 }}>{SITE.indirCta}</a>
         </div>
 
         {/* Hak sorusunun tam cevabı /rehber'de. İki rota birbirini

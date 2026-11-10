@@ -2,6 +2,7 @@ import { FAQ } from "../../lib/content";
 import { AIRPORTS, CARDS, ENTRIES, slugOf } from "../../lib/guide";
 import { CARD_PAGES, cardQuestion } from "../../lib/card-pages";
 import { questionOf } from "../rehber/[slug]/page";
+import { APP_STORE_URL } from "../../lib/magaza";
 
 // 🔵 22 EKİM — llms.txt (GEO). Yapay zekâ arama motorları (ChatGPT, Perplexity, Gemini,
 // Claude) siteyi özetlerken bu dosyayı okuyabiliyor. Sitemap gibi VERİDEN üretilir:
@@ -16,7 +17,7 @@ export function GET() {
   const satir = [
     "# LoungeLink",
     "",
-    "> LoungeLink, havalimanında aynı saatlerde bulunan doğrulanmış yolcuları buluşturan bir mobil uygulamadır (iOS ve Android). " +
+    "> LoungeLink, havalimanında aynı saatlerde bulunan doğrulanmış yolcuları buluşturan bir mobil uygulamadır. iPhone sürümü App Store'da yayında; Android (Google Play) sürümü hazırlanıyor. " +
       "Kredi kartı, havayolu statüsü ya da lounge üyeliği sayesinde misafir hakkı olan yolcular (host) ile salona misafir olarak " +
       "girmek isteyen yolcuları eşleştirir; kural motoru hangi kartla hangi salona girilebileceğini ve misafir götürülüp " +
       "götürülemeyeceğini söyler. LoungeLink lounge erişimi satmaz ve hiçbir lounge işletmecisiyle bağlantılı değildir; " +
@@ -24,6 +25,7 @@ export function GET() {
     "",
     "## Temel sayfalar",
     `- [Ana sayfa](${B}/): ürünün nasıl çalıştığı`,
+    `- [App Store](${APP_STORE_URL}): LoungeLink iPhone uygulamasını indir (ücretsiz)`,
     `- [Ayrıcalıklar ve planlar](${B}/ayricaliklar): Yolcu, Sık Uçan ve Jetset planları; host kazancı, LoungePuan ve ödüller`,
     `- [Sık sorulan sorular](${B}/sss)`,
     `- [Salon rehberi](${B}/rehber): kart ve havalimanına göre misafir hakkı`,

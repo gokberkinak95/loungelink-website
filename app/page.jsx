@@ -7,7 +7,10 @@ import OlayLink from "../components/OlayLink";
 import EkranKarusel from "../components/EkranKarusel";
 import SectionScene from "../components/SectionScene";
 import RuleDemo from "../components/RuleDemo";
-import WaitlistForm from "../components/WaitlistForm";
+// 10 Kasım — bekleme listesi formu _arsiv'e; yerine App Store rozeti + Android haber formu.
+import { AppStoreRozeti, PlayRozeti } from "../components/MagazaRozeti";
+import AndroidHaberForm from "../components/AndroidHaberForm";
+import { APP_STORE_URL, ANDROID_YAYINDA, ELMA } from "../lib/magaza";
 import KurucuSayac from "../components/KurucuSayac";
 import SahneCanlandir from "../components/SahneCanlandir";
 // v0.68 — hareket katmanı (Gökberk onayı · W1–W9). Yeni kütüphane yok: SVG + CSS.
@@ -101,11 +104,20 @@ export default function Home() {
           <div className="hero-cta">
             {/* Üç dönüşüm olayı — huninin tamamı. Ayrıntı ve neden
                 yalnız üç tane olduğu: components/Olcum.jsx */}
-            <OlayLink ad="indir" ozellik={{ yer: "hero" }}
-                      href="#beta" className="btn-gold">{SITE.betaCta}</OlayLink>
+            {/* 10 Kasım — iOS yayında: ana çağrı doğrudan App Store'a gider
+                (adres lib/magaza.js). Android kullanıcısı için alttaki tek
+                satır #indir bölümündeki haber formuna iner. */}
+            <OlayLink ad="indir" ozellik={{ yer: "hero", magaza: "app_store" }}
+                      href={APP_STORE_URL} rel="noopener" className="btn-gold btn-elma">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d={ELMA} /></svg>
+              App Store&apos;dan indir
+            </OlayLink>
             <OlayLink ad="kural_sorusu" ozellik={{ yer: "hero" }}
                       href="/rehber" className="btn-ghost">Kartını sor, cevabı gör</OlayLink>
           </div>
+          <p className="hero-android">
+            Android kullanıyorsan: Google Play sürümü yakında. <a href="#indir">Çıkınca haber al</a>
+          </p>
         </div>
         {/* KANIT KARTI — satırlar RuleDemo'nun kendi verisinden
             (IST · THY seferi). Uydurma cevap yok: Elite Plus misafir
@@ -269,18 +281,29 @@ export default function Home() {
       {/* 4 Eylül — SSS bölümü ana sayfadan kalktı: soruların tam listesi /sss'te
           (menüde). Ana sayfa ritmi davetle (beta) kapanır; itiraz karşılama
           kendi sayfasında. `FAQ` burada artık okunmuyor. */}
-      {/* --- BETA --- */}
-      <section className="section dark-band" id="beta" style={{ textAlign: "center" }}>
+      {/* --- İNDİR (eski BETA) ---
+          10 Kasım — iOS App Store'da. Bölüm adı #indir; eski /#beta
+          bağlantıları (paylaşılmış linkler) aşağıdaki çapaya iner. */}
+      <section className="section dark-band" id="indir" style={{ textAlign: "center" }}>
+        <span id="beta" className="capa" aria-hidden="true" />
         <SectionScene kind="horizon" />
         <div className="wrap" style={{ maxWidth: 620 }}>
-          <div className="eyebrow">Ön kayıt</div>
+          <div className="eyebrow">Şimdi App Store&apos;da</div>
           <h2>{SITE.closing} <em>{SITE.closingEm}</em></h2>
+          <p className="lead" style={{ marginTop: 10 }}>
+            LoungeLink iPhone için yayında. İndirmek ücretsiz; kartını ekle, kural
+            motoru cevabı hemen versin.
+          </p>
+          <div className="magaza-sira">
+            <AppStoreRozeti yer="indir_bolumu" />
+            {ANDROID_YAYINDA && <PlayRozeti yayinda yer="indir_bolumu" />}
+          </div>
           {/* 🔴 v0.17 — SİTENİN DÖNÜŞÜM NOKTASINDA AYNI CÜMLE İKİ KEZ
               yazılıydı ("Kurucu Host rozeti kalıcıdır" iki paragrafta).
               Kopyala-yapıştır artığı, hem de en pahalı yerde: ziyaretçi
               tam kaydolacakken metnin özensiz olduğunu görüyordu.
               Yeni metin tekrar etmiyor ve NE ALACAĞINI sayıyor. */}
-          <p className="lead" style={{ marginTop: 10 }}>
+          <p className="lead" style={{ marginTop: 44 }}>
             Kurucu çemberdeki ilk 100 host şunu alır:
           </p>
           <ul className="beta-list">
@@ -308,9 +331,17 @@ export default function Home() {
               puntoda yedek yol olarak duruyor. */}
           {/* v0.69 — dört ayrı çağrı cümlesi ("Kurucu çembere katıl",
               "Beta listesine katıl", "Listeye yazıl"…) tek cümlede birleşti. */}
-          <h3 className="beta-form-t">{SITE.betaCta}</h3>
-          <p style={{ marginTop: 8 }}>İlk 100 host LoungeLink&apos;i birlikte kuruyor. Yayına çıktığımız gün ilk sen haber alırsın.</p>
-          <WaitlistForm />
+          {/* 10 Kasım — form artık yalnız Android için: iPhone kullanıcısı
+              yukarıdaki rozetle indirir; Android'de tek e-postalık haber.
+              ANDROID_YAYINDA = true olduğunda kutu kendiliğinden kalkar. */}
+          {!ANDROID_YAYINDA && (
+            <div className="android-kutu">
+              <PlayRozeti />
+              <h3 className="beta-form-t">Android çıkınca haber ver</h3>
+              <p style={{ marginTop: 8 }}>Google Play sürümü hazırlanıyor. E-postanı bırak, yayına çıktığı gün yazalım.</p>
+              <AndroidHaberForm />
+            </div>
+          )}
         </div>
       </section>
 

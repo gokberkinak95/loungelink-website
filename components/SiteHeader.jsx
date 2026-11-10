@@ -35,7 +35,7 @@ const NAV = [
   { href: "/sss", label: "SSS", yol: /^\/sss/ },
 ];
 
-const CTA = SITE.betaCta;
+const CTA = SITE.indirCta;
 
 // `seffaf`: ana sayfada çubuk kahraman sahnesinin ÜSTÜNE biner ve
 // ilk kaydırmaya kadar zeminsizdir. Alt sayfalarda baştan cam zemin.
@@ -105,7 +105,7 @@ export default function SiteHeader({ children, seffaf = false }) {
 
         <nav className="lx-nav" aria-label="Ana menü">{baglantilar}</nav>
 
-        <a href="/#beta" className="lx-cta">{CTA}</a>
+        <a href="/#indir" className="lx-cta">{CTA}</a>
 
         <button type="button" className="lx-burger" aria-label={acik ? "Menüyü kapat" : "Menüyü aç"}
                 aria-expanded={acik} aria-controls="lx-menu" onClick={() => setAcik((x) => !x)}>
@@ -117,7 +117,7 @@ export default function SiteHeader({ children, seffaf = false }) {
     {/* Telefon menüsü — serif, büyük, sessiz. Çağrı en altta, tek. */}
     <div id="lx-menu" className="lx-menu" hidden={!acik}>
       <nav aria-label="Menü">{baglantilar}</nav>
-      <a href="/#beta" className="btn-gold lx-menu-cta" onClick={(e) => git(e, "/#beta")}>{CTA}</a>
+      <a href="/#indir" className="btn-gold lx-menu-cta" onClick={(e) => git(e, "/#indir")}>{CTA}</a>
     </div>
     </>
   );

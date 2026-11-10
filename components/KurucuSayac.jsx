@@ -59,7 +59,7 @@ export default function KurucuSayac() {
       <p className="kcember-alt">
         {c.kalan > 0
           ? <>Kalan {c.kalan} kişilik yer için başvuru açık. Rozet sonradan alınamıyor.</>
-          : <>Kurucu çember doldu — sıradaki dönem için listeye yazılabilirsin.</>}
+          : <>Kurucu çember doldu; uygulamayı indirip host olarak yine de başlayabilirsin.</>}
       </p>
     </div>
   );

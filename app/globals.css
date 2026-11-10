@@ -2329,7 +2329,7 @@ h3 { font-family: var(--serif); font-weight: 500; letter-spacing: 0; font-varian
 .host-qa-title { font-size: 11px; letter-spacing: .3em; font-weight: 500; margin-top: 72px; }
 
 /* ── Beta / form ───────────────────────────────────────────────────── */
-#beta h2 { font-size: clamp(38px, 5.4vw, 64px); }
+#indir h2 { font-size: clamp(38px, 5.4vw, 64px); }
 .beta-form-t { margin-top: 56px; font-size: 28px; font-weight: 400; }
 .beta-list { gap: 12px; margin-top: 28px; }
 .beta-list li { padding-left: 26px; }
@@ -3051,26 +3051,26 @@ h1 em, h2 em { color: var(--goldText); }
 .cover-tag, .carrier-rule, .wchip, .hearn-rw, .hearn-tier, .wcalc-offer { background: var(--bgAlt); }
 
 /* ── KAPANIŞ GECESİ: beta bölümü app'in takımyıldız kartı gibi ────────── */
-#beta.section.dark-band { background: linear-gradient(180deg, var(--gece-ust) 0%, var(--gece-alt) 70%, #2A3F66 100%);
+#indir.section.dark-band { background: linear-gradient(180deg, var(--gece-ust) 0%, var(--gece-alt) 70%, #2A3F66 100%);
   color: var(--fildisi-yazi); }
-#beta.section.dark-band::before { background: linear-gradient(90deg, transparent, rgba(212,195,163,0.15), transparent); }
-#beta h2, #beta h3 { color: #FFFFFF; }
-#beta h2 em { color: var(--sampanya-acik); }
-#beta p, #beta .lead, #beta .note, #beta .beta-list li { color: var(--fildisi-yazi-2); }
-#beta .eyebrow { color: var(--sampanya); }
-#beta a:not(.btn):not(.btn-gold) { color: var(--sampanya-acik); }
-#beta .wl label, #beta .wl-kvkk, #beta .wl-role-alt { color: rgba(249,248,246,.78); }
+#indir.section.dark-band::before { background: linear-gradient(90deg, transparent, rgba(212,195,163,0.15), transparent); }
+#indir h2, #indir h3 { color: #FFFFFF; }
+#indir h2 em { color: var(--sampanya-acik); }
+#indir p, #indir .lead, #indir .note, #indir .beta-list li { color: var(--fildisi-yazi-2); }
+#indir .eyebrow { color: var(--sampanya); }
+#indir a:not(.btn):not(.btn-gold) { color: var(--sampanya-acik); }
+#indir .wl label, #indir .wl-kvkk, #indir .wl-role-alt { color: rgba(249,248,246,.78); }
 /* Form yüzeyleri ufuk çizgisini ÖRTECEK kadar opak (yarı saydamda çizgi radyo kartlarını kesiyordu). */
-#beta .wl input[type="email"] { background: #2C4169; color: #FFFFFF; box-shadow: inset 0 0 0 1px rgba(249,248,246,.20); }
-#beta .wl input[type="email"]::placeholder { color: rgba(249,248,246,.55); }
-#beta .wl-role { background: #2A3F66; box-shadow: inset 0 0 0 1px rgba(249,248,246,.16); color: var(--fildisi-yazi); }
-#beta .wl-role:has(input:checked) { background: #3B4A63; box-shadow: inset 0 0 0 1px rgba(212,195,163,.15); }
-#beta .wl input[type="radio"], #beta .wl input[type="checkbox"] { border-color: rgba(249,248,246,.45); }
-#beta .wl-ok { background: rgba(255,255,255,.08); box-shadow: inset 0 0 0 1px rgba(249,248,246,.16); }
-#beta .wl-ok b { color: #FFFFFF; }
-#beta .wl-err { background: rgba(255,255,255,.08); color: #FFFFFF; border-color: rgba(212,195,163,.4); }
-#beta .stat, #beta .kcember, #beta .card { background: rgba(255,255,255,.08); box-shadow: inset 0 1px 0 rgba(255,255,255,.12); }
-#beta .kcember-bar { background: rgba(249,248,246,.16); }
+#indir .wl input[type="email"] { background: #2C4169; color: #FFFFFF; box-shadow: inset 0 0 0 1px rgba(249,248,246,.20); }
+#indir .wl input[type="email"]::placeholder { color: rgba(249,248,246,.55); }
+#indir .wl-role { background: #2A3F66; box-shadow: inset 0 0 0 1px rgba(249,248,246,.16); color: var(--fildisi-yazi); }
+#indir .wl-role:has(input:checked) { background: #3B4A63; box-shadow: inset 0 0 0 1px rgba(212,195,163,.15); }
+#indir .wl input[type="radio"], #indir .wl input[type="checkbox"] { border-color: rgba(249,248,246,.45); }
+#indir .wl-ok { background: rgba(255,255,255,.08); box-shadow: inset 0 0 0 1px rgba(249,248,246,.16); }
+#indir .wl-ok b { color: #FFFFFF; }
+#indir .wl-err { background: rgba(255,255,255,.08); color: #FFFFFF; border-color: rgba(212,195,163,.4); }
+#indir .stat, #indir .kcember, #indir .card { background: rgba(255,255,255,.08); box-shadow: inset 0 1px 0 rgba(255,255,255,.12); }
+#indir .kcember-bar { background: rgba(249,248,246,.16); }
 
 /* ── Alt bilgi: blok zemin, bronz bağlantı ─────────────────────────────── */
 footer { background: var(--bgAlt); color: var(--muted); }
@@ -3179,3 +3179,46 @@ html, body { overflow-x: clip; }
 @media (prefers-reduced-motion: reduce) { .lx-menu > * { animation: none; } }
 /* Dokunmatik ekranda menü düğmesinde mavi dokunma vurgusu çıkıyordu (ölçüldü: 0 ms karesi). */
 .lx-burger { -webkit-tap-highlight-color: transparent; }
+
+/* ── 10 KASIM · iOS YAYINI — mağaza rozeti, Android haber kutusu ─────────
+   Apple rozetinin dili (siyah zemin, açık kıl çizgi, köşeli-yuvarlak) CSS
+   ile; Apple görseli siteye bağlanmıyor. Yazı sitenin sans ailesi. Rozet
+   bir düğme değil bir mağaza işareti: hap değil, 12px köşe. */
+.magaza-sira { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
+.magaza-rozet {
+  display: inline-flex; align-items: center; gap: 11px;
+  min-height: 58px; padding: 9px 24px 9px 18px; border-radius: 12px;
+  background: #0B0A0D; color: #FFFFFF !important; text-decoration: none;
+  box-shadow: inset 0 0 0 1px rgba(249,248,246,.34), 0 10px 26px rgba(5,10,20,.28);
+  transition: transform .35s var(--ease-lux), box-shadow .35s var(--ease-lux);
+}
+.magaza-rozet:hover { transform: translateY(-1px); box-shadow: inset 0 0 0 1px rgba(249,248,246,.55), 0 14px 30px rgba(5,10,20,.34); }
+.magaza-rozet:focus-visible { outline: 2px solid var(--sampanya); outline-offset: 3px; }
+.magaza-ikon { width: 26px; height: 26px; fill: currentColor; flex: 0 0 auto; margin-top: -2px; }
+.magaza-yazi { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.1; text-align: left; }
+.magaza-yazi small { font-size: 11.5px; letter-spacing: .02em; opacity: .82; }
+.magaza-yazi b { font-size: 19px; font-weight: 600; letter-spacing: -.01em; margin-top: 2px; }
+.magaza-yakinda {
+  background: rgba(255,255,255,.06); color: var(--fildisi-yazi-2) !important; cursor: default;
+  box-shadow: inset 0 0 0 1px rgba(249,248,246,.22); min-height: 50px; padding: 7px 20px 7px 16px;
+}
+.magaza-yakinda:hover { transform: none; box-shadow: inset 0 0 0 1px rgba(249,248,246,.22); }
+.magaza-yakinda .magaza-ikon { width: 20px; height: 20px; opacity: .8; }
+.magaza-yakinda .magaza-yazi b { font-size: 15.5px; font-weight: 500; }
+
+.android-kutu {
+  margin-top: 56px; padding: 32px 28px 28px; border-radius: 22px;
+  background: rgba(255,255,255,.05); box-shadow: inset 0 1px 0 rgba(255,255,255,.10);
+}
+.android-kutu .beta-form-t { margin-top: 18px; font-size: 24px; }
+.android-kutu .wl { margin-top: 22px; }
+.wl-legend { font-size: 13px; letter-spacing: .02em; margin-bottom: 8px; color: rgba(249,248,246,.78); }
+@media (min-width: 560px) { .wl-roles-yan { grid-template-columns: repeat(2, 1fr); } }
+.wl-kucuk .wl-role { padding: 13px 16px; font-size: 14.5px; }
+
+/* Kahraman: App Store çağrısında elma işareti + Android satırı */
+.btn-elma { display: inline-flex; align-items: center; gap: 10px; }
+.btn-elma svg { width: 18px; height: 18px; fill: currentColor; margin-top: -3px; }
+.hero-android { margin-top: 16px; font-size: 13.5px; color: var(--fildisi-yazi-2); animation: rise .7s .6s ease-out both; }
+.hero-android a { color: var(--sampanya-acik); text-decoration: underline; text-underline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .magaza-rozet, .hero-android { transition: none; animation: none; } }

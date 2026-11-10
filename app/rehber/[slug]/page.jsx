@@ -163,7 +163,7 @@ export default async function GuidePage({ params }) {
               ? `LoungeLink, ${a.city}'da aynı saatlerde bulunan doğrulanmış yolcularla eşleştirir. Kullanmadığın misafir hakkı boşa gitmez.`
               : `LoungeLink'te ${a.city}'da seni içeri alabilecek host'lar var. Uçuşunu gir, uygun olanları gör.`}
           </p>
-          <a href="/#beta" className="btn" style={{ marginTop: 16 }}>{SITE.betaCta}</a>
+          <a href="/#indir" className="btn" style={{ marginTop: 16 }}>{SITE.indirCta}</a>
         </div>
 
         {others.length > 0 && (

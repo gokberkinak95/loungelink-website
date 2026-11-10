@@ -529,7 +529,7 @@ if (fs.existsSync(OUT)) {
     const MIN_BEAT = 4;
     // Kendi çağrısını taşıyan bölümler: hero (btn-gold), SSS (soru
     // listesi), beta (dönüşümün kendisi).
-    const MUAF = new Set(["sss", "beta"]);
+    const MUAF = new Set(["sss", "beta", "indir"]);   // 10 Kas: beta bolumu #indir oldu
     const bloklar = idx.split(/<section /).slice(1);
     let vurussuz = 0;
     for (const b of bloklar) {

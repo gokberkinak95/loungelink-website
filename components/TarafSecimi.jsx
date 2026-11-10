@@ -86,7 +86,7 @@ export default function TarafSecimi() {
         </div>
         <div className="taraf-alt">
           <OlayLink ad={taraf === "host" ? "host_ol" : "indir"} ozellik={{ yer: "taraf_" + taraf }}
-                    href="#beta" className="btn-gold">{SITE.betaCta}</OlayLink>
+                    href="#indir" className="btn-gold">{SITE.indirCta}</OlayLink>
           <a className="beat" href={t.derin.href}>{t.derin.label} <span>→</span></a>
         </div>
       </div>

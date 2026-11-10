@@ -1,4 +1,5 @@
 import { SITE } from "../../lib/content";
+import { APP_STORE_URL } from "../../lib/magaza";
 
 // ============================================================================
 // 🔴 26 AĞUSTOS — SİTE TEK DİLLİYDİ, UYGULAMA TAM ÇİFT DİLLİ (1352/1352).
@@ -46,6 +47,15 @@ export default function Page() {
         at the end of the year. At the same airport, at the same hour, there is a
         traveller who cannot get into that lounge. LoungeLink introduces you.
       </p>
+
+      {/* 10 Nov — iOS launch. Store URL lives in lib/magaza.js. */}
+      <section style={{ marginTop: 26 }}>
+        <h2>Get the app</h2>
+        <p>
+          LoungeLink is live for iPhone. <a href={APP_STORE_URL} rel="noopener">Download it free
+          on the App Store</a>. The Android version (Google Play) is coming soon.
+        </p>
+      </section>
 
       <section style={{ marginTop: 26 }}>
         <h2>How it works</h2>
