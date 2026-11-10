@@ -23,7 +23,6 @@ export function AppStoreRozeti({ yer = "indir" }) {
        onClick={() => olay("indir", { yer, magaza: "app_store" })}>
       <svg viewBox="0 0 24 24" aria-hidden="true" className="magaza-ikon"><path d={ELMA} /></svg>
       <span className="magaza-yazi">
-        <small>iPhone için</small>
         <b>App Store&apos;dan indir</b>
       </span>
     </a>
@@ -39,14 +38,14 @@ export function PlayRozeti({ yayinda = false, yer = "indir" }) {
          aria-label="Google Play'den indir"
          onClick={() => olay("indir", { yer, magaza: "google_play" })}>
         <svg viewBox="0 0 24 24" aria-hidden="true" className="magaza-ikon"><path d={OYNAT} /></svg>
-        <span className="magaza-yazi"><small>Android için</small><b>Google Play&apos;den indir</b></span>
+        <span className="magaza-yazi"><b>Google Play&apos;den indir</b></span>
       </a>
     );
   }
   return (
     <span className="magaza-rozet magaza-yakinda" aria-disabled="true">
       <svg viewBox="0 0 24 24" aria-hidden="true" className="magaza-ikon"><path d={OYNAT} /></svg>
-      <span className="magaza-yazi"><small>Android için</small><b>Google Play · yakında</b></span>
+      <span className="magaza-yazi"><b>Google Play · yakında</b></span>
     </span>
   );
 }
